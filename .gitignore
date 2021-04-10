@@ -1,0 +1,12 @@
+# test database
+*.sqlite3
+
+# python
+*.pyc
+__pycache__/
+
+# python virtual enviroment
+bin/
+lib/
+lib64/
+pyenv.cfg
