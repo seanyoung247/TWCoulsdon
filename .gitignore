@@ -5,8 +5,11 @@
 *.pyc
 __pycache__/
 
-# python virtual enviroment
+# python virtual environment
 bin/
 lib/
-lib64/
+lib64
 pyenv.cfg
+
+# Environment variables
+.env
