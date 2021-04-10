@@ -9,7 +9,7 @@ __pycache__/
 bin/
 lib/
 lib64
-pyenv.cfg
+#pyvenv.cfg
 
 # Environment variables
 .env
