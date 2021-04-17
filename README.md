@@ -233,6 +233,26 @@ show pages.
 
 ### Layout
 
+#### Landing Page
+
+The landing page is used to briefly showcase the group and it's upcoming events.
+Full screen images are shown in a carousel to be attention grabbing and pull users
+in to other areas of the site. 
+
+<details>
+<summary><b>Wireframes</b></summary>
+
+Phone
+![Landing Page Phone Layout](docs/wireframes/landing_page/phone.png)
+
+Tablet
+![Landing Page Tablet Layout](docs/wireframes/landing_page/tablet.png)
+
+Desktop
+![Landing Page Desktop Layout](docs/wireframes/landing_page/desktop.png)
+
+</details>
+
 ## Features
 
 ### Existing Features
