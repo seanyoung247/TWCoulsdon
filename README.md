@@ -205,8 +205,14 @@ TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics grou
 
 ### Database
 ![TWCoulsdon Entity Relationship Diagram](docs/database/twcoulsdon_erd.png)
-### Fonts
 
+### Fonts
+[Anton](https://fonts.google.com/specimen/Anton?query=Anton) was chosen as the 
+main title font as it is similar to the group's existing logo branding.
+[Roboto](https://fonts.google.com/specimen/Roboto?query=Roboto) was chosen for 
+the main content font as it is easy to read, matches the overall styling and 
+compliments Anton well. Roboto also has a wide range of styles giving extra 
+options for styling and drawing attention to important text.
 
 ### Colours
 
