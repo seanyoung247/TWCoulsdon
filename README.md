@@ -239,19 +239,63 @@ The landing page is used to briefly showcase the group and it's upcoming events.
 Full screen images are shown in a carousel to be attention grabbing and pull users
 in to other areas of the site. 
 
+##### Wireframes
 <details>
-<summary><b>Wireframes</b></summary>
+<summary><b>Phone</b></summary>
 
-Phone
 ![Landing Page Phone Layout](docs/wireframes/landing_page/phone.png)
 
-Tablet
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
 ![Landing Page Tablet Layout](docs/wireframes/landing_page/tablet.png)
 
-Desktop
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
 ![Landing Page Desktop Layout](docs/wireframes/landing_page/desktop.png)
 
 </details>
+
+#### Events List
+
+The Event list page lists events based on their type or search criteria. The list
+is paginated in a show more style, with the next/current event at the top
+followed by past events by default.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Landing Page Phone Layout](docs/wireframes/events_list/phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Landing Page Tablet Layout](docs/wireframes/events_list/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Landing Page Desktop Layout](docs/wireframes/events_list/desktop.png)
+
+</details>
+
+#### Event Page
+#### Venue Page
+#### Gallery List
+#### Gallery Page
+#### About
+#### Contact
 
 ## Features
 
