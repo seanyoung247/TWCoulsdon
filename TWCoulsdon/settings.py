@@ -28,6 +28,13 @@ DEBUG = ('DEVELOPMENT' in os.environ)
 ALLOWED_HOSTS = []
 
 
+# Settings for graphing model relationships
+GRAPH_MODELS = {
+  'all_applications': False,
+  'group_models': True,
+  'app_labels': [],
+}
+
 # Application definition
 
 INSTALLED_APPS = [

@@ -1,8 +1,9 @@
-# ![TWC Logo](docs/images/twc_logo.png) TWCoulsdon
+![TWC Logo](docs/images/twc_title.png)
+# TWCoulsdon
+
+Invented in 1970, this leading amateur theatre company reinvents itself with every show from Shakespeare to pantomime.
 
 TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics group.
-
-
 
 ## Table of Contents
 
@@ -22,15 +23,15 @@ TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics grou
 - Admin - Site super user
 
 <table>
-  <tr style="color:white;background:#333;">
-  	<th>STORY ID</th>
+  <tr>
+    <th>STORY ID</th>
     <th>AS A</th>
     <th>I WANT TO BE ABLE TO</th>
     <th>SO THAT I CAN</th>
   </tr>
 
-  <tr style="color:white;background:#888;text-align:center;">
-    <td colspan="4">Viewing and Navigation</td>
+  <tr>
+    <td colspan="4"><b>Viewing and Navigation</b></td>
   </tr>
     <tr>
       <td>US101</td>
@@ -56,8 +57,8 @@ TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics grou
       <td>View categories of content</td>
       <td>So I can learn more about the group</td>
     </tr>
-  <tr style="color:white;background:#888;text-align:center;">
-    <td colspan="4">Registration and User Accounts</td>
+  <tr>
+    <td colspan="4"><b>Registration and User Accounts</b></td>
   </tr>
     <tr>
       <td>US201</td>
@@ -83,8 +84,8 @@ TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics grou
       <td>Have a personalised user profile</td>
       <td>View my interactions and history with the group and save my payment information</td>
     </tr>
-  <tr style="color:white;background:#888;text-align:center;">
-    <td colspan="4">Sorting and Searching</td>
+  <tr>
+    <td colspan="4"><b>Sorting and Searching</b></td>
   </tr>
     <tr>
       <td>US301</td>
@@ -104,8 +105,8 @@ TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics grou
       <td>See what I've searched for and the number of results</td>
       <td>Quickly find what I'm looking for</td>
     </tr>
-  <tr style="color:white;background:#888;text-align:center;">
-    <td colspan="4">Purchasing and Checkout</td>
+  <tr>
+    <td colspan="4"><b>Purchasing and Checkout</b></td>
   </tr>
     <tr>
       <td>US401</td>
@@ -149,8 +150,8 @@ TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics grou
       <td>Receive and email confirmation after checking out</td>
       <td>Keep the confirmation of what I’ve purchased for my records</td>
     </tr>
-  <tr style="color:white;background:#888;text-align:center;">
-    <td colspan="4">Ticketing and reports</td>
+  <tr>
+    <td colspan="4"><b>Ticketing and reports</b></td>
   </tr>
     <tr>
       <td>US501</td>
@@ -176,8 +177,8 @@ TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics grou
       <td>Search for individual tickets by name or unique id</td>
       <td>Verify ticket authenticity</td>
     </tr>
-  <tr style="color:white;background:#888;text-align:center;">
-    <td colspan="4">Admin and content Management</td>
+  <tr>
+    <td colspan="4"><b>Admin and content Management</b></td>
   </tr>
     <tr>
       <td>US601</td>
@@ -203,12 +204,26 @@ TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics grou
 ## Design
 
 ### Database
-
+![TWCoulsdon Entity Relationship Diagram](docs/database/twcoulsdon_erd.png)
 ### Fonts
+
 
 ### Colours
 
+Colours were largely chosen based on the group's existing brand. Rich black and 
+white are the primary background and foreground colours for content, with cultured
+grey as a more general background colour. Tart Orange is the groups main brand
+colour, and cobalt blue was chosen as a highlight to complement this. Further, the
+group also uses accent colours on a per-show basis that can be incorporated on 
+show pages.
+
 ![pallet](docs/images/pallet/pallet.png)
+
+- Tart Orange (#FF3333) - Main site brand colour
+- Cobalt Blue (#1B48A1) - Site accent colour
+- Rich Black (#14161A) - Content foreground/background
+- White (#FFFFFF) - Content background/foreground
+- Cultured Grey (#EBEDF0) - General page background
 
 ### Layout
 
