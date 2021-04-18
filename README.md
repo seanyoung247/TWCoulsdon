@@ -291,6 +291,53 @@ followed by past events by default.
 </details>
 
 #### Event Page
+
+The event page shows information for individual events. These include past, present
+and upcoming events. For current and upcoming events the event page will allow
+users to buy tickets. Above the fold a fullscreen title image is displayed with
+the page contents below.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+<h6>Above the fold</h6>
+
+![Landing Page Phone Layout](docs/wireframes/event_page/title_phone.png)
+
+<h6>Below the fold</h6>
+
+![Landing Page Desktop Layout](docs/wireframes/event_page/content_phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+<h6>Above the fold</h6>
+
+![Landing Page Tablet Layout](docs/wireframes/event_page/title_tablet.png)
+
+<h6>Below the fold</h6>
+
+![Landing Page Desktop Layout](docs/wireframes/event_page/content_tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+<h6>Above the fold</h6>
+
+![Landing Page Desktop Layout](docs/wireframes/event_page/title_desktop.png)
+
+<h6>Below the fold</h6>
+
+![Landing Page Desktop Layout](docs/wireframes/event_page/content_desktop.png)
+
+</details>
+
 #### Venue Page
 #### Gallery List
 #### Gallery Page
