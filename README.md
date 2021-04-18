@@ -339,6 +339,33 @@ the page contents below.
 </details>
 
 #### Venue Page
+
+The venue page presents basic information on an event location, including it's
+address and contact information.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Landing Page Phone Layout](docs/wireframes/venue_page/phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Landing Page Tablet Layout](docs/wireframes/venue_page/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Landing Page Desktop Layout](docs/wireframes/venue_page/desktop.png)
+
+</details>
+
 #### Gallery List
 #### Gallery Page
 #### About
