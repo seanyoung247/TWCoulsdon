@@ -3,10 +3,12 @@
   <head>
     <meta charset="utf-8">
     <script src="https://kit.fontawesome.com/d3a4655e7b.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
     <title></title>
     
     <style>
-      .icon::before {
+/*      .icon::before {
         display: inline-block;
         font-style: normal;
         font-variant: normal;
@@ -24,12 +26,91 @@
         font-weight: 900;
         content: "\f005";
       }
+      
+      .istar {
+        display: inline-block;
+        font-style: normal;
+        font-size: 2rem;
+        color: orange;
+      }
+      
+      .istar.on::before {
+        content: "\2605";
+      }
+      
+      .istar.off::before {
+        content: "\2606";
+      }
+      
+      .istar.off:hover::before {
+        content: "\2605";
+      }*/
+      
+      .star-group {
+        font-family: 'Roboto', sans-serif;
+        color: red;
+      }
+      .star-group > input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .star-group:not(:hover) > input[type="radio"]:not(:checked) ~ .gstar::before {
+        content: "\2605";
+      }
+      .star-group:not(:hover) > input[type="radio"]:checked ~ .gstar::before {
+        content: "\2606";
+      }
+      .star-group:not(:hover) > input[type="radio"]:checked + .gstar::before {
+        content: "\2605";
+      }
+      .star-group:hover > .gstar::before {
+        content: "\2605";
+      }
+      .star-group > .gstar:hover ~ .gstar::before {
+        content: "\2606";
+      }
+      .star-group > .gstar {
+        font-style: normal;
+        font-size: 2rem;
+      }
+      
+      .gstar::before {
+        content: "\2606";
+      }*/
+      
     </style>
     
   </head>
   <body>
+    <!--
     <i class="fas fa-star"></i>
     <i class="far fa-star"></i>
     <i class="icon star"></i>
+    
+    <i class="istar on"></i>
+    <i class="istar off"></i>
+    -->
+    
+    <div class="star-group">
+      <input id="star1" name="star" type="radio">
+      <label for="star1" class="gstar"></label>
+      
+      <input id="star2" name="star" type="radio">
+      <label for="star2" class="gstar"></label>
+      
+      <input id="star3" name="star" type="radio">
+      <label for="star3" class="gstar"></label>
+      
+      <input id="star4" name="star" type="radio">
+      <label for="star4" class="gstar"></label>
+      
+      <input id="star5" name="star" type="radio">      
+      <label for="star5" class="gstar"></label>
+    </div>
   </body>
 </html>
+
+
+
+

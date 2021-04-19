@@ -160,19 +160,19 @@ TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics grou
       <td>Save and print them to ensure I can't lose them</td>
     </tr>
     <tr>
-      <td>US50</td>
+      <td>US502</td>
       <td>Box Office</td>
       <td>Get reports on tickets sold by show</td>
       <td>See the total show attendance</td>
     </tr>
     <tr>
-      <td>US50</td>
+      <td>US503</td>
       <td>Box Office</td>
       <td>Get reports on tickets sold by performance</td>
       <td>See patterns, plan attendance and know when a show is sold out</td>
     </tr>
     <tr>
-      <td>US50</td>
+      <td>US504</td>
       <td>Box Office</td>
       <td>Search for individual tickets by name or unique id</td>
       <td>Verify ticket authenticity</td>
@@ -366,8 +366,6 @@ address and contact information.
 
 </details>
 
-#### Gallery List
-#### Gallery Page
 #### About
 #### Contact
 
@@ -380,6 +378,22 @@ address and contact information.
 ## Technologies
 
 ### Site architecture
+#### Home app
+* Landing page
+* About page
+* Contact page
+
+#### Events app
+* Events list
+* Event page
+* Venue page
+
+#### Search app
+* Advanced Search Page 
+
+#### Box Office app 
+* Shopping bag
+* Checkout
 
 ### Languages
 
