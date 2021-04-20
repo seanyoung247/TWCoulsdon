@@ -1,8 +1,24 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title></title>
+    {% block meta %}
+      <meta charset="utf-8">
+    {% endblock %}
+    
+    {% block css %}
+    {% endblock %}
+    
+    {% block scripts %}
+    {% endblock %}
+    
+    {# Legacy favicon #}
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+    {# SVG responsive favicon"> #}
+    <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+    
+    <title>Theatre Workshop Coulsdon {% block title %}{% endblock %}</title>
   </head>
   <body>
     {% block content %}
