@@ -27,8 +27,12 @@ SECRET_KEY = os.getenv('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ('DEVELOPMENT' in os.environ)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
+# If test ip is defined in the enviroment add it to allowed hosts
+# (allows devices on the same local network to connect to server)
+if 'TEST_IP' in os.environ:
+    ALLOWED_HOSTS.append(os.environ.get('TEST_IP'))
 
 # Settings for graphing model relationships
 GRAPH_MODELS = {

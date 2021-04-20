@@ -2,7 +2,7 @@
   <defs>
     <style>
       .circle {
-        fill: #1D1D1B;
+        fill: #14161A;
         stroke: #FFF;
         stroke-miterlimit: 10;
         stroke-width: 2px;
@@ -13,10 +13,10 @@
       @media (prefers-color-scheme: dark) {
         .circle {
           fill: #FFF;
-          stroke: #1D1D1B;
+          stroke: #14161A;
         }
         .figure {
-          fill: #1D1D1B;
+          fill: #14161A;
         }
       }
     </style>

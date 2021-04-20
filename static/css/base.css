@@ -1,0 +1,95 @@
+
+ /*
+  * Declaring pallet as custom properties makes maintenance easier.
+  */
+:root {
+  --dark-color: #14161A;
+  --light-color: #FFFFFF;
+  --background-color: #EBEDF0;
+  --brand-color: #FF3333;
+  --accent-color: #1B48A1;
+}
+
+html, body {
+    height: 100vh;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--dark-color);
+}
+
+/*
+ * Page header and menubar 
+ */
+header {
+  height: 110px;
+}
+
+.navbar {
+  position: absolute;
+  width: 100vw;
+  background-color: var(--dark-color);
+  color: var(--light-color);
+}
+
+.navbar-brand img {
+  height: 75px;
+  max-width: 65vw;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+}
+
+.nav-menu-icon {
+  width: 25px;
+  height: 25px;
+  fill: none;
+  stroke: var(--light-color);
+  stroke-linecap: square;
+  stroke-miterlimit: 10;
+  stroke-width: 20%;
+}
+
+.navbar-center {
+  position: relative;
+
+}
+
+.nav-search-form {
+  width: 100%;
+}
+
+.nav-search-form > .form-control {
+  width: 100%;
+  margin: 0 10%;
+  border-radius: 20px;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+.nav-link {
+  color: var(--light-color);
+}
+
+.nav-link:hover {
+  color: var(--brand-color);
+}
+
+@media (min-width: 992px) {
+  .navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+  }
+  .navbar-brand img {
+    height: 75px;
+    max-width: 27vw;
+  }
+  .nav-search-form > .form-control {
+    margin: 0;
+  }
+}

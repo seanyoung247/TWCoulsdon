@@ -1,0 +1,40 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand" href="#">
+    <img src="{% static 'img/twc-title.svg' %}" alt="Theatre Workshop Coulsdon">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+    <svg class="nav-menu-icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 500 500">
+      <g id="menu_icon" data-name="menu_icon">
+        <line x1="50" y1="50" x2="450" y2="50"/>
+        <line x1="50" y1="250" x2="450" y2="250"/>
+        <line x1="50" y1="450" x2="450" y2="450"/>
+      </g>    
+    </svg>
+  </button>
+
+  <div class="collapse navbar-collapse navbar-center flex-lg-column" id="navbar-menu">
+    <form class="form-inline nav-search-form">
+      <input class="form-control nav-search" type="search" placeholder="Search" aria-label="Search">
+      {#<button class="btn btn-outline-success" type="submit">Search</button>#}
+    </form>
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Productions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Atmospherics</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Films</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+    </ul>
+  </div>
+</nav>
