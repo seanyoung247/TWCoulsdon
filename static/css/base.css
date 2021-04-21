@@ -11,7 +11,7 @@
 }
 
 html, body {
-    height: 100vh;
+  height: 100vh;
 }
 
 body {
@@ -27,6 +27,12 @@ header {
   height: 92px;
   overflow: visible;
   background-color: var(--dark-color);
+}
+
+.nav-wrapper {
+  position: absolute;
+  width: 100vw;
+  z-index: 99;
 }
 
 .navbar {
@@ -131,6 +137,25 @@ header {
   color: var(--brand-color);
 }
 
+/*
+ * Home page
+ */
+ 
+#home-page-carousel {
+  height: calc(100% - 92px);
+}
+
+.carousel-inner,
+.carousel-item {
+  height: 100%;
+}
+.carousel-item > img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
 @media (min-width: 576px) {
   .navbar-collapse > .nav-search-form {
     width: 75%;
@@ -140,6 +165,9 @@ header {
 @media (min-width: 992px) {
   header {
     height: 145px;
+  }
+  #home-page-carousel {
+    height: calc(100% - 145px);
   }
   .navbar-center {
     display: flex;
