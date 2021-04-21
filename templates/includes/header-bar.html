@@ -15,16 +15,38 @@
   </button>
   
   <form class="form-inline nav-search-form">
-    <input class="form-control nav-search" type="search" placeholder="Search" aria-label="Search">
-    {#<button class="btn btn-outline-success" type="submit">Search</button>#}
+    <div class="input-group mb-3">
+      <input class="form-control nav-search" type="search" placeholder="Search" aria-label="Search">
+      <div class="input-group-append">
+        <button class="btn btn-outline-dark btn-search" type="submit">
+          <svg class="search-icon" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <g><g>
+              <circle cx="80" cy="80" r="60"/>
+              <path d="m125 125 60 60"/>
+            </g></g>
+          </svg>
+        </button>
+      </div>
+    </div>
   </form>
 </nav>
 <nav class="navbar navbar-expand-lg">
   <div class="navbar-collapse collapse navbar-center" id="navbar-menu">
     
     <form class="form-inline nav-search-form">
-      <input class="form-control nav-search" type="search" placeholder="Search" aria-label="Search">
-      {#<button class="btn btn-outline-success" type="submit">Search</button>#}
+      <div class="input-group mb-3">
+        <input class="form-control nav-search" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-outline-dark btn-search" type="submit">
+            <svg class="search-icon" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <g><g>
+                <circle cx="80" cy="80" r="60"/>
+                <path d="m125 125 60 60"/>
+              </g></g>
+            </svg>
+          </button>
+        </div>
+      </div>
     </form>
     
     <ul class="navbar-nav">

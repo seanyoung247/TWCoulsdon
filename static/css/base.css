@@ -24,9 +24,9 @@ body {
  * Page header and menubar 
  */
 header {
-  height: 108px;
-  background-color: var(--dark-color);
+  height: 92px;
   overflow: visible;
+  background-color: var(--dark-color);
 }
 
 .navbar {
@@ -35,6 +35,13 @@ header {
   margin: 0 auto;
   color: var(--light-color);
   background-color: var(--dark-color);
+}
+
+.navbar:first-child {
+  padding-bottom: 0;
+}
+.navbar:last-child {
+  padding-top: 0;
 }
 
 .nav-content {
@@ -69,7 +76,7 @@ header {
   font-family: 'Antonio', sans-serif;
   font-size: 1.5rem;
 }
-
+ /* Searchbar */
 .navbar > .nav-search-form {
   display: none;
   width: 35%;
@@ -84,8 +91,35 @@ header {
   width: 100%;
 }
 
-.nav-search-form > .nav-search {
-  width: 100%;
+.nav-search {
+  border-radius: 0;/*10px 0 0 10px;*/
+}
+
+.btn-search {
+  color: var(--dark-color);
+  background-color: var(--light-color);
+  border-radius: 0;/*0 10px 10px 0;*/
+  width: 38px;
+  height: 38px;
+  padding: 0;
+}
+
+.btn-search:hover {
+  color: var(--light-color);
+  background-color: var(--dark-color);
+}
+
+.search-icon {
+  height: 25px;
+  width: 25px;
+  fill: none;
+  stroke: var(--dark-color);
+  stroke-linecap:round;
+  stroke-width:25;
+}
+
+.btn-search:hover > .search-icon {
+  stroke: var(--light-color);
 }
 
 .nav-link {
@@ -105,7 +139,7 @@ header {
 
 @media (min-width: 992px) {
   header {
-    height: 160px;
+    height: 145px;
   }
   .navbar-center {
     display: flex;
