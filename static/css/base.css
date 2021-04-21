@@ -17,24 +17,33 @@ html, body {
 body {
   background-color: var(--background-color);
   color: var(--dark-color);
+  font-family: 'Roboto', sans-serif;
 }
 
 /*
  * Page header and menubar 
  */
 header {
-  height: 110px;
+  height: 108px;
+  background-color: var(--dark-color);
+  overflow: visible;
 }
 
 .navbar {
-  position: absolute;
-  width: 100vw;
-  background-color: var(--dark-color);
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
   color: var(--light-color);
+  background-color: var(--dark-color);
+}
+
+.nav-content {
+  width: 100%;
+  max-width: 1500px;
 }
 
 .navbar-brand img {
-  height: 75px;
+  height: 65px;
   max-width: 65vw;
 }
 
@@ -53,43 +62,59 @@ header {
 }
 
 .navbar-center {
-  position: relative;
-
-}
-
-.nav-search-form {
-  width: 100%;
-}
-
-.nav-search-form > .form-control {
-  width: 100%;
-  margin: 0 10%;
-  border-radius: 20px;
-}
-
-.navbar .navbar-collapse {
   text-align: center;
+}
+
+.navbar-nav {
+  font-family: 'Antonio', sans-serif;
+  font-size: 1.5rem;
+}
+
+.navbar > .nav-search-form {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.navbar-collapse > .nav-search-form {
+  display: inline-block;
+  width: 100%;
+}
+
+.nav-search-form > .nav-search {
+  width: 100%;
 }
 
 .nav-link {
   color: var(--light-color);
+  text-transform: uppercase;
 }
 
 .nav-link:hover {
   color: var(--brand-color);
 }
 
+@media (min-width: 576px) {
+  .navbar-collapse > .nav-search-form {
+    width: 75%;
+  }
+}
+
 @media (min-width: 992px) {
+  header {
+    height: 160px;
+  }
   .navbar-center {
-    position: absolute;
-    left: 50%;
-    transform: translatex(-50%);
+    display: flex;
+    justify-content: center;
+    text-align: center;
   }
-  .navbar-brand img {
-    height: 75px;
-    max-width: 27vw;
+  .navbar > .nav-search-form {
+    display: inline-block;
   }
-  .nav-search-form > .form-control {
-    margin: 0;
+  .navbar-collapse > .nav-search-form {
+    display: none;
   }
 }

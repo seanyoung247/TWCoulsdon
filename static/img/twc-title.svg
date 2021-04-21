@@ -19,7 +19,7 @@
   </defs>
   <g id="Layer_2" data-name="Layer 2">
     <g id="Layer_1-2" data-name="Layer 1">
-      <rect class="background" width="660.57" height="142"/>
+      <!--<rect class="background" width="660.57" height="142"/>-->
       <path class="foreground" d="M11.75,67V11.17H4.93v-6H25.35v6.05H19V67Z"/>
       <path class="foreground" d="M31.26,67V5.12h7.28V31.6h9.91V5.12h7.28V67H48.45V37.54H38.54V67Z"/>
       <path class="foreground" d="M65.85,67V5.12H84.34v6.05H73.13V32.34H83.75v6H73.13V61H84.48v6Z"/>
