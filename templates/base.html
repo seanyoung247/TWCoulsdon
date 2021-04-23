@@ -32,9 +32,11 @@
     <title>Theatre Workshop Coulsdon{% block title %}{% endblock %}</title>
   </head>
   <body>
-    <header>
-      {% include 'includes/header-bar.html' %}
-    </header>
+    {% block header %}
+      <header>
+        {% include 'includes/header-bar.html' %}
+      </header>
+    {% endblock %}
 
     {% block content %}
     {% endblock %}

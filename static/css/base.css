@@ -4,10 +4,15 @@
   */
 :root {
   --dark-color: #14161A;
+  --dark-color-rgb: 20,22,26;
   --light-color: #FFFFFF;
+  --light-color-rgb: 255,255,255;
   --background-color: #EBEDF0;
+  --background-color-rgb: 235,237,240;
   --brand-color: #FF3333;
+  --brand-color-rgb: 255,51,51;
   --accent-color: #1B48A1;
+  --accent-color-rgb: 27,72,161;
 }
 
 html, body {
@@ -23,11 +28,11 @@ body {
 /*
  * Page header and menubar 
  */
-header {
+/*header {
   height: 92px;
   overflow: visible;
   background-color: var(--dark-color);
-}
+}*/
 
 .nav-wrapper {
   position: absolute;
@@ -40,7 +45,7 @@ header {
   max-width: 1500px;
   margin: 0 auto;
   color: var(--light-color);
-  background-color: var(--dark-color);
+/*  background-color: var(--dark-color);*/
 }
 
 .navbar:first-child {
@@ -121,11 +126,19 @@ header {
   fill: none;
   stroke: var(--dark-color);
   stroke-linecap:round;
-  stroke-width:25;
+  stroke-width: 25;
 }
 
 .btn-search:hover > .search-icon {
   stroke: var(--light-color);
+}
+
+.navbar {
+  background-color: rgba(var(--dark-color-rgb), 0.8);
+}
+
+.nav-item {
+  background-color: none;
 }
 
 .nav-link {
@@ -135,14 +148,14 @@ header {
 
 .nav-link:hover {
   color: var(--brand-color);
+  border-bottom: var(--brand-color) 1px solid;
 }
 
 /*
  * Home page
  */
- 
 #home-page-carousel {
-  height: calc(100% - 92px);
+  height: 100%;
 }
 
 .carousel-inner,
@@ -155,6 +168,10 @@ header {
   width: 100%;
   object-fit: cover;
 }
+.carousel-caption {
+  color: var(--light-color);
+  background-color: rgba(var(--dark-color-rgb), 0.9);
+}
 
 @media (min-width: 576px) {
   .navbar-collapse > .nav-search-form {
@@ -163,21 +180,28 @@ header {
 }
 
 @media (min-width: 992px) {
-  header {
+/*  header {
     height: 145px;
-  }
+  }*/
   #home-page-carousel {
-    height: calc(100% - 145px);
+    height: 100%;
   }
   .navbar-center {
     display: flex;
     justify-content: center;
     text-align: center;
   }
+  .navbar {
+    background-color: transparent;
+  }
   .navbar > .nav-search-form {
     display: inline-block;
   }
   .navbar-collapse > .nav-search-form {
     display: none;
+  }
+  .nav-item {
+    line-height: 1.5rem;
+    background-color: rgba(var(--dark-color-rgb), 0.8);
   }
 }
