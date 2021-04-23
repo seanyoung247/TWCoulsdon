@@ -28,7 +28,6 @@ body {
 /*
  * Page header and menubar 
  */
-
 .nav-wrapper {
   position: absolute;
   width: 100vw;
@@ -164,7 +163,7 @@ body {
 }
 .carousel-caption {
   color: var(--light-color);
-  background-color: rgba(var(--dark-color-rgb), 0.9);
+  background-color: rgba(var(--dark-color-rgb), 0.8);
 }
 
 .carousel-control-icon {
