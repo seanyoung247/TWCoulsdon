@@ -31,7 +31,9 @@ body {
 .nav-wrapper {
   position: absolute;
   width: 100vw;
+  max-height: 100vh;
   z-index: 99;
+  overflow-y: auto;
 }
 
 .navbar {
