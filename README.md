@@ -396,6 +396,7 @@ address and contact information.
 * Checkout
 
 ### Languages
+NOTE: - Use of SVG (colour changing favicon etc)
 
 ### Libraries
 
