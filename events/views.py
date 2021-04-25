@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.db import models
 from django.db.models import Min, Max
 from datetime import datetime
+from django.utils import timezone
 from .models import Event, ShowType, EventDate
 
 # Event list page view 
@@ -10,7 +11,7 @@ def list_events(request):
 
     types = None
     events = None
-    now = datetime.now()
+    now = timezone.now()
     
     if request.GET:
         if 'type' in request.GET:
