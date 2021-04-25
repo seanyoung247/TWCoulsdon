@@ -136,10 +136,6 @@ body {
   background-color: rgba(var(--dark-color-rgb), 0.8);
 }
 
-.nav-item {
-  -webkit-text-stroke: 1px var(--dark-color);
-}
-
 .nav-link {
   color: var(--light-color);
   text-transform: uppercase;
@@ -231,6 +227,7 @@ body {
     display: none;
   }
   .nav-item {
+    -webkit-text-stroke: 1px var(--dark-color);
     text-shadow: 2px 1px var(--dark-color);
   }
   #event-list::before {
