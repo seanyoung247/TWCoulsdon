@@ -5,7 +5,7 @@
     {% include 'includes/event_card.html' with showcase=True %}
     
     {% for event in events %}
-      <p>{{event}}</p>
+      <p>{{event}}-{{event.current}}-{{event.first_date}}</p>
     {% endfor %}
   </section>
 {% endblock %}
