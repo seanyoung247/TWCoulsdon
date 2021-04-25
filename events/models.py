@@ -4,6 +4,8 @@ from datetime import datetime
 from tinymce.models import HTMLField
 from django_countries.fields import CountryField
 
+from django.utils.text import slugify
+import itertools
 
 class ShowType(models.Model):
     name = models.CharField(max_length=128)
@@ -42,16 +44,38 @@ class Venue(models.Model):
         
     
 class Event(models.Model):
-    title = models.CharField(max_length=128)
-    author = models.CharField(max_length=128)
-    tagline = models.CharField(max_length=256)
+    slug = models.SlugField(max_length=160, editable=False, null=False, blank=False, unique=True)
+    title = models.CharField(max_length=128, null=False, blank=False)
+    author = models.CharField(max_length=128, null=True, blank=True)
+    tagline = models.CharField(max_length=256, null=True, blank=True)
     description = HTMLField()
     type = models.ForeignKey('ShowType', null=True, blank=True, on_delete=models.SET_NULL)
     venue = models.ForeignKey('Venue', null=True, blank=True, on_delete=models.SET_NULL)
     title_image = models.ForeignKey('Image', related_name='+', null=True, blank=True, on_delete=models.SET_NULL)
+
+    def __generate_slug(self):
+        # Based on code from: https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/
+        # Generate a candidate for the slug
+        max_length = self._meta.get_field('slug').max_length
+        value = self.title
+        slug_candidate = slug_original = slugify(value, allow_unicode=True)
+        # Ensure that the candidate is unique
+        for i in itertools.count(1):
+            if not Event.objects.filter(slug=slug_candidate).exists():
+                break
+            slug_candidate = '{}-{}'.format(slug_original, i)
+
+        self.slug = slug_candidate
     
     def __str__(self):
         return self.title
+        
+    def save(self, *args, **kwargs):
+        # Do we need to generate a slug?
+        if not self.pk:
+            self.__generate_slug()
+        
+        super().save(*args, **kwargs)         
         
     
 class Image(models.Model):

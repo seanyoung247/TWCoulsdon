@@ -15,3 +15,7 @@
   </form>
 </body>
 </html>
+
+
+<!-- TODO: Only load tinymce on pages that need it. -->
+<script src="https://cdn.tiny.cloud/1/ciyu0kn1e6maiyjus8my7wmgsbqjjhk5331ktzw8c0tt2vh6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
