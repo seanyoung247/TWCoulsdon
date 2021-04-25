@@ -179,16 +179,6 @@ body {
 /*
  * Event List
  */
-#event-list::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: var(--header-mobile-height);
-  z-index: 0;
-  background-color: var(--dark-color);
-}
-
 #event-list {
   padding-top: var(--header-mobile-height);
 }
@@ -231,7 +221,13 @@ body {
     text-shadow: 2px 1px var(--dark-color);
   }
   #event-list::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
     height: var(--header-desktop-height);
+    z-index: 0;
+    background-color: rgba(var(--dark-color-rgb), 0.8);
   }
   #event-list {
     padding-top: var(--header-desktop-height);
