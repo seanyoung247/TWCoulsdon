@@ -21,21 +21,21 @@ class EventDate(models.Model):
     date = models.DateTimeField()
     
     def __str__(self):
-        return date.strftime('%d/%m/%Y, %H:%M')
+        return self.date.strftime('%d/%m/%Y, %H:%M')
 
 
 class Venue(models.Model):
     name = models.CharField(max_length=128)
     image = models.ImageField(null=True, blank=True)
     description = models.CharField(max_length=1024, null=True, blank=True)
-    email = models.EmailField(max_length=254, null=False, blank=False)
-    phone_number = models.CharField(max_length=20, null=False, blank=False)
-    street_address1 = models.CharField(max_length=80, null=False, blank=False)
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    street_address1 = models.CharField(max_length=80, null=True, blank=True)
     street_address2 = models.CharField(max_length=80, null=True, blank=True)
-    town_or_city = models.CharField(max_length=40, null=False, blank=False)
+    town_or_city = models.CharField(max_length=40, null=True, blank=True)
     county = models.CharField(max_length=80, null=True, blank=True)
     postcode = models.CharField(max_length=20, null=True, blank=True)
-    country = CountryField(blank_label='Country *', null=False, blank=False)
+    country = CountryField(blank_label='Country *', null=True, blank=True)
     
     def __str__(self):
         return self.name
@@ -51,7 +51,7 @@ class Event(models.Model):
     title_image = models.ForeignKey('Image', related_name='+', null=True, blank=True, on_delete=models.SET_NULL)
     
     def __str__(self):
-        return self.name
+        return self.title
         
     
 class Image(models.Model):
