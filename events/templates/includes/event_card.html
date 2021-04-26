@@ -13,9 +13,9 @@
             </div>
             <div class="col-12 col-md-6 align-self-end">
               <p class="event-showcase-dates">
-                {{ event.first_date|date:"d/m/Y" }}
+                {{ event.first_date|date:"d M" }}
                 {% if event.first_date != event.last_date %}
-                to {{ event.last_date|date:"d/m/Y" }}
+                to {{ event.last_date|date:"d M" }}
                 {% endif %}
               </p>
             </div>
@@ -29,7 +29,11 @@
 
   <div class="col-12 col-md-6 col-lg-4">
     <div class="event-card card">
-      {{event}}
+      <img class="card-img-top" src="/media/noimage.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{ event.title }}</h5>
+        <p class="card-text"></p>
+      </div>
     </div>
   </div>
   

@@ -140,7 +140,7 @@ body {
 }
 
 .navbar {
-  background-color: rgba(var(--dark-color-rgb), 0.8);
+  background-color: rgba(var(--dark-color-rgb), 0.9);
 }
 
 .nav-link {
@@ -188,14 +188,11 @@ body {
  */
 #header-spacer {
   padding-top: var(--header-mobile-height);
-}
-
-.event-list {
-  margin: auto;
+  background-color: var(--dark-color);/*rgba(var(--dark-color-rgb), 0.8);*/
 }
 
 .event-showcase-card {
-  height: 50vh;
+  height: 75vh;
   border: none;
   border-radius: 0;
 }
@@ -219,6 +216,11 @@ body {
 .event-showcase-dates {
   font-size: 1.25rem;
   text-align: right;
+}
+
+.event-list {
+  max-width: 1500px;
+  margin:auto;
 }
 
 /*
@@ -260,7 +262,6 @@ body {
   #header-spacer {
     width: 100%;
     height: var(--header-desktop-height);
-    background-color: rgba(var(--dark-color-rgb), 0.8);
     padding-top: var(--header-desktop-height);
   }
 }
