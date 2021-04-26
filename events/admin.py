@@ -40,6 +40,7 @@ class EventAdmin(admin.ModelAdmin):
         'author',
         'tagline',
         'description',
+        'content',
         'type',
         'venue',
         'title_image'
