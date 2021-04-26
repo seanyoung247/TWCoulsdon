@@ -183,6 +183,10 @@ body {
   padding-top: var(--header-mobile-height);
 }
 
+.event-showcase-card {}
+
+.event-card {}
+
 /*
  * Media Queries
  */ 

@@ -1,19 +1,14 @@
 
-
-
-
 {% if showcase %}
-  
-  
-  <div class="event-showcase-card">
-    
-  </div>
-  
-  
+    <div class="col-12 event-showcase-card">
+      <div class="card">
+        {{event}}
+      </div>
+    </div>
 {% else %}
-
-  <div class="event-card">
-    
+  <div class="col-12 col-md-6 event-card">
+    <div class="card">
+      {{event}}
+    </div>
   </div>
-  
 {% endif %}

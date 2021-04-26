@@ -9,15 +9,19 @@ from .models import Event, ShowType, EventDate
 def list_events(request):
     """ A view to show all events, and allows sorting and searching of queries """
 
-    types = None
-    events = None
+    events = Event.objects.all()
+    event_types = None
     now = timezone.now()
+    
+    if not events:
+        print("null")
     
     if request.GET:
         if 'type' in request.GET:
-            types = request.GET['type'].split(',')
+            # Only filter on dates for productions
+            event_types = request.GET['type'].split(',')
             events = (
-                Event.objects.annotate(
+                events.annotate(
                     # Is this event in the future or past?
                     current=models.Case(
                         models.When(eventdate__date__gte=now, then=True),
@@ -28,14 +32,20 @@ def list_events(request):
                     first_date=Min('eventdate__date')
                 ).filter(
                     # Filter on required show type
-                    type__name__in=types
-                # Order by inital date in decending order (latest to earliest)
-                ).order_by('-first_date')
+                    type__name__in=event_types
+                # Order by inital date and id in decending order (latest to earliest)
+                # Ensuring current events are grouped first
+                ).order_by('-current', '-first_date', '-id')
             )
+            event_types = ShowType.objects.filter(name__in=event_types)
 
-    
+    past_events=events.filter(current=False)
+    showcase_events=events.filter(current=True)
     context = {
+        'event_types': event_types,
         'events': events,
+        'past_events': past_events,
+        'showcase_events': showcase_events,
     }
     
     return render(request, 'events/events.html', context )
