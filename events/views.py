@@ -3,49 +3,53 @@ from django.db import models
 from django.db.models import Min, Max
 from datetime import datetime
 from django.utils import timezone
+from django.db.models.functions import Coalesce
 from .models import Event, ShowType, EventDate
+
 
 # Event list page view 
 def list_events(request):
     """ A view to show all events, and allows sorting and searching of queries """
 
     events = Event.objects.all()
-    event_types = None
+    current_events = None
+    past_events = None
+    event_type = None
     now = timezone.now()
+    zero_date=datetime(1, 1, 1, 0, 0)
     
     if not events:
         print("null")
     
     if request.GET:
         if 'type' in request.GET:
-            # Only filter on dates for productions
-            event_types = request.GET['type'].split(',')
+            event_type = request.GET['type']
+
+            # Get all events matching criteria.
             events = (
                 events.annotate(
-                    # Is this event in the future or past?
-                    current=models.Case(
-                        models.When(eventdate__date__gte=now, then=True),
-                        models.When(eventdate__date__lt=now, then=False),
-                        output_field=models.BooleanField(),
-                    ),
-                    # Get the first event date for sorting
-                    first_date=Min('eventdate__date')
+                    first_date=Min('eventdate__date'),
+                    # Last date is used to define if an event is still current 
+                    # or upcoming, but some event types have no dates. If there
+                    # are no dates last date is set to a zero date to ensure it's
+                    # dealt with as if it is in the past.
+                    last_date=Coalesce(Max('eventdate__date'),zero_date),
                 ).filter(
-                    # Filter on required show type
-                    type__name__in=event_types
-                # Order by inital date and id in decending order (latest to earliest)
-                # Ensuring current events are grouped first
-                ).order_by('-current', '-first_date', '-id')
+                    type__name=event_type,
+                ).order_by('-last_date', '-first_date', '-post_date')
             )
-            event_types = ShowType.objects.filter(name__in=event_types)
+            # Filter current events
+            current_events = events.filter(last_date__gte=now)
+            # Filter past events
+            past_events = events.exclude(last_date__gte=now)
 
-    past_events=events.filter(current=False)
-    showcase_events=events.filter(current=True)
+            event_type = ShowType.objects.get(name=event_type)
+
     context = {
-        'event_types': event_types,
-        'events': events,
+        'event_type': event_type,
+        'current_events': current_events,
         'past_events': past_events,
-        'showcase_events': showcase_events,
+        'events': events,
     }
     
     return render(request, 'events/events.html', context )
