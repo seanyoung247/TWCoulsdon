@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="210mm" height="210mm" version="1.1" viewBox="0 0 210 210" xmlns="http://www.w3.org/2000/svg">
+ <g style="display:none">
+  <ellipse cx="105" cy="105" rx="96.268" ry="96.268" style="display:inline;fill:#fff;paint-order:fill markers stroke;stroke-width:7.4633;stroke:#000"/>
+ </g>
+ <g>
+  <g transform="matrix(1.7449 0 0 1.7449 -78.213 -62.625)">
+   <path d="m130.95 82.679v20.803c0 14.377-11.574 25.952-25.952 25.952-14.377 0-25.952-11.574-25.952-25.952v-20.803" style="fill:none;paint-order:markers stroke fill;stroke-width:5;stroke:#000"/>
+   <rect x="86.538" y="46.861" width="36.925" height="73.849" ry="18.462" style="fill:#fff;paint-order:fill markers stroke;stroke-width:5;stroke:#000"/>
+   <path d="m105 130.52v14.418" style="fill:none;stroke-width:5;stroke:#000"/>
+   <path d="m83.94 145.27h42.119" style="fill:none;stroke-width:5;stroke:#000"/>
+  </g>
+ </g>
+ <g style="display:none;opacity:.999">
+  <g transform="matrix(1.4698 0 0 1.3364 -54.159 -37.111)">
+   <path d="m106.07 37.641s-5.8405 12.982-27.762 19.204c-22.095 5.5725-33.644-2.7499-33.644-2.7499-5.4545 22.458 23.15 92.649 55.67 84.953 32.011-9.5949 21.688-84.685 5.7355-101.41z" style="fill:#fff;paint-order:fill markers stroke;stroke-width:5;stroke:#000"/>
+   <path d="m75.746 73.449c-0.92018 3.9476-3.9551 7.0585-7.8788 8.076-3.9237 1.0175-8.0879-0.22659-10.81-3.2296" style="fill:none;paint-order:markers stroke fill;stroke-width:5;stroke:#000"/>
+   <path d="m107.73 65.042c-0.92019 3.9476-3.9551 7.0585-7.8788 8.076-3.9237 1.0175-8.0879-0.22659-10.81-3.2296" style="fill:none;paint-order:markers stroke fill;stroke-width:5;stroke:#000"/>
+   <path d="m80.506 126.83c-2.2616-4.0977-0.77058-9.244 3.7931-13.092 4.5637-3.8476 11.326-5.6593 17.202-4.6088 5.876 1.0505 9.7401 4.762 9.8299 9.4416 0 0-10.754 0.80186-15.932 2.1892-5.178 1.3873-14.893 6.0696-14.893 6.0696z" style="fill:none;paint-order:markers stroke fill;stroke-width:3.437;stroke:#000"/>
+   <path d="m171.91 91.41s-11.549 8.3224-33.644 2.7499c-21.921-6.2216-27.762-19.204-27.762-19.204-15.953 16.722-26.276 91.812 5.7355 101.41 32.52 7.6962 61.125-62.495 55.67-84.953z" style="fill:#fff;paint-order:fill markers stroke;stroke-width:5;stroke:#000"/>
+   <path d="m107.27 108.98c2.7707-2.9587 6.9545-4.1353 10.861-3.0546 3.9068 1.0807 6.891 4.2402 7.7473 8.2022" style="fill:none;paint-order:markers stroke fill;stroke-width:5;stroke:#000"/>
+   <path d="m139.17 117.69c2.7707-2.9587 6.9545-4.1353 10.861-3.0546 3.9067 1.0807 6.891 4.2402 7.7473 8.2022" style="fill:none;paint-order:markers stroke fill;stroke-width:5;stroke:#000"/>
+   <path d="m139.44 151.27c-0.0902 4.6796-3.9547 8.3908-9.8308 9.4411s-12.638-0.7617-17.201-4.6095c-4.5635-3.8478-6.0542-8.9941-3.7922-13.092 0 0 9.7143 4.6826 14.892 6.0702 5.1779 1.3875 15.932 2.1899 15.932 2.1899z" style="fill:none;paint-order:markers stroke fill;stroke-width:3.437;stroke:#000"/>
+  </g>
+ </g>
+ <g style="display:none">
+  <g transform="matrix(1.9117 0 0 1.9117 515.22 -379.01)">
+   <rect x="-261.47" y="206.3" width="93.763" height="93.763" ry="0" style="paint-order:fill markers stroke"/>
+   <rect x="-243.59" y="212.31" width="58.002" height="35.847" ry="6.9928" style="fill:#fff;paint-order:fill markers stroke"/>
+   <rect x="-243.59" y="259.27" width="58.002" height="35.847" ry="6.9928" style="display:inline;fill:#fff;paint-order:fill markers stroke"/>
+   <rect x="-258.82" y="213.18" width="12.384" height="12.384" ry=".35036" style="fill:#fff;paint-order:fill markers stroke"/>
+   <rect x="-258.82" y="236.15" width="12.384" height="12.384" ry=".35036" style="display:inline;fill:#fff;paint-order:fill markers stroke"/>
+   <rect x="-258.82" y="259.12" width="12.384" height="12.384" ry=".35036" style="display:inline;fill:#fff;paint-order:fill markers stroke"/>
+   <rect x="-258.82" y="282.08" width="12.384" height="12.384" ry=".35036" style="display:inline;fill:#fff;paint-order:fill markers stroke"/>
+   <rect x="-182.94" y="213.18" width="12.384" height="12.384" ry=".35036" style="display:inline;fill:#fff;paint-order:fill markers stroke"/>
+   <rect x="-182.94" y="236.15" width="12.384" height="12.384" ry=".35036" style="display:inline;fill:#fff;paint-order:fill markers stroke"/>
+   <rect x="-182.94" y="259.12" width="12.384" height="12.384" ry=".35036" style="display:inline;fill:#fff;paint-order:fill markers stroke"/>
+   <rect x="-182.94" y="282.08" width="12.384" height="12.384" ry=".35036" style="display:inline;fill:#fff;paint-order:fill markers stroke"/>
+  </g>
+ </g>
+</svg>

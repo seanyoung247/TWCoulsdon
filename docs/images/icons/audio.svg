@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="210mm" height="210mm" version="1.1" viewBox="0 0 210 210" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-40.899 -76.429)">
+  <path d="m191.18 158.07v36.298c0 25.086-20.196 45.282-45.282 45.282-25.086 0-45.282-20.196-45.282-45.282v-36.298" style="fill:none;paint-order:markers stroke fill;stroke-width:8.7244;stroke:#000"/>
+  <rect x="113.68" y="95.572" width="64.429" height="128.86" ry="32.215" style="fill:none;paint-order:fill markers stroke;stroke-width:8.7244;stroke:#000"/>
+  <path d="m145.9 241.55v25.157" style="fill:none;stroke-width:8.7244;stroke:#000"/>
+  <path d="m109.15 267.29h73.494" style="fill:none;stroke-width:8.7244;stroke:#000"/>
+ </g>
+</svg>
