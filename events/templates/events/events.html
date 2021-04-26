@@ -1,23 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <section id="event-list">
-    <div class="container-fluid">
-      <div class="row">
-        {% for event in events %}
-          {% include 'includes/event_card.html' with showcase=event.current %}
-        {% endfor %}
-        {% for type in event_types %}
-          <h2 class="col-12">{{ type.display_name }}s</h2>
-        {% endfor %}
-        {% for event in showcase_events %}
-          {% include 'includes/event_card.html' with showcase=True %}
-        {% endfor %}
-        <h2 class="col-12">Past Events</h2>
-        {% for event in past_events %}
-          {% include 'includes/event_card.html' with showcase=False %}
-        {% endfor %}
-      </div>
+  <div id="header-spacer"></div>
+  <section id="container-fluid">
+    <div class="row no-gutters event-list">
+      {#<h2 class="col-12 section-header">{{ event_type.display_name }}s</h2>#}  
+      {% for event in current_events %}
+        {% include 'includes/event_card.html' with showcase=True %}
+      {% endfor %}
+      <hr class="w-100"/>
+      {% for event in past_events %}
+        {% include 'includes/event_card.html' with showcase=False %}
+      {% endfor %}
     </div>
   </section>
 {% endblock %}

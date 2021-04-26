@@ -1,14 +1,36 @@
+{% load event_tools %}
 
 {% if showcase %}
-    <div class="col-12 event-showcase-card">
-      <div class="card">
-        {{event}}
+
+  <div class="col-12">
+    <a href="#">
+      <div class="card event-showcase-card">
+        <img class="card-img" src="/media/test1.jpg" alt="">
+        <div class="card-img-overlay">
+          <div class="row event-showcase-content">
+            <div class="col-12 col-md-6">
+              <h2 class="event-showcase-title">{{ event.title }}</h2>
+            </div>
+            <div class="col-12 col-md-6 align-self-end">
+              <p class="event-showcase-dates">
+                {{ event.first_date|date:"d/m/Y" }}
+                {% if event.first_date != event.last_date %}
+                to {{ event.last_date|date:"d/m/Y" }}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </a>
+  </div>
+  
 {% else %}
-  <div class="col-12 col-md-6 event-card">
-    <div class="card">
+
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="event-card card">
       {{event}}
     </div>
   </div>
+  
 {% endif %}
