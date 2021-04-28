@@ -19,17 +19,21 @@
   
   <div class="row event-content">
     <div class="col-12 col-md-4 order-md-2 event-side-panel">
+      
+      {# Venue Information #}
       <div class="event-panel">
         <h4>{{ event.venue.name }}</h4>
         <p>{{ event.venue.description|truncatechars:256 }}</p>
         <a class="btn btn-twc-light w-100" href="#">Venue Information</a>
       </div>
+      
+      {# Event dates #}
       <div class="event-panel">
         <h5 class="event-date">{{ first_date|date:"d/m/Y" }} to {{ last_date|date:"d/m/Y" }}</h5>
       </div>
       
       <!-- TODO: Only show this if event is in the future and has available tickets -->
-        
+      {# Ticket information #}
       <div class="event-panel">
         <h5>Tickets</h5>
         List of prices/ticket types here
@@ -40,11 +44,10 @@
         </ul>
         <a class="btn btn-twc-light w-100" href="#">Buy Tickets</a>
       </div>
-      
-      <!-- /TODO -->  
-    
+      <!-- /TODO --> 
     </div>
     
+    {# Event description #}
     <div class="col-12 col-md-8 order-md-1 event-description">
       {{ event.description|safe }}
     </div>
