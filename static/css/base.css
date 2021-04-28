@@ -455,6 +455,12 @@ li.scroll-item {
 .gallery-btn:focus {
   box-shadow: none;
 }
+
+.gallery-image-tile {
+  width: 125px;
+  height: 125px;
+  object-fit: cover;
+}
 /*
  * Media Queries
  */ 
