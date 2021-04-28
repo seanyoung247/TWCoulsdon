@@ -368,8 +368,24 @@ hr {
   max-width: 1500px;
   margin: 25px auto;
 }
+
 .event-description {}
+  
 .event-side-panel {}
+
+.event-panel {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--dark-color);
+}
+
+.event-panel:first-child {
+  border-top: 1px solid var(--dark-color);
+}
+
+.event-date {
+  text-align: center;
+}
 
 /*
  * Media Queries

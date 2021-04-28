@@ -22,15 +22,29 @@
       <div class="event-panel">
         <h4>{{ event.venue.name }}</h4>
         <p>{{ event.venue.description|truncatechars:256 }}</p>
-        <a class="btn btn-twc-light" href="#">Venue Information</a>
+        <a class="btn btn-twc-light w-100" href="#">Venue Information</a>
       </div>
       <div class="event-panel">
-        <h5>{{ first_date|date:"d/m/Y" }} to {{ last_date|date:"d/m/Y" }}</h5>
+        <h5 class="event-date">{{ first_date|date:"d/m/Y" }} to {{ last_date|date:"d/m/Y" }}</h5>
       </div>
+      
+      <!-- TODO: Only show this if event is in the future and has available tickets -->
+        
       <div class="event-panel">
         <h5>Tickets</h5>
+        List of prices/ticket types here
+        i.e.
+        <ul>
+          <li>Adult: £10</li>
+          <li>Concession: £7.50</li>
+        </ul>
+        <a class="btn btn-twc-light w-100" href="#">Buy Tickets</a>
       </div>
+      
+      <!-- /TODO -->  
+    
     </div>
+    
     <div class="col-12 col-md-8 order-md-1 event-description">
       {{ event.description|safe }}
     </div>
