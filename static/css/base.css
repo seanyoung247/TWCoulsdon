@@ -224,7 +224,7 @@ hr {
 
 /* Showcase card */
 .event-showcase-card {
-  height: 75vh;
+  height: 50vh;
   border: none;
   border-radius: 0;
 }
@@ -245,10 +245,17 @@ hr {
   text-shadow: 1px 1px 2px var(--dark-color);
   background-color: transparent;
   width: 100%;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
 }
 
 .event-showcase-title {
   font-size: 2rem;
+  border-bottom: 1px solid var(--light-color);
+}
+
+.event-showcase-dates {
+  font-size: 1.25rem;
 }
 
 .event-showcase-links {
