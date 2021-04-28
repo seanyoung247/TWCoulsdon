@@ -90,18 +90,18 @@ hr {
 .form-control:focus,
 .form-control:active,
 .btn:focus, .btn:active {
-  border-color: var(--accent-color) !important;
-  box-shadow: 0 0 0 0.2rem rgba(var(--accent-color-rgb),0.5) !important;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.2rem rgba(var(--accent-color-rgb),0.5);
 }
 
 /*
  * Horizontal item scroller
  */
-.scroller,
-.col.scroller {
+.scroller {
   position: relative;
   overflow: hidden;
   padding: 0 25px;
+  width: 100%;
 }
 
 ul.scroller-items {
@@ -439,8 +439,22 @@ li.scroll-item {
   text-align: center;
 }
 
+.gallery-btn {
+  border-radius: 0;
+  border: none;
+}
 
+.gallery-btn > svg {
+  width: 50px;
+  height: 50px;
+  fill: var(--light-color);
+  stroke: var(--dark-color);
+  stroke-width: 3.5;
+}
 
+.gallery-btn:focus {
+  box-shadow: none;
+}
 /*
  * Media Queries
  */ 

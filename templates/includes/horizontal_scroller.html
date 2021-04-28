@@ -1,40 +1,39 @@
 
 {% comment %}
   Generates a generic horizontal scroller. Requires items and a template for
-  rendering them. The rendering template is a file name in an include directory
+  rendering them. The rendering template is a file name in an include directory.
+  Optionally a template for the left and right buttons can be given.
+  
+  Usage:
+    {% include 'includes/horizontal_scroller.html' items=items template='item_template.html' %}
+  or:
+    {% include 'includes/horizontal_scroller.html' items=items template='item_template.html' buttons='button_template.html' %}
 {% endcomment %}
  
 
 {# No point creating the scroller if there's no items #}
 {% if items and template %}
 
-  <div class="row">
-    <div class="scroller col-12">
+  <div class="scroller">
         
-      <button class="scroll-left">
-        <svg class="carousel-control-icon" width="200mm" height="200mm" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <path d="m148.78 35.061-14.484-16.254c-36.738-0.045762-54.749 54.326-82.037 81.576 27.288 27.25 45.3 81.622 82.037 81.576l14.484-16.254c-36.101-0.43876-43.579-43.556-65.38-65.322 21.802-21.766 29.279-64.883 65.38-65.322z"/>
-        </svg>
-      </button>
+    {% if buttons %}
+      {% include 'includes/'|add:buttons %}
+    {% else %}
+      <button class="scroll-left"><</button>
+      <button class="scroll-right">></button>
+    {% endif %}
+      
+    <ul class="scroller-items">
+      <li class="scroll-item-bookend"></li>
         
-      <button class="scroll-right">
-        <svg class="carousel-control-icon" width="200mm" height="200mm" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <path d="m53.536 35.061 14.484-16.254c36.738-0.0458 54.749 54.326 82.037 81.576-27.288 27.25-45.3 81.622-82.037 81.576l-14.484-16.254c36.101-0.43876 43.579-43.556 65.38-65.322-21.802-21.766-29.279-64.883-65.38-65.322z"/>
-        </svg>
-      </button>
+      {% for item in items %}
+        <li class="scroll-item">
+          {% include 'includes/'|add:template with item=item %}
+        </li>
+      {% endfor %}
         
-      <ul class="scroller-items">
-        <li class="scroll-item-bookend"></li>
-          
-        {% for item in items %}
-          <li class="scroll-item">
-            {% include 'includes/'|add:template %}
-          </li>
-        {% endfor %}
-          
-        <li class="scroll-item-bookend"></li>
-      </ul>
-    </div>
+      <li class="scroll-item-bookend"></li>
+    </ul>
   </div>
 
 {% endif %}
