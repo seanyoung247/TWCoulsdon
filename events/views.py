@@ -57,9 +57,13 @@ def list_events(request):
 # Event page view
 def event_details(request, event_slug):
     event = get_object_or_404(Event, slug=event_slug)
+    dates = EventDate.objects.filter(event=event)
     
     context = {
         "event": event,
+        "dates": dates,
+        "first_date": dates.aggregate(min_date=Min('date'))['min_date'],
+        "last_date": dates.aggregate(max_date=Max('date'))['max_date'],
     }
     return render(request, 'events/event_details.html', context)
 

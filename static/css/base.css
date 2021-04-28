@@ -40,6 +40,19 @@ hr {
   background-image: linear-gradient(to right, rgba(20,22,26, 0), rgba(20,22,26, 0.75), rgba(20,22,26, 0));
 }
 
+.btn-twc-light {
+  color: var(--dark-color);
+  background-color: var(--light-color);
+  border: 1px solid var(--dark-color);
+  text-shadow: none;
+}
+
+.btn-twc-light:hover {
+  color: var(--light-color);
+  background-color: var(--dark-color);
+  border: 1px solid var(--dark-color);
+}
+
 .btn-twc-dark {
   color: var(--light-color);
   background-color: var(--dark-color);
@@ -49,6 +62,19 @@ hr {
 
 .btn-twc-dark:hover {
   color: var(--dark-color);
+  background-color: var(--light-color);
+  border: 1px solid var(--light-color);
+}
+
+.btn-twc-brand {
+  color: var(--light-color);
+  background-color: var(--brand-color);
+  border: 1px solid var(--light-color);
+  text-shadow: none;
+}
+
+.btn-twc-brand:hover {
+  color: var(--brand-color);
   background-color: var(--light-color);
   border: 1px solid var(--light-color);
 }
@@ -337,14 +363,14 @@ hr {
   color: var(--brand-color);
 }
 
-.event-content {
+.event-content,
+.event-gallery {
   max-width: 1500px;
   margin: 25px auto;
 }
-.event-description {
-}
-.event-side-panel {
-}
+.event-description {}
+.event-side-panel {}
+
 /*
  * Media Queries
  */ 

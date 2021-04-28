@@ -8,14 +8,28 @@
   <div class="row event-header" style="--background-image: url('{{event.title_image.image.url}}')">
     <div class="event-header-text">
       <h1 class="event-title">{{ event.title }}</h1>
-      <p class="event-author">By {{ event.author }}</p>
-      <p class="event-tagline">{{ event.tagline }}</p>
+      {% if event.author %}
+        <p class="event-author">By {{ event.author }}</p>
+      {% endif %}
+      {% if event.tagline %}
+        <p class="event-tagline">{{ event.tagline }}</p>
+      {% endif %}
     </div>
   </div>
   
   <div class="row event-content">
     <div class="col-12 col-md-4 order-md-2 event-side-panel">
-      {{ event.venue }}
+      <div class="event-panel">
+        <h4>{{ event.venue.name }}</h4>
+        <p>{{ event.venue.description|truncatechars:256 }}</p>
+        <a class="btn btn-twc-light" href="#">Venue Information</a>
+      </div>
+      <div class="event-panel">
+        <h5>{{ first_date|date:"d/m/Y" }} to {{ last_date|date:"d/m/Y" }}</h5>
+      </div>
+      <div class="event-panel">
+        <h5>Tickets</h5>
+      </div>
     </div>
     <div class="col-12 col-md-8 order-md-1 event-description">
       {{ event.description|safe }}
