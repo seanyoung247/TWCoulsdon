@@ -2,9 +2,8 @@
 
 {% block content %}
   <div id="header-spacer"></div>
-  <section id="container-fluid">
-    <div class="row no-gutters">
-      {#<h2 class="col-12 section-header">{{ event_type.display_name }}s</h2>#}  
+  <section class="container-fluid">
+    <div class="row">
       {% for event in current_events %}
         {% include 'includes/event_card.html' with showcase=True %}
       {% endfor %}

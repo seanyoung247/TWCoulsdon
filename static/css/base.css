@@ -227,6 +227,7 @@ hr {
 /* Showcase card */
 .event-showcase-card {
   height: 50vh;
+  min-height: 250px;
   border: none;
   border-radius: 0;
 }
@@ -247,8 +248,8 @@ hr {
   text-shadow: 1px 1px 2px var(--dark-color);
   background-color: transparent;
   width: 100%;
-  padding: 1rem 2rem;
-  margin-bottom: 1rem;
+  padding: 0 2rem;
+  margin-bottom: 0;
 }
 
 .event-showcase-title {
@@ -258,10 +259,16 @@ hr {
 
 .event-showcase-dates {
   font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.event-showcase-tag {
+  margin-bottom: 0.5rem;
 }
 
 .event-showcase-links {
-  text-align: right; 
+  text-align: right;
+  margin-bottom: 0;
 }
 
 /* Normal event listings */
@@ -299,6 +306,45 @@ hr {
   font-size: 2rem;
 }
 
+/*
+ * Event page
+ */
+.event-header {
+  height: 100vh;
+  min-height: 450px;
+  background: var(--background-image) center/cover no-repeat;
+  color: var(--light-color);
+  text-shadow: 1px 1px 2px var(--dark-color);
+}
+
+.event-header-text {
+  background-color: rgba(var(--dark-color-rgb),0.9); 
+  align-self: center;
+  max-width: 500px;
+  padding: 50px;
+  margin: auto;
+}
+
+.event-title {
+  text-align: center;
+  border-bottom: 1px solid var(--light-color);
+}
+.event-author {
+  text-align: center;
+}
+.event-tagline {
+  text-align: center;
+  color: var(--brand-color);
+}
+
+.event-content {
+  max-width: 1500px;
+  margin: 25px auto;
+}
+.event-description {
+}
+.event-side-panel {
+}
 /*
  * Media Queries
  */ 
