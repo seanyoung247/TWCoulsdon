@@ -20,8 +20,8 @@
             <p class="event-showcase-tag">{{ event.tagline }}</p>
           {% endif %}
           <p class="event-showcase-links">
-            <a class="btn btn-dark" href="#" role="button">Read More</a>
-            <a class="btn btn-dark" href="#" role="button">Buy Tickets</a>
+            <a class="btn btn-twc-dark" href="{% url 'event_details' event.slug %}" role="button">Read More</a>
+            <a class="btn btn-twc-dark" href="#" role="button">Buy Tickets</a>
           </p>
         </div>
       </div>
@@ -32,7 +32,7 @@
 
   <div class="col-12 col-md-6 col-lg-4">
     <div class="event-card card">
-      <a class="event-card-link" href="#">
+      <a class="event-card-link" href="{% url 'event_details' event.slug %}">
         <img class="card-img" src="{{ event.title_image.image.url }}" alt="">
         <div class="card-img-overlay">
           <h5 class="event-card-title">{{ event.title }}</h5>

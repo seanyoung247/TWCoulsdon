@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db import models
 from django.db.models import Min, Max
 from datetime import datetime
@@ -55,5 +55,12 @@ def list_events(request):
     
 
 # Event page view
+def event_details(request, event_slug):
+    event = get_object_or_404(Event, slug=event_slug)
+    
+    context = {
+        "event": event,
+    }
+    return render(request, 'events/event_details.html', context)
 
 # Venue page view 
