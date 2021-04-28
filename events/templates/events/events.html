@@ -8,9 +8,9 @@
       {% for event in current_events %}
         {% include 'includes/event_card.html' with showcase=True %}
       {% endfor %}
-    </div>
-    <div class="row event-list">
       <hr class="w-100"/>
+    </div>
+    <div class="row no-gutters event-list">
       {% for event in past_events %}
         {% include 'includes/event_card.html' with showcase=False %}
       {% endfor %}

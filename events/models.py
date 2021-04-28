@@ -8,8 +8,8 @@ from django.utils.text import slugify
 import itertools
 
 class ShowType(models.Model):
-    name = models.CharField(max_length=64)
-    display_name = models.CharField(max_length=64, null=True, blank=True)
+    name = models.CharField(max_length=50)
+    display_name = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -27,7 +27,7 @@ class EventDate(models.Model):
 
 
 class Venue(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=50)
     image = models.ImageField(null=True, blank=True)
     description = models.CharField(max_length=1024, null=True, blank=True)
     email = models.EmailField(max_length=254, null=True, blank=True)
@@ -44,8 +44,8 @@ class Venue(models.Model):
         
     
 class Event(models.Model):
-    slug = models.SlugField(max_length=96, editable=False, null=False, blank=False, unique=True)
-    title = models.CharField(max_length=64, null=False, blank=False)
+    slug = models.SlugField(max_length=64, editable=False, null=False, blank=False, unique=True)
+    title = models.CharField(max_length=50, null=False, blank=False)
     author = models.CharField(max_length=64, null=True, blank=True)
     tagline = models.CharField(max_length=256, null=True, blank=True)
     description = HTMLField()
@@ -82,7 +82,7 @@ class Event(models.Model):
     
 class Image(models.Model):
     event = models.ForeignKey('Event', null=True, blank=True, on_delete=models.SET_NULL)
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=50)
     description = models.CharField(max_length=256, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     

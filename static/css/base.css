@@ -33,6 +33,26 @@ body {
 /*
  * General styles
  */
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(20,22,26, 0), rgba(20,22,26, 0.75), rgba(20,22,26, 0));
+}
+
+.btn-dark {
+  color: var(--light-color);
+  background-color: var(--dark-color);
+  border: 1px solid var(--light-color);
+  text-shadow: none;
+}
+
+.btn-dark:hover {
+  color: var(--dark-color);
+  background-color: var(--light-color);
+  border: 1px solid var(--light-color);
+}
+
 .section-header {
   text-align: center;
   font-family: 'Anton', sans-serif;
@@ -109,13 +129,13 @@ body {
 }
 
 .nav-search {
-  border-radius: 0;/*10px 0 0 10px;*/
+  border-radius: 0;
 }
 
 .btn-search {
   color: var(--dark-color);
   background-color: var(--light-color);
-  border-radius: 0;/*0 10px 10px 0;*/
+  border-radius: 0;
   width: 38px;
   height: 38px;
   padding: 0;
@@ -191,6 +211,11 @@ body {
   background-color: var(--dark-color);/*rgba(var(--dark-color-rgb), 0.8);*/
 }
 
+.event-list {
+  margin: 10px;
+}
+
+/* Showcase card */
 .event-showcase-card {
   height: 75vh;
   border: none;
@@ -203,24 +228,59 @@ body {
   object-fit: cover;
 }
 
-.event-showcase-content {
-  height:100%;
+.event-showcase-card .card-img-overlay {
+  display: flex;
+  align-items: flex-end;
 }
 
-.event-showcase-title,
-.event-showcase-dates {
+.event-showcase-card .jumbotron {
   color: var(--light-color);
   text-shadow: 1px 1px 2px var(--dark-color);
+  background-color: transparent;
+  width: 100%;
 }
 
-.event-showcase-dates {
-  font-size: 1.25rem;
-  text-align: right;
+.event-showcase-title {
+  font-size: 2rem;
 }
 
-.event-list {
-  max-width: 1500px;
-  margin:auto;
+.event-showcase-links {
+  text-align: right; 
+}
+
+/* Normal event listings */
+.event-card {
+  border: none;
+  border-radius: 0;
+}
+
+.event-card-link:hover .card-img-overlay {
+  background: radial-gradient(circle, rgba(var(--dark-color-rgb),0) 0%, rgba(var(--dark-color-rgb),1) 100%);
+}
+.event-card-action {
+  display: none;
+}
+.event-card-link:hover .event-card-action {
+  display: block;
+  position: absolute;
+  padding: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--brand-color);
+  color: var(--light-color);
+}
+
+.event-card .card-img {
+  height: 300px;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+.event-card-title {
+  color: var(--light-color);
+  text-shadow: 1px 1px 2px var(--dark-color);
+  font-size: 2rem;
 }
 
 /*
@@ -263,6 +323,12 @@ body {
     width: 100%;
     height: var(--header-desktop-height);
     padding-top: var(--header-desktop-height);
+  }
+  .event-list {
+    margin: 35px;
+  }
+  .event-showcase-title {
+    font-size: 4rem;
   }
 }
 

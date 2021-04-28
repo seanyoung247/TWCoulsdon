@@ -43,7 +43,7 @@ class EventAdmin(admin.ModelAdmin):
         'content',
         'type',
         'venue',
-        'title_image'
+        'title_image',
     )
     
 

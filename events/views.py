@@ -42,7 +42,6 @@ def list_events(request):
             current_events = events.filter(last_date__gte=now)
             # Filter past events
             past_events = events.exclude(last_date__gte=now)
-
             event_type = ShowType.objects.get(name=event_type)
 
     context = {
