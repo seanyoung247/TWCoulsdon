@@ -4,7 +4,7 @@ from django.db.models import Min, Max
 from datetime import datetime
 from django.utils import timezone
 from django.db.models.functions import Coalesce
-from .models import Event, ShowType, EventDate
+from .models import Event, ShowType, EventDate, Image
 
 
 # Event list page view 
@@ -58,12 +58,14 @@ def list_events(request):
 def event_details(request, event_slug):
     event = get_object_or_404(Event, slug=event_slug)
     dates = EventDate.objects.filter(event=event)
+    images = Image.objects.filter(event=event)
     
     context = {
         "event": event,
         "dates": dates,
         "first_date": dates.aggregate(min_date=Min('date'))['min_date'],
         "last_date": dates.aggregate(max_date=Max('date'))['max_date'],
+        "images": images,
     }
     return render(request, 'events/event_details.html', context)
 

@@ -40,6 +40,9 @@ hr {
   background-image: linear-gradient(to right, rgba(20,22,26, 0), rgba(20,22,26, 0.75), rgba(20,22,26, 0));
 }
 
+/*
+ * Custom components
+ */
 .btn-twc-light {
   color: var(--dark-color);
   background-color: var(--light-color);
@@ -89,6 +92,53 @@ hr {
 .btn:focus, .btn:active {
   border-color: var(--accent-color) !important;
   box-shadow: 0 0 0 0.2rem rgba(var(--accent-color-rgb),0.5) !important;
+}
+
+/*
+ * Horizontal item scroller
+ */
+.scroller,
+.col.scroller {
+  position: relative;
+  overflow: hidden;
+  padding: 0 25px;
+}
+
+ul.scroller-items {
+  list-style-type: none;
+  overflow: hidden; /*scroll;*/
+  white-space: nowrap;
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+}
+
+li.scroll-item {
+  font-size: 1rem;
+  display: inline-block;
+  text-align: center;
+  padding: 10px;
+}
+
+.scroll-item-bookend {
+  font-size: 1rem;
+  display: inline-block;
+  text-align: center;
+  width: 25px;
+}
+
+.scroller .scroll-left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.scroller .scroll-right {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
 }
 
 /*
@@ -378,14 +428,18 @@ hr {
   margin-bottom: 20px;
   border-bottom: 1px solid var(--dark-color);
 }
-
 .event-panel:first-child {
   border-top: 1px solid var(--dark-color);
+}
+.event-panel:last-child {
+  border-bottom: none;
 }
 
 .event-date {
   text-align: center;
 }
+
+
 
 /*
  * Media Queries

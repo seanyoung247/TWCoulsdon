@@ -21,6 +21,7 @@ class ShowType(models.Model):
 class EventDate(models.Model):
     event = models.ForeignKey('Event', on_delete=models.CASCADE)
     date = models.DateTimeField()
+    #TODO: Add Capacity
     
     def __str__(self):
         return self.date.strftime('%d/%m/%Y, %H:%M')

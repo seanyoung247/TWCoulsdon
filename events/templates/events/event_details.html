@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% load event_tools %}
 
 {% block content %}
@@ -64,9 +65,15 @@
   </div>
   
   <div class="row event-gallery">
-    
+    <div class="col-12">
+      {% include 'includes/horizontal_scroller.html' with items=images template='image_tile.html'%}
+    </div>
   </div>
   
 </section>
 
+{% endblock %}
+
+{% block postloadjs %}
+  <script type="text/javascript" src="/static/js/scroller.js"></script>
 {% endblock %}
