@@ -1,5 +1,5 @@
-
 {% extends "base.html" %}
+{% load event_tools %}
 
 {% block content %}
 
@@ -18,6 +18,7 @@
   </div>
   
   <div class="row event-content">
+    {# This side panel should only be shown for live performances #}
     <div class="col-12 col-md-4 order-md-2 event-side-panel">
       
       {# Venue Information #}
@@ -28,23 +29,32 @@
       </div>
       
       {# Event dates #}
-      <div class="event-panel">
-        <h5 class="event-date">{{ first_date|date:"d/m/Y" }} to {{ last_date|date:"d/m/Y" }}</h5>
-      </div>
+      {% if first_date %}
+        <div class="event-panel">
+          <h5 class="event-date">
+            {{ first_date|date:"d/m/Y" }}
+            {% if first_date != last_date %}
+              to {{ last_date|date:"d/m/Y" }}
+            {% endif %}
+          </h5>
+        </div>
+      {% endif %}
       
+      {# No tickets for past events #}
+      {% if last_date|in_the_future %}
       <!-- TODO: Only show this if event is in the future and has available tickets -->
-      {# Ticket information #}
-      <div class="event-panel">
-        <h5>Tickets</h5>
-        List of prices/ticket types here
-        i.e.
-        <ul>
-          <li>Adult: £10</li>
-          <li>Concession: £7.50</li>
-        </ul>
-        <a class="btn btn-twc-light w-100" href="#">Buy Tickets</a>
-      </div>
-      <!-- /TODO --> 
+        {# Ticket information #}
+        <div class="event-panel">
+          <h5>Tickets</h5>
+          List of prices/ticket types here
+          i.e.
+          <ul>
+            <li>Adult: £10</li>
+            <li>Concession: £7.50</li>
+          </ul>
+          <a class="btn btn-twc-light w-100" href="#">Buy Tickets</a>
+        </div>
+      {% endif %}
     </div>
     
     {# Event description #}
