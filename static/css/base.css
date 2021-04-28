@@ -58,6 +58,13 @@ hr {
   font-family: 'Anton', sans-serif;
 }
 
+.form-control:focus,
+.form-control:active,
+.btn:focus, .btn:active {
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 0.2rem rgba(var(--accent-color-rgb),0.5) !important;
+}
+
 /*
  * Page header and menubar 
  */
