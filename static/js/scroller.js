@@ -36,3 +36,5 @@ $( ".scroller .scroll-right" ).click(function(event) {
   }
   scroller.animate({scrollLeft: scrollPosition}, 500);
 });
+
+// TODO: Add scroll to item function

@@ -1,7 +1,12 @@
 
 {% if item %}
 
-  <a href="#" class="gallery-image-link">
+  <a 
+    class="gallery-image-link" 
+    data-target="#gallery-modal" 
+    data-image="{{ item.image.url }}"
+    data-description="{{ item.name }}">
+      
     <img class="gallery-image-tile" src="{{ item.image.url }}" alt="">
   </a>
 

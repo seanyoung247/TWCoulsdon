@@ -16,10 +16,7 @@ def list_events(request):
     past_events = None
     event_type = None
     now = timezone.now()
-    zero_date=datetime(1, 1, 1, 0, 0)
-    
-    if not events:
-        print("null")
+    zero_date=timezone.make_aware(datetime(1, 1, 1, 0, 0))
     
     if request.GET:
         if 'type' in request.GET:
@@ -56,15 +53,21 @@ def list_events(request):
 
 # Event page view
 def event_details(request, event_slug):
+    # Get the event
     event = get_object_or_404(Event, slug=event_slug)
-    dates = EventDate.objects.filter(event=event)
+    # Gets the first and last dates associated with this event
+    dates = EventDate.objects.filter(event=event).aggregate(
+        min_date=Min('date'), max_date=Max('date')
+    )
+    # Get this event's gallery
     images = Image.objects.filter(event=event)
+    
+    print(dates)
     
     context = {
         "event": event,
-        "dates": dates,
-        "first_date": dates.aggregate(min_date=Min('date'))['min_date'],
-        "last_date": dates.aggregate(max_date=Max('date'))['max_date'],
+        "first_date": dates['min_date'],
+        "last_date": dates['max_date'],
         "images": images,
     }
     return render(request, 'events/event_details.html', context)

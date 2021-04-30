@@ -64,16 +64,55 @@
     </div>
   </div>
   
-  <div class="row event-gallery">
-    <div class="col-12">
-      {% include 'includes/horizontal_scroller.html' with items=images template='image_tile.html' buttons='gallery_btns.html' %}
+  {# Event Gallery #}
+  {% if images %}
+    <div class="row event-gallery">
+      <div class="col-12">
+        {% with items=images template='image_tile.html' buttons='gallery_btns.html' %}
+          {% include 'includes/horizontal_scroller.html' %}
+        {% endwith %}
+      </div>
     </div>
-  </div>
+  {% endif %}
   
 </section>
 
+{% if images %}
+  <div id="gallery-modal" 
+      class="modal"  
+      tabindex="-1" 
+      aria-labelledby="gallery-image-title"
+      aria-hidden="true">
+      
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content gallery-image">
+        <button type="button" class="close gallery-image-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <img src="{{ event.title_image.image.url }}" alt="">
+        <h5 id="gallery-image-title">{{ event.title_image.name }}</h5>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
 {% endblock %}
 
-{% block postloadjs %}
+{% block script %}
+  {{ block.super }}
   <script type="text/javascript" src="/static/js/scroller.js"></script>
+  <script type="text/javascript">  
+    $('.gallery-image-link').click(function(){
+      let imageModal = $( $( this ).data( "target" ) );
+
+      imageModal.find("img").attr("src", $( this ).data( "image" ));
+      imageModal.find("#gallery-image-title").text($( this ).data( "description" ));
+      
+      imageModal.modal();
+    });
+  </script>
 {% endblock %}
+
+
+
+

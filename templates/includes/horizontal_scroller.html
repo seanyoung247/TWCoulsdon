@@ -28,7 +28,7 @@
         
       {% for item in items %}
         <li class="scroll-item">
-          {% include 'includes/'|add:template with item=item %}
+          {% include 'includes/'|add:template with item=item only %}
         </li>
       {% endfor %}
         
