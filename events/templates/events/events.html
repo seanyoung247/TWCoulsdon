@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-  {{ block.super }} - {{ event_type.display_name }}s
+  {{ block.super }}{% if event_type %} - {{ event_type.display_name }}s{% endif %}
 {% endblock %}
 
 {% block content %}

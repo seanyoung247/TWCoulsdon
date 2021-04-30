@@ -541,14 +541,14 @@ hr {
   position: fixed;
   right: 0;
   top: 50%;
-  transform: translateY(50%);
+  transform: translateY(-50%);
 }
 
 #gallery-prev {
   position: fixed;
   left: 0;
   top: 50%;
-  transform: translateY(50%);
+  transform: translateY(-50%);
 }
 
 #gallery-image-title {
