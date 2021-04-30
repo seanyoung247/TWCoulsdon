@@ -442,6 +442,13 @@ hr {
   text-align: center;
 }
 
+.event-video-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
 .gallery-scroll-btn {
   height: 100%;
   border-radius: 0;

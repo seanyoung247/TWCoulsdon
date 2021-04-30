@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load event_tools %}
+{% load embed_video_tags %}
 
 {% block title %}
   {{ block.super }} - {{ event.title }}
@@ -25,13 +26,17 @@
   
   {# Event media content #}
   {% if event.content %}
-    
+    <div class="row">
+      <div class="col-12 event-video-panel">
+        {% video event.content 'large' %}
+      </div>
+    </div>
   {% endif %}
   
   {# Event main content #}
   <div class="row event-content">
     {# This side panel should only be shown for live performances #}
-    {% if event.type == 'show' %}
+    {% if event.type.name == 'show' %}
       <div class="col-12 col-md-4 order-md-2 event-side-panel">
         
         {# Venue Information #}
