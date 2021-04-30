@@ -62,8 +62,6 @@ def event_details(request, event_slug):
     # Get this event's gallery
     images = Image.objects.filter(event=event)
     
-    print(dates)
-    
     context = {
         "event": event,
         "first_date": dates['min_date'],

@@ -2,6 +2,10 @@
 {% load static %}
 {% load event_tools %}
 
+{% block title %}
+  {{ block.super }} - {{ event.title }}
+{% endblock %}
+
 {% block content %}
 
 <section class="container-fluid">
@@ -73,8 +77,7 @@
         {% endwith %}
       </div>
     </div>
-  {% endif %}
-  
+  {% endif %}  
 </section>
 
 {% if images %}
@@ -84,12 +87,41 @@
       aria-labelledby="gallery-image-title"
       aria-hidden="true">
       
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content gallery-image">
+        
+        {# Close Button #}
         <button type="button" class="close gallery-image-close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true">
+            <svg width="10" height="10" version="1.1" viewBox="0 0 2.6458 2.6458" xmlns="http://www.w3.org/2000/svg">
+             <path d="m0 0.45634 0.86588 0.86456-0.86587 0.86456 0.45704 0.46037 
+                      0.86587-0.86863 0.86588 0.86456 0.45704-0.45634-0.86588-0.86456
+                      0.86588-0.86457-0.45704-0.45629-0.86588 0.86456-0.86588-0.86456z"/>
+            </svg>
+          </span>
         </button>
-        <img src="{{ event.title_image.image.url }}" alt="">
+        
+        {# Previous image button #}
+        <button id="gallery-next" class="btn gallery-btn">
+          <span aria-hidden="true">
+            <svg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'>
+              <path d='M5.25 0l-4 4 4 4 1.5-1.5L4.25 4l2.5-2.5L5.25 0z'/>
+            </svg>
+          </span>
+          <span class="sr-only">Previous</span>
+        </button>
+        
+        {# Next image button #}
+        <button id="gallery-prev" class="btn gallery-btn">
+          <span aria-hidden="true">
+            <svg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'>
+              <path d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/>
+            </svg>
+          </span>
+          <span class="sr-only">Next</span>
+        </button>
+        
+        <img src="{{ event.title_image.image.url }}" alt="{{ event.title_image.name }}">
         <h5 id="gallery-image-title">{{ event.title_image.name }}</h5>
       </div>
     </div>
@@ -101,13 +133,35 @@
 {% block script %}
   {{ block.super }}
   <script type="text/javascript" src="/static/js/scroller.js"></script>
-  <script type="text/javascript">  
+  <script type="text/javascript">
+    
+    function getPreviousItem(current) {
+      return current.parent('.scroll-item').prev().children('.gallery-image-link');
+    }
+    
+    function getNextItem(current) {
+      return current.parent('.scroll-item').next().children('.gallery-image-link');
+    }
+    
+    $( '#gallery-next' ).click(function() {
+      $( this ).data('target').click();
+    });
+    
+    $( '#gallery-prev' ).click(function() {
+      $( this ).data('target').click();
+    });
+    
     $('.gallery-image-link').click(function(){
-      let imageModal = $( $( this ).data( "target" ) );
-
-      imageModal.find("img").attr("src", $( this ).data( "image" ));
-      imageModal.find("#gallery-image-title").text($( this ).data( "description" ));
-      
+      let current = $( this );
+      // Get the modal for displaying the image
+      let imageModal = $( current.data( "target" ) );
+      // Set the image and caption
+      imageModal.find('img').attr('src', current.data( 'image' )).attr('alt', $( this ).data( 'description' ));
+      imageModal.find('#gallery-image-title').text(current.data( 'description' ));
+      // Set the previous and next links
+      $( '#gallery-next' ).data( 'target', getPreviousItem(current));
+      $( '#gallery-prev' ).data( 'target', getNextItem(current));
+      // Show the modal
       imageModal.modal();
     });
   </script>
