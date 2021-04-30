@@ -7,6 +7,7 @@ from django_thumbs.fields import ImageThumbsField
 from django.utils.text import slugify
 import itertools
 
+
 class ShowType(models.Model):
     name = models.CharField(max_length=50)
     display_name = models.CharField(max_length=50, null=True, blank=True)
@@ -57,7 +58,10 @@ class Event(models.Model):
     post_date = models.DateTimeField(auto_now_add=True)
 
     def __generate_slug(self):
-        # Based on code from: https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/
+        """ Generates a URL slug from the event title """
+        # Based on code from: 
+        # https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/
+        
         # Generate a candidate for the slug
         max_length = self._meta.get_field('slug').max_length
         value = self.title
@@ -78,8 +82,8 @@ class Event(models.Model):
         if not self.pk:
             self.__generate_slug()
         
-        super().save(*args, **kwargs)         
-        
+        super().save(*args, **kwargs)
+    
     
 class Image(models.Model):
     

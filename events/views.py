@@ -53,13 +53,14 @@ def list_events(request):
 
 # Event page view
 def event_details(request, event_slug):
+    """ A view to show a single event """
     # Get the event
     event = get_object_or_404(Event, slug=event_slug)
     # Gets the first and last dates associated with this event
     dates = EventDate.objects.filter(event=event).aggregate(
         min_date=Min('date'), max_date=Max('date')
     )
-    # Get this event's gallery
+    # Get this event's gallery images
     images = Image.objects.filter(event=event)
     
     context = {
