@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'django_thumbs',
+    
+    'easy_thumbnails',
     'embed_video',
     
     'allauth',
@@ -175,6 +176,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+THUMBNAIL_ALIASES = {
+    '': {
+        'gallery': {'size': (125, 125), 'crop': True},
+    },
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

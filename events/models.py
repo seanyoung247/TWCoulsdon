@@ -3,7 +3,7 @@ from django.db import models
 from datetime import datetime
 from tinymce.models import HTMLField
 from django_countries.fields import CountryField
-from django_thumbs.fields import ImageThumbsField
+from easy_thumbnails.fields import ThumbnailerImageField
 from embed_video.fields import EmbedVideoField
 from django.utils.text import slugify
 import itertools
@@ -86,16 +86,11 @@ class Event(models.Model):
         super().save(*args, **kwargs)
     
     
-class Image(models.Model):
-    
-    SIZES=(
-        {'code': 'thumb', 'wxh': '125x125', 'resize': 'crop'},
-    )
-    
+class Image(models.Model):    
     event = models.ForeignKey('Event', null=True, blank=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=256, null=True, blank=True)
-    image = ImageThumbsField(null=True, blank=True, sizes=SIZES)
+    image = ThumbnailerImageField(null=True, blank=True)
     
     def __str__(self):
         return self.name
