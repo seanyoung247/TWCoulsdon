@@ -4,6 +4,7 @@ from datetime import datetime
 from tinymce.models import HTMLField
 from django_countries.fields import CountryField
 from django_thumbs.fields import ImageThumbsField
+from embed_video.fields import EmbedVideoField
 from django.utils.text import slugify
 import itertools
 
@@ -54,7 +55,7 @@ class Event(models.Model):
     type = models.ForeignKey('ShowType', null=True, blank=True, on_delete=models.SET_NULL)
     venue = models.ForeignKey('Venue', null=True, blank=True, on_delete=models.SET_NULL)
     title_image = models.ForeignKey('Image', related_name='+', null=True, blank=True, on_delete=models.SET_NULL)
-    content = models.URLField(null=True, blank=True)
+    content = EmbedVideoField(null=True, blank=True)
     post_date = models.DateTimeField(auto_now_add=True)
 
     def __generate_slug(self):
