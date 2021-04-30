@@ -529,23 +529,24 @@ hr {
   stroke: var(--dark-color);
   stroke-width: 0.3;
 }
-.gallery-btn:hover svg {
+.gallery-btn:hover:not(:disabled) svg {
   fill: var(--brand-color);
 }
-.gallery-btn:focus {
+.gallery-btn:focus,
+.gallery-btn:active {
   box-shadow: none;
 }
 
 #gallery-next {
   position: fixed;
-  left: 0;
+  right: 0;
   top: 50%;
   transform: translateY(50%);
 }
 
 #gallery-prev {
   position: fixed;
-  right: 0;
+  left: 0;
   top: 50%;
   transform: translateY(50%);
 }
