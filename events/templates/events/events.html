@@ -7,19 +7,15 @@
 {% block content %}
   <div id="header-spacer"></div>
   <section class="container-fluid">
-    {% if current_events or past_events %}
+    {% if showcase_events %}
       <div class="row">
-        {% for event in current_events %}
+        {% for event in showcase_events %}
           {% include 'includes/event_card.html' with showcase=True %}
         {% endfor %}
         <hr class="w-100"/>
       </div>
-      <div class="row no-gutters event-list">
-        {% for event in past_events %}
-          {% include 'includes/event_card.html' with showcase=False %}
-        {% endfor %}
-      </div>
-    {% elif events  %}
+    {% endif %}
+    {% if events  %}
       <div class="row no-gutters event-list">
         {% for event in events %}
           {% include 'includes/event_card.html' with showcase=False %}

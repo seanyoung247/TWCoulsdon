@@ -176,6 +176,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Media image thumbnail sizes.
 THUMBNAIL_ALIASES = {
     '': {
         'gallery': {'size': (125, 125), 'crop': True},

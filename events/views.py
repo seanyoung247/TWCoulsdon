@@ -14,8 +14,7 @@ def list_events(request):
     """ A view to show all events, and allows sorting and searching of queries """
 
     events = Event.objects.all()
-    current_events = None
-    past_events = None
+    showcase_events = None
     event_type = None
     now = timezone.now()
     zero_date=timezone.make_aware(datetime(1, 1, 1, 0, 0))
@@ -39,9 +38,9 @@ def list_events(request):
                 ).order_by('-last_date', '-first_date', '-post_date')
             )
             # Filter current events
-            current_events = events.filter(last_date__gte=now)
+            showcase_events = events.filter(last_date__gte=now)
             # Filter past events
-            past_events = events.exclude(last_date__gte=now)
+            events = events.exclude(last_date__gte=now)
             event_type = ShowType.objects.get(name=event_type)
         
         # Search for dates greater than
@@ -75,8 +74,7 @@ def list_events(request):
 
     context = {
         'event_type': event_type,
-        'current_events': current_events,
-        'past_events': past_events,
+        'showcase_events': showcase_events,
         'events': events,
     }
     
