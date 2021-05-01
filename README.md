@@ -97,7 +97,7 @@ TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics grou
       <td>US302</td>
       <td>Audience</td>
       <td>Search by date</td>
-      <td>Find a show or event on a specific date</td>
+      <td>Find a show or event occurring within a range of dates</td>
     </tr>
     <tr>
       <td>US303</td>

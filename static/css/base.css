@@ -322,9 +322,9 @@ hr {
 .event-showcase-card .jumbotron {
   color: var(--light-color);
   text-shadow: 1px 1px 2px var(--dark-color);
-  background-color: transparent;
+  background-color: rgba(var(--dark-color-rgb),0.8);
   width: 100%;
-  padding: 0 2rem;
+  padding: 5px 1rem;
   margin-bottom: 0;
 }
 
@@ -528,6 +528,7 @@ hr {
 .gallery-btn {
   border-radius: 0;
   border: none;
+  opacity: 1;
 }
 .gallery-btn svg {
   width: 35px;
@@ -535,6 +536,9 @@ hr {
   fill: var(--light-color);
   stroke: var(--dark-color);
   stroke-width: 0.3;
+}
+.btn.gallery-btn:disabled {
+  opacity: 0; 
 }
 .gallery-btn:hover:not(:disabled) svg {
   fill: var(--brand-color);

@@ -21,6 +21,7 @@ def list_events(request):
     zero_date=timezone.make_aware(datetime(1, 1, 1, 0, 0))
     
     if request.GET:
+        # Search on event type
         if 'type' in request.GET:
             event_type = request.GET['type']
 
@@ -42,16 +43,33 @@ def list_events(request):
             # Filter past events
             past_events = events.exclude(last_date__gte=now)
             event_type = ShowType.objects.get(name=event_type)
-            
+        
+        # Search for dates greater than
+        if 'fdate' in request.GET:
+            query = timezone.make_aware(datetime.strptime(request.GET['fdate'], '%Y-%m-%d'))
+            # Get events with dates later than fdate
+            events = events.annotate(has_date=Max(models.Case(
+                models.When(eventdate__date__gte=query, then=True),
+                output_field=models.BooleanField(),
+            ))).filter(has_date=True)
+        
+        # Search for dates less than
+        if 'ldate' in request.GET:
+            query = timezone.make_aware(datetime.strptime(request.GET['ldate'], '%Y-%m-%d'))
+            # Get events with dates earlier than ldate
+            events = events.annotate(has_date=Max(models.Case(
+                models.When(eventdate__date__lt=query, then=True),
+                output_field=models.BooleanField(),
+            ))).filter(has_date=True)
+        
+        # Text search
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
                 messages.error(request, "You didn't enter any search criteria!")
                 return redirect(reverse('events'))
-            
-            print(query)
+
             queries = Q(title__icontains=query) | Q(description__icontains=query)
-            print(queries)
             events = events.filter(queries)
             
 
