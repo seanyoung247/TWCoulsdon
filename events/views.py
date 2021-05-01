@@ -122,3 +122,5 @@ def event_details(request, event_slug):
     return render(request, 'events/event_details.html', context)
 
 # Venue page view
+def venue_details(request, venue_id):
+    return(request, 'events/venue_details.html')
