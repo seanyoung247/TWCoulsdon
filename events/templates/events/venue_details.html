@@ -2,9 +2,40 @@
 {% load static %}
 
 {% block title %}
-{#  {{ block.super }} - {{ venue.title }} #}
+  {{ block.super }} - {{ venue.title }}
 {% endblock %}
 
 {% block content %}
-  Nothing here yet!
+  <div id="header-spacer"></div>
+  <div class="container-fluid venue-content">
+    {# Venue quick title information #}
+    <div class="row">
+      <h1 class="col-12 section-header">{{ venue.name }}</h1>
+      <p class="col-12">{{ venue.phone_number }}</p>
+      <p class="col-12">
+        {{ venue.street_address1 }},
+        {{ venue.street_address2 }},
+        {{ venue.town_or_city }},
+        {{ venue.county }},
+        {{ venue.postcode }}
+      </p>
+    </div>
+    <div class="row">
+      {# Venue location map #}
+      <div class="col-12 col-md-6 order-md-2">
+
+      </div>
+      {# Venue image #}
+      <div class="col-12 col-md-6 order-md-1">
+        <img class="venue-image" src="{{ venue.image.url }}" alt="">
+      </div>
+    </div>
+    {# Venue description #}
+    <div class="row">
+      <div class="col-12">
+        {{ venue.description }}
+      </div>
+    </div>
+  </div>
+
 {% endblock %}

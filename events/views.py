@@ -8,7 +8,7 @@ from django.db.models import Min, Max
 
 from django.utils import timezone
 from django.db.models.functions import Coalesce
-from .models import Event, ShowType, EventDate, Image
+from .models import Event, ShowType, EventDate, Image, Venue
 
 
 # Event list page view
@@ -103,7 +103,7 @@ def list_events(request):
 
 # Event page view
 def event_details(request, event_slug):
-    """ A view to show a single event """
+    """ A view to show a single event page """
     # Get the event
     event = get_object_or_404(Event, slug=event_slug)
     # Gets the first and last dates associated with this event
@@ -123,4 +123,11 @@ def event_details(request, event_slug):
 
 # Venue page view
 def venue_details(request, venue_id):
-    return render(request, 'events/venue_details.html')
+    """ A view to show a single venue page """
+    venue = get_object_or_404(Venue, id=venue_id)
+
+    context = {
+        'venue': venue,
+    }
+
+    return render(request, 'events/venue_details.html', context)

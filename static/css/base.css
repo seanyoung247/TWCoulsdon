@@ -40,6 +40,11 @@ hr {
   background-image: linear-gradient(to right, rgba(20,22,26, 0), rgba(20,22,26, 0.75), rgba(20,22,26, 0));
 }
 
+#header-spacer {
+  padding-top: var(--header-mobile-height);
+  background-color: var(--dark-color);/*rgba(var(--dark-color-rgb), 0.8);*/
+}
+
 /*
  * Custom components
  */
@@ -142,7 +147,7 @@ hr {
 }
 
 /*
- * Page header and menubar 
+ * Page header and menubar
  */
 .nav-wrapper {
   position: absolute;
@@ -291,11 +296,6 @@ hr {
 /*
  * Event List
  */
-#header-spacer {
-  padding-top: var(--header-mobile-height);
-  background-color: var(--dark-color);/*rgba(var(--dark-color-rgb), 0.8);*/
-}
-
 .event-list {
   margin: 10px;
 }
@@ -394,7 +394,7 @@ hr {
 }
 
 .event-header-text {
-  background-color: rgba(var(--dark-color-rgb),0.9); 
+  background-color: rgba(var(--dark-color-rgb),0.9);
   align-self: center;
   max-width: 500px;
   padding: 50px;
@@ -423,7 +423,7 @@ hr {
   padding: 15px;
   background-color: var(--light-color);
 }
-  
+
 .event-side-panel {}
 
 .event-panel {
@@ -455,14 +455,14 @@ hr {
   border: none;
 }
 .gallery-scroll-btn:first-of-type {
-  background: linear-gradient(90deg, 
+  background: linear-gradient(90deg,
     rgba(var(--background-color-rgb),1) 45%,
     rgba(var(--background-color-rgb),0) 95%);
 }
 .gallery-scroll-btn:last-of-type {
-  background: linear-gradient(270deg, 
+  background: linear-gradient(270deg,
     rgba(var(--background-color-rgb),1) 45%,
-    rgba(var(--background-color-rgb),0) 95%);  
+    rgba(var(--background-color-rgb),0) 95%);
 }
 
 .gallery-scroll-btn svg {
@@ -538,7 +538,7 @@ hr {
   stroke-width: 0.3;
 }
 .btn.gallery-btn:disabled {
-  opacity: 0; 
+  opacity: 0;
 }
 .gallery-btn:hover:not(:disabled) svg {
   fill: var(--brand-color);
@@ -569,8 +569,20 @@ hr {
 }
 
 /*
+ * Venue Page
+ */
+.venue-content {
+  max-width: 1500px;
+  justify-content: center;
+  margin-top: 25px;
+}
+.venue-image {
+  width: 100%;
+}
+
+/*
  * Media Queries
- */ 
+ */
  /* Extra small screens (Phones) < 576px */
 
  /* Small screens (large phones, small tablets) > 576px */
