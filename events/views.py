@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.contrib import messages
 from django.db import models
+from django.db.models import Q
 from django.db.models import Min, Max
 from datetime import datetime
 from django.utils import timezone
@@ -40,6 +42,18 @@ def list_events(request):
             # Filter past events
             past_events = events.exclude(last_date__gte=now)
             event_type = ShowType.objects.get(name=event_type)
+            
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                messages.error(request, "You didn't enter any search criteria!")
+                return redirect(reverse('events'))
+            
+            print(query)
+            queries = Q(title__icontains=query) | Q(description__icontains=query)
+            print(queries)
+            events = events.filter(queries)
+            
 
     context = {
         'event_type': event_type,

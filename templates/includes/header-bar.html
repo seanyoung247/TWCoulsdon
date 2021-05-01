@@ -13,41 +13,11 @@
         </g>    
       </svg>
     </button>
-    
-    <form class="form-inline nav-search-form">
-      <div class="input-group mb-3">
-        <input class="form-control nav-search" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-search" type="submit">
-            <svg class="search-icon" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-              <g><g>
-                <circle cx="80" cy="80" r="60"/>
-                <path d="m125 125 60 60"/>
-              </g></g>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </form>
+    {% include 'includes/search_bar.html' %}
   </nav>
   <nav class="navbar navbar-expand-lg">
     <div class="navbar-collapse collapse navbar-center" id="navbar-menu">
-      <form class="form-inline nav-search-form">
-        <div class="input-group mb-3">
-          <input class="form-control nav-search" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-search" type="submit">
-              <svg class="search-icon" version="1.1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <g><g>
-                  <circle cx="80" cy="80" r="60"/>
-                  <path d="m125 125 60 60"/>
-                </g></g>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </form>
-      
+      {% include 'includes/search_bar.html' %}
       <ul class="navbar-nav">
         <li class="nav-item active">
           <a class="nav-link" href="{% url 'events' %}?type=show">Productions</a>
