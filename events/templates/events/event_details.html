@@ -44,7 +44,7 @@
           <div class="event-panel">
             <h4>{{ event.venue.name }}</h4>
             <p>{{ event.venue.description|truncatechars:256 }}</p>
-            <a class="btn btn-twc-light w-100" href="#">Venue Information</a>
+            <a class="btn btn-twc-light w-100" href="{% url 'venue_details' event.venue.id %}">Venue Information</a>
           </div>
         {% endif %}
         
