@@ -25,7 +25,6 @@ class EventDate(models.Model):
     """ Defines an individual Event performance date """
     event = models.ForeignKey('Event', on_delete=models.CASCADE)
     date = models.DateTimeField()
-    #TODO: Add Capacity
 
     def __str__(self):
         return self.date.strftime('%d/%m/%Y, %H:%M')
@@ -44,6 +43,7 @@ class Venue(models.Model):
     county = models.CharField(max_length=80, null=True, blank=True)
     postcode = models.CharField(max_length=20, null=True, blank=True)
     country = CountryField(blank_label='Country *', null=True, blank=True)
+    capacity = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
