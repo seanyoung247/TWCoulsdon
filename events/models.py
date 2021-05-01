@@ -1,5 +1,4 @@
 from django.db import models
-
 from datetime import datetime
 from tinymce.models import HTMLField
 from django_countries.fields import CountryField
