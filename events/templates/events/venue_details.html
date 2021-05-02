@@ -5,6 +5,11 @@
   {{ block.super }} - {{ venue.title }}
 {% endblock %}
 
+{% block css %}
+  {{ block.super }}
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+{% endblock %}
+
 {% block content %}
   <div id="header-spacer"></div>
   <div class="container-fluid venue-content">
@@ -23,7 +28,9 @@
     <div class="row">
       {# Venue location map #}
       <div class="col-12 col-md-6 order-md-2">
-
+        <div class="square-spacer">
+          <div id="map" class="map"></div>
+        </div>
       </div>
       {# Venue image #}
       <div class="col-12 col-md-6 order-md-1">
@@ -38,4 +45,22 @@
     </div>
   </div>
 
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script type="text/javascript">
+    var map = new ol.Map({
+      target: 'map',
+      layers: [
+      new ol.layer.Tile({
+        source: new ol.source.OSM()
+      })
+      ],
+      view: new ol.View({
+        center: ol.proj.fromLonLat([37.41, 8.82]),
+        zoom: 4
+      })
+    });
+  </script>
 {% endblock %}
