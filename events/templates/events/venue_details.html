@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block css %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css">
   {{ block.super }}
-  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -16,8 +16,9 @@
     {# Venue quick title information #}
     <div class="row">
       <h1 class="col-12 section-header">{{ venue.name }}</h1>
-      <p class="col-12">{{ venue.phone_number }}</p>
+      <p class="col-12"> Phone number: {{ venue.phone_number }}</p>
       <p class="col-12">
+        Address:
         {{ venue.street_address1 }},
         {{ venue.street_address2 }},
         {{ venue.town_or_city }},
@@ -25,11 +26,14 @@
         {{ venue.postcode }}
       </p>
     </div>
-    <div class="row">
+    <div class="row no-gutters">
       {# Venue location map #}
       <div class="col-12 col-md-6 order-md-2">
         <div class="square-spacer">
-          <div id="map" class="map"></div>
+          <div id="map" class="map">
+            <input id="longitude" type="hidden" value="-0.147723">
+            <input id="latitude" type="hidden" value="51.320051">
+          </div>
         </div>
       </div>
       {# Venue image #}
@@ -49,18 +53,48 @@
 
 {% block scripts %}
   {{ block.super }}
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
   <script type="text/javascript">
+    var mapPos = [parseFloat($('#longitude').val()), parseFloat($('#latitude').val())];
+
+    var attribution = new ol.control.Attribution({
+      collapsible: true
+    });
+
+    ol.Map.prototype.addMarker = function(lonlat, icon) {
+      var marker = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat(lonlat))
+      });
+      marker.setStyle(
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            crossOrigin: 'anonymous',
+            src: icon
+          })
+        })
+      );
+      var layer = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          features: [marker]
+        })
+      });
+      this.addLayer(layer);
+      return marker;
+    }
+
     var map = new ol.Map({
+      controls: ol.control.defaults({attribution: false}).extend([attribution]),
       target: 'map',
       layers: [
-      new ol.layer.Tile({
-        source: new ol.source.OSM()
-      })
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        }),
       ],
       view: new ol.View({
-        center: ol.proj.fromLonLat([37.41, 8.82]),
-        zoom: 4
+        center: ol.proj.fromLonLat(mapPos),
+        zoom: 17
       })
     });
+    map.addMarker(mapPos, '/static/img/pin.svg');
   </script>
 {% endblock %}
