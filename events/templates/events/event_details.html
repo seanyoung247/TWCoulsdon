@@ -10,9 +10,14 @@
 {% block content %}
 
 <section class="container-fluid">
-  
+
   {# Event header #}
-  <div class="row event-header" style="--background-image: url('{{event.title_image.image.url}}')">
+  <div class="row event-header"
+    {% if event.title_image.image %}
+      style="--background-image: url('{{event.title_image.image.url}}')"
+    {% else %}
+      style="--background-image: url('{{ MEDIA_URL }}noimage.png')"
+    {% endif %}>
     <div class="event-header-text">
       <h1 class="event-title">{{ event.title }}</h1>
       {% if event.author %}
@@ -23,7 +28,7 @@
       {% endif %}
     </div>
   </div>
-  
+
   {# Event media content #}
   {% if event.content %}
     <div class="row">
@@ -32,13 +37,13 @@
       </div>
     </div>
   {% endif %}
-  
+
   {# Event main content #}
   <div class="row event-content">
     {# This side panel should only be shown for live performances #}
     {% if event.type.name == 'show' %}
       <div class="col-12 col-md-4 order-md-2 event-side-panel">
-        
+
         {# Venue Information #}
         {% if event.venue %}
           <div class="event-panel">
@@ -47,7 +52,7 @@
             <a class="btn btn-twc-light w-100" href="{% url 'venue_details' event.venue.id %}">Venue Information</a>
           </div>
         {% endif %}
-        
+
         {# Event dates #}
         {% if first_date %}
           <div class="event-panel">
@@ -59,7 +64,7 @@
             </h5>
           </div>
         {% endif %}
-        
+
         {# No tickets for past events #}
         {% if last_date|in_the_future %}
         <!-- TODO: Only show this if event is in the future and has available tickets -->
@@ -89,7 +94,7 @@
       </div>
     {% endif %}
   </div>
-  
+
   {# Event Gallery #}
   {% if images %}
     <div class="row event-gallery">
@@ -100,30 +105,30 @@
         {% endwith %}
       </div>
     </div>
-  {% endif %}  
+  {% endif %}
 </section>
 
 {% if images %}
-  <div id="gallery-modal" 
-      class="modal"  
-      tabindex="-1" 
+  <div id="gallery-modal"
+      class="modal"
+      tabindex="-1"
       aria-labelledby="gallery-image-title"
       aria-hidden="true">
-      
+
     <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content gallery-image">
-        
+
         {# Close Button #}
         <button type="button" class="close gallery-image-close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">
             <svg width="10" height="10" version="1.1" viewBox="0 0 2.6458 2.6458" xmlns="http://www.w3.org/2000/svg">
-             <path d="m0 0.45634 0.86588 0.86456-0.86587 0.86456 0.45704 0.46037 
+             <path d="m0 0.45634 0.86588 0.86456-0.86587 0.86456 0.45704 0.46037
                       0.86587-0.86863 0.86588 0.86456 0.45704-0.45634-0.86588-0.86456
                       0.86588-0.86457-0.45704-0.45629-0.86588 0.86456-0.86588-0.86456z"/>
             </svg>
           </span>
         </button>
-        
+
         {# Previous image button #}
         <button id="gallery-prev" class="btn gallery-btn">
           <span aria-hidden="true">
@@ -133,7 +138,7 @@
           </span>
           <span class="sr-only">Previous</span>
         </button>
-        
+
         {# Next image button #}
         <button id="gallery-next" class="btn gallery-btn">
           <span aria-hidden="true">
@@ -143,7 +148,7 @@
           </span>
           <span class="sr-only">Next</span>
         </button>
-        
+
         <img src="{{ event.title_image.image.url }}" alt="{{ event.title_image.name }}">
         <h5 id="gallery-image-title">{{ event.title_image.name }}</h5>
       </div>
