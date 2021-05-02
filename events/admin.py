@@ -35,6 +35,8 @@ class VenueAdmin(admin.ModelAdmin):
         'county',
         'postcode',
         'country',
+        'longitude',
+        'latitude',
     )
 
 

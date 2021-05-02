@@ -43,6 +43,8 @@ class Venue(models.Model):
     county = models.CharField(max_length=80, null=True, blank=True)
     postcode = models.CharField(max_length=20, null=True, blank=True)
     country = CountryField(blank_label='Country *', null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     capacity = models.IntegerField(null=True, blank=True)
 
     def __str__(self):

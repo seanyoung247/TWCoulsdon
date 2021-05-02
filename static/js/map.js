@@ -1,4 +1,8 @@
-var mapPos = [parseFloat($('#longitude').val()), parseFloat($('#latitude').val())];
+
+var mapPos = [
+  parseFloat($('#longitude').val()),
+  parseFloat($('#latitude').val())
+];
 
 var attribution = new ol.control.Attribution({
   collapsible: true
