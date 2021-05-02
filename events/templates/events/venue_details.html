@@ -21,10 +21,10 @@
       <p class="col-12">
         Address:
         {{ venue.street_address1 }},
-        {{ venue.street_address2 }},
-        {{ venue.town_or_city }},
-        {{ venue.county }},
-        {{ venue.postcode }}
+        {% if venue.street_address2 %}{{ venue.street_address2 }}{% endif %},
+        {% if venue.town_or_city %}{{ venue.town_or_city }}{% endif %},
+        {% if venue.county %}{{ venue.county }}{% endif %},
+        {% if venue.postcode %}{{ venue.postcode }}{% endif %}
       </p>
     </div>
     <div class="row no-gutters">
@@ -45,15 +45,21 @@
       </div>
       {# Venue image #}
       <div class="col-12 col-md-6 order-md-1">
-        <img class="venue-image" src="{{ venue.image.url }}" alt="">
+        {% if venue.image %}
+          <img class="venue-image" src="{{ venue.image.url }}" alt="">
+        {% else %}
+          <img class="venue-image" src="{{ MEDIA_URL }}noimage.png" alt="">
+        {% endif %}
       </div>
     </div>
     {# Venue description #}
-    <div class="row">
-      <div class="col-12 venue-description">
-        {{ venue.description }}
+    {% if venue.description %}
+      <div class="row">
+        <div class="col-12 venue-description">
+          {{ venue.description }}
+        </div>
       </div>
-    </div>
+    {% endif %}
   </div>
 
 {% endblock %}
