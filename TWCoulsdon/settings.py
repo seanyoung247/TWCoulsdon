@@ -51,16 +51,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    
+
     'easy_thumbnails',
     'embed_video',
-    
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    
+
     'tinymce',
-     
+
     'home',
     'events',
 ]
@@ -90,6 +90,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',   # required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
                 'django.template.context_processors.request',   # For video embed
             ],
         },
