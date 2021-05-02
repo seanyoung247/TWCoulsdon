@@ -31,8 +31,14 @@
       <div class="col-12 col-md-6 order-md-2">
         <div class="square-spacer">
           <div id="map" class="map">
-            <input id="longitude" type="hidden" value="-0.147723">
-            <input id="latitude" type="hidden" value="51.320051">
+            {% if venue.longitude and venue.latitude %}
+              <input id="longitude" type="hidden" value="{{ venue.longitude }}">
+              <input id="latitude" type="hidden" value="{{ venue.latitude }}">
+            {% else %}
+              {# Default to group's home location #}
+              <input id="longitude" type="hidden" value="-0.147723">
+              <input id="latitude" type="hidden" value="51.320051">
+            {% endif %}
           </div>
         </div>
       </div>
