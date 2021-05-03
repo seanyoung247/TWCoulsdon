@@ -24,7 +24,7 @@
           <div class="col-12 col-sm-6 col-md-3">Text: {{ search_query.text }}</div>
 
           <div class="col-12 col-sm-6 col-md-3">
-            <select class="form-control form-control-sm">
+            <select class="form-control form-control-sm custom-select">
               <option hidden value disabled
                 {% if not search_query.type %} selected {% endif %}>Event Type:</option>
               {% for type in event_types %}
@@ -37,8 +37,12 @@
             </select>
           </div>
 
-          <div class="col-12 col-sm-6 col-md-3">Start Date: {{ search_query.fdate }}</div>
-          <div class="col-12 col-sm-6 col-md-3">End Date: {{ search_query.ldate }}</div>
+          <div class="col-12 col-sm-6 col-md-3">From:
+            <input type="date" value="{{ search_query.fdate }}">
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">To:
+            <input type="date" value="{{ search_query.fdate }}">
+          </div>
         </form>
 
       </div>
