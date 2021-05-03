@@ -383,11 +383,21 @@ hr {
 }
 
 /* Event list advanced search form */
-.advanced-search-header {
-  border-top: 1px solid var(--dark-color);
-  border-bottom: 1px solid var(--dark-color);
+.advanced-search-form {
+  /*border-top: 1px solid var(--dark-color);
+  border-bottom: 1px solid var(--dark-color);*/
+  border: 1px solid;
+  border-image-slice: 1;
+  border-width: 1px;
+  border-image-source: linear-gradient(to right, rgba(20,22,26, 0), rgba(20,22,26, 0.75), rgba(20,22,26, 0));
+
+  max-width: 1500px;
   padding: 2px 0;
-  margin: 2px 0;
+  margin: 2px auto;
+}
+
+.advanced-search-form input[type="submit"] {
+  width: 100%;
 }
 
 /*

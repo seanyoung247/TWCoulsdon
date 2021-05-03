@@ -57,6 +57,7 @@ def list_events(request):
                 events = events.exclude(last_date__gte=now)
             # Otherwise showcase the latest upload
             else:
+                # Returns a query set of just the first record in events
                 # events is sorted by post_date so the first record is the
                 # latest upload
                 showcase_events = events[:1]

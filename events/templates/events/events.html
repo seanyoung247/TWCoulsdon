@@ -19,12 +19,20 @@
     <div class="row">
       <div class="col-12">
 
-        <form class="row advanced-search-header">
-          {#<div class="col-12">Refine Search:</div>#}
-          <div class="col-12 col-sm-6 col-md-3">Text: {{ search_query.text }}</div>
+        <form class="row advanced-search-form" method="GET" action="{% url 'events' %}">
+          {% if search_query.text %}
+            <input type="hidden" name="q" value="search_query.text">
+          {% endif %}
 
           <div class="col-12 col-sm-6 col-md-3">
-            <select class="form-control form-control-sm custom-select">
+            <input name="fdate" class="form-control" type="date" value="{{ search_query.fdate }}">
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <input name="ldate" class="form-control" type="date" value="{{ search_query.ldate }}">
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <select name="type" class="form-control form-control-sm custom-select">
               <option hidden value disabled
                 {% if not search_query.type %} selected {% endif %}>Event Type:</option>
               {% for type in event_types %}
@@ -36,12 +44,8 @@
               {% endfor %}
             </select>
           </div>
-
-          <div class="col-12 col-sm-6 col-md-3">From:
-            <input type="date" value="{{ search_query.fdate }}">
-          </div>
-          <div class="col-12 col-sm-6 col-md-3">To:
-            <input type="date" value="{{ search_query.fdate }}">
+          <div class="col-12 col-sm-6 col-md-3">
+            <input class="btn btn-twc-light" type="submit" value="filter">
           </div>
         </form>
 
