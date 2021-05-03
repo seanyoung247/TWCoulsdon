@@ -24,7 +24,7 @@ def query_events(request):
     now = timezone.now()
     zero_date = timezone.make_aware(datetime(1, 1, 1, 0, 0))
     # Search on event type
-    if 'type' in request.GET:
+    if 'type' in request.GET and request.GET['type']:
         event_type = request.GET['type']
 
         # Get all events matching criteria.
@@ -58,7 +58,7 @@ def query_events(request):
             events = events.exclude(id=showcase_events.get().id)
 
     # Search for dates greater than
-    if 'fdate' in request.GET:
+    if 'fdate' in request.GET and request.GET['fdate']:
         search_query['fdate'] = request.GET['fdate']
         query = timezone.make_aware(datetime.strptime(request.GET['fdate'], '%Y-%m-%d'))
         # Get events with dates later than fdate
@@ -68,7 +68,7 @@ def query_events(request):
         ))).filter(has_date=True)
 
     # Search for dates less than
-    if 'ldate' in request.GET:
+    if 'ldate' in request.GET and request.GET['ldate']:
         search_query['ldate'] = request.GET['ldate']
         query = timezone.make_aware(datetime.strptime(request.GET['ldate'], '%Y-%m-%d'))
         # Get events with dates earlier than ldate
@@ -78,7 +78,7 @@ def query_events(request):
         ))).filter(has_date=True)
 
     # Text search
-    if 'q' in request.GET:
+    if 'q' in request.GET and request.GET['q']:
         query = request.GET['q']
         search_query['text'] = query
         if not query:
