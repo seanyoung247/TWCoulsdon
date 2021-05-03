@@ -382,6 +382,13 @@ hr {
   font-size: 2rem;
 }
 
+/* Event list advanced search form */
+.advanced-search-header {
+  border-bottom: 1px solid var(--dark-color);
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+
 /*
  * Event page
  */
