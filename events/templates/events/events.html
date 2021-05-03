@@ -16,18 +16,33 @@
       </div>
     {% endif %}
     {# Advanced search controls #}
-      <div class="row">
-        <div class="col-12">
+    <div class="row">
+      <div class="col-12">
 
-          <form class="row advanced-search-header">
-            {#<div class="col-12">Refine Search:</div>#}
-            <div class="col-12 col-sm-6 col-md-3">Text: {{ search_query.text }}</div>
-            <div class="col-12 col-sm-6 col-md-3">Type: {{ search_query.type.display_name }}</div>
-            <div class="col-12 col-sm-6 col-md-3">Start Date: {{ search_query.fdate }}</div>
-            <div class="col-12 col-sm-6 col-md-3">End Date: {{ search_query.ldate }}</div>
-          </form>
-        </div>
+        <form class="row advanced-search-header">
+          {#<div class="col-12">Refine Search:</div>#}
+          <div class="col-12 col-sm-6 col-md-3">Text: {{ search_query.text }}</div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <select class="form-control form-control-sm">
+              <option hidden value disabled
+                {% if not search_query.type %} selected {% endif %}>Event Type:</option>
+              {% for type in event_types %}
+                {% if search_query.type == type %}
+                  <option value="{{ type.name }}" selected>{{ type.display_name }}</option>
+                {% else %}
+                  <option value="{{ type.name }}">{{ type.display_name }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-3">Start Date: {{ search_query.fdate }}</div>
+          <div class="col-12 col-sm-6 col-md-3">End Date: {{ search_query.ldate }}</div>
+        </form>
+
       </div>
+    </div>
     {% if events  %}
       <div class="row no-gutters event-list">
         {% for event in events %}

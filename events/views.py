@@ -18,6 +18,7 @@ def list_events(request):
     events = Event.objects.all()
     showcase_events = None
     event_type = None
+    event_types = None
     now = timezone.now()
     zero_date = timezone.make_aware(datetime(1, 1, 1, 0, 0))
 
@@ -93,10 +94,12 @@ def list_events(request):
             queries = Q(title__icontains=query) | Q(description__icontains=query)
             events = events.filter(queries)
 
-
+    # Get all event types (for filling out search dropdown)
+    event_types = ShowType.objects.all()
     context = {
         'search_query': search_query,
         'event_type': event_type,
+        'event_types': event_types,
         'showcase_events': showcase_events,
         'events': events,
     }
