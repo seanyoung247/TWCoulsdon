@@ -21,7 +21,7 @@
 
         <form class="row advanced-search-form" method="GET" action="{% url 'events' %}">
           {% if search_query.text %}
-            <input type="hidden" name="q" value="search_query.text">
+            <input type="hidden" name="q" value="{{ search_query.text }}">
           {% endif %}
 
           <div class="col-12 col-sm-6 col-md-3">
@@ -47,6 +47,7 @@
           <div class="col-12 col-sm-6 col-md-3">
             <input class="btn btn-twc-light" type="submit" value="filter">
           </div>
+          {# TODO: add sorting and total item count #}
         </form>
 
       </div>
