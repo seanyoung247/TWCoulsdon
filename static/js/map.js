@@ -31,12 +31,23 @@ ol.Map.prototype.addMarker = function(lonlat, icon) {
 
 var map = new ol.Map({
   controls: ol.control.defaults({attribution: false}).extend([attribution]),
-  target: 'map',
+  interactions: ol.interaction.defaults({dragPan: false, mouseWheelZoom: false}).extend([
+    new ol.interaction.DragPan({
+      condition: function (event) {
+        return (this.getPointerCount() === 2 ||
+                  ol.events.condition.platformModifierKeyOnly(event));
+      }
+    }),
+    new ol.interaction.MouseWheelZoom({
+      condition: ol.events.condition.platformModifierKeyOnly,
+    })
+  ]),
   layers: [
     new ol.layer.Tile({
       source: new ol.source.OSM()
     }),
   ],
+  target: 'map',
   view: new ol.View({
     center: ol.proj.fromLonLat(mapPos),
     zoom: 17
