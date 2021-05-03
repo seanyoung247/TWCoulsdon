@@ -384,9 +384,10 @@ hr {
 
 /* Event list advanced search form */
 .advanced-search-header {
+  border-top: 1px solid var(--dark-color);
   border-bottom: 1px solid var(--dark-color);
-  padding-bottom: 2px;
-  margin-bottom: 2px;
+  padding: 2px 0;
+  margin: 2px 0;
 }
 
 /*

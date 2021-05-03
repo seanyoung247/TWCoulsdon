@@ -12,20 +12,20 @@
         {% for event in showcase_events %}
           {% include 'includes/event_card.html' with showcase=True %}
         {% endfor %}
-        <hr class="w-100"/>
+        {#<hr class="w-100"/>#}
       </div>
     {% endif %}
     {# Advanced search controls #}
       <div class="row">
         <div class="col-12">
 
-          <div class="row advanced-search-header">
-            <div class="col-12">Refine Search:</div>
-            <div class="col-6 col-sm-3">Text: {{ search_query.text }}</div>
-            <div class="col-6 col-sm-3">Type: {{ search_query.type.display_name }}</div>
-            <div class="col-6 col-sm-3">Start Date: {{ search_query.fdate }}</div>
-            <div class="col-6 col-sm-3">End Date: {{ search_query.ldate }}</div>
-          </div>
+          <form class="row advanced-search-header">
+            {#<div class="col-12">Refine Search:</div>#}
+            <div class="col-12 col-sm-6 col-md-3">Text: {{ search_query.text }}</div>
+            <div class="col-12 col-sm-6 col-md-3">Type: {{ search_query.type.display_name }}</div>
+            <div class="col-12 col-sm-6 col-md-3">Start Date: {{ search_query.fdate }}</div>
+            <div class="col-12 col-sm-6 col-md-3">End Date: {{ search_query.ldate }}</div>
+          </form>
         </div>
       </div>
     {% if events  %}
