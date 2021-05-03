@@ -388,6 +388,9 @@ address and contact information.
 * Event page
 * Venue page
 
+#### Profiles app
+* User profile page
+
 #### Box Office app
 * Shopping bag
 * Checkout
