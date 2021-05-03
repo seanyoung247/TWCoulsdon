@@ -92,6 +92,10 @@ hr {
   font-family: 'Anton', sans-serif;
 }
 
+.form-control {
+  border-color: var(--dark-color);
+}
+
 .form-control:focus,
 .form-control:active,
 .btn:focus, .btn:active {
