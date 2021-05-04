@@ -2,8 +2,12 @@ from django.db import models
 from django.utils.text import slugify
 from tinymce.models import HTMLField
 
+
 class SlugModel(models.Model):
-    """ Exposes methods for slug indexed model """
+    """ Exposes methods for slug indexing models """
+    class Meta:
+        abstract = True
+
     slug = models.SlugField(max_length=64, editable=False, null=False, blank=False, unique=True)
 
     def __generate_slug(self, field):
@@ -23,11 +27,48 @@ class SlugModel(models.Model):
 
         self.slug = slug_candidate
 
-    class Meta:
-        abstract = True
 
-
-class Category(models.Model):
+class Category(SlugModel):
     """ Defines a page category """
-    pass
+    class Meta:
+        verbose_name_plural = 'Categories'
+
+    name = models.CharField(max_length=50)
+    display_name = models.CharField(max_length=50, null=True, blank=True)
+    title_page = models.ForeignKey('Page', related_name='+',
+        null=True, blank=True, on_delete=models.SET_NULL
+    )
+
+    def __str__(self):
+        return self.name
+
+    def get_display_name(self):
+        """ Returns the Category's display name """
+        return self.display_name
+
+    def save(self, *args, **kwargs):
+        # Do we need to generate a slug?
+        if not self.pk:
+            self.__generate_slug(self.name)
+
+        super().save(*args, **kwargs)
+
+
+class Page(SlugModel):
+    """ Defines a page of content """
+    category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
+    title = models.CharField(max_length=50, null=False, blank=False)
+    description = models.CharField(max_length=256, null=True, blank=True)
+    content = HTMLField()
+    image = models.ImageField(null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        # Do we need to generate a slug?
+        if not self.pk:
+            self.__generate_slug(self.title)
+
+        super().save(*args, **kwargs)
 
