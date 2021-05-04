@@ -29,6 +29,8 @@ def index(request):
             'image': event.title_image.image.url,
             'title': event.title,
             'text': event.tagline,
+            'first_date': event.first_date,
+            'last_date': event.last_date,
             'link': reverse('event_details', args=(event.slug,)),
         })
 
@@ -37,6 +39,8 @@ def index(request):
     #    'image': ,
     #    'title': ,
     #    'text': ,
+    #    'first_date':
+    #    'last_date':
     #    'link':,
     #})
 

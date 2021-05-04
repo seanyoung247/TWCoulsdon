@@ -21,11 +21,22 @@
           <img src="{{ item.image }}" alt="{{ item.title }}">
           <div class="carousel-caption">
             <h5>{{ item.title }}</h5>
+            {% if item.first_date %}
+              <p>
+                {{ item.first_date|date:"d M" }}
+                {% if item.first_date != event.last_date %}
+                  to {{ item.last_date|date:"d M" }}
+                {% endif %}
+              </p>
+            {% endif %}
             <p>{{ item.text }}</p>
+            <a class="btn btn-twc-dark" href="{{item.link}}">Read More</a>
           </div>
         </div>
       {% endfor %}
     </div>
+
+
 
     <a class="carousel-control-prev" href="#home-page-carousel" role="button" data-slide="prev">
       <svg class="carousel-control-icon" xmlns='http://www.w3.org/2000/svg'
