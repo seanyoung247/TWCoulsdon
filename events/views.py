@@ -5,16 +5,19 @@ from django.contrib import messages
 from django.db import models
 from django.db.models import Q
 from django.db.models import Min, Max
-
 from django.utils import timezone
 from django.db.models.functions import Coalesce
+from django.template import loader
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse, HttpResponseBadRequest
 from .models import Event, ShowType, EventDate, Image, Venue
+
 
 def query_events(request):
     """ Gets event records based on request criteria """
     events = Event.objects.all()
-    showcase_events: None
-    event_type: None
+    showcase_events = None
+    event_type = None
     search_query = {
         'text': None,
         'fdate': None,
@@ -81,12 +84,10 @@ def query_events(request):
     if 'q' in request.GET and request.GET['q']:
         query = request.GET['q']
         search_query['text'] = query
-        if not query:
-            messages.error(request, "You didn't enter any search criteria!")
-            return redirect(reverse('events'))
-
         queries = Q(title__icontains=query) | Q(description__icontains=query)
         events = events.filter(queries)
+
+    events.order_by('-post_date')
 
     return {
         'showcase_events': showcase_events,
@@ -130,7 +131,29 @@ def list_events(request):
 
 def lazy_load_events(request):
     """ Returns the next page of results based on search criteria """
-    pass
+
+    if 'page' not in request.GET or not request.GET['page']:
+        HttpResponseBadRequest('<h1>Missing page variable</h1>')
+
+    page = int(request.GET['page'])
+    results_per_page = 12
+
+    events = query_events(request)['events']
+    paginator = Paginator(events, results_per_page)
+
+    # If page is valid return results
+    if page > 0 and page <= paginator.num_pages:
+        events = paginator.page(page)
+    else:
+        # Silent failure
+        events = none;
+
+    # Build HTML string
+    # Build JSON response
+    response = {
+        'test': (page + 1),
+    }
+    return JsonResponse(response)
 
 
 # Event page view
@@ -152,6 +175,7 @@ def event_details(request, event_slug):
         "images": images,
     }
     return render(request, 'events/event_details.html', context)
+
 
 # Venue page view
 def venue_details(request, venue_id):

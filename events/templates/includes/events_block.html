@@ -1,0 +1,7 @@
+{% if events  %}
+  <div class="row no-gutters event-list">
+    {% for event in events %}
+      {% include 'includes/event_card.html' with showcase=False %}
+    {% endfor %}
+  </div>
+{% endif %}

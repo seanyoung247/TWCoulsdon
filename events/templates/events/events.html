@@ -12,7 +12,6 @@
         {% for event in showcase_events %}
           {% include 'includes/event_card.html' with showcase=True %}
         {% endfor %}
-        {#<hr class="w-100"/>#}
       </div>
     {% endif %}
     {# Advanced search controls #}
@@ -63,5 +62,19 @@
         No results found
       </div>
     {% endif %}
+    <a id="test_link" href="{% url 'lazy_load_events' %}?page=1">Test Response</a>
   </section>
 {% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script type="text/javascript">
+    $( "#test_link" ).click(function(e) {
+      e.preventDefault();
+      $.get( $( this ).prop('href'), function( data ) {
+        alert(data.test);
+      });
+    });
+  </script>
+{% endblock %}
+
