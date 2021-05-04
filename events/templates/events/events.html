@@ -52,27 +52,53 @@
       </div>
     </div>
     {% if events  %}
-      <div class="row no-gutters event-list">
+      <div id="event-list" class="row no-gutters">
         {% for event in events %}
           {% include 'includes/event_card.html' with showcase=False %}
         {% endfor %}
       </div>
     {% elif not showcase_events %}
-      <div class="row no-gutters event-list">
+      <div id="event-list" class="row no-gutters">
         No results found
       </div>
     {% endif %}
-    <a id="test_link" href="{% url 'lazy_load_events' %}?page=1">Test Response</a>
+    <div class="row">
+      <div id="load-more-indicator" class="col-12 hide">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="col-12 events-pagination">
+        <button id="load-more-btn"
+                class="btn btn-twc-dark {% if not has_next %}hide{% endif %}"
+                data-url="{% url 'lazy_load_events' %}"
+                data-page="2">
+          Show More
+        </button>
+      </div>
+    </div>
   </section>
 {% endblock %}
 
 {% block scripts %}
   {{ block.super }}
   <script type="text/javascript">
-    $( "#test_link" ).click(function(e) {
-      e.preventDefault();
-      $.get( $( this ).prop('href'), function( data ) {
-        alert(data.test);
+    function setURLParameter(param, value) {
+      let url = new URL($(location).attr('href'));
+      let params = url.searchParams;
+      params.set(param, value);
+      window.history.pushState({},"", url.href);
+    }
+
+    $( '#load-more-btn' ).click(function() {
+      let url = `${$( this ).data('url')}?page=${$( this ).data('page')}`;
+      $( '#load-more-indicator' ).removeClass('hide');
+
+      $.get( url, function( data ) {
+        if (!data.more_pages) $( '#load-more-btn' ).addClass('hide');
+        console.log(data.pages)
+        if (data.pages) $( '#event-list' ).append(data.pages);
+        $( '#load-more-indicator' ).addClass('hide');
       });
     });
   </script>

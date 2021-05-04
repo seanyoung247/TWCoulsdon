@@ -45,6 +45,10 @@ hr {
   background-color: var(--dark-color);/*rgba(var(--dark-color-rgb), 0.8);*/
 }
 
+.hide {
+  display: none !important;
+}
+
 /*
  * Custom components
  */
@@ -71,7 +75,7 @@ hr {
 .btn-twc-dark:hover {
   color: var(--dark-color);
   background-color: var(--light-color);
-  border: 1px solid var(--light-color);
+  border: 1px solid var(--dark-color);
 }
 
 .btn-twc-brand {
@@ -300,7 +304,7 @@ hr {
 /*
  * Event List
  */
-.event-list {
+#event-list {
   margin: 10px;
 }
 
@@ -402,6 +406,18 @@ hr {
 
 .advanced-search-form input[type="submit"] {
   width: 100%;
+}
+
+.events-pagination {
+  display: flex;
+  justify-content: center;
+  margin: 25px 0;
+}
+
+#load-more-indicator {
+  display: flex;
+  justify-content: center;
+  color: var(--accent-color);
 }
 
 /*
@@ -666,7 +682,7 @@ hr {
     height: var(--header-desktop-height);
     padding-top: var(--header-desktop-height);
   }
-  .event-list {
+  #event-list {
     margin: 35px;
   }
   .event-showcase-title {
