@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models import Min, Max
 from django.utils import timezone
 from events.models import Event
+from .models import Category, Page
 
 
 def index(request):
@@ -35,14 +36,17 @@ def index(request):
         })
 
     # Get standard items: about us, join us
-    #home_items.append({
-    #    'image': ,
-    #    'title': ,
-    #    'text': ,
-    #    'first_date':
-    #    'last_date':
-    #    'link':,
-    #})
+    categories = Category.objects.all()[:4]
+    for category in categories:
+        if category.title_page:
+            home_items.append({
+                'image': category.title_page.image.url,
+                'title': category.title_page.title,
+                'text': category.title_page.description,
+                'first_date': None,
+                'last_date': None,
+                'link': category.slug,
+            })
 
     context = {
         "home_items": home_items,
