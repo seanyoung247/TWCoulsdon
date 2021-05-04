@@ -11,17 +11,19 @@ function setURLParameter(param, value) {
 
 // Loads more search items
 $( '#load-more-btn' ).click(function() {
-  let url = `${$( this ).data('url')}?page=${$( this ).data('page')}`;
+  let loadBtn = $( this );
+  let url = `${loadBtn.data('url')}?page=${loadBtn.data('page')}`;
   // Show the load more indicator
-  $( '#load-more-indicator' ).removeClass('hide');
+  $( loadBtn.data('indicator') ).removeClass('hide');
   // Get more search results
   $.get( url, function( data ) {
+    let loadBtn = $( '#load-more-btn' );
     // If there's no more results hide the load more button
-    if (!data.more_pages) $( '#load-more-btn' ).addClass('hide');
+    if (!data.more_pages) loadBtn.addClass('hide');
     // If new results were returned, add them to the event-list
-    if (data.pages) $( '#event-list' ).append(data.pages);
+    if (data.pages) $( loadBtn.data('target') ).append(data.pages);
     // Hide the loading indicator
-    $( '#load-more-indicator' ).addClass('hide');
+    $( loadBtn.data('indicator') ).addClass('hide');
   });
 });
 

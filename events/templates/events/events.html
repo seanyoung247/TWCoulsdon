@@ -72,7 +72,9 @@
         <button id="load-more-btn"
                 class="btn btn-twc-dark {% if not has_next %}hide{% endif %}"
                 data-url="{% url 'lazy_load_events' %}"
-                data-page="2">
+                data-page="2"
+                data-target="#event-list"
+                data-indicator="#load-more-indicator">
           Show More
         </button>
       </div>
