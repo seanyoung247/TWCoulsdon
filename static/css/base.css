@@ -42,7 +42,7 @@ hr {
 
 #header-spacer {
   padding-top: var(--header-mobile-height);
-  background-color: var(--dark-color);/*rgba(var(--dark-color-rgb), 0.8);*/
+  background-color: var(--dark-color);
 }
 
 .hide {
@@ -392,8 +392,6 @@ hr {
 
 /* Event list advanced search form */
 .advanced-search-form {
-  /*border-top: 1px solid var(--dark-color);
-  border-bottom: 1px solid var(--dark-color);*/
   border: 1px solid;
   border-image-slice: 1;
   border-width: 1px;
