@@ -3,10 +3,10 @@ import itertools
 from django.db import models
 from django.utils.text import slugify
 from django_countries.fields import CountryField
-#from datetime import datetime
 from tinymce.models import HTMLField
 from easy_thumbnails.fields import ThumbnailerImageField
 from embed_video.fields import EmbedVideoField
+from home.models import SlugModel
 
 class ShowType(models.Model):
     """ Defines the types of Events """
@@ -51,7 +51,7 @@ class Venue(models.Model):
         return self.name
 
 
-class Event(models.Model):
+class Event(SlugModel):
     """ Defines the information and relationships for events """
     slug = models.SlugField(max_length=64, editable=False, null=False, blank=False, unique=True)
     title = models.CharField(max_length=50, null=False, blank=False)
@@ -66,22 +66,22 @@ class Event(models.Model):
     content = EmbedVideoField(null=True, blank=True)
     post_date = models.DateTimeField(auto_now_add=True)
 
-    def __generate_slug(self):
-        """ Generates a URL slug from the event title """
+    #def __generate_slug(self):
+    #    """ Generates a URL slug from the event title """
         # Based on code from:
         # https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/
 
         # Generate a candidate for the slug
         #max_length = self._meta.get_field('slug').max_length
-        value = self.title
-        slug_candidate = slug_original = slugify(value, allow_unicode=True)
+    #    value = self.title
+    #    slug_candidate = slug_original = slugify(value, allow_unicode=True)
         # Ensure that the candidate is unique
-        for i in itertools.count(1):
-            if not Event.objects.filter(slug=slug_candidate).exists():
-                break
-            slug_candidate = '{}-{}'.format(slug_original, i)
+    #    for i in itertools.count(1):
+    #        if not Event.objects.filter(slug=slug_candidate).exists():
+    #            break
+    #        slug_candidate = '{}-{}'.format(slug_original, i)
 
-        self.slug = slug_candidate
+    #    self.slug = slug_candidate
 
     def __str__(self):
         return self.title
@@ -89,7 +89,7 @@ class Event(models.Model):
     def save(self, *args, **kwargs):
         # Do we need to generate a slug?
         if not self.pk:
-            self.__generate_slug()
+            self.__generate_slug(self.title)
 
         super().save(*args, **kwargs)
 
