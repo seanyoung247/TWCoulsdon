@@ -82,25 +82,6 @@
 
 {% block scripts %}
   {{ block.super }}
-  <script type="text/javascript">
-    function setURLParameter(param, value) {
-      let url = new URL($(location).attr('href'));
-      let params = url.searchParams;
-      params.set(param, value);
-      window.history.pushState({},"", url.href);
-    }
-
-    $( '#load-more-btn' ).click(function() {
-      let url = `${$( this ).data('url')}?page=${$( this ).data('page')}`;
-      $( '#load-more-indicator' ).removeClass('hide');
-
-      $.get( url, function( data ) {
-        if (!data.more_pages) $( '#load-more-btn' ).addClass('hide');
-        console.log(data.pages)
-        if (data.pages) $( '#event-list' ).append(data.pages);
-        $( '#load-more-indicator' ).addClass('hide');
-      });
-    });
-  </script>
+  <script src="/static/js/search.js"></script>
 {% endblock %}
 
