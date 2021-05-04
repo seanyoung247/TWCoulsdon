@@ -53,7 +53,6 @@ class Venue(models.Model):
 
 class Event(SlugModel):
     """ Defines the information and relationships for events """
-    slug = models.SlugField(max_length=64, editable=False, null=False, blank=False, unique=True)
     title = models.CharField(max_length=50, null=False, blank=False)
     author = models.CharField(max_length=64, null=True, blank=True)
     tagline = models.CharField(max_length=256, null=True, blank=True)
@@ -65,23 +64,6 @@ class Event(SlugModel):
     )
     content = EmbedVideoField(null=True, blank=True)
     post_date = models.DateTimeField(auto_now_add=True)
-
-    #def __generate_slug(self):
-    #    """ Generates a URL slug from the event title """
-        # Based on code from:
-        # https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/
-
-        # Generate a candidate for the slug
-        #max_length = self._meta.get_field('slug').max_length
-    #    value = self.title
-    #    slug_candidate = slug_original = slugify(value, allow_unicode=True)
-        # Ensure that the candidate is unique
-    #    for i in itertools.count(1):
-    #        if not Event.objects.filter(slug=slug_candidate).exists():
-    #            break
-    #        slug_candidate = '{}-{}'.format(slug_original, i)
-
-    #    self.slug = slug_candidate
 
     def __str__(self):
         return self.title
