@@ -21,4 +21,8 @@ class PageAdmin(admin.ModelAdmin):
         'image',
     )
 
-    ordering = ('event',)
+    ordering = ('category',)
+
+
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Page, PageAdmin)
