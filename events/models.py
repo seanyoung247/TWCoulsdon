@@ -1,5 +1,4 @@
 """ Defines database models for the Events app """
-import itertools
 from django.db import models
 from django.utils.text import slugify
 from django_countries.fields import CountryField
@@ -71,7 +70,7 @@ class Event(SlugModel):
     def save(self, *args, **kwargs):
         # Do we need to generate a slug?
         if not self.pk:
-            self.__generate_slug(self.title)
+            self._generate_slug(Event, self.title)
 
         super().save(*args, **kwargs)
 
