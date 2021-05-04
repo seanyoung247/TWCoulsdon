@@ -1,0 +1,39 @@
+
+{% comment %}
+  Generates a generic horizontal scroller. Requires items and a template for
+  rendering them. The rendering template is a file name in an include directory.
+  Optionally a template for the left and right buttons can be given.
+  
+  Usage:
+    {% include 'includes/horizontal_scroller.html' items=items template='item_template.html' %}
+  or:
+    {% include 'includes/horizontal_scroller.html' items=items template='item_template.html' buttons='button_template.html' %}
+{% endcomment %}
+ 
+
+{# No point creating the scroller if there's no items #}
+{% if items and template %}
+
+  <div class="scroller">
+        
+    {% if buttons %}
+      {% include 'includes/'|add:buttons %}
+    {% else %}
+      <button class="scroll-left"><</button>
+      <button class="scroll-right">></button>
+    {% endif %}
+      
+    <ul class="scroller-items">
+      <li class="scroll-item-bookend"></li>
+        
+      {% for item in items %}
+        <li class="scroll-item">
+          {% include 'includes/'|add:template with item=item only %}
+        </li>
+      {% endfor %}
+        
+      <li class="scroll-item-bookend"></li>
+    </ul>
+  </div>
+
+{% endif %}

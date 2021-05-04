@@ -1,0 +1,17 @@
+events = (
+          events.annotate(
+              # Is this event in the future or past?
+              showcase=Max(models.Case(
+                  models.When(eventdate__date__gte=now, then=True),
+                  models.When(eventdate__date__lt=now, then=False),
+                  output_field=models.BooleanField(),
+              )),
+              # Get the first event date for sorting
+              first_date=Min('eventdate__date')
+          ).filter(
+              # Filter on required show type
+              type__name=event_type
+          # Order by first event date in decending order (latest to earliest)
+          # Ensuring showcase events are grouped first
+          ).order_by('-showcase', '-first_date', '-post_date')
+      )

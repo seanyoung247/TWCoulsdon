@@ -1,0 +1,5 @@
+{% if events  %}
+  {% for event in events %}
+    {% include 'includes/event_card.html' with showcase=False %}
+  {% endfor %}
+{% endif %}

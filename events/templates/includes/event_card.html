@@ -1,5 +1,55 @@
+{% load event_tools %}
+
 {% if showcase %}
-  showcase
+
+  <div class="col-12 px-0">
+    <div class="card event-showcase-card">
+
+      {% if event.title_image.image %}
+        <img class="card-img" src="{{ event.title_image.image.url }}" alt="{{ event.title }}">
+      {% else %}
+        <img class="venue-image" src="{{ MEDIA_URL }}noimage.png" alt="{{ event.title }}">
+      {% endif %}
+
+      <div class="card-img-overlay">
+        <div class="jumbotron">
+          <h2 class="event-showcase-title">{{ event.title }}</h2>
+          {% if event.first_date %}
+            <p class="event-showcase-dates">
+              {{ event.first_date|date:"d M" }}
+              {% if event.first_date != event.last_date %}
+                to {{ event.last_date|date:"d M" }}
+              {% endif %}
+            </p>
+          {% endif %}
+          {% if event.tagline %}
+            <p class="event-showcase-tag">{{ event.tagline }}</p>
+          {% endif %}
+          <p class="event-showcase-links">
+            <a class="btn btn-twc-dark" href="{% url 'event_details' event.slug %}" role="button">Read More</a>
+            <a class="btn btn-twc-dark" href="#" role="button">Buy Tickets</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% else %}
-  not showcase
+
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="event-card card">
+      <a class="event-card-link" href="{% url 'event_details' event.slug %}">
+        {% if event.title_image.image %}
+          <img class="card-img" src="{{ event.title_image.image.url }}" alt="{{ event.title }}">
+        {% else %}
+          <img class="venue-image" src="{{ MEDIA_URL }}noimage.png" alt="{{ event.title }}">
+        {% endif %}
+        <div class="card-img-overlay">
+          <h5 class="event-card-title">{{ event.title }}</h5>
+          <p class="event-card-action">Read More</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
 {% endif %}

@@ -97,7 +97,7 @@ TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics grou
       <td>US302</td>
       <td>Audience</td>
       <td>Search by date</td>
-      <td>Find a show or event on a specific date</td>
+      <td>Find a show or event occurring within a range of dates</td>
     </tr>
     <tr>
       <td>US303</td>
@@ -207,20 +207,20 @@ TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics grou
 ![TWCoulsdon Entity Relationship Diagram](docs/database/twcoulsdon_erd.png)
 
 ### Fonts
-[Anton](https://fonts.google.com/specimen/Anton?query=Anton) was chosen as the 
+[Anton](https://fonts.google.com/specimen/Anton?query=Anton) was chosen as the
 main title font as it is similar to the group's existing logo branding.
-[Roboto](https://fonts.google.com/specimen/Roboto?query=Roboto) was chosen for 
-the main content font as it is easy to read, matches the overall styling and 
-compliments Anton well. Roboto also has a wide range of styles giving extra 
+[Roboto](https://fonts.google.com/specimen/Roboto?query=Roboto) was chosen for
+the main content font as it is easy to read, matches the overall styling and
+compliments Anton well. Roboto also has a wide range of styles giving extra
 options for styling and drawing attention to important text.
 
 ### Colours
 
-Colours were largely chosen based on the group's existing brand. Rich black and 
+Colours were largely chosen based on the group's existing brand. Rich black and
 white are the primary background and foreground colours for content, with cultured
 grey as a more general background colour. Tart Orange is the groups main brand
 colour, and cobalt blue was chosen as a highlight to complement this. Further, the
-group also uses accent colours on a per-show basis that can be incorporated on 
+group also uses accent colours on a per-show basis that can be incorporated on
 show pages.
 
 ![pallet](docs/images/pallet/pallet.png)
@@ -237,7 +237,7 @@ show pages.
 
 The landing page is used to briefly showcase the group and it's upcoming events.
 Full screen images are shown in a carousel to be attention grabbing and pull users
-in to other areas of the site. 
+in to other areas of the site.
 
 ##### Wireframes
 <details>
@@ -388,10 +388,10 @@ address and contact information.
 * Event page
 * Venue page
 
-#### Search app
-* Advanced Search Page 
+#### Profiles app
+* User profile page
 
-#### Box Office app 
+#### Box Office app
 * Shopping bag
 * Checkout
 

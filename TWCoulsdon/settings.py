@@ -51,13 +51,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    
+
+    'easy_thumbnails',
+    'embed_video',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    
+
     'tinymce',
-     
+
     'home',
     'events',
 ]
@@ -84,9 +87,11 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request', # required by allauth
+                'django.template.context_processors.request',   # required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+                'django.template.context_processors.request',   # For video embed
             ],
         },
     },
@@ -172,6 +177,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Media image thumbnail sizes.
+THUMBNAIL_ALIASES = {
+    '': {
+        'gallery': {'size': (125, 125), 'crop': True},
+    },
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -186,3 +197,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Custom settings
+RESULTS_PER_PAGE = 6

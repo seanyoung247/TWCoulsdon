@@ -1,7 +1,89 @@
 {% extends "base.html" %}
 
+{% block title %}
+  {{ block.super }}{% if event_type %} - {{ event_type.display_name }}s{% endif %}
+{% endblock %}
+
 {% block content %}
-  <section id="event-list">
-    {% include 'includes/event_card.html' with showcase=True %}
+  <div id="header-spacer"></div>
+  <section class="container-fluid">
+    {% if showcase_events %}
+      <div class="row">
+        {% for event in showcase_events %}
+          {% include 'includes/event_card.html' with showcase=True %}
+        {% endfor %}
+      </div>
+    {% endif %}
+    {# Advanced search controls #}
+    <div class="row">
+      <div class="col-12">
+
+        <form class="row advanced-search-form" method="GET" action="{% url 'events' %}">
+          {% if search_query.text %}
+            <input type="hidden" name="q" value="{{ search_query.text }}">
+          {% endif %}
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <input name="fdate" class="form-control" type="date" value="{{ search_query.fdate }}">
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <input name="ldate" class="form-control" type="date" value="{{ search_query.ldate }}">
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <select name="type" class="form-control form-control-sm custom-select">
+              <option hidden value disabled
+                {% if not search_query.type %} selected {% endif %}>Event Type:</option>
+              {% for type in event_types %}
+                {% if search_query.type == type %}
+                  <option value="{{ type.name }}" selected>{{ type.display_name }}</option>
+                {% else %}
+                  <option value="{{ type.name }}">{{ type.display_name }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <input class="btn btn-twc-light" type="submit" value="filter">
+          </div>
+          {# TODO: add sorting and total item count #}
+        </form>
+
+      </div>
+    </div>
+    {% if events  %}
+      <div id="event-list" class="row no-gutters">
+        {% for event in events %}
+          {% include 'includes/event_card.html' with showcase=False %}
+        {% endfor %}
+      </div>
+    {% elif not showcase_events %}
+      <div id="event-list" class="row no-gutters">
+        No results found
+      </div>
+    {% endif %}
+    <div class="row">
+      <div id="load-more-indicator" class="col-12 hide">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="col-12 events-pagination">
+        <button id="load-more-btn"
+                class="btn btn-twc-dark {% if not has_next %}hide{% endif %}"
+                data-url="{% url 'lazy_load_events' %}"
+                data-page="2"
+                data-target="#event-list"
+                data-indicator="#load-more-indicator">
+          Show More
+        </button>
+      </div>
+    </div>
   </section>
 {% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script src="/static/js/search.js"></script>
+{% endblock %}
+

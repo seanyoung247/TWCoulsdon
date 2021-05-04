@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load static %}
+{% load event_tools %}
+{% load embed_video_tags %}
+
+{% block title %}
+  {{ block.super }} - {{ event.title }}
+{% endblock %}
+
+{% block content %}
+
+<section class="container-fluid">
+
+  {# Event header #}
+  <div class="row event-header"
+    {% if event.title_image.image %}
+      style="--background-image: url('{{event.title_image.image.url}}')"
+    {% else %}
+      style="--background-image: url('{{ MEDIA_URL }}noimage.png')"
+    {% endif %}>
+    <div class="event-header-text">
+      <h1 class="event-title">{{ event.title }}</h1>
+      {% if event.author %}
+        <p class="event-author">By {{ event.author }}</p>
+      {% endif %}
+      {% if event.tagline %}
+        <p class="event-tagline">{{ event.tagline }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {# Event media content #}
+  {% if event.content %}
+    <div class="row">
+      <div class="col-12 event-video-panel">
+        {% video event.content 'large' %}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Event main content #}
+  <div class="row event-content">
+    {# This side panel should only be shown for live performances #}
+    {% if event.type.name == 'show' %}
+      <div class="col-12 col-md-4 order-md-2 event-side-panel">
+
+        {# Venue Information #}
+        {% if event.venue %}
+          <div class="event-panel">
+            <h4>{{ event.venue.name }}</h4>
+            <p>{{ event.venue.description|truncatechars:256 }}</p>
+            <a class="btn btn-twc-light w-100" href="{% url 'venue_details' event.venue.id %}">Venue Information</a>
+          </div>
+        {% endif %}
+
+        {# Event dates #}
+        {% if first_date %}
+          <div class="event-panel">
+            <h5 class="event-date">
+              {{ first_date|date:"d/m/Y" }}
+              {% if first_date != last_date %}
+                to {{ last_date|date:"d/m/Y" }}
+              {% endif %}
+            </h5>
+          </div>
+        {% endif %}
+
+        {# No tickets for past events #}
+        {% if last_date|in_the_future %}
+        <!-- TODO: Only show this if event is in the future and has available tickets -->
+          {# Ticket information #}
+          <div class="event-panel">
+            <h5>Tickets</h5>
+            List of prices/ticket types here
+            i.e.
+            <ul>
+              <li>Adult: £10</li>
+              <li>Concession: £7.50</li>
+            </ul>
+            <a class="btn btn-twc-light w-100" href="#">Buy Tickets</a>
+          </div>
+        {% endif %}
+      </div>
+
+
+    {# Event description #}
+      <div class="col-12 col-md-8 order-md-1 event-description">
+        {{ event.description|safe }}
+      </div>
+    {% else %}
+    {# Event description #}
+      <div class="col-12 event-description">
+        {{ event.description|safe }}
+      </div>
+    {% endif %}
+  </div>
+
+  {# Event Gallery #}
+  {% if images %}
+    <div class="row event-gallery">
+      <div class="col-12">
+        <h3>Gallery</h3>
+        {% with items=images template='image_tile.html' buttons='gallery_btns.html' %}
+          {% include 'includes/horizontal_scroller.html' %}
+        {% endwith %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+{% if images %}
+  <div id="gallery-modal"
+      class="modal"
+      tabindex="-1"
+      aria-labelledby="gallery-image-title"
+      aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content gallery-image">
+
+        {# Close Button #}
+        <button type="button" class="close gallery-image-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <svg width="10" height="10" version="1.1" viewBox="0 0 2.6458 2.6458" xmlns="http://www.w3.org/2000/svg">
+             <path d="m0 0.45634 0.86588 0.86456-0.86587 0.86456 0.45704 0.46037
+                      0.86587-0.86863 0.86588 0.86456 0.45704-0.45634-0.86588-0.86456
+                      0.86588-0.86457-0.45704-0.45629-0.86588 0.86456-0.86588-0.86456z"/>
+            </svg>
+          </span>
+        </button>
+
+        {# Previous image button #}
+        <button id="gallery-prev" class="btn gallery-btn">
+          <span aria-hidden="true">
+            <svg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'>
+              <path d='M5.25 0l-4 4 4 4 1.5-1.5L4.25 4l2.5-2.5L5.25 0z'/>
+            </svg>
+          </span>
+          <span class="sr-only">Previous</span>
+        </button>
+
+        {# Next image button #}
+        <button id="gallery-next" class="btn gallery-btn">
+          <span aria-hidden="true">
+            <svg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'>
+              <path d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/>
+            </svg>
+          </span>
+          <span class="sr-only">Next</span>
+        </button>
+
+        <img src="{{ event.title_image.image.url }}" alt="{{ event.title_image.name }}">
+        <h5 id="gallery-image-title">{{ event.title_image.name }}</h5>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script type="text/javascript" src="/static/js/scroller.js"></script>
+  <script type="text/javascript" src="/static/js/gallery.js"></script>
+{% endblock %}
+
+
+
+

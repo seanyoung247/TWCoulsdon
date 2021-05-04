@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  {{ block.super }} - {{ venue.title }}
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css">
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <div id="header-spacer"></div>
+  <div class="container-fluid venue-content">
+    {# Venue quick title information #}
+    <div class="row">
+      <h1 class="col-12 section-header">{{ venue.name }}</h1>
+      <p class="col-12">Phone number: {{ venue.phone_number }}</p>
+      <p class="col-12">Email: {{ venue.email }}</p>
+      <p class="col-12">
+        Address:
+        {{ venue.street_address1 }},
+        {% if venue.street_address2 %}{{ venue.street_address2 }}{% endif %},
+        {% if venue.town_or_city %}{{ venue.town_or_city }}{% endif %},
+        {% if venue.county %}{{ venue.county }}{% endif %},
+        {% if venue.postcode %}{{ venue.postcode }}{% endif %}
+      </p>
+    </div>
+    <div class="row no-gutters">
+      {# Venue location map #}
+      <div class="col-12 col-md-6 order-md-2">
+        <div class="square-spacer">
+          <div id="map" class="map">
+            {% if venue.longitude and venue.latitude %}
+              <input id="longitude" type="hidden" value="{{ venue.longitude }}">
+              <input id="latitude" type="hidden" value="{{ venue.latitude }}">
+            {% else %}
+              {# Default to group's home location #}
+              <input id="longitude" type="hidden" value="-0.147723">
+              <input id="latitude" type="hidden" value="51.320051">
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {# Venue image #}
+      <div class="col-12 col-md-6 order-md-1">
+        {% if venue.image %}
+          <img class="venue-image" src="{{ venue.image.url }}" alt="">
+        {% else %}
+          <img class="venue-image" src="{{ MEDIA_URL }}noimage.png" alt="">
+        {% endif %}
+      </div>
+    </div>
+    {# Venue description #}
+    {% if venue.description %}
+      <div class="row">
+        <div class="col-12 venue-description">
+          {{ venue.description }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+  <script src="/static/js/map.js"></script>
+{% endblock %}
