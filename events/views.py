@@ -70,7 +70,7 @@ def query_events(request):
         events = events.annotate(has_date=Max(models.Case(
             models.When(eventdate__date__gte=query, then=True),
             output_field=models.BooleanField(),
-        ))).filter(has_date=True)
+        ))).filter(has_date=True).order_by('-post_date')
 
     # Search for dates less than
     if 'ldate' in request.GET and request.GET['ldate']:
@@ -80,16 +80,15 @@ def query_events(request):
         events = events.annotate(has_date=Max(models.Case(
             models.When(eventdate__date__lt=query, then=True),
             output_field=models.BooleanField(),
-        ))).filter(has_date=True)
+        ))).filter(has_date=True).order_by('-post_date')
 
     # Text search
     if 'q' in request.GET and request.GET['q']:
         query = request.GET['q']
         search_query['text'] = query
         queries = Q(title__icontains=query) | Q(description__icontains=query)
-        events = events.filter(queries)
+        events = events.filter(queries).order_by('-post_date')
 
-    events.order_by('-post_date')
 
     return {
         'showcase_events': showcase_events,
@@ -158,7 +157,7 @@ def lazy_load_events(request):
 
     # Build HTML string
     events_html = loader.render_to_string(
-        'includes/events_block',
+        'includes/events_block.html',
         {'events': events}
     )
     # Build JSON response
