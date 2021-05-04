@@ -94,6 +94,7 @@ def query_events(request):
     return {
         'showcase_events': showcase_events,
         'events': events,
+        'has_next': False,
         'event_type': event_type,
         'search_query': search_query,
     }
@@ -105,6 +106,7 @@ def list_events(request):
     events = {
         'showcase_events': None,
         'events': None,
+        'has_next': False,
         'event_type': None,
         'search_query': {
             'text': None,
@@ -117,6 +119,9 @@ def list_events(request):
 
     if request.GET:
         events = query_events(request)
+        # Are there more events than can be shown in a single page?
+        events['has_next'] = events['events'].count() > settings.RESULTS_PER_PAGE
+        # Ensure there's only a single page of results
         events['events'] = events['events'][:settings.RESULTS_PER_PAGE]
 
     # Get all event types (for filling out search dropdown)
@@ -127,6 +132,7 @@ def list_events(request):
         'event_types': event_types,
         'showcase_events': events['showcase_events'],
         'events': events['events'],
+        'has_next': events['has_next'],
     }
 
     return render(request, 'events/events.html', context)
@@ -148,12 +154,17 @@ def lazy_load_events(request):
         events = paginator.page(page)
     else:
         # Silent failure
-        events = none;
+        events = None;
 
     # Build HTML string
+    events_html = loader.render_to_string(
+        'includes/events_block',
+        {'events': events}
+    )
     # Build JSON response
     response = {
-        'test': (page + 1),
+        'pages': events_html,
+        'more_pages': events.has_next(),
     }
     return JsonResponse(response)
 
