@@ -2,6 +2,7 @@
 from datetime import datetime
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.db.models import Min, Max
@@ -11,6 +12,7 @@ from django.template import loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse, HttpResponseBadRequest
 from .models import Event, ShowType, EventDate, Image, Venue
+
 
 
 def query_events(request):
@@ -115,6 +117,7 @@ def list_events(request):
 
     if request.GET:
         events = query_events(request)
+        events['events'] = events['events'][:settings.RESULTS_PER_PAGE]
 
     # Get all event types (for filling out search dropdown)
     event_types = ShowType.objects.all()
@@ -136,10 +139,9 @@ def lazy_load_events(request):
         HttpResponseBadRequest('<h1>Missing page variable</h1>')
 
     page = int(request.GET['page'])
-    results_per_page = 12
 
     events = query_events(request)['events']
-    paginator = Paginator(events, results_per_page)
+    paginator = Paginator(events, settings.RESULTS_PER_PAGE)
 
     # If page is valid return results
     if page > 0 and page <= paginator.num_pages:
