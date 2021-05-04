@@ -14,7 +14,6 @@ from django.http import JsonResponse, HttpResponseBadRequest
 from .models import Event, ShowType, EventDate, Image, Venue
 
 
-
 def query_events(request):
     """ Gets event records based on request criteria """
     events = Event.objects.all()
