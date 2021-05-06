@@ -27,7 +27,7 @@ def index(request):
     # Add the events to home_items
     for event in events:
         home_items.append({
-            'image': event.title_image.image.url,
+            'image': event.title_image.image,
             'title': event.title,
             'text': event.tagline,
             'first_date': event.first_date,
@@ -40,7 +40,7 @@ def index(request):
     for category in categories:
         if category.title_page:
             home_items.append({
-                'image': category.title_page.image.url,
+                'image': category.title_page.image,
                 'title': category.title_page.title,
                 'text': category.title_page.description,
                 'first_date': None,
@@ -53,4 +53,12 @@ def index(request):
     }
 
     return render(request, 'home/index.html', context)
+
+
+def category(request, category_slug):
+    pass
+
+
+def page(request, page_slug):
+    pass
 

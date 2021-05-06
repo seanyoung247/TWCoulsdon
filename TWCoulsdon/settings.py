@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     #Rich-text editor
     'tinymce',
     # Project apps
+    'core',
     'home',
     'events',
     # Other
@@ -190,9 +191,10 @@ THUMBNAIL_ALIASES = {
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
+# Uploaded files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+NO_IMAGE = os.path.join(MEDIA_URL, 'noimage.png')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load home_tools %}
+{% load core_tools %}
 
 {% block meta %}
   {{ block.super }}
@@ -18,7 +18,7 @@
     <div class="carousel-inner">
       {% for item in home_items %}
         <div class="carousel-item {% if forloop.first %}active{% endif %}">
-          <img src="{{ item.image }}" alt="{{ item.title }}">
+          <img src="{{ item.image|check_image }}" alt="{{ item.title }}">
           <div class="carousel-caption">
             <h5>{{ item.title }}</h5>
             {% if item.first_date %}
