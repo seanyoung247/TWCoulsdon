@@ -5,7 +5,7 @@ from django_countries.fields import CountryField
 from tinymce.models import HTMLField
 from easy_thumbnails.fields import ThumbnailerImageField
 from embed_video.fields import EmbedVideoField
-from home.models import SlugModel
+from core.models import SlugModel
 
 class ShowType(models.Model):
     """ Defines the types of Events """
