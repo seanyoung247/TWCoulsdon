@@ -1,4 +1,5 @@
-from django.shortcuts import render, reverse
+from django.http import Http404
+from django.shortcuts import render, reverse, get_object_or_404
 from django.db import models
 from django.db.models import Min, Max
 from django.utils import timezone
@@ -35,9 +36,10 @@ def index(request):
             'link': reverse('event_details', args=(event.slug,)),
         })
 
-    # Get standard items: about us, join us
+    # Get standard items: about us, join us etc
     categories = Category.objects.all()[:4]
     for category in categories:
+        # Only show a category if it has a title_page
         if category.title_page:
             home_items.append({
                 'image': category.title_page.image,
@@ -45,20 +47,40 @@ def index(request):
                 'text': category.title_page.description,
                 'first_date': None,
                 'last_date': None,
-                'link': category.slug,
+                'link': reverse('category', args=(category.slug,)),
             })
 
     context = {
-        "home_items": home_items,
+        'home_items': home_items,
     }
 
     return render(request, 'home/index.html', context)
 
 
 def category(request, category_slug):
-    pass
+    """ A view to show a single category page """
+    category = get_object_or_404(Category, slug=category_slug)
+    # Does this category have an attached page?
+    if not category.title_page:
+        raise Http404
+
+    context = {
+        'category': category,
+        'page': category.title_page,
+    }
+
+    return render(request, 'home/page.html', context)
 
 
-def page(request, page_slug):
-    pass
+def page(request, category_slug, page_slug):
+    """ A view to show a single content page """
+    category = get_object_or_404(Category, slug=category_slug)
+    page = get_object_or_404(Page, slug=page_slug)
+
+    context = {
+        'category': category,
+        'page': page,
+    }
+
+    return render(request, 'home/page.html', context)
 
