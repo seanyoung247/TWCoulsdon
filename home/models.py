@@ -1,8 +1,7 @@
-import itertools
 from django.db import models
-from django.utils.text import slugify
 from tinymce.models import HTMLField
 from core.models import SlugModel
+
 
 class Category(SlugModel):
     """ Defines a page category """
@@ -25,7 +24,7 @@ class Category(SlugModel):
     def save(self, *args, **kwargs):
         # Do we need to generate a slug?
         if not self.pk:
-            self._generate_slug(Category, self.name)
+            self._generate_slug(Category, self.display_name)
 
         super().save(*args, **kwargs)
 
