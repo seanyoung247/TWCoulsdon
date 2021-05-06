@@ -80,7 +80,7 @@ class Image(models.Model):
     event = models.ForeignKey('Event', null=True, blank=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=256, null=True, blank=True)
-    image = ThumbnailerImageField(null=True, blank=True)
+    image = ThumbnailerImageField(upload_to="events/", null=True, blank=True)
 
     def __str__(self):
         return self.name
