@@ -38,7 +38,7 @@ if 'TEST_IP' in os.environ:
 GRAPH_MODELS = {
   'all_applications': False,
   'group_models': True,
-  'app_labels': [],
+  'app_labels': ['home', 'events',],
 }
 
 # Application definition
@@ -51,18 +51,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
+    # Media
     'easy_thumbnails',
     'embed_video',
-
+    # Allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
+    #Rich-text editor
     'tinymce',
-
+    # Project apps
     'home',
     'events',
+    # Other
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
