@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load core_tools %}
 {% load event_tools %}
 {% load embed_video_tags %}
 
@@ -13,11 +14,8 @@
 
   {# Event header #}
   <div class="row event-header"
-    {% if event.title_image.image %}
-      style="--background-image: url('{{event.title_image.image.url}}')"
-    {% else %}
-      style="--background-image: url('{{ MEDIA_URL }}noimage.png')"
-    {% endif %}>
+       style="--background-image: url('{{event.title_image.image|check_image}}')">
+
     <div class="event-header-text">
       <h1 class="event-title">{{ event.title }}</h1>
       {% if event.author %}
@@ -81,7 +79,6 @@
           </div>
         {% endif %}
       </div>
-
 
     {# Event description #}
       <div class="col-12 col-md-8 order-md-1 event-description">
@@ -149,7 +146,7 @@
           <span class="sr-only">Next</span>
         </button>
 
-        <img src="{{ event.title_image.image.url }}" alt="{{ event.title_image.name }}">
+        <img src="{{ event.title_image.image|check_image }}" alt="{{ event.title_image.name }}">
         <h5 id="gallery-image-title">{{ event.title_image.name }}</h5>
       </div>
     </div>

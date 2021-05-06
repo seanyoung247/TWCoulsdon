@@ -45,11 +45,7 @@
       </div>
       {# Venue image #}
       <div class="col-12 col-md-6 order-md-1">
-        {% if venue.image %}
-          <img class="venue-image" src="{{ venue.image.url }}" alt="">
-        {% else %}
-          <img class="venue-image" src="{{ MEDIA_URL }}noimage.png" alt="">
-        {% endif %}
+        <img class="venue-image" src="{{ venue.image.url|check_image }}" alt="">
       </div>
     </div>
     {# Venue description #}
