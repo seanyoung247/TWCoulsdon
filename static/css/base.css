@@ -88,7 +88,7 @@ hr {
 .btn-twc-brand:hover {
   color: var(--brand-color);
   background-color: var(--light-color);
-  border: 1px solid var(--light-color);
+  border: 1px solid var(--brand-color);
 }
 
 .section-header {
