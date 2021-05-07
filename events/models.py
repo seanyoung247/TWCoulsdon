@@ -1,6 +1,5 @@
 """ Defines database models for the Events app """
 from django.db import models
-from django.utils.text import slugify
 from django_countries.fields import CountryField
 from tinymce.models import HTMLField
 from easy_thumbnails.fields import ThumbnailerImageField
