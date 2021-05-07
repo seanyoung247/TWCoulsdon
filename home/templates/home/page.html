@@ -5,16 +5,23 @@
 
 <div id="header-spacer"></div>
 <section class="container-fluid">
-  <div class="row">
-    <div class="col-12 content-page-content">
+
+  <div class="row content-page-content">
+    <div class="col-12">
       <h1 class="content-page-header">{{ page.title }}</h1>
     </div>
   </div>
-  <div class="row">
-    <div class="col-12 content-page-content">
+  <div class="row content-page-content">
+    <div class="col-12">
       {{ page.content|safe }}
     </div>
+    <div class="col-12">
+      {% for link in page_links %}
+        <a href="{% url 'page' category.slug link.slug %}">{{ link.title }}</a>
+      {% endfor %}
+    </div>
   </div>
+
 </section>
 
 {% endblock %}

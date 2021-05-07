@@ -64,9 +64,13 @@ def category(request, category_slug):
     if not category.title_page:
         raise Http404
 
+    # Get this category's page list
+    page_links = Page.objects.filter(category=category.id)
+
     context = {
         'category': category,
         'page': category.title_page,
+        'page_links': page_links,
     }
 
     return render(request, 'home/page.html', context)
@@ -77,9 +81,13 @@ def page(request, category_slug, page_slug):
     category = get_object_or_404(Category, slug=category_slug)
     page = get_object_or_404(Page, slug=page_slug)
 
+    # Get this category's page list
+    page_links = Page.objects.filter(category=category.id)
+    
     context = {
         'category': category,
         'page': page,
+        'page_links': page_links,
     }
 
     return render(request, 'home/page.html', context)
