@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load core_tools %}
 
 {% block title %}
   {{ block.super }} - {{ venue.title }}
@@ -45,7 +46,7 @@
       </div>
       {# Venue image #}
       <div class="col-12 col-md-6 order-md-1">
-        <img class="venue-image" src="{{ venue.image.url|check_image }}" alt="">
+        <img class="venue-image" src="{{ venue.image|check_image }}" alt="">
       </div>
     </div>
     {# Venue description #}
