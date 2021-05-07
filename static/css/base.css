@@ -314,6 +314,21 @@ hr {
   text-align: center;
   padding: 25px;
 }
+.content-page-links {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+
+  justify-content: center;
+  align-content: flex-start;
+}
+.content-page-link {
+  width: 100%;
+  padding: 2px;
+}
+.content-page-link a {
+  width: 100%;
+}
 
 /*
  * Event List
@@ -663,9 +678,17 @@ hr {
   .navbar-collapse > .nav-search-form {
     width: 75%;
   }
+  .content-page-link {
+    width: 50%;
+  }
 }
 
- /* Medium screens (tablets) > 720px */
+ /* Medium screens (tablets) > 767px */
+ @media (min-width: 767px) {
+   .content-page-link {
+     width: 100%;
+   }
+ }
 
  /* Large screens (desktop/laptop) > 960px */
 @media (min-width: 992px) {
