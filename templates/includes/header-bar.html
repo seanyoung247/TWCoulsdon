@@ -14,6 +14,7 @@
       </svg>
     </button>
     {% include 'includes/search_bar.html' %}
+    {#  #}
   </nav>
   <nav class="navbar navbar-expand-lg">
     <div class="navbar-collapse collapse navbar-center" id="navbar-menu">
@@ -29,10 +30,10 @@
           <a class="nav-link" href="{% url 'events' %}?type=video">Films</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link" href="{% url 'category' 'about' %}">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+          <a class="nav-link" href="{% url 'category' 'join' %}">Join Us</a>
         </li>
       </ul>
     </div>
