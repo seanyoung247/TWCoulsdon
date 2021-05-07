@@ -1,9 +1,15 @@
 ![TWC Logo](docs/images/twc_title.png)
 # TWCoulsdon
 
-Invented in 1970, this leading amateur theatre company reinvents itself with every show from Shakespeare to pantomime.
+Invented in 1970, this leading amateur theatre company reinvents itself with every
+show from Shakespeare to pantomime.
 
-TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics group.
+TWCoulsdon is a website for the Theatre Workshop Coulsdon amateur dramatics group,
+intended to replace the group's [current online presence](https://twcoulsdon.org.uk/)
+with a new modern web application. It also aims to reduce the groups reliance on
+third-party ticketing platforms by moving online ticket sales in-house. This
+should give a more seamless end-user experience, while also improving the efficiency
+of the box-office and reporting.
 
 ## Table of Contents
 
@@ -232,6 +238,8 @@ show pages.
 - Cultured Grey (#EBEDF0) - General page background
 
 ### Layout
+
+<discussing of existing website here>
 
 #### Landing Page
 
