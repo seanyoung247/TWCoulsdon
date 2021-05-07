@@ -302,6 +302,20 @@ hr {
 }
 
 /*
+ * Content pages
+ */
+.content-page-content {
+  background-color: var(--light-color);
+  max-width: 1500px;
+  margin: auto;
+}
+.content-page-header {
+  color: var(--brand-color);
+  text-align: center;
+  padding: 25px;
+}
+
+/*
  * Event List
  */
 #event-list {
