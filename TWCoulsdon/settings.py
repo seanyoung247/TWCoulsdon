@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'profiles',
     'boxoffice',
     # Other
+    'storages',
     'django_extensions',
 ]
 
