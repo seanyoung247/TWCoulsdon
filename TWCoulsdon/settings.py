@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ('DEVELOPMENT' in os.environ)
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['twcoulsdon.herokuapp.com','localhost']
 
 # If test ip is defined in the enviroment add it to allowed hosts
 # (allows devices on the same local network to connect to server)
