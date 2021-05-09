@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'core',
     'home',
     'events',
+    'profiles',
+    'boxoffice',
     # Other
     'django_extensions',
 ]
