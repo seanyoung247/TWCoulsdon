@@ -16,9 +16,9 @@ def index(request):
         ).annotate(
             # Has this event got at least one date in the future
             current=Max(models.Case(
-                models.When(eventdate__date__gte=now, then=True),
-                models.When(eventdate__date__lt=now, then=False),
-                output_field=models.BooleanField(),
+                models.When(eventdate__date__gte=now, then=1),
+                models.When(eventdate__date__lt=now, then=0),
+                output_field=models.IntegerField(),
             )),
             # Get the first event date for sorting
             first_date=Min('eventdate__date'),
@@ -83,7 +83,7 @@ def page(request, category_slug, page_slug):
 
     # Get this category's page list
     page_links = Page.objects.filter(category=category.id)
-    
+
     context = {
         'category': category,
         'page': page,
