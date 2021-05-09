@@ -16,7 +16,7 @@ from .models import Event, ShowType, EventDate, Image, Venue
 
 def query_events(request):
     """ Gets event records based on request criteria """
-    events = Event.objects.all()
+    events = Event.objects.all().order_by('-post_date')
     showcase_events = None
     event_type = None
     search_query = {
@@ -69,7 +69,7 @@ def query_events(request):
         events = events.annotate(has_date=Max(models.Case(
             models.When(eventdate__date__gte=query, then=True),
             output_field=models.BooleanField(),
-        ))).filter(has_date=True).order_by('-post_date')
+        ))).filter(has_date=True)
 
     # Search for dates less than
     if 'ldate' in request.GET and request.GET['ldate']:
@@ -79,14 +79,14 @@ def query_events(request):
         events = events.annotate(has_date=Max(models.Case(
             models.When(eventdate__date__lt=query, then=True),
             output_field=models.BooleanField(),
-        ))).filter(has_date=True).order_by('-post_date')
+        ))).filter(has_date=True)
 
     # Text search
     if 'q' in request.GET and request.GET['q']:
         query = request.GET['q']
         search_query['text'] = query
         queries = Q(title__icontains=query) | Q(description__icontains=query)
-        events = events.filter(queries).order_by('-post_date')
+        events = events.filter(queries)
 
 
     return {
