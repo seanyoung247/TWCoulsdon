@@ -1,5 +1,6 @@
 # test database
 *.sqlite3
+db.json
 
 # python
 *.pyc
