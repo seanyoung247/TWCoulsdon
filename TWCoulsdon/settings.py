@@ -51,21 +51,26 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+
     # Media
     'easy_thumbnails',
     'embed_video',
+
     # Allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
     #Rich-text editor
     'tinymce',
+
     # Project apps
     'core',
     'home',
     'events',
     'profiles',
     'boxoffice',
+
     # Other
     'storages',
     'django_extensions',
