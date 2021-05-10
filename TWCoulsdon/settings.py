@@ -214,8 +214,8 @@ if 'USE_AWS' in os.environ:
     THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
     #Override static and media URLs in production
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}'
-    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 else:
     # https://docs.djangoproject.com/en/3.2/howto/static-files/
     STATIC_URL = '/static/'
