@@ -1,4 +1,4 @@
-![TWC Logo](docs/images/twc_title.png)
+![TWC Logo](design/images/twc_title.png)
 # TWCoulsdon
 
 Invented in 1970, this leading amateur theatre company reinvents itself with every
@@ -210,7 +210,7 @@ of the box-office and reporting.
 ## Design
 
 ### Database
-![TWCoulsdon Entity Relationship Diagram](docs/database/twcoulsdon_erd.png)
+![TWCoulsdon Entity Relationship Diagram](design/database/twcoulsdon_erd.png)
 
 ### Fonts
 [Anton](https://fonts.google.com/specimen/Anton?query=Anton) was chosen as the
@@ -229,7 +229,7 @@ colour, and cobalt blue was chosen as a highlight to complement this. Further, t
 group also uses accent colours on a per-show basis that can be incorporated on
 show pages.
 
-![pallet](docs/images/pallet/pallet.png)
+![pallet](design/images/pallet/pallet.png)
 
 - Tart Orange (#FF3333) - Main site brand colour
 - Cobalt Blue (#1B48A1) - Site accent colour
@@ -251,21 +251,21 @@ in to other areas of the site.
 <details>
 <summary><b>Phone</b></summary>
 
-![Landing Page Phone Layout](docs/wireframes/landing_page/phone.png)
+![Landing Page Phone Layout](design/wireframes/landing_page/phone.png)
 
 </details>
 
 <details>
 <summary><b>Tablet</b></summary>
 
-![Landing Page Tablet Layout](docs/wireframes/landing_page/tablet.png)
+![Landing Page Tablet Layout](design/wireframes/landing_page/tablet.png)
 
 </details>
 
 <details>
 <summary><b>Desktop</b></summary>
 
-![Landing Page Desktop Layout](docs/wireframes/landing_page/desktop.png)
+![Landing Page Desktop Layout](design/wireframes/landing_page/desktop.png)
 
 </details>
 
@@ -280,21 +280,21 @@ followed by past events by default.
 <details>
 <summary><b>Phone</b></summary>
 
-![Landing Page Phone Layout](docs/wireframes/events_list/phone.png)
+![Landing Page Phone Layout](design/wireframes/events_list/phone.png)
 
 </details>
 
 <details>
 <summary><b>Tablet</b></summary>
 
-![Landing Page Tablet Layout](docs/wireframes/events_list/tablet.png)
+![Landing Page Tablet Layout](design/wireframes/events_list/tablet.png)
 
 </details>
 
 <details>
 <summary><b>Desktop</b></summary>
 
-![Landing Page Desktop Layout](docs/wireframes/events_list/desktop.png)
+![Landing Page Desktop Layout](design/wireframes/events_list/desktop.png)
 
 </details>
 
@@ -312,11 +312,11 @@ the page contents below.
 
 <h6>Above the fold</h6>
 
-![Landing Page Phone Layout](docs/wireframes/event_page/title_phone.png)
+![Landing Page Phone Layout](design/wireframes/event_page/title_phone.png)
 
 <h6>Below the fold</h6>
 
-![Landing Page Desktop Layout](docs/wireframes/event_page/content_phone.png)
+![Landing Page Desktop Layout](design/wireframes/event_page/content_phone.png)
 
 </details>
 
@@ -325,11 +325,11 @@ the page contents below.
 
 <h6>Above the fold</h6>
 
-![Landing Page Tablet Layout](docs/wireframes/event_page/title_tablet.png)
+![Landing Page Tablet Layout](design/wireframes/event_page/title_tablet.png)
 
 <h6>Below the fold</h6>
 
-![Landing Page Desktop Layout](docs/wireframes/event_page/content_tablet.png)
+![Landing Page Desktop Layout](design/wireframes/event_page/content_tablet.png)
 
 </details>
 
@@ -338,11 +338,11 @@ the page contents below.
 
 <h6>Above the fold</h6>
 
-![Landing Page Desktop Layout](docs/wireframes/event_page/title_desktop.png)
+![Landing Page Desktop Layout](design/wireframes/event_page/title_desktop.png)
 
 <h6>Below the fold</h6>
 
-![Landing Page Desktop Layout](docs/wireframes/event_page/content_desktop.png)
+![Landing Page Desktop Layout](design/wireframes/event_page/content_desktop.png)
 
 </details>
 
@@ -356,21 +356,21 @@ address and contact information.
 <details>
 <summary><b>Phone</b></summary>
 
-![Landing Page Phone Layout](docs/wireframes/venue_page/phone.png)
+![Landing Page Phone Layout](design/wireframes/venue_page/phone.png)
 
 </details>
 
 <details>
 <summary><b>Tablet</b></summary>
 
-![Landing Page Tablet Layout](docs/wireframes/venue_page/tablet.png)
+![Landing Page Tablet Layout](design/wireframes/venue_page/tablet.png)
 
 </details>
 
 <details>
 <summary><b>Desktop</b></summary>
 
-![Landing Page Desktop Layout](docs/wireframes/venue_page/desktop.png)
+![Landing Page Desktop Layout](design/wireframes/venue_page/desktop.png)
 
 </details>
 
