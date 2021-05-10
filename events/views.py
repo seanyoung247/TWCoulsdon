@@ -57,9 +57,10 @@ def query_events(request):
             # Returns a query set of just the first record in events
             # events is sorted by post_date so the first record is the
             # latest upload
-            showcase_events = events[:1]
-            # Remove the showcased event from the events list
-            events = events.exclude(id=showcase_events.get().id)
+            if events:
+                showcase_events = events[:1]
+                # Remove the showcased event from the events list
+                events = events.exclude(id=showcase_events.get().id)
 
     # Search for dates greater than
     if 'fdate' in request.GET and request.GET['fdate']:
