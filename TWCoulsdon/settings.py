@@ -232,4 +232,8 @@ NO_IMAGE = os.path.join(MEDIA_URL, 'noimage.png')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom settings
-RESULTS_PER_PAGE = 6 #Number of results to show per page for search
+RESULTS_PER_PAGE = 12 #Number of results to show per page for search
+
+# Uncomment to send debug data to the console during tests:
+#NOSE_ARGS = ['--nocapture',
+#             '--nologcapture',]

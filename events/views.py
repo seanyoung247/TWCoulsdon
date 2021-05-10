@@ -67,8 +67,8 @@ def query_events(request):
         query = timezone.make_aware(datetime.strptime(request.GET['fdate'], '%Y-%m-%d'))
         # Get events with dates later than fdate
         events = events.annotate(has_date=Max(models.Case(
-            models.When(eventdate__date__gte=query, then=True),
-            output_field=models.BooleanField(),
+            models.When(eventdate__date__gte=query, then=1),
+            output_field=models.IntegerField(),
         ))).filter(has_date=True)
 
     # Search for dates less than
@@ -77,8 +77,8 @@ def query_events(request):
         query = timezone.make_aware(datetime.strptime(request.GET['ldate'], '%Y-%m-%d'))
         # Get events with dates earlier than ldate
         events = events.annotate(has_date=Max(models.Case(
-            models.When(eventdate__date__lt=query, then=True),
-            output_field=models.BooleanField(),
+            models.When(eventdate__date__lt=query, then=1),
+            output_field=models.IntegerField(),
         ))).filter(has_date=True)
 
     # Text search
