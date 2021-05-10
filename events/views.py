@@ -46,19 +46,20 @@ def query_events(request):
         )
         event_type = ShowType.objects.get(name=event_type)
         search_query['type'] = event_type
+
         # If showing stage shows or meetups showcase them on event dates
         if event_type in ('show', 'meet'):
             # Filter current events
             showcase_events = events.filter(last_date__gte=now)
             # Filter past events
             events = events.exclude(last_date__gte=now)
-            # Otherwise showcase the latest upload
-        else:
+        # Otherwise showcase the latest upload
+        else :
             # Returns a query set of just the first record in events
             # events is sorted by post_date so the first record is the
             # latest upload
-            if events:
-                showcase_events = events[:1]
+            showcase_events = events[:1]
+            if showcase_events:
                 # Remove the showcased event from the events list
                 events = events.exclude(id=showcase_events.get().id)
 
