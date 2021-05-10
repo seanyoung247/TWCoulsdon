@@ -3,7 +3,7 @@ from datetime import datetime
 from django.test import TestCase
 from django.utils import timezone
 from django.db import IntegrityError
-from .models import ShowType, EventDate, Venue, Event, Image
+from .models import ShowType, EventDate, Venue, Event
 
 
 class TestShowType(TestCase):
