@@ -59,7 +59,8 @@ def query_events(request):
             # latest upload
             showcase_events = events[:1]
             # Remove the showcased event from the events list
-            events = events.exclude(id=showcase_events.get().id)
+            if showcase_events:
+                events = events.exclude(id=showcase_events.get().id)
 
     # Search for dates greater than
     if 'fdate' in request.GET and request.GET['fdate']:
