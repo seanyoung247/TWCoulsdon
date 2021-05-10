@@ -15,10 +15,3 @@ def check_image(image):
     else:
         return settings.NO_IMAGE
 
-@register.filter(name='load_thumbnail')
-def load_thumbnail(thumb):
-    if thumb:
-        return settings.MEDIA_URL + thumb.name
-    else:
-        return settings.NO_IMAGE
-
