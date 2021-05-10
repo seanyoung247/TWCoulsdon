@@ -1,16 +1,12 @@
+{% load core_tools %}
 {% load event_tools %}
+
 
 {% if showcase %}
 
   <div class="col-12 px-0">
     <div class="card event-showcase-card">
-
-      {% if event.title_image.image %}
-        <img class="card-img" src="{{ event.title_image.image.url }}" alt="{{ event.title }}">
-      {% else %}
-        <img class="venue-image" src="{{ MEDIA_URL }}noimage.png" alt="{{ event.title }}">
-      {% endif %}
-
+      <img class="card-img" src="{{ event.title_image.image|check_image }}" alt="{{ event.title }}">
       <div class="card-img-overlay">
         <div class="jumbotron">
           <h2 class="event-showcase-title">{{ event.title }}</h2>
@@ -39,11 +35,7 @@
   <div class="col-12 col-md-6 col-lg-4">
     <div class="event-card card">
       <a class="event-card-link" href="{% url 'event_details' event.slug %}">
-        {% if event.title_image.image %}
-          <img class="card-img" src="{{ event.title_image.image.url }}" alt="{{ event.title }}">
-        {% else %}
-          <img class="venue-image" src="{{ MEDIA_URL }}noimage.png" alt="{{ event.title }}">
-        {% endif %}
+        <img class="card-img" src="{{ event.title_image.image|check_image }}" alt="{{ event.title }}">
         <div class="card-img-overlay">
           <h5 class="event-card-title">{{ event.title }}</h5>
           <p class="event-card-action">Read More</p>

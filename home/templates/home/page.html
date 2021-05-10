@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div id="header-spacer"></div>
+<section class="container-fluid">
+
+  <div class="row content-page-content">
+    <div class="col-12">
+      <h1 class="content-page-header">{{ page.title }}</h1>
+    </div>
+  </div>
+  <div class="row content-page-content">
+    <ul class="col-12 col-md-3 order-md-2 content-page-links">
+      {% for link in page_links %}
+        <li class="content-page-link">
+          <a class="btn btn-twc-light" href="{% url 'page' category.slug link.slug %}">{{ link.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="col-12 col-md-9">
+      {{ page.content|safe }}
+    </div>
+  </div>
+
+</section>
+
+{% endblock %}

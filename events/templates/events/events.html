@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
   {{ block.super }}{% if event_type %} - {{ event_type.display_name }}s{% endif %}
@@ -46,7 +47,6 @@
           <div class="col-12 col-sm-6 col-md-3">
             <input class="btn btn-twc-light" type="submit" value="filter">
           </div>
-          {# TODO: add sorting and total item count #}
         </form>
 
       </div>
@@ -84,6 +84,6 @@
 
 {% block scripts %}
   {{ block.super }}
-  <script src="/static/js/search.js"></script>
+  <script type="text/javascript" src="{% static 'js/search.js' %}"></script>
 {% endblock %}
 

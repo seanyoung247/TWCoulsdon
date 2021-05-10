@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load core_tools %}
 
 {% block title %}
   {{ block.super }} - {{ venue.title }}
@@ -45,11 +46,7 @@
       </div>
       {# Venue image #}
       <div class="col-12 col-md-6 order-md-1">
-        {% if venue.image %}
-          <img class="venue-image" src="{{ venue.image.url }}" alt="">
-        {% else %}
-          <img class="venue-image" src="{{ MEDIA_URL }}noimage.png" alt="">
-        {% endif %}
+        <img class="venue-image" src="{{ venue.image|check_image }}" alt="">
       </div>
     </div>
     {# Venue description #}
@@ -67,5 +64,5 @@
 {% block scripts %}
   {{ block.super }}
   <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
-  <script src="/static/js/map.js"></script>
+  <script type="text/javascript" src="{% static 'js/map.js' %}"></script>
 {% endblock %}

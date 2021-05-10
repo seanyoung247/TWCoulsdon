@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
-
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ('DEVELOPMENT' in os.environ)
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['twcoulsdon.herokuapp.com','localhost']
 
 # If test ip is defined in the enviroment add it to allowed hosts
 # (allows devices on the same local network to connect to server)
@@ -38,7 +38,7 @@ if 'TEST_IP' in os.environ:
 GRAPH_MODELS = {
   'all_applications': False,
   'group_models': True,
-  'app_labels': [],
+  'app_labels': ['home', 'events',],
 }
 
 # Application definition
@@ -51,18 +51,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
+    # Media
     'easy_thumbnails',
     'embed_video',
-
+    # Allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
+    #Rich-text editor
     'tinymce',
-
+    # Project apps
+    'core',
     'home',
     'events',
+    'profiles',
+    'boxoffice',
+    # Other
+    'storages',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -185,12 +191,40 @@ THUMBNAIL_ALIASES = {
 }
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+if 'USE_AWS' in os.environ:
+    # Cache control
+    AWS_S3_OBJECT_PARAMETERS = {
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+        'CacheControl': 'max-age=94608000',
+    }
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    # S3 Bucket Config
+    AWS_STORAGE_BUCKET_NAME = 'theatre-workshop-coulsdon'
+    AWS_S3_REGION_NAME = 'eu-west-2'
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+    # Static and Media files
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    STATICFILES_LOCATION = 'static'
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    MEDIAFILES_LOCATION = 'media'
+
+    THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
+
+    #Override static and media URLs in production
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+else:
+    # https://docs.djangoproject.com/en/3.2/howto/static-files/
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+    # Uploaded files
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+NO_IMAGE = os.path.join(MEDIA_URL, 'noimage.png')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -198,4 +232,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom settings
-RESULTS_PER_PAGE = 6
+RESULTS_PER_PAGE = 6 #Number of results to show per page for search

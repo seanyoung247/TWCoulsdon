@@ -1,7 +1,7 @@
 """ Defines views for the Event app """
 from datetime import datetime
-from django.shortcuts import render, redirect, reverse, get_object_or_404
-from django.contrib import messages
+from django.shortcuts import render, get_object_or_404
+#from django.contrib import messages
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
@@ -9,15 +9,14 @@ from django.db.models import Min, Max
 from django.utils import timezone
 from django.db.models.functions import Coalesce
 from django.template import loader
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponseBadRequest
 from .models import Event, ShowType, EventDate, Image, Venue
 
 
-
 def query_events(request):
     """ Gets event records based on request criteria """
-    events = Event.objects.all()
+    events = Event.objects.all().order_by('-post_date')
     showcase_events = None
     event_type = None
     search_query = {
@@ -70,7 +69,7 @@ def query_events(request):
         events = events.annotate(has_date=Max(models.Case(
             models.When(eventdate__date__gte=query, then=True),
             output_field=models.BooleanField(),
-        ))).filter(has_date=True).order_by('-post_date')
+        ))).filter(has_date=True)
 
     # Search for dates less than
     if 'ldate' in request.GET and request.GET['ldate']:
@@ -80,14 +79,14 @@ def query_events(request):
         events = events.annotate(has_date=Max(models.Case(
             models.When(eventdate__date__lt=query, then=True),
             output_field=models.BooleanField(),
-        ))).filter(has_date=True).order_by('-post_date')
+        ))).filter(has_date=True)
 
     # Text search
     if 'q' in request.GET and request.GET['q']:
         query = request.GET['q']
         search_query['text'] = query
         queries = Q(title__icontains=query) | Q(description__icontains=query)
-        events = events.filter(queries).order_by('-post_date')
+        events = events.filter(queries)
 
 
     return {
@@ -149,11 +148,11 @@ def lazy_load_events(request):
     paginator = Paginator(events, settings.RESULTS_PER_PAGE)
 
     # If page is valid return results
-    if page > 0 and page <= paginator.num_pages:
+    if 0 < page >= paginator.num_pages:
         events = paginator.page(page)
     else:
         # Silent failure
-        events = None;
+        events = None
 
     # Build HTML string
     events_html = loader.render_to_string(

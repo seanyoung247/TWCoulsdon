@@ -22,7 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('accounts/', include('allauth.urls')),
-    
+
     path('', include('home.urls')),
     path('events/', include('events.urls')),
+    path('profile/', include('profiles.urls')),
+    path('boxoffice/', include('boxoffice.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
