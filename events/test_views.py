@@ -6,7 +6,7 @@ from django.utils import timezone
 from .models import ShowType, EventDate, Venue, Event
 
 
-class TestEventsListView(TestCase):
+class TestEventsViews(TestCase):
     """ Tests event querying """
     def setUp(self):
         type_show = ShowType.objects.create(
@@ -95,8 +95,18 @@ class TestEventsListView(TestCase):
         self.assertContains(response, f'Test_Show-{settings.RESULTS_PER_PAGE-1}')
 
 
-class TestEventDetailsView(TestCase):
-    """ Tests the Event Details view """
-    def setUp(self):
-        pass
+    def test_event_details_view(self):
+        """ Tests retrieving a single event page """
+        response = self.client.get('/events/test_show-1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'events/event_details.html')
+        self.assertContains(response, 'Test_Show-1')
+
+
+    def test_venue_details_view(self):
+        """ Tests retrieving a single venue page """
+        response = self.client.get('/events/venue/1')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'events/venue_details.html')
+        self.assertContains(response, 'Test Venue')
 
