@@ -128,12 +128,12 @@ LOGIN_REDIRECT_URL = '/'
 
 if 'DEVELOPMENT' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEFAULT_FROM_EMAIL = 'twcoulsdon@example.com'
+    DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
     EMAIL_PORT = 587
-    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST = os.environ.get('EMAIL_HOST')
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
@@ -204,8 +204,8 @@ if 'USE_AWS' in os.environ:
     }
 
     # S3 Bucket Config
-    AWS_STORAGE_BUCKET_NAME = 'theatre-workshop-coulsdon'
-    AWS_S3_REGION_NAME = 'eu-west-2'
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
@@ -225,6 +225,7 @@ else:
     # https://docs.djangoproject.com/en/3.2/howto/static-files/
     STATIC_URL = '/static/'
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
     # Uploaded files
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -237,7 +238,7 @@ NO_IMAGE = os.path.join(MEDIA_URL, 'noimage.png')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom settings
-RESULTS_PER_PAGE = 12 #Number of results to show per page for search
+RESULTS_PER_PAGE = int(os.environ.get('RESULTS_PER_PAGE')) #Number of results to show per page for search
 
 # Uncomment to send debug data to the console during tests:
 #NOSE_ARGS = ['--nocapture',
