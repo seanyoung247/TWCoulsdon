@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" version="1.1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+ <g style="display:none">
+  <ellipse transform="scale(-1)" cx="-16.536" cy="-16.536" rx="16.405" ry="16.405" style="paint-order:fill markers stroke;stroke-width:.26314;stroke:#feffff"/>
+  <circle cx="16.536" cy="12.795" r="6.9769" style="fill:#fffffe;paint-order:fill markers stroke"/>
+  <path d="m5.0352 28.2c1.9139-4.7412 6.4324-7.8422 11.455-7.8612s9.5633 3.0476 11.512 7.7741c0 0-3.7173 4.7219-11.44 4.7256-7.7224 0.003739-11.527-4.6386-11.527-4.6386z" style="fill:#fff;paint-order:fill markers stroke"/>
+ </g>
+ <path d="m1.5509 9.2241v3.9513c0.00909-2.52e-4 0.018242-4.2e-4 0.027335-5.59e-4 1.5603-6.1e-5 2.8252 1.2648 2.8251 2.8251 6.02e-5 1.5603-1.2648 2.8252-2.8251 2.8251-0.00909 4.4e-5 -0.018213 4.4e-5 -0.027335 0v3.9508h28.898v-3.9508c-0.0091 4.4e-5 -0.01821 4.4e-5 -0.02733 0-1.5603 6.1e-5 -2.8252-1.2648-2.8251-2.8251-6.1e-5 -1.5603 1.2648-2.8252 2.8251-2.8251 0.0091 1.38e-4 0.01822 2.94e-4 0.02733 5.46e-4v-3.9513z" style="fill:#fff;paint-order:fill markers stroke;stroke-width:.31945;stroke:#000"/>
+ <path d="m24 9.1704v13.659" style="fill:none;stroke-dasharray:2.11666, 2.11666;stroke-dashoffset:2.6458;stroke-linecap:round;stroke-width:1.0583;stroke:#000"/>
+ <text x="14.038757" y="20.547512" style="fill:#ff0000;font-family:Antonio;font-size:10.583px;line-height:1.25;stroke-width:.26458;stroke:#ffffff" xml:space="preserve"><tspan x="14.038757" y="20.547512" style="fill:#ff0000;font-family:Anton;stroke-width:.26458;stroke:#ffffff;text-align:center;text-anchor:middle">100</tspan></text>
+</svg>

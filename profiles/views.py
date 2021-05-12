@@ -4,4 +4,4 @@ from django.http import HttpResponse
 
 @login_required
 def profile(request):
-    return HttpResponse('<h1>profiles</h1>')
+    return HttpResponse(f'<h1>{request.user.username}</h1>')

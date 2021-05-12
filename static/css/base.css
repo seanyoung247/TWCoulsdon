@@ -162,7 +162,7 @@ hr {
   width: 100%;
   max-height: 100vh;
   z-index: 99;
-  overflow-y: auto;
+  overflow-y: show;
 }
 
 .navbar {
@@ -182,11 +182,17 @@ hr {
   max-width: 1500px;
 }
 
+.navbar-brand {
+  margin: 0;
+}
 .navbar-brand img {
   height: 65px;
-  max-width: 65vw;
+  max-width: 50vw;
 }
 
+.navbar-toggler {
+  padding: 5px;
+}
 .navbar-toggler:focus {
   outline: none;
 }
@@ -216,6 +222,7 @@ hr {
   position: absolute;
   top: 50%;
   left: 50%;
+  transform-style: preserve-3d;
   transform: translateX(-50%) translateY(-50%);
 }
 
@@ -225,11 +232,13 @@ hr {
 }
 
 .nav-search {
+  transform-style: preserve-3d;
   border-radius: 0;
   border: 1px solid var(--dark-color);
 }
 
 .btn-search {
+  transform-style: preserve-3d;
   color: var(--dark-color);
   background-color: var(--light-color);
   border: 1px solid var(--dark-color);
@@ -255,6 +264,55 @@ hr {
 
 .btn-search:hover > .search-icon {
   stroke: var(--light-color);
+}
+
+/* Header Icons */
+.header-icons {
+  position: static;
+  display:flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+.header-icons > .list-inline {
+  margin: 0;
+}
+
+.header-icons .list-inline-item {
+  margin: 0;
+}
+
+.header-icons svg {
+  width:25px;
+  height:25px;
+  margin: 0 5px;
+}
+
+.icon-user {
+  fill: var(--light-color);
+  stroke: var(--dark-color);
+}
+
+.icon-ticket-body {
+  fill: var(--light-color);
+  stroke-width: 1;
+  stroke: var(--dark-color);
+}
+
+.icon-ticket-cut {
+  fill:none;
+  stroke-dasharray:2.11666, 2.11666;
+  stroke-dashoffset:2.6458;
+  stroke-linecap:round;
+  stroke-width: 1;
+  stroke: var(--dark-color);
+}
+
+.icon-ticket-text {
+  fill: var(--brand-color);
+  font-family: Anton;
+  text-align: right;
+  text-anchor: middle;
 }
 
 .navbar {
@@ -291,6 +349,9 @@ hr {
 .carousel-caption {
   color: var(--light-color);
   background-color: rgba(var(--dark-color-rgb), 0.8);
+  top: 50%;
+  transform: translateY(-50%);
+  bottom: initial;
 }
 
 .carousel-control-icon {
@@ -708,6 +769,15 @@ hr {
   }
   .navbar-collapse > .nav-search-form {
     display: none;
+  }
+  .header-icons {
+    position: absolute;
+    right: 16px;
+    top: 13px;
+  }
+  .header-icons svg {
+    width: 38px;
+    height: 38px;
   }
   .nav-item {
     text-shadow: 2px 1px var(--dark-color);

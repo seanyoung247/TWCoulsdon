@@ -4,6 +4,7 @@
     <a class="navbar-brand" href="{% url 'home' %}">
       <img src="{% static 'img/twc-title.svg' %}" alt="Theatre Workshop Coulsdon">
     </a>
+    {% include 'includes/header_icons.html' %}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
       <svg class="nav-menu-icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 500 500">
         <g id="menu_icon" data-name="menu_icon">
@@ -14,7 +15,6 @@
       </svg>
     </button>
     {% include 'includes/search_bar.html' %}
-    {#  #}
   </nav>
   <nav class="navbar navbar-expand-lg">
     <div class="navbar-collapse collapse navbar-center" id="navbar-menu">
