@@ -216,6 +216,7 @@ hr {
   position: absolute;
   top: 50%;
   left: 50%;
+  transform-style: preserve-3d;
   transform: translateX(-50%) translateY(-50%);
 }
 
@@ -225,11 +226,13 @@ hr {
 }
 
 .nav-search {
+  transform-style: preserve-3d;
   border-radius: 0;
   border: 1px solid var(--dark-color);
 }
 
 .btn-search {
+  transform-style: preserve-3d;
   color: var(--dark-color);
   background-color: var(--light-color);
   border: 1px solid var(--dark-color);
@@ -291,6 +294,9 @@ hr {
 .carousel-caption {
   color: var(--light-color);
   background-color: rgba(var(--dark-color-rgb), 0.8);
+  top: 50%;
+  transform: translateY(-50%);
+  bottom: initial;
 }
 
 .carousel-control-icon {
