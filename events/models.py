@@ -58,8 +58,7 @@ class Event(SlugModel):
     type = models.ForeignKey('ShowType', null=True, blank=True, on_delete=models.SET_NULL)
     venue = models.ForeignKey('Venue', null=True, blank=True, on_delete=models.SET_NULL)
     title_image = models.ForeignKey('Image', related_name='+',
-        null=True, blank=True, on_delete=models.SET_NULL
-    )
+        null=True, blank=True, on_delete=models.SET_NULL)
     content = EmbedVideoField(null=True, blank=True)
     post_date = models.DateTimeField(auto_now_add=True)
 

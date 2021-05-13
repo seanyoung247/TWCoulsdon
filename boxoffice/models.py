@@ -34,7 +34,7 @@ class Ticket(models.Model):
     def _generate_ticket_number(self):
         return uuid.uuid4().hex.upper()
 
-    def save(self):
+    def save(self, *args, **kwargs):
         # Do we need to generate a unique id?
         if not self.ticket_id:
             self.ticket_id = self._generate_ticket_number()
@@ -70,7 +70,7 @@ class Order(models.Model):
         and updates the order total.
         """
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.order_number:
             self.order_number = self._generate_order_number()
 
