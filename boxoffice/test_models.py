@@ -1,8 +1,11 @@
 """ Defines tests for the the  """
-
+from datetime import datetime
 from unittest import mock
 from django.test import TestCase
 from django.db import IntegrityError
+from django.contrib.auth.models import User
+from django.utils import timezone
+from django.db import transaction
 from events.models import Event, EventDate
 from profiles.models import UserProfile
 
@@ -24,8 +27,52 @@ class TestTicketType(TestCase):
 
 class TestTicket(TestCase):
     """ Tests the Ticket model """
-    pass
+    def setUp(self):
+        self.user = User.objects.create_user(
+            'Test User', 'test@email.com', 'testpassword')
+        self.userProfile = UserProfile.objects.get(user=self.user)
+
+        self.event = Event.objects.create(
+            title = "Test Event",
+            description = "Test Event"
+        )
+        self.date = EventDate.objects.create(
+            event = self.event, date = timezone.now())
+
+        self.order = Order.objects.create(
+            user_profile = self.userProfile,
+            full_name = "Test User",
+            email = self.user.email
+        )
+        self.ticketType = TicketType.objects.create(
+            name = "test", display_name = "Test Ticket")
+        self.ticket = Ticket.objects.create(
+            order = self.order, type = self.ticketType,
+            event = self.event, date = self.date
+        )
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_all_fields_required(self):
+        with transaction.atomic():
+            self.assertRaises(IntegrityError, Ticket.objects.create)
+
+    def test_ticket_unique_id(self):
+        """ Tests that two identical tickets will have different identifiers """
+        ticket = Ticket.objects.create(
+            order = self.order, type = self.ticketType,
+            event = self.event, date = self.date
+        )
+        self.assertNotEqual(ticket.ticket_id, None)
+        self.assertNotEqual(ticket.ticket_id, '')
+        self.assertNotEqual(ticket.ticket_id, self.ticket.ticket_id)
+
+    def test_string_returns_id(self):
+        """ Ensures the __str__ method returns the unique ticket id """
+        self.assertEqual(str(self.ticket.ticket_id), self.ticket.ticket_id)
 
 
 class TestOrder(TestCase):
+    """ Tests the Order model """
     pass
