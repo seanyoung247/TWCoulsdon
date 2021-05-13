@@ -26,7 +26,7 @@ class Ticket(models.Model):
                                 on_delete=models.CASCADE, related_name="tickets")
     type = models.ForeignKey('TicketType', null=False, blank=False, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, null=False, blank=False, on_delete=models.CASCADE)
-    data = models.ForeignKey(EventDate, null=False, blank=False, on_delete=models.CASCADE)
+    date = models.ForeignKey(EventDate, null=False, blank=False, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.ticket_id;
@@ -49,7 +49,7 @@ class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
     user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
                                      null=True, blank=True, related_name='orders')
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True, editable=False)
     original_bag = models.TextField(null=False, blank=False, default='')
     stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
     full_name = models.CharField(max_length=50, null=False, blank=False)
@@ -57,12 +57,6 @@ class Order(models.Model):
     order_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     phone_number = models.CharField(max_length=20, null=False, blank=False)
-    street_address1 = models.CharField(max_length=80, null=False, blank=False)
-    street_address2 = models.CharField(max_length=80, null=True, blank=True)
-    town_or_city = models.CharField(max_length=40, null=False, blank=False)
-    county = models.CharField(max_length=80, null=True, blank=True)
-    postcode = models.CharField(max_length=20, null=True, blank=True)
-    country = CountryField(blank_label='Country *', null=False, blank=False)
 
     def __str__(self):
         return self.order_number
