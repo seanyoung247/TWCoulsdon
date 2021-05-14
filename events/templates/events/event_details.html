@@ -2,6 +2,7 @@
 {% load static %}
 {% load core_tools %}
 {% load event_tools %}
+{% load boxoffice_tools %}
 {% load embed_video_tags %}
 
 {% block title %}
@@ -64,8 +65,7 @@
         {% endif %}
 
         {# No tickets for past events #}
-        {% if last_date|in_the_future %}
-        <!-- TODO: Only show this if event is in the future and has available tickets -->
+        {% if last_date|in_the_future and event|has_tickets %}
           {# Ticket information #}
           <div class="event-panel">
             <h5>Tickets</h5>
