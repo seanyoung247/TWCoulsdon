@@ -75,4 +75,60 @@ class TestTicket(TestCase):
 
 class TestOrder(TestCase):
     """ Tests the Order model """
-    pass
+    def setUp(self):
+        self.user = User.objects.create_user(
+        'Test User', 'test@email.com', 'testpassword')
+        self.userProfile = UserProfile.objects.get(user=self.user)
+
+        self.event = Event.objects.create(
+            title = "Test Event",
+            description = "Test Event"
+        )
+        self.date = EventDate.objects.create(
+            event = self.event, date = timezone.now())
+
+        self.order = Order.objects.create(
+            user_profile = self.userProfile,
+            full_name = "Test User",
+            email = self.user.email
+        )
+        self.ticketType = TicketType.objects.create(
+            name = "test",
+            display_name = "Test Ticket",
+            price = 10.00
+        )
+
+    def test_string_returns_order_number(self):
+        """ Tests that the __str__ method returns  """
+        self.assertEqual(str(self.order), self.order.order_number)
+
+    def test_order_number_unique(self):
+        """ Tests that identical orders produce unqiue order numbers """
+        order = Order.objects.create(
+            user_profile = self.userProfile,
+            full_name = "Test User",
+            email = self.user.email
+        )
+        self.assertNotEqual(self.order.order_number, order.order_number)
+
+    def test_order_total_updated(self):
+        """
+        Tests that the custom signals are triggered and order totals updated as
+        tickets are added and removed.
+        """
+        self.assertEqual(self.order.order_total, 0)
+        ticket1 = Ticket.objects.create(
+            order = self.order, type = self.ticketType,
+            event = self.event, date = self.date
+        )
+        self.assertEqual(self.order.order_total, 10.00)
+        ticket2 = Ticket.objects.create(
+            order = self.order, type = self.ticketType,
+            event = self.event, date = self.date
+        )
+        self.assertEqual(self.order.order_total, 20.00)
+        ticket2.delete()
+        self.assertEqual(self.order.order_total, 10.00)
+
+
+
