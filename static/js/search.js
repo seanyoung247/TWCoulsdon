@@ -1,8 +1,8 @@
 // Adds or alters a url parameter
 function setURLParameter(param, value) {
   // Get the current url and parameters
-  let url = new URL($(location).attr('href'));
-  let params = url.searchParams;
+  const url = new URL($(location).attr('href'));
+  const params = url.searchParams;
   // Set the parameter value
   params.set(param, value);
   // Add the url to the current state without triggering a reload
@@ -11,8 +11,8 @@ function setURLParameter(param, value) {
 
 // Loads more search items
 $( '#load-more-btn' ).click(function() {
-  let loadBtn = $( this );
-  let url = `${loadBtn.data('url')}?page=${loadBtn.data('page')}`;
+  const loadBtn = $( this );
+  const url = `${loadBtn.data('url')}?page=${loadBtn.data('page')}`;
   // Show the load more indicator
   $( loadBtn.data('indicator') ).removeClass('hide');
   // Get more search results

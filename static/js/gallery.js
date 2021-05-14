@@ -15,11 +15,11 @@ $( '#gallery-prev' ).click(function() {
 });
 
 $('.gallery-image-link').click(function(){
-  let current = $( this );
-  let prevBtn = $( '#gallery-prev' );
-  let nextBtn = $( '#gallery-next' );
+  const current = $( this );
+  const prevBtn = $( '#gallery-prev' );
+  const nextBtn = $( '#gallery-next' );
   // Get the modal for displaying the image
-  let imageModal = $( current.data( "target" ) );
+  const imageModal = $( current.data( "target" ) );
   // Set the image and caption
   imageModal.find('img').attr('src', current.data( 'image' )).attr('alt', $( this ).data( 'description' ));
   imageModal.find('#gallery-image-title').text(current.data( 'description' ));
@@ -31,7 +31,7 @@ $('.gallery-image-link').click(function(){
   else prevBtn.prop('disabled', false);
   if (!nextBtn.data( 'target' ).length) nextBtn.prop('disabled', true);
   else nextBtn.prop('disabled', false);
-  
+
   // Show the modal
   imageModal.modal();
 });
