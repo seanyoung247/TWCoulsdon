@@ -239,6 +239,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom settings
 RESULTS_PER_PAGE = int(os.environ.get('RESULTS_PER_PAGE')) #Number of results to show per page for search
+# How many hours before an event that tickets can be sold until
+TICKET_CUT_OFF_HOURS = 2
 
 # Uncomment to send debug data to the console during tests:
 #NOSE_ARGS = ['--nocapture', '--nologcapture',]
