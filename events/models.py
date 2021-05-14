@@ -43,7 +43,7 @@ class Venue(models.Model):
     country = CountryField(blank_label='Country *', null=True, blank=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-    capacity = models.IntegerField(null=True, blank=True)
+    capacity = models.IntegerField(null=False, blank=False, default=0)
 
     def __str__(self):
         return self.name
