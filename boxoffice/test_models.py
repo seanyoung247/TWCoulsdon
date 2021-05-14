@@ -55,6 +55,7 @@ class TestTicket(TestCase):
         self.user.delete()
 
     def test_all_fields_required(self):
+        """ Ensures Ticket won't be created without all fields being filled """
         with transaction.atomic():
             self.assertRaises(IntegrityError, Ticket.objects.create)
 
@@ -97,6 +98,9 @@ class TestOrder(TestCase):
             display_name = "Test Ticket",
             price = 10.00
         )
+
+    def tearDown(self):
+        self.user.delete()
 
     def test_string_returns_order_number(self):
         """ Tests that the __str__ method returns  """
