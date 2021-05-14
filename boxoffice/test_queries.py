@@ -48,8 +48,12 @@ class TestQueries(TestCase):
         count = get_available_tickets_for_date(self.date)
         # Venue = 10 seats, 1 - ticket == 9 left
         self.assertEqual(count, 9)
+        # Ensure correct value is returned if no tickets have been sold
+        self.ticket.delete()
+        count = get_available_tickets_for_date(self.date)
+        self.assertEqual(count, 10)
         # Create enough tickets to sell-out date
-        for i in range(1,10):
+        for i in range(0,10):
             Ticket.objects.create(
                 order = self.order, type = self.ticketType,
                 event = self.event, date = self.date
@@ -78,7 +82,7 @@ class TestQueries(TestCase):
         self.assertEqual(count, 19)
         # Add a ticket to the past event to ensure the count
         # isn't affected by past events
-        Ticket.objects.create(
+        ticket1 = Ticket.objects.create(
             order = self.order, type = self.ticketType,
             event = self.event, date = past_date
         )
@@ -86,10 +90,16 @@ class TestQueries(TestCase):
         self.assertEqual(count, 19)
         # Add a ticket to the future date to ensure the new
         # total is correctly returned
-        Ticket.objects.create(
+        ticket2 = Ticket.objects.create(
             order = self.order, type = self.ticketType,
             event = self.event, date = future_date
         )
         count = get_available_tickets_for_event(self.event)
         self.assertEqual(count, 18)
+        # Ensure events with no sold tickets return the correct values
+        self.ticket.delete()
+        ticket1.delete()
+        ticket2.delete()
+        count = get_available_tickets_for_event(self.event)
+        self.assertEqual(count, 20)
 
