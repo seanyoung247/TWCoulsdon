@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-from django_countries.fields import CountryField
+from django.db.models import Sum
 from events.models import Event, EventDate
 from profiles.models import UserProfile
 
@@ -55,6 +55,7 @@ class Order(models.Model):
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
+    # I've kept order and grand totals for potential future use, but currently grand total is redundant
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     phone_number = models.CharField(max_length=20, null=False, blank=False)
 
@@ -69,6 +70,10 @@ class Order(models.Model):
         Recieves the on save/delete signals when related tickets are saved or deleted
         and updates the order total.
         """
+        self.order_total = self.tickets.aggregate(Sum('type__price'))['type__price__sum'] or 0
+        # grand_total and order_total are currently the same. grand_total is retained for future use
+        # (might be needed for charitable gifts or tax calculation)
+        self.grand_total = self.order_total
 
     def save(self, *args, **kwargs):
         if not self.order_number:

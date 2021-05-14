@@ -241,5 +241,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 RESULTS_PER_PAGE = int(os.environ.get('RESULTS_PER_PAGE')) #Number of results to show per page for search
 
 # Uncomment to send debug data to the console during tests:
-#NOSE_ARGS = ['--nocapture',
-#             '--nologcapture',]
+#NOSE_ARGS = ['--nocapture', '--nologcapture',]
