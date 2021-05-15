@@ -16,7 +16,28 @@ from .models import Event, ShowType
 
 
 def query_events(query_list):
-    """ Gets event records based on request criteria """
+    """ Gets event records based on request criteria
+
+    Parameters:
+    query_list (list of strings): The list of query Parameters
+
+    Returns:
+    search query (dictionary): Returns a dictionary describing the
+                               query and results in the following format:
+        return = {
+            showcase_events: <query_set of showcase events> or None
+            events: <query_set of non-showcase events> or None
+            has_next: For reciever pagination use. Always false
+            event_type: <ShowType object> or None
+            search_query = {
+                text: <the text string query passed> or None
+                fdate: <the first date in ISO8601 format> or None
+                ldate: <the last date in ISO8601 format> or None
+                type: <the string event type> or None
+            }
+        }
+    """
+
     events = Event.objects.all().order_by('-post_date')
     showcase_events = None
     event_type = None
