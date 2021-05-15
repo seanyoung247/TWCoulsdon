@@ -1,5 +1,6 @@
 {% load core_tools %}
 {% load event_tools %}
+{% load boxoffice_tools %}
 
 
 {% if showcase %}
@@ -23,7 +24,9 @@
           {% endif %}
           <p class="event-showcase-links">
             <a class="btn btn-twc-dark" href="{% url 'event_details' event.slug %}" role="button">Read More</a>
-            <a class="btn btn-twc-dark" href="#" role="button">Buy Tickets</a>
+            {% if event|has_tickets %}
+              <a class="btn btn-twc-dark" href="#" role="button">Buy Tickets</a>
+            {% endif %}
           </p>
         </div>
       </div>
