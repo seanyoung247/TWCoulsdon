@@ -25,7 +25,7 @@ def get_available_tickets_for_date(event_date):
     # How many tickets have already been sold?
     ticket_count = Ticket.objects.filter(date=event_date).count()
     # How many seats does the venue have?
-    venue_seats = event_date.event.venue.capacity
+    venue_seats = event_date.event.venue.capacity if event.venue is not None else 0
     return venue_seats - ticket_count
 
     return 0
@@ -52,7 +52,7 @@ def get_available_tickets_for_event(event):
     # How many dates are left?
     date_count = EventDate.objects.filter(event=event, date__gte=ticket_cutoff).count()
     # How many are there in total?
-    venue_seats = event.venue.capacity * date_count
+    venue_seats = (event.venue.capacity if event.venue is not None else 0) * date_count
     return venue_seats - ticket_count
 
     return 0
