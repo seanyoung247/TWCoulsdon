@@ -324,6 +324,10 @@ hr {
   text-transform: uppercase;
 }
 
+.nav-link.active {
+  border-bottom: var(--accent-color) 1px solid;
+}
+
 .nav-link:hover {
   color: var(--brand-color);
   border-bottom: var(--brand-color) 1px solid;
