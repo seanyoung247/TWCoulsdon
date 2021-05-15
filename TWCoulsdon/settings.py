@@ -38,7 +38,7 @@ if 'TEST_IP' in os.environ:
 GRAPH_MODELS = {
   'all_applications': False,
   'group_models': True,
-  'app_labels': ['home', 'events',],
+  'app_labels': ['core', 'home', 'events', 'profiles', 'boxoffice',],
 }
 
 # Application definition
