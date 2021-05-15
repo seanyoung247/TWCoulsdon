@@ -461,9 +461,11 @@ hr {
   display: block;
   position: absolute;
   padding: 5px;
-  top: 50%;
+  bottom: 0;
+  right: 15px;
+  /*top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);*/
   background-color: var(--brand-color);
   color: var(--light-color);
 }
