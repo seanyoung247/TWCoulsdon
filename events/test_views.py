@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta
+""" Defines tests for the event app views """
+from datetime import timedelta
 from django.test import TestCase
 from django.conf import settings
 from django.utils import timezone
@@ -109,4 +110,3 @@ class TestEventsViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'events/venue_details.html')
         self.assertContains(response, 'Test Venue')
-

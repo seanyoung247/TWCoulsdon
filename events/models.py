@@ -43,7 +43,7 @@ class Venue(models.Model):
     country = CountryField(blank_label='Country *', null=True, blank=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-    capacity = models.IntegerField(null=True, blank=True)
+    capacity = models.IntegerField(null=False, blank=False, default=0)
 
     def __str__(self):
         return self.name
@@ -58,8 +58,7 @@ class Event(SlugModel):
     type = models.ForeignKey('ShowType', null=True, blank=True, on_delete=models.SET_NULL)
     venue = models.ForeignKey('Venue', null=True, blank=True, on_delete=models.SET_NULL)
     title_image = models.ForeignKey('Image', related_name='+',
-        null=True, blank=True, on_delete=models.SET_NULL
-    )
+        null=True, blank=True, on_delete=models.SET_NULL)
     content = EmbedVideoField(null=True, blank=True)
     post_date = models.DateTimeField(auto_now_add=True)
 

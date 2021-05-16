@@ -15,7 +15,7 @@
     <ul class="col-12 col-md-3 order-md-2 content-page-links">
       {% for link in page_links %}
         <li class="content-page-link">
-          <a class="btn btn-twc-light" href="{% url 'page' category.slug link.slug %}">{{ link.title }}</a>
+          <a class="btn btn-twc-light" href="{% url 'category_page' category.slug %}?page={{link.slug}}">{{ link.title }}</a>
         </li>
       {% endfor %}
     </ul>

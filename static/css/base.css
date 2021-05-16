@@ -324,6 +324,10 @@ hr {
   text-transform: uppercase;
 }
 
+.nav-link.active {
+  border-bottom: var(--accent-color) 1px solid;
+}
+
 .nav-link:hover {
   color: var(--brand-color);
   border-bottom: var(--brand-color) 1px solid;
@@ -348,7 +352,7 @@ hr {
 }
 .carousel-caption {
   color: var(--light-color);
-  background-color: rgba(var(--dark-color-rgb), 0.8);
+  background-color: rgba(var(--dark-color-rgb), 0.9);
   top: 50%;
   transform: translateY(-50%);
   bottom: initial;
@@ -420,7 +424,7 @@ hr {
 .event-showcase-card .jumbotron {
   color: var(--light-color);
   text-shadow: 1px 1px 2px var(--dark-color);
-  background-color: rgba(var(--dark-color-rgb),0.8);
+  background-color: rgba(var(--dark-color-rgb),0.9);
   width: 100%;
   padding: 5px 1rem;
   margin-bottom: 0;
@@ -461,9 +465,11 @@ hr {
   display: block;
   position: absolute;
   padding: 5px;
-  top: 50%;
+  bottom: 0;
+  right: 15px;
+  /*top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);*/
   background-color: var(--brand-color);
   color: var(--light-color);
 }
@@ -716,7 +722,7 @@ hr {
 
 .square-spacer {
   position: relative;
-  width:100%;
+  width: 100%;
   height: 0;
   padding-top: 100%;
 }

@@ -3,8 +3,10 @@ from django.shortcuts import render, reverse, get_object_or_404
 from django.db import models
 from django.db.models import Min, Max
 from django.utils import timezone
+
 from events.models import Event
 from .models import Category, Page
+from core.debug import debug_print
 
 
 def index(request):
@@ -47,7 +49,7 @@ def index(request):
                 'text': category.title_page.description,
                 'first_date': None,
                 'last_date': None,
-                'link': reverse('category', args=(category.slug,)),
+                'link': reverse('category_page', args=(category.slug,)),
             })
 
     context = {
@@ -57,33 +59,26 @@ def index(request):
     return render(request, 'home/index.html', context)
 
 
-def category(request, category_slug):
-    """ A view to show a single category page """
+def category_page(request, category_slug):
+    """ A view to show single category pages """
+    # Get the category
     category = get_object_or_404(Category, slug=category_slug)
-    # Does this category have an attached page?
-    if not category.title_page:
+    page = None
+    # Are we getting a page variable?
+    if 'page' in request.GET:
+        # Get the page referenced in the parameter
+        page = get_object_or_404(Page, slug=request.GET['page'])
+    else:
+        # Else get the category title page_links
+        page = category.title_page
+
+    # If there's no page, we can't load it...
+    if not page:
         raise Http404
 
-    # Get this category's page list
+    # Get this category's page links - Note: If this section becomes more than
+    # static information to some sort of blog format we'll need to do pagination here.
     page_links = Page.objects.filter(category=category.id)
-
-    context = {
-        'category': category,
-        'page': category.title_page,
-        'page_links': page_links,
-    }
-
-    return render(request, 'home/page.html', context)
-
-
-def page(request, category_slug, page_slug):
-    """ A view to show a single content page """
-    category = get_object_or_404(Category, slug=category_slug)
-    page = get_object_or_404(Page, slug=page_slug)
-
-    # Get this category's page list
-    page_links = Page.objects.filter(category=category.id)
-
     context = {
         'category': category,
         'page': page,
@@ -91,4 +86,3 @@ def page(request, category_slug, page_slug):
     }
 
     return render(request, 'home/page.html', context)
-

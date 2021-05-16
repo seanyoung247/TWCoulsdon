@@ -11,18 +11,18 @@ class TestShowType(TestCase):
 
     def test_display_name_defaults_blank(self):
         """ Ensures display name is created with correct defaults """
-        type = ShowType.objects.create(name="test")
-        self.assertTrue(type.display_name is None)
+        show_type = ShowType.objects.create(name="test")
+        self.assertTrue(show_type.display_name is None)
 
     def test_string_method_returns_name(self):
         """ Ensures the ShowType __str__ method returns name field """
-        type = ShowType.objects.create(name="test")
-        self.assertEqual(str(type), "test")
+        show_type = ShowType.objects.create(name="test")
+        self.assertEqual(str(show_type), "test")
 
     def test_display_name(self):
         """ Ensures the ShowType display_name field is set and returned """
-        type = ShowType.objects.create(name="test", display_name="Test Type")
-        self.assertEqual(type.get_display_name(), "Test Type")
+        show_type = ShowType.objects.create(name="test", display_name="Test Type")
+        self.assertEqual(show_type.get_display_name(), "Test Type")
 
 
 class TestEventDate(TestCase):
@@ -62,18 +62,13 @@ class TestVenue(TestCase):
 class TestEvent(TestCase):
     """ Tests the Event model and class members """
     def test_string_returns_title(self):
+        """ Ensures the __str__ method returns the event title """
         event = Event.objects.create(title="Test Event")
         self.assertEqual(str(event), "Test Event")
 
     def test_slug_generation(self):
+        """ Ensures the event slug is created properly """
         event = Event.objects.create(title="Test Event")
         self.assertEqual(event.slug, "test-event")
         event = Event.objects.create(title="Test Event")
         self.assertEqual(event.slug, "test-event-1")
-
-
-
-
-
-
-

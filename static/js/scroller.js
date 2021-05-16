@@ -1,8 +1,8 @@
 // Scrolls one "page" left (backwards)
 $( ".scroller .scroll-left" ).click(function(event) {
-  let scroller = $( this ).siblings( ".scroller-items" );
-  let scrollItem = scroller.children( ".scroll-item" );
-  let scrollEndItem = scroller.children( ".scroll-item-bookend" );
+  const scroller = $( this ).siblings( ".scroller-items" );
+  const scrollItem = scroller.children( ".scroll-item" );
+  const scrollEndItem = scroller.children( ".scroll-item-bookend" );
   let scrollPosition = scroller.get(0).scrollWidth;
   // If we're at the beginning of the items, move back one page
   if (scroller.scrollLeft() > 0) {
@@ -19,9 +19,9 @@ $( ".scroller .scroll-left" ).click(function(event) {
 
 // Scrolls one "page" right (forwards)
 $( ".scroller .scroll-right" ).click(function(event) {
-  let scroller = $( this ).siblings( ".scroller-items" );
-  let scrollItemWidth = scroller.children( ".scroll-item" ).outerWidth();
-  let scrollEndPosition = scroller.scrollLeft() + scroller.width() +
+  const scroller = $( this ).siblings( ".scroller-items" );
+  const scrollItemWidth = scroller.children( ".scroll-item" ).outerWidth();
+  const scrollEndPosition = scroller.scrollLeft() + scroller.width() +
     scroller.children( ".scroll-item-bookend" ).outerWidth();
   let scrollPosition = 0;
   // If we're not at the end of the items move to the next page
