@@ -9,7 +9,7 @@ from django.db import transaction
 from events.models import Event, EventDate
 from profiles.models import UserProfile
 
-from .models import TicketType, Ticket, Order
+from .models import TicketType, Ticket, TicketTemplate, Order
 
 
 class TestTicketType(TestCase):
@@ -72,6 +72,23 @@ class TestTicket(TestCase):
     def test_string_returns_id(self):
         """ Ensures the __str__ method returns the unique ticket id """
         self.assertEqual(str(self.ticket.ticket_id), self.ticket.ticket_id)
+
+
+class TestTicketTemplate(TestCase):
+    """ Tests the ticket template model """
+    def setUp(self):
+        self.event = Event.objects.create(
+            title = "Test Event",
+            description = "Test Event"
+        )
+        self.ticket_template = TicketTemplate.objects.create(event=self.event)
+
+    def test_event_field_required(self):
+        self.assertRaises(IntegrityError, TicketTemplate.objects.create)
+
+    def test_string_returns_template_information(self):
+        self.assertEqual(str(self.ticket_template),
+            f'Ticket Template for: {self.ticket_template.event.title}')
 
 
 class TestOrder(TestCase):
