@@ -39,7 +39,7 @@ class TestHomeViews(TestCase):
 
     def test_content_page(self):
         """ Tests loading a content page """
-        response = self.client.get(f'/twc/{self.category.slug}/{self.page.slug}/')
+        response = self.client.get(f'/twc/{self.category.slug}/?page={self.page.slug}')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/page.html')
 
