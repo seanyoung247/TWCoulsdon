@@ -6,9 +6,7 @@ from profiles.models import UserProfile
 
 
 class TicketType(models.Model):
-    """
-    Defines the tickets types (adult, concession)
-    """
+    """ Defines the tickets types (adult, concession) """
     name = models.CharField(max_length=50, null=False, blank=False)
     display_name = models.CharField(max_length=50, null=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=False, default=0)
@@ -18,9 +16,7 @@ class TicketType(models.Model):
 
 
 class Ticket(models.Model):
-    """
-    Defines a single ticket
-    """
+    """ Defines a single ticket """
     ticket_id = models.CharField(max_length=32, null=False, blank=False, editable=False)
     order = models.ForeignKey('Order', null=False, blank=False,
                                 on_delete=models.CASCADE, related_name="tickets")
@@ -42,10 +38,17 @@ class Ticket(models.Model):
         super().save(*args, **kwargs)
 
 
+class TicketTemplate(models.Model):
+    """ Provides information for a ticket's visual template """
+    event = models.ForeignKey(Event, null=False, blank=False, on_delete=models.CASCADE)
+    image = models.ImageField(null=True, blank=True)
+
+    def __str__(self):
+        return f'Ticket Template for: {self.event.title}'
+
+
 class Order(models.Model):
-    """
-    Stores information on individual orders
-    """
+    """ Stores information on individual orders """
     order_number = models.CharField(max_length=32, null=False, editable=False)
     user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
                                      null=True, blank=True, related_name='orders')
