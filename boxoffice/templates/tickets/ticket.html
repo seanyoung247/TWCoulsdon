@@ -1,16 +1,105 @@
+{% load static %}
+{% load boxoffice_tools %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <style>
       @page {
         size: "A4";
         margin: 2.5cm 1.5cm 3.5cm 1.5cm;
+        @top-center {
+          content: "Order: #{{ order.order_number }}"
+        }
       }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        color: black;
+      }
+
+      .ticket {
+        border: 1px solid black;
+        margin-bottom: 20px;
+      }
+
+      .ticket-security {
+        position: relative;
+        float: left;
+        height: 200px;
+        padding: 10px;
+        width: 20%;
+      }
+
+      .ticket-type {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+      }
+
+      .ticket-logo {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 250px;
+      }
+
+      .ticket-body {
+        position: relative;
+        border-left: 1px solid black;
+        float: right;
+        height: 200px;
+        width: 75%;
+      }
+
+      .ticket-info {
+        position: absolute;
+        top: 50px;
+        left: 10px;
+      }
+
+      .ticket-name {
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+      }
+
+      .ticket-footer {
+        clear: both;
+      }
+
+      .break {
+        page-break-before: always;
+      }
+
     </style>
-    <title></title>
+    <title>Test Ticket</title>
   </head>
   <body>
-    This is a test PDF
+    {% for ticket in tickets %}
+      <div class="ticket {% if forloop.counter0|divisibleby:4 %}break{% endif %}">
+        <div class="ticket-security">
+          <img src="{% ticket_qr_code request ticket.ticket_id %}">
+          <a href="{% validate_ticket_url request ticket.ticket_id %}">validate</a>
+          <div class="ticket-type">{{ ticket.type.display_name }}</div>
+        </div>
+        <div class="ticket-body">
+          <img class="ticket-logo" src="{% static 'img/twc-title.svg' %}">
+          <div class="ticket-info">
+            <h1>{{ ticket.event.title }}</h1>
+            <p>{{ ticket.event.venue.name }}</p>
+            <p>{{ ticket.date.date|date:"d/m/Y - H:i" }}</p>
+          </div>
+          <p class="ticket-name">{{ order.full_name }}</p>
+        </div>
+        <div class="ticket-footer"></div>
+      </div>
+    {% endfor %}
   </body>
 </html>
