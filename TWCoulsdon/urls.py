@@ -18,10 +18,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from core import views
+from core import views as core_views
+from boxoffice import views as boxoffice_views
 
 urlpatterns = [
-    path('favicon.ico', views.redirect_ico),
+    path('favicon.ico', core_views.redirect_ico),
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('accounts/', include('allauth.urls')),
@@ -30,4 +31,5 @@ urlpatterns = [
     path('events/', include('events.urls')),
     path('profile/', include('profiles.urls')),
     path('boxoffice/', include('boxoffice.urls')),
+    path('ticket/<ticket_id>', boxoffice_views.validate_ticket, name='validate_ticket')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
