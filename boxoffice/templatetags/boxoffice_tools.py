@@ -1,6 +1,9 @@
 """ Template tags for the event app """
+import segno
+
 from django import template
 from django.utils import timezone
+from django.shortcuts import reverse
 
 from events.models import Event, EventDate
 from boxoffice.queries import get_available_tickets_for_event, get_available_tickets_for_date
@@ -22,3 +25,17 @@ def ticket_count(event):
 def has_tickets(event):
     """ Returns true if event or date still has tickets """
     return (ticket_count(event) > 0)
+
+
+@register.simple_tag
+def validate_ticket_url(request, ticket_id):
+    return request.build_absolute_uri(reverse('validate_ticket', args=(ticket_id,)))
+
+
+@register.simple_tag
+def ticket_qr_code(request, ticket_id):
+    """ Generates a qr code data url to validate a ticket with the id passed """
+    return segno.make(
+            validate_ticket_url(request, ticket_id),
+            micro=False
+        ).svg_data_uri(scale=2)
