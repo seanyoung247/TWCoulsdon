@@ -417,6 +417,59 @@ NOTE: - Use of SVG (colour changing favicon etc)
 ## Testing
 
 ## Source Control
+The website was developed using the Atom editor with git and github for version control.
+
+New changes to the local copy can be added to the remote repository by first adding:
+
+`>git add .`
+
+Committing the changes to local version control:
+
+`>git commit -m "<commit message>"`
+
+And pushing them to the remote repository:
+
+`>git push`
+
+### Branches
+
+Branches were used to add and develop new features for testing without affecting the main branch and deployed application.
+
+#### Creating a branch
+
+A branch can be created and selected in one operation with:
+
+`>git checkout -b <branch name>`
+
+#### Selecting a branch
+
+Switching to an already created branch can be done by:
+
+`git checkout <branch name>`
+
+#### Merging a branch
+
+For merging the commits of one branch to another (for instance when merging a completed development branch to main):
+
+1. Checkout branch to merge into:
+
+   `>git checkout <destination branch>`
+
+2. Merge source branch into destination:
+
+   `git merge <source branch>`
+
+#### Deleting a branch
+
+1. Ensure you are not on the branch you want to delete by selecting another
+
+2. Delete the branch locally:
+
+  `git branch - <local branch name>`
+
+3. Delete the branch remotely:
+
+  `git push origin --delete <remote branch name>`
 
 ## Deployment
 
