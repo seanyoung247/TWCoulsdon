@@ -561,5 +561,60 @@ For merging the commits of one branch to another (for instance when merging a co
 
 ## Deployment
 
-## Credits
+### Local Deployment
 
+### Remote Deployment
+
+The site is deployed to Heroku at: https://twcoulsdon.herokuapp.com/
+
+<details>
+<summary><b>Creating the required deployment files in the repository:</b></summary>
+
+- requirements.txt
+  - Lists the required python modules for Heroku to install on deployment.
+  - To create
+    - from the project root directory type:
+    - `pip3 freeze > requirements.txt`
+- Procfile
+  - Tells heroku what command to use to start the app.
+  - To create
+    - Type the following command into the project root directory:
+    - `echo web: gunicorn TWCoulsdon.wsgi:application`
+- slugignore (optional)
+  - Lists files and directories that shouldn't be deployed to the live app, like testing and development files. Uses a similar syntax to .gitignore.
+  - Create a text file.
+    - List the files and directories to be excluded from the live deployment
+    - Save to the project root directory as ".slugignore"
+</details>
+
+### Creating a Heroku app
+
+<details>
+<summary>From the Heroku dashboard:</summary>
+
+- Select "New"
+
+  - Select "Create new app"
+
+  ![Create Heroku app step one](design/images/docs/new_heroku_app.png)
+
+- Add new app details to form
+
+  - Add app name
+  - Select region
+  - Click create app
+
+  ![Create Heroku app step 2](design/images/docs/new_heroku_app2.png)
+</details>
+
+### Setting Environment variables
+
+<details>
+<summary>From the Heroku dashboard:</summary>
+
+- Select the app from the list
+- Select "Settings" from the menu
+  - From the settings menu select "Reveal Config Vars"
+  - Add environment variables in key value pairs
+  - Click "Add" to add each key/value pair
+</details>
