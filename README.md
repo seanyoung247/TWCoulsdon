@@ -374,8 +374,35 @@ address and contact information.
 
 </details>
 
-#### About
-#### Contact
+#### Information Pages
+
+#### Basket
+
+The basket page gives access to the currently selected tickets before purchase
+and provides tools to edit items and quantities.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Landing Page Phone Layout](design/wireframes/basket/phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Landing Page Tablet Layout](design/wireframes/basket/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Landing Page Desktop Layout](design/wireframes/basket/desktop.png)
+
+</details>
 
 ## Features
 
