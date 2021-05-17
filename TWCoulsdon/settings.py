@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     # Other
     'storages',
     'django_extensions',
+    'qr_code',
 ]
 
 MIDDLEWARE = [
@@ -231,7 +232,7 @@ else:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 NO_IMAGE = os.path.join(MEDIA_URL, 'noimage.png')
-
+FAVICON = os.path.join(STATIC_URL, 'img/favicon.ico')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

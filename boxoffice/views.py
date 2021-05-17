@@ -4,4 +4,4 @@ from .reports import generate_ticket_pdf
 
 
 def boxoffice(request):
-    return generate_ticket_pdf()
+    return generate_ticket_pdf(request)
