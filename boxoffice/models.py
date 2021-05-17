@@ -40,7 +40,8 @@ class Ticket(models.Model):
 
 class TicketTemplate(models.Model):
     """ Provides information for a ticket's visual template """
-    event = models.ForeignKey(Event, null=False, blank=False, on_delete=models.CASCADE)
+    event = models.OneToOneField(Event, null=False, blank=False,
+                                on_delete=models.CASCADE, related_name='ticket_template')
     image = models.ImageField(upload_to="tickets/", null=True, blank=True)
     text_color = models.CharField(max_length=6, null=False, blank=False, default="000000")
 
