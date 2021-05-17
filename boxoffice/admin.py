@@ -1,6 +1,6 @@
 """ Registers boxoffic models with django admin """
 from django.contrib import admin
-from .models import TicketType, Ticket, TicketTemplate, Order
+from .models import TicketType, Ticket, Order
 
 
 class TicketTypeAdmin(admin.ModelAdmin):
@@ -20,17 +20,6 @@ class TicketAdmin(admin.ModelAdmin):
         'type',
         'event',
         'date',
-    )
-
-    ordering = ('event',)
-
-
-class TicketTemplateAdmin(admin.ModelAdmin):
-    """ Registers TicketTemplate model with django admin """
-    list_display = (
-        'event',
-        'image',
-        'text_color',
     )
 
     ordering = ('event',)
@@ -56,5 +45,4 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.register(TicketType, TicketTypeAdmin)
 admin.site.register(Ticket, TicketAdmin)
-admin.site.register(TicketTemplate, TicketTemplateAdmin)
 admin.site.register(Order, OrderAdmin)

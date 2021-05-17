@@ -38,17 +38,6 @@ class Ticket(models.Model):
         super().save(*args, **kwargs)
 
 
-class TicketTemplate(models.Model):
-    """ Provides information for a ticket's visual template """
-    event = models.OneToOneField(Event, null=False, blank=False,
-                                on_delete=models.CASCADE, related_name='ticket_template')
-    image = models.ImageField(upload_to="tickets/", null=True, blank=True)
-    text_color = models.CharField(max_length=6, null=False, blank=False, default="000000")
-
-    def __str__(self):
-        return f'Ticket Template for: {self.event.title}'
-
-
 class Order(models.Model):
     """ Stores information on individual orders """
     order_number = models.CharField(max_length=32, null=False, editable=False)

@@ -9,7 +9,7 @@ from django.conf import settings
 from weasyprint import HTML
 from weasyprint.fonts import FontConfiguration
 
-from .models import TicketType, Ticket, TicketTemplate, Order
+from .models import TicketType, Ticket, Order
 
 
 def generate_ticket_pdf(request, order):
