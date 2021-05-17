@@ -1,6 +1,5 @@
 {% load static %}
 {% load boxoffice_tools %}
-{% load qr_code %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -12,7 +11,7 @@
         size: "A4";
         margin: 2.5cm 1.5cm 3.5cm 1.5cm;
         @top-center {
-          content: ""
+          content: "Order: #{{ order.order_number }}"
         }
       }
 
@@ -27,7 +26,19 @@
 
       .ticket {
         border: 1px solid black;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+      }
+
+      .ticket-security {
+        float: left;
+      }
+
+      .ticket-qr-code {
+        display: block;
+      }
+
+      .ticket-valid-link {
+        margin: 0 10px;
       }
 
       .ticket-logo {
@@ -37,60 +48,55 @@
         width: 250px;
       }
 
-      .ticket-header {
+      .ticket-body {
         position: relative;
-        background: url({{ template.image }}) no-repeat;
-        background-size: cover;
-        padding: 10px;
-        height: 250px;
-      }
-
-      .event-title {
-        color: {{ template.title_color }};
+        border-left: 1px solid black;
+        float: right;
+        height: 200px;
+        width: 75%;
       }
 
       .ticket-info {
-        width: 70%;
-        float: left;
-        padding: 10px;
+        position: absolute;
+        top: 50px;
+        left: 10px;
       }
 
-      .ticket-security {
-        float: right;
+      .ticket-name {
+        position: absolute;
+        bottom: 0;
+        right: 10px;
       }
 
       .ticket-footer {
         clear: both;
       }
+
+      .break {
+        page-break-before: always;
+      }
+
     </style>
     <title>Test Ticket</title>
   </head>
   <body>
-
-    <div class="ticket">
-      <div class="ticket-header">
-        <img class="ticket-logo" src="{% static 'img/twc-title.svg' %}">
-        <h1 class="event-title">{{ event.title }}</h1>
+    {% for ticket in tickets %}
+      <div class="ticket {% if forloop.counter0|divisibleby:4 %}break{% endif %}">
+        <div class="ticket-security">
+          <img class="ticket-qr-code" src="{% ticket_qr_code request ticket.ticket_id %}">
+          <a class="ticket-valid-link" href="{% validate_ticket_url request ticket.ticket_id %}">validate</a>
+        </div>
+        <div class="ticket-body">
+          <img class="ticket-logo" src="{% static 'img/twc-title.svg' %}">
+          <div class="ticket-info">
+            <h1>{{ ticket.event.title }}</h1>
+            <p>{{ ticket.event.venue.name }}</p>
+            <p>{{ ticket.date.date|date:"d/m/Y - H:i" }}</p>
+          </div>
+          <p class="ticket-name">{{ order.full_name }}</p>
+        </div>
+        <div class="ticket-footer"></div>
       </div>
-      <div class="ticket-info">
-        <p>{{ venue.name }}</p>
-        <p>
-          {% if venue.street_address2 %}{{ venue.street_address1 }}{% endif %},
-          {% if venue.street_address2 %}{{ venue.street_address2 }}{% endif %},
-          {% if venue.town_or_city %}{{ venue.town_or_city }}{% endif %},
-          {% if venue.county %}{{ venue.county }}{% endif %},
-          {% if venue.postcode %}{{ venue.postcode }}{% endif %}
-        </p>
-        <hr/>
-        <p>Admits:</p>
-
-      </div>
-      <div class="ticket-security">
-        <img src="{{ qr_data }}">
-      </div>
-      <div class="ticket-footer">
-
-      </div>
-    </div>
+    {% endfor %}
   </body>
 </html>
