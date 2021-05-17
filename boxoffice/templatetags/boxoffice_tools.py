@@ -1,5 +1,4 @@
 """ Template tags for the event app """
-
 from django import template
 from django.utils import timezone
 
