@@ -1,53 +1,33 @@
 """ Generates pdf reports and tickets """
 from __future__ import unicode_literals
 
-import os
-import segno
-
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from django.shortcuts import reverse
 #from django.utils.text import slugify
 from django.conf import settings
 
 from weasyprint import HTML
 from weasyprint.fonts import FontConfiguration
 
+from .models import TicketType, Ticket, TicketTemplate, Order
 
-def generate_ticket_pdf(request):
+
+def generate_ticket_pdf(request, order):
     """ Generates a pdf of the tickets in a given order
     """
 
-    # Prepare the response
+    # Prepare the response headers
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'inline; test.pdf'
 
-    # Construct the security check QR code as an svg data url for embedding
-    qr_data = segno.make(
-        request.build_absolute_uri(
-            reverse('event_details', args=('and-then-there-were-none',))),
-        micro=False
-    ).svg_data_uri(scale=4)
+    # Get tickets for this order
+    tickets = Ticket.objects.filter(order=order)
 
     # Generate a html template for the ticket
     context = {
-        'qr_data': qr_data,
-        'template': {
-            'image': '/media/tickets/test.jpg',
-            'text_color': '#FFFFFF',
-        },
-        'event': {
-            'title': 'Test Event'
-        },
-        'venue': {
-            'name': 'Test Venue',
-            'street_address1': 'Barrie Close',
-            'street_address2': 'Chipstead Valley Road',
-            'town_or_city': 'Coulsdon',
-            'county': 'Surrey',
-            'postcode': 'CR5 3BE',
-        },
-
+        'order': order,
+        'tickets': tickets,
+        'request': request,
     }
     html = render_to_string('tickets/ticket.html', context)
 
