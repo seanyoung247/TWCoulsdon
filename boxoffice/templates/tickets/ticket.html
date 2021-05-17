@@ -30,15 +30,17 @@
       }
 
       .ticket-security {
+        position: relative;
         float: left;
+        height: 200px;
+        padding: 10px;
+        width: 20%;
       }
 
-      .ticket-qr-code {
-        display: block;
-      }
-
-      .ticket-valid-link {
-        margin: 0 10px;
+      .ticket-type {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
       }
 
       .ticket-logo {
@@ -83,8 +85,9 @@
     {% for ticket in tickets %}
       <div class="ticket {% if forloop.counter0|divisibleby:4 %}break{% endif %}">
         <div class="ticket-security">
-          <img class="ticket-qr-code" src="{% ticket_qr_code request ticket.ticket_id %}">
-          <a class="ticket-valid-link" href="{% validate_ticket_url request ticket.ticket_id %}">validate</a>
+          <img src="{% ticket_qr_code request ticket.ticket_id %}">
+          <a href="{% validate_ticket_url request ticket.ticket_id %}">validate</a>
+          <div class="ticket-type">{{ ticket.type.display_name }}</div>
         </div>
         <div class="ticket-body">
           <img class="ticket-logo" src="{% static 'img/twc-title.svg' %}">
