@@ -374,8 +374,35 @@ address and contact information.
 
 </details>
 
-#### About
-#### Contact
+#### Information Pages
+
+#### Basket
+
+The basket page gives access to the currently selected tickets before purchase
+and provides tools to edit items and quantities.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Landing Page Phone Layout](design/wireframes/basket/phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Landing Page Tablet Layout](design/wireframes/basket/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Landing Page Desktop Layout](design/wireframes/basket/desktop.png)
+
+</details>
 
 ## Features
 
@@ -404,19 +431,133 @@ address and contact information.
 * Checkout
 
 ### Languages
-NOTE: - Use of SVG (colour changing favicon etc)
+- [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
+  - Used as the markup language for the site layout.
+- [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)
+  - Used to style and colour HTML and dynamic elements.
+  - CSS2 is used for generating pdf files.
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+  - Used to create and manipulate the site's client-side dynamic elements. Also
+  performs AJAX requests for client/server communication.
+- [Python](https://www.python.org/)
+  - Used for the backend server and running queries to the database.
+- [Django Templating Language](https://docs.djangoproject.com/en/3.2/ref/templates/language/)
+  - Used to generate HTML from site templates
+- [SVG](https://developer.mozilla.org/en-US/docs/Glossary/SVG)
+  - Used to define a number of the sites icons and graphical elements.
+  - Also used for the site favicon where supported. This allows infinite scalability
+  and the use of advanced features, such as automatically changing colours based
+  on user theme:
+  - ![Favicon](design/images/favicon.png)
 
 ### Libraries
+- [Django](https://www.djangoproject.com/)
+  - The project uses the django web framework to support advanced web server task.
+- [JQuery](https://jquery.com)
+  - The project uses JQuery to simplify DOM manipulation.
+- [Bootstrap](https://getbootstrap.com/)
+  - The project uses Bootstrap to aid in responsive design and to provide a number
+  of frontend components.
+- [Easy Thumbnails](https://pypi.org/project/easy-thumbnails/)
+  - Easy Thumbnails is used to automatically generate thumbnails for gallery image.
+- [Segno](https://pypi.org/project/segno/)
+  - Segno is used to generate QR Codes for ticket validation.
+- [django-embed-video](https://pypi.org/project/django-embed-video/)
+  - Used to simplify youtube video embedding within django templates.
+- [Tinymce](https://www.tiny.cloud/)
+  - Used to provide rich text input.
+- [WeasyPrint](https://weasyprint.org/)
+  - Used to generate pdf files from Django html templates for tickets and reporting.
 
 ### Editors
+- [Atom](https://atom.io/)
+  - Atom was used to write HTML/CSS, Javascript and Python code. It was also use
+  to build the readme and testing markdown documentation.
+- [dbdiagram](https://dbdiagram.io/home)
+  - Used to create Entity Relationship Diagrams of the database.
+- [Adobe Photoshop](https://www.adobe.com/products/photoshop.html)
+  - Used to create some of the image files used on the site.
+- [Adobe Illustrator](https://www.adobe.com/products/illustrator.html)
+  - Used to create some of the images and icons used on the site.
+- [Inkscape](https://inkscape.org/)
+  - Used to produce some svg images and icons.
+- [whimsical](https://whimsical.com/)
+  - Used to produce the projects wireframes.
 
 ### Tools
+- [Git](https://git-scm.com/)
+  - Used for version control and synchronising local and remote repositories.
+- [Coolors](https://coolors.co/)
+  - Used to help define the site colour scheme.
+- [Autoprefixer](https://autoprefixer.github.io/)
+  - Used to ensure backwards CSS compatibility with legacy browsers.
 
 ### Platforms
+- [Heroku](https://www.heroku.com/platform)
+  - The project uses Heroku as it's deployment platform.
+- [Amazon S3](https://aws.amazon.com/free/)
+  - Used to store site static and media files.
+- [Youtube](https://www.youtube.com/)
+  - Used for video content.
+- [Github](https://github.com/)
+  - Used for source control.
 
 ## Testing
 
 ## Source Control
+The website was developed using the Atom editor with git and github for version control.
+
+New changes to the local copy can be added to the remote repository by first adding:
+
+`>git add .`
+
+Committing the changes to local version control:
+
+`>git commit -m "<commit message>"`
+
+And pushing them to the remote repository:
+
+`>git push`
+
+### Branches
+
+Branches were used to add and develop new features for testing without affecting the main branch and deployed application.
+
+#### Creating a branch
+
+A branch can be created and selected in one operation with:
+
+`>git checkout -b <branch name>`
+
+#### Selecting a branch
+
+Switching to an already created branch can be done by:
+
+`git checkout <branch name>`
+
+#### Merging a branch
+
+For merging the commits of one branch to another (for instance when merging a completed development branch to main):
+
+1. Checkout branch to merge into:
+
+   `>git checkout <destination branch>`
+
+2. Merge source branch into destination:
+
+   `git merge <source branch>`
+
+#### Deleting a branch
+
+1. Ensure you are not on the branch you want to delete by selecting another
+
+2. Delete the branch locally:
+
+  `git branch - <local branch name>`
+
+3. Delete the branch remotely:
+
+  `git push origin --delete <remote branch name>`
 
 ## Deployment
 
