@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .reports import generate_ticket_pdf
-from .models import Order
+from .models import Ticket, Order
 
 
 def boxoffice(request):
@@ -9,5 +9,12 @@ def boxoffice(request):
     return generate_ticket_pdf(request, order)
 
 
+def basket(request):
+    pass
+
+
 def validate_ticket(request, ticket_id):
-    return HttpResponse("<h1>Test Ticket</h1>")
+    # Get ticket information
+    ticket = Ticket.objects.get(ticket_id=ticket_id)
+
+    return HttpResponse(f"<h1>{str(ticket.date)}</h1>")
