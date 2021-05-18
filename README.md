@@ -528,15 +528,15 @@ The website was developed using the Atom editor with git and github for version 
 
 New changes to the local copy can be added to the remote repository by first adding:
 
-`>git add .`
+`git add .`
 
 Committing the changes to local version control:
 
-`>git commit -m "<commit message>"`
+`git commit -m "<commit message>"`
 
 And pushing them to the remote repository:
 
-`>git push`
+`git push`
 
 ### Branches
 
@@ -546,7 +546,7 @@ Branches were used to add and develop new features for testing without affecting
 
 A branch can be created and selected in one operation with:
 
-`>git checkout -b <branch name>`
+`git checkout -b <branch name>`
 
 #### Selecting a branch
 
@@ -560,7 +560,7 @@ For merging the commits of one branch to another (for instance when merging a co
 
 1. Checkout branch to merge into:
 
-   `>git checkout <destination branch>`
+   `git checkout <destination branch>`
 
 2. Merge source branch into destination:
 
@@ -588,11 +588,11 @@ Django will do most of the work of preparing and setting up the database through
 To update the database to the latest models, from the project root:
 1. First generate the python migration scripts:
 
-  `>python3 manage.py makemigrations`
+  `python3 manage.py makemigrations`
 
 2. Then run the scripts and update the database:
 
-  `>python3 manage.py migrate`
+  `python3 manage.py migrate`
 
 ### Local Deployment
 
@@ -657,3 +657,25 @@ The site is deployed to Heroku at: https://twcoulsdon.herokuapp.com/
 </details>
 
 ### Creating the database
+
+<details>
+<summary>Creating the database:</summary>
+
+- Select the app from the list
+- Select "Resources" from the menu
+  - In the addons section select the search bar
+  - Type: "Postgres" and select Heroku Postgres
+    - From the order form select "submit order form"
+
+The Heroku environment variables will now include a DATABASE_URL which can be used to connect to the remote database.
+</details>
+
+The site sets itself up automatically for local or remote deployment based on enviroment variables. So migrations can be run locally against the remote database
+by ensuring the DATABASE_URL variable is set in the local environment and running
+migrations as outlined above. Data from the local database can be uploaded remotely by running the following command before defining DATABASE_URL:
+
+`python3 manage.py dumpdata --exclude auth.permission --exclude contenttypes > db.json`
+
+This can then be uploaded to the remote database after defining the DATABASE_URL by:
+
+`python3 manage.py loaddata db.json`
