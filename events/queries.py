@@ -12,23 +12,20 @@ from django.db.models.functions import Coalesce
 from .models import Event, ShowType
 
 
-#TODO: Split query events into sub functions
-
 def query_events_by_first_date(event_set, date):
     """ Filters the set passed on earliest event date
 
     Parameters:
     event_set (query_set): A query set of event objects to filter
-    date (string): date string in ISO8601 format
+    date (datetime)
 
     Returns:
     (query_set): The filtered event set
     """
 
-    query = timezone.make_aware(datetime.strptime(date, '%Y-%m-%d'))
     # Get events with dates later than date
     event_set = event_set.annotate(has_date=Max(models.Case(
-        models.When(eventdate__date__gte=query, then=1),
+        models.When(eventdate__date__gte=date, then=1),
         output_field=models.IntegerField(),
     ))).filter(has_date=True)
 
@@ -40,16 +37,15 @@ def query_events_by_last_date(event_set, date):
 
     Parameters:
     event_set (query_set): A query set of event objects to filter
-    date (string): date string in ISO8601 format
+    date (datetime)
 
     Returns:
     (query_set): The filtered event set
     """
 
-    query = timezone.make_aware(datetime.strptime(date, '%Y-%m-%d'))
     # Get events with dates earlier than ldate
     event_set = event_set.annotate(has_date=Max(models.Case(
-        models.When(eventdate__date__lt=query, then=1),
+        models.When(eventdate__date__lt=date, then=1),
         output_field=models.IntegerField(),
     ))).filter(has_date=True)
 
@@ -124,7 +120,7 @@ def query_events(query_list):
             }
         }
     """
-    
+
     now = timezone.now()
     events = Event.objects.all().order_by('-post_date')
     showcase_events = None
@@ -139,12 +135,15 @@ def query_events(query_list):
     # Search for dates greater than
     if 'fdate' in query_list and query_list['fdate']:
         search_query['fdate'] = query_list['fdate']
-        events = query_events_by_first_date(events, query_list['fdate'])
+        events = query_events_by_first_date(events,
+            timezone.make_aware(datetime.strptime(query_list['fdate'], '%Y-%m-%d')))
 
     # Search for dates less than
     if 'ldate' in query_list and query_list['ldate']:
         search_query['ldate'] = query_list['ldate']
-        events = query_events_by_last_date(events, query_list['ldate'])
+
+        events = query_events_by_last_date(events,
+            timezone.make_aware(datetime.strptime(query_list['ldate'], '%Y-%m-%d')))
 
     # Text search
     if 'q' in query_list and query_list['q']:
