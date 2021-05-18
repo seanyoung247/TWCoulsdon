@@ -375,6 +375,31 @@ address and contact information.
 
 #### Information Pages
 
+Various pages providing information on the group. May be expanded to also provide blog like functionality if required later.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Landing Page Phone Layout](design/wireframes/information_page/phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Landing Page Tablet Layout](design/wireframes/information_page/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Landing Page Desktop Layout](design/wireframes/information_page/desktop.png)
+
+</details>
+
 #### Basket
 
 The basket page gives access to the currently selected tickets before purchase
