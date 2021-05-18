@@ -428,6 +428,44 @@ and provides tools to edit items and quantities.
 
 </details>
 
+#### Ticket Validation
+
+The ticket validation is a simple report to confirm a ticket's face value conforms
+to the information held on the database. The check order button will only be available
+logged in staff members.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Landing Page Phone Layout](design/wireframes/ticket_validation/phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Landing Page Tablet Layout](design/wireframes/ticket_validation/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Landing Page Desktop Layout](design/wireframes/ticket_validation/desktop.png)
+
+</details>
+
+<details>
+<summary><b>Expired tickets</b></summary>
+
+![Landing Page Desktop Layout](design/wireframes/ticket_validation/invalid.png)
+
+</details>
+
+
+
 ## Features
 
 ### Existing Features
