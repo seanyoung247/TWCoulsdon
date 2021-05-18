@@ -206,7 +206,6 @@ of the box-office and reporting.
     </tr>
 </table>
 
-
 ## Design
 
 ### Database
@@ -413,22 +412,41 @@ and provides tools to edit items and quantities.
 ## Technologies
 
 ### Site architecture
+
+#### Core app
+
+The core app defines a few basic functions and models used throughout the site
+that don't fit anywhere else.
+
 #### Home app
+
+Provides models and views for the landing and group information pages.
+
 * Landing page
 * About page
 * Contact page
 
 #### Events app
+
+Provides models and pages for event and venue information
+
 * Events list
 * Event page
 * Venue page
 
 #### Profiles app
+
+Provides models and pages for user information and profiles.
+
 * User profile page
 
 #### Box Office app
+
+Provides models and pages for buying tickets, checking their validity and generating show attendence reports.
+
 * Shopping bag
 * Checkout
+* Show attendence and ticketing reports
 
 ### Languages
 - [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
@@ -637,3 +655,5 @@ The site is deployed to Heroku at: https://twcoulsdon.herokuapp.com/
   - Add environment variables in key value pairs
   - Click "Add" to add each key/value pair
 </details>
+
+### Creating the database
