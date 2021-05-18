@@ -6,7 +6,14 @@ from .models import Ticket, Order
 
 def boxoffice(request):
     order = Order.objects.get(pk=1)
-    return generate_ticket_pdf(request, order)
+
+    pdf = generate_ticket_pdf(request, order)
+
+    # Prepare the response headers
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; tickets.pdf'
+
+    return response
 
 
 def basket(request):

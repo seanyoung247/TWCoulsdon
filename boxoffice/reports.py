@@ -14,11 +14,14 @@ from .models import TicketType, Ticket, Order
 
 def generate_ticket_pdf(request, order):
     """ Generates a pdf of the tickets in a given order
-    """
 
-    # Prepare the response headers
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'inline; test.pdf'
+    Parameters:
+    request (Request): The request object
+    order (Order): The order to generate tickets for
+
+    Returns:
+    A byte buffer of the generated pdf
+    """
 
     # Get tickets for this order
     tickets = Ticket.objects.filter(order=order)
@@ -33,19 +36,8 @@ def generate_ticket_pdf(request, order):
 
     # Generate a pdf from the HTML
     font_config = FontConfiguration()
-    HTML(string=html, base_url=request.build_absolute_uri()
-        ).write_pdf(response, font_config=font_config)
-
-    return response
-
-
-
-
-
-
-
-
-
+    return HTML(string=html, base_url=request.build_absolute_uri()
+                ).write_pdf(font_config=font_config)
 
 
 
