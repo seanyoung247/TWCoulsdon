@@ -46,7 +46,7 @@ Pylint was used to verify **Python** code. Any errors were corrected and re-run 
 
 ### Python unit tests
 
-Automated unit tests were created to ensure correct functioning of various components. These include the app database models, 
+Automated unit tests were created to ensure correct functioning of various components. These include the app database models,
 To perform automated testing, from the project root directory type:
 `>python3 manage.py test`
 
@@ -59,7 +59,7 @@ Primary iterative testing was undertaken on a Windows 10 desktop machine with th
 **Desktop testing**
 
 - Platforms:
-  - Custom Desktop (Windows 10, Fedora 33)
+  - Custom Desktop (Windows 10, Ubuntu 20.10)
   - Microsoft SurfaceBook 2 (Windows 10)
   - Apple MacBook Air M1 (macOS Big Sur 11.2.2)
 - Browsers:
@@ -81,7 +81,7 @@ Primary iterative testing was undertaken on a Windows 10 desktop machine with th
 **Mobile testing**
 
 - Platforms:
-  - OnePlus7 (Android 10)
+  - OnePlus7 (Android 11)
   - Samsung Galaxy J6 (Android 10)
 - Browsers:
   - Chrome
