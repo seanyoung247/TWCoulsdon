@@ -562,7 +562,25 @@ For merging the commits of one branch to another (for instance when merging a co
 
 ## Deployment
 
+### Database Deployment
+
+Django will do most of the work of preparing and setting up the database through
+'migrations'.
+
+To update the database to the latest models, from the project root:
+1. First generate the python migration scripts:
+
+  `>python3 manage.py makemigrations`
+
+2. Then run the scripts and update the database:
+
+  `>python3 manage.py migrate`
+
 ### Local Deployment
+
+#### Python Environment
+
+#### Environment Variables
 
 ### Remote Deployment
 
