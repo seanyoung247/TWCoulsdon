@@ -24,4 +24,8 @@ def validate_ticket(request, ticket_id):
     # Get ticket information
     ticket = Ticket.objects.get(ticket_id=ticket_id)
 
-    return HttpResponse(f"<h1>{str(ticket.date)}</h1>")
+    context = {
+        'ticket': ticket,
+    }
+
+    return render(request, 'tickets/validate_ticket.html', context)

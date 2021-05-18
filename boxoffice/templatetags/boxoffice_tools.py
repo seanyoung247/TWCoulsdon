@@ -1,6 +1,6 @@
 """ Template tags for the event app """
 import segno
-
+from datetime import timedelta
 from django import template
 from django.utils import timezone
 from django.shortcuts import reverse
@@ -25,6 +25,12 @@ def ticket_count(event):
 def has_tickets(event):
     """ Returns true if event or date still has tickets """
     return (ticket_count(event) > 0)
+
+
+@register.filter(name='expired')
+def expired(ticket):
+    """ returns whether the ticket passed has expired """
+    return (ticket.date.date < (timezone.now() + timedelta(hours=2)))
 
 
 @register.simple_tag

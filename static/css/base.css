@@ -751,6 +751,44 @@ hr {
 }
 
 /*
+ * Boxoffice
+ */
+.ticket-validation-wrapper {
+  display: flex;
+  height: calc(100% - var(--header-mobile-height));
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ticket-validation-info {
+  position: relative;
+  padding: 5px;
+  border: 1px solid var(--dark-color);
+  width: 100%;
+  max-width: 1000px;
+}
+
+.ticket-validation-info.expired {
+  border: 1px solid red;
+  background-color: rgba(255,0,0,0.5);
+}
+
+.ticket-validation-info.expired::after {
+  content: "Expired!";
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: bolder;
+  color: red;
+}
+
+/*
  * Media Queries
  */
  /* Extra small screens (Phones) < 576px */
