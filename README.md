@@ -503,6 +503,7 @@ and provides tools to edit items and quantities.
   - Used for source control.
 
 ## Testing
+Information on testing can be found in [TESTING.md](TESTING.md)
 
 ## Source Control
 The website was developed using the Atom editor with git and github for version control.
