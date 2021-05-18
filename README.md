@@ -400,6 +400,34 @@ Various pages providing information on the group. May be expanded to also provid
 
 </details>
 
+#### Add Tickets Modal
+
+Tickets are added through a modal dialogue that allows adding multiple tickets of
+different types and dates for a single event to the basket.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Landing Page Phone Layout](design/wireframes/add_to_basket/phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Landing Page Tablet Layout](design/wireframes/add_to_basket/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Landing Page Desktop Layout](design/wireframes/add_to_basket/desktop.png)
+
+</details>
+
 #### Basket
 
 The basket page gives access to the currently selected tickets before purchase
