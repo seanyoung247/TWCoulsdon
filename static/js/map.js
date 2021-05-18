@@ -1,9 +1,3 @@
-// Get the map center and marker location
-var mapPos = [
-  parseFloat($('#longitude').val()),
-  parseFloat($('#latitude').val())
-];
-
 // Set's the attribution information to collapsible
 var attribution = new ol.control.Attribution({
   collapsible: true
@@ -65,4 +59,4 @@ var map = new ol.Map({
   })
 });
 // Creates a custom pin
-map.addMarker(mapPos, '/static/img/pin.svg');
+map.addMarker(mapPos, mapPin);

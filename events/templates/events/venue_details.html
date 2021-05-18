@@ -33,14 +33,6 @@
       <div class="col-12 col-md-6 order-md-2">
         <div class="square-spacer">
           <div id="map" class="map">
-            {% if venue.longitude and venue.latitude %}
-              <input id="longitude" type="hidden" value="{{ venue.longitude }}">
-              <input id="latitude" type="hidden" value="{{ venue.latitude }}">
-            {% else %}
-              {# Default to group's home location #}
-              <input id="longitude" type="hidden" value="-0.147723">
-              <input id="latitude" type="hidden" value="51.320051">
-            {% endif %}
           </div>
         </div>
       </div>
@@ -64,5 +56,13 @@
 {% block scripts %}
   {{ block.super }}
   <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+  <script type="text/javascript">
+    {# Gets the venue location or defaults to the group home location #}
+    const mapPos = [
+      {% if venue.longitude %}{{ venue.longitude }}{% else %}-0.147723{% endif %},
+      {% if venue.latitude %}{{ venue.latitude }}{% else %}51.320051{% endif %}
+    ];
+    const mapPin = "{% static 'img/pin.svg' %}";
+  </script>
   <script type="text/javascript" src="{% static 'js/map.js' %}"></script>
 {% endblock %}
