@@ -104,7 +104,6 @@ hr {
   border: 1px solid var(--accent-color);
 }
 
-
 .section-header {
   text-align: center;
   font-family: 'Anton', sans-serif;
@@ -369,6 +368,8 @@ hr {
   background-color: rgba(var(--dark-color-rgb), 0.9);
   top: 50%;
   transform: translateY(-50%);
+  margin: auto;
+  max-width: 1000px;
   bottom: initial;
 }
 
