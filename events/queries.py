@@ -181,3 +181,12 @@ def query_events(query_list):
         'event_type': event_type,
         'search_query': search_query,
     }
+
+
+def get_future_events():
+    """ Gets event records based on request criteria
+
+    Returns:
+    Event (query_set): query set of events that still have dates in the future
+    """
+    return query_events_by_first_date(Event.objects.all(), timezone.now())
