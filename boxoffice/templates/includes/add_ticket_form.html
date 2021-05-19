@@ -14,7 +14,7 @@
       <label class="add-ticket-label" for="add-ticket-date">Type</label>
       <select id="add-ticket-type" class="form-control custom-select w-100">
         {% for ticket_type in ticket_types %}
-          <option value="">{{ ticket_type.display_name }} ({{ ticket_type.price }})</option>
+          <option value="">{{ ticket_type.display_name }} (£{{ ticket_type.price }})</option>
         {% endfor %}
       </select>
     </div>
