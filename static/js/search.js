@@ -21,7 +21,7 @@ $( '#load-more-btn' ).click(function() {
   $( loadBtn.data('indicator') ).removeClass('hide');
   // Get more search results
   $.get( url, function( data ) {
-    let loadBtn = $( '#load-more-btn' );
+    const loadBtn = $( '#load-more-btn' );
     // If there's no more results hide the load more button
     if (!data.more_pages) loadBtn.addClass('hide');
     // If new results were returned, add them to the event-list
