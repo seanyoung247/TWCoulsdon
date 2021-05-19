@@ -121,6 +121,19 @@ hr {
 }
 
 /*
+ * Removes the spinner controls on number fields, which appear to be
+ * buggy with bootstrap and some browsers
+ */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/*
  * Horizontal item scroller
  */
 .scroller {
@@ -790,6 +803,24 @@ hr {
 
 #add-ticket-modal .modal-content {
   min-height: 50%;
+}
+
+#add-tickets-form-wrapper {
+  border-bottom: 1px solid #DEE2E6;
+  padding: 10px 0;
+}
+
+#add-ticket-quantity {
+  display: inline-block;
+  width: 60px;
+}
+
+#add-ticket-submit {
+  float: right;
+}
+
+#add-tickets-ticket-list {
+  list-style: none;
 }
 
 /*
