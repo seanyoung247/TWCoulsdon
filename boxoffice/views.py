@@ -11,6 +11,10 @@ def boxoffice(request):
     pass
 
 
+def buy_tickets(request):
+    pass
+
+
 def basket(request):
     pass
 
