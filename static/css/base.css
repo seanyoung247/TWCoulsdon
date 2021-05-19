@@ -807,7 +807,18 @@ input[type=number] {
 
 #add-tickets-form-wrapper {
   border-bottom: 1px solid #DEE2E6;
-  padding: 10px 0;
+  padding: 5px 0;
+}
+
+label.add-ticket-label {
+  display: block;
+  justify-content: flex-start;
+}
+
+#add-ticket-date,
+#add-ticket-type,
+#add-ticket-quantity {
+  margin: 5px 0;
 }
 
 #add-ticket-quantity {
