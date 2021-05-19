@@ -7,7 +7,7 @@ from django.utils import timezone
 from .models import ShowType, EventDate, Venue, Event
 from .queries import (query_events_by_first_date, query_events_by_last_date,
                       query_events_by_text_search, query_events_by_type,
-                      query_events, get_future_events)
+                      query_events, get_future_events, get_event_dates)
 
 
 class TestEventsQueries(TestCase):
@@ -40,12 +40,12 @@ class TestEventsQueries(TestCase):
             type=type_film
         )
         # Always in the past
-        EventDate.objects.create(
+        self.past_date = EventDate.objects.create(
             event=self.event_show1,
             date=(timezone.now() - timedelta(days=10))
         )
         # Always in the future
-        EventDate.objects.create(
+        self.future_date = EventDate.objects.create(
             event=self.event_show2,
             date=(timezone.now() + timedelta(days=10))
         )
@@ -97,3 +97,14 @@ class TestEventsQueries(TestCase):
         events = list(get_future_events())
         self.assertFalse(self.event_show1 in events)
         self.assertTrue(self.event_show2 in events)
+
+
+    def test_get_event_dates(self):
+        date = EventDate.objects.create(
+            event=self.event_show2,
+            date=(timezone.now() + timedelta(days=10))
+        )
+        dates = list(get_event_dates(self.event_show2))
+        self.assertTrue(date in dates)
+        self.assertTrue(self.future_date in dates)
+        self.assertFalse(self.past_date in dates)
