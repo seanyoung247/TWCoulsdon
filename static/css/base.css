@@ -788,6 +788,10 @@ hr {
   color: red;
 }
 
+#add-ticket-modal .modal-content {
+  min-height: 50%;
+}
+
 /*
  * Media Queries
  */
