@@ -189,4 +189,4 @@ def get_future_events():
     Returns:
     Event (query_set): query set of events that still have dates in the future
     """
-    return query_events_by_first_date(Event.objects.all(), timezone.now())
+    return query_events_by_last_date(Event.objects.all(), timezone.now())
