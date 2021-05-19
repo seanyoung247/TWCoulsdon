@@ -821,13 +821,36 @@ label.add-ticket-label {
   margin: 5px 0;
 }
 
+.input-number-control {
+  display: inline-flex;
+}
+.btn-inc, .btn-dec {
+  color: var(--light-color);
+  background-color: var(--dark-color);
+  border: 1px solid var(--dark-color);
+  width: 35px;
+  margin: 5px 0;
+}
+.btn-inc:hover, .btn-dec:hover {
+  color: var(--dark-color);
+  background-color: var(--light-color);
+}
+.btn-dec {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+.btn-inc {
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
 #add-ticket-quantity {
-  display: inline-block;
+  display: block;
   width: 60px;
+  border-radius: 0;
 }
 
 #add-ticket-submit {
   float: right;
+  margin: 5px 0;
 }
 
 #add-tickets-ticket-list {
