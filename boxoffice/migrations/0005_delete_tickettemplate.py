@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('boxoffice', '0008_alter_tickettemplate_event'),
+        ('boxoffice', '0004_tickettemplate'),
     ]
 
     operations = [
