@@ -11,6 +11,12 @@
       <option>Default select</option>
     </select>
   </div>
+        {% for date in dates %}
+          <option value="">{{ date.date|date:"D, d M Y \a\t H:i" }}</option>
+        {% endfor %}
+        {% for ticket_type in ticket_types %}
+          <option value="">{{ ticket_type.display_name }} ({{ ticket_type.price }})</option>
+        {% endfor %}
 
   <div class="col-12 col-lg-4">
     <input id="add-ticket-quantity" class="form-control"
