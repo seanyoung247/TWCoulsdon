@@ -14,6 +14,10 @@ $( '.btn-add-tickets' ).click( function() {
   modal.find( '#add-tickets-ticket-list' ).html("");
 
   // Request modal HTML from server
+  $.get( `/boxoffice/buy_tickets/?event=${$( this ).data('event-id')}`, function(data) {
+    const formWrapper = $('#add-tickets-form-wrapper');
+    if (data.form) formWrapper.html(data.form);
+  });
 
   modal.modal({
     backdrop: modal.data('backdrop'),
@@ -21,4 +25,8 @@ $( '.btn-add-tickets' ).click( function() {
   });
 });
 
-//
+// Spinner controls for the number field
+
+// Add ticket button
+
+// Add to basket button
