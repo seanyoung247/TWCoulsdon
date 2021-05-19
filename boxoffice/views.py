@@ -1,10 +1,12 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.template import loader
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 
 from .reports import generate_ticket_pdf
-from .models import Ticket, Order
+from .models import TicketType, Ticket, Order
 
-from events.queries import get_future_events
+from events.models import Event, EventDate
+from events.queries import get_event_dates, get_future_events
 
 
 def boxoffice(request):
@@ -12,7 +14,27 @@ def boxoffice(request):
 
 
 def buy_tickets(request):
-    pass
+    """ Provides the event form data and passes it to the frontend as json """
+
+    if 'event' not in request.GET or not request.GET['event']:
+        HttpResponseBadRequest('<h1>Missing event variable</h1>')
+
+    event = get_object_or_404(Event, id=request.GET['event'])
+    dates = get_event_dates(event)
+    ticket_types = TicketType.objects.all()
+
+    context = {
+        'dates': dates,
+        'ticket_types': ticket_types,
+    }
+    form_html = loader.render_to_string(
+        'includes/add_ticket_form.html', context)
+
+    response = {
+        'form': form_html,
+    }
+
+    return JsonResponse(response)
 
 
 def basket(request):
