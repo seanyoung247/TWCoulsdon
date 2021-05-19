@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-  {{ block.super }}{% if event_type %} - {{ event_type.display_name }}s{% endif %}
+  {% if event_type %}{{ event_type.display_name }}s - {% endif %}{{ block.super }}
 {% endblock %}
 
 {% block content %}
