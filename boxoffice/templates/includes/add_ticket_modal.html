@@ -6,28 +6,35 @@
 </button>
 {% endcomment %}
 
-<div class="modal fade" id="addTicketModal"
+<div class="modal fade" id="add-ticket-modal"
       data-backdrop="static" data-keyboard="false" tabindex="-1"
-      aria-labelledby="addTicketModalLabel" aria-hidden="true">
+      aria-labelledby="add-tickets-label" aria-hidden="true">
 
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title" id="addTicketModalLabel"></h5>
+        <h3 class="modal-title" id="add-tickets-label"></h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
+      <div class="modal-header">
+        <div id="add-tickets-form-wrapper">Loading...</div>
+      </div>
+
       <div class="modal-body">
-        {# Add tickets form #}
-        {# Ticket list #}
+        <div id="add-tickets-ticket-list"></div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-twc-dark" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-twc-dark">Add to Basket</button>
+        <button type="button" class="btn btn-twc-dark" data-dismiss="modal">
+          Cancel
+        </button>
+        <button id="addTicketsToBasket" type="button" class="btn btn-twc-dark">
+          Add to Basket
+        </button>
       </div>
 
     </div>
