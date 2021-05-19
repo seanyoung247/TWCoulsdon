@@ -25,9 +25,8 @@
           <p class="event-showcase-links">
             <a class="btn btn-twc-dark" href="{% url 'event_details' event.slug %}" role="button">Read More</a>
             {% if event|has_tickets %}
-              <button type="button" class="btn btn-twc-dark"
-                      data-event-id="{{ event.id }}" data-event-title="{{ event.title }}"
-                      data-toggle="modal" data-target="#addTicketModal">
+              <button type="button" class="btn btn-twc-dark btn-add-tickets"
+                      data-event-id="{{ event.id }}" data-event-title="{{ event.title }}">
                 Buy Tickets
               </button>
             {% endif %}

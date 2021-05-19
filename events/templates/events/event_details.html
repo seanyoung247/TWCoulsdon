@@ -74,9 +74,8 @@
                 <li>{{ ticket_type.display_name }}: £{{ ticket_type.price }}</li>
               {% endfor %}
             </ul>
-            <button type="button" class="btn btn-twc-light w-100"
-                    data-event-id="{{ event.id }}" data-event-title="{{ event.title }}"
-                    data-toggle="modal" data-target="#addTicketModal">
+            <button type="button" class="btn btn-twc-light btn-add-tickets w-100"
+                    data-event-id="{{ event.id }}" data-event-title="{{ event.title }}">
               Buy Tickets
             </button>
           </div>
