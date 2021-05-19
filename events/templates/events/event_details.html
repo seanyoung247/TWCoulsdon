@@ -69,11 +69,10 @@
           {# Ticket information #}
           <div class="event-panel">
             <h5>Tickets</h5>
-            List of prices/ticket types here
-            i.e.
             <ul>
-              <li>Adult: £10</li>
-              <li>Concession: £7.50</li>
+              {% for ticket_type in ticket_types %}
+                <li>{{ ticket_type.display_name }}: £{{ ticket_type.price }}</li>
+              {% endfor %}
             </ul>
             <a class="btn btn-twc-light w-100" href="#">Buy Tickets</a>
           </div>
