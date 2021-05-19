@@ -9,7 +9,7 @@ from django.db.models.functions import Coalesce
 
 #from core.debug import debug_print
 
-from .models import Event, ShowType
+from .models import Event, EventDate, ShowType
 
 
 def query_events_by_first_date(event_set, date):
@@ -184,9 +184,21 @@ def query_events(query_list):
 
 
 def get_future_events():
-    """ Gets event records based on request criteria
+    """ Gets all events with dates in the future
 
     Returns:
-    Event (query_set): query set of events that still have dates in the future
+    query_set (Event): query set of events that still have dates in the future
     """
-    return query_events_by_last_date(Event.objects.all(), timezone.now())
+    return query_events_by_first_date(Event.objects.all(), timezone.now())
+
+
+def get_event_dates(event):
+    """ Gets all EventDates for a given event
+
+    Parameters:
+    event (Event): The event to get dates for
+
+    Returns:
+    query_set (EventDate)
+    """
+    return EventDate.objects.filter(event=event)
