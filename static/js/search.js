@@ -1,3 +1,7 @@
+/*
+ * Provides code to perform lazy-loading of search results.
+ */
+
 // Adds or alters a url parameter
 function setURLParameter(param, value) {
   // Get the current url and parameters

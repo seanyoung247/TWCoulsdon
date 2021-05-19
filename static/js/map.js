@@ -1,3 +1,7 @@
+/*
+ * Creates an openlayers map element.
+ */
+
 // Set's the attribution information to collapsible
 var attribution = new ol.control.Attribution({
   collapsible: true
