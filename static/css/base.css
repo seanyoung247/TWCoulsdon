@@ -874,6 +874,42 @@ label.add-ticket-label {
 }
 
 /*
+ * Shopping Basket
+ */
+
+.basket-page-contents {
+  background-color: var(--light-color);
+}
+
+#basket-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--dark-color);
+  border-bottom: 1px solid var(--dark-color);
+}
+
+.basket-list-item {
+  padding-bottom: 15px;
+  margin: 10px 0;
+  border-bottom: 1px solid var(--dark-color);
+}
+
+#basket-total {
+  text-align: right;
+  margin: 10px 0 25px 0
+}
+
+#basket-links {
+  text-align: center;
+  padding: 25px 15px;
+}
+
+#basket-links > a {
+  width: 100%;
+}
+
+/*
  * Media Queries
  */
  /* Extra small screens (Phones) < 576px */
@@ -888,14 +924,24 @@ label.add-ticket-label {
   }
 }
 
- /* Medium screens (tablets) > 767px */
- @media (min-width: 767px) {
-   .content-page-link {
-     width: 100%;
-   }
- }
+/* Medium screens (tablets) > 767px */
+@media (min-width: 767px) {
+  .content-page-link {
+    width: 100%;
+  }
+  #basket-list {
+    padding: 0 15px;
+    margin: 5px;
+  }
+  #basket-links {
+    text-align: right;
+  }
+  #basket-links > a {
+    width: auto;
+  }
+}
 
- /* Large screens (desktop/laptop) > 960px */
+/* Large screens (desktop/laptop) > 960px */
 @media (min-width: 992px) {
   #home-page-carousel {
     height: 100%;
