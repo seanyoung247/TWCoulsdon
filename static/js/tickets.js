@@ -32,7 +32,33 @@ $( '.btn-add-tickets' ).click( function() {
   });
 });
 
-// Spinner controls for the number field
+// Date checks
+$( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-date', function(e) {
+  // Set the maximum quantity to be the number of tickets left
+  $( '#add-ticket-quantity' ).attr(
+    'max', $( '#add-ticket-date' ).find( ':selected' ).data('tickets-left'));
+});
+
+/*
+ * Spinner controls for the number field
+ */
+function spinnerBtn(target, step) {
+  const min = parseInt(target.attr('min'));
+  const max = parseInt(target.attr('max'));
+  let value = parseInt(target.val()) + step
+
+  if (value >= min && value <= max) target.val( value );
+}
+
+$( '#add-tickets-form-wrapper' ).on( 'click', 'button.btn-dec', function(e) {
+  e.preventDefault();
+  spinnerBtn($( $( this ).data('target') ), -1);
+});
+
+$( '#add-tickets-form-wrapper' ).on( 'click', 'button.btn-inc', function(e) {
+  e.preventDefault();
+  spinnerBtn($( $( this ).data('target') ), 1);
+});
 
 // Add ticket button
 
