@@ -158,10 +158,9 @@ $( '#add-tickets-form-wrapper' ).on( 'click', '#add-ticket-submit', function(e) 
           </button>
         </li>`
       );
+      // Append the list item
+      $( '#add-tickets-list' ).append(listItem);
     }
-
-    // Append the list item
-    $( '#add-tickets-list' ).append(listItem);
 
     // Add the data attributes
     listItem.data('date-id', date.val());     //EventDate.id
@@ -194,23 +193,29 @@ $( '#addTicketsToBasket' ).click(function() {
   const ticketList = $( "#add-tickets-list" );
   // Is there anything to add
   if (ticketList.children("li").length) {
+    let items = []
     // Format the data for the Basket
+    ticketList.children('.add-ticket-list-item').each(function() {
+      const date_id = $( this ).data('date-id');
+      const ticket_id = $( this ).data('ticket-id');
+      const quantity = $( this ).data('quantity');
+
+      items.push({
+        date_id: date_id,
+        type_id: ticket_id,
+        quantity: quantity
+      });
+    });
     // Send to server
-    // Redirect to basket
+    const postData = {
+      'csrfmiddlewaretoken': csrfToken,
+      'tickets': JSON.stringify(items)
+    }
+    $.post( "/boxoffice/basket/add/", postData, function(data) {
+      console.log(data);
+    });
+  } else {
+    // Hide modal if no tickets to add
+    modal.modal('hide');
   }
-  // Hide modal if no tickets to add
-  modal.modal('hide');
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
