@@ -82,18 +82,39 @@ def add_to_basket(request):
 
 @require_POST
 def update_basket(request):
+    """ Updates a single ticket line in the basket """
     pass
 
 
 @require_POST
 def remove_from_basket(request):
-    pass
+    """ Removes a single ticket line from the basket """
+    success = False
+
+    # Get the date and type ids of the ticket line to remove
+    if 'date_id' in request.POST and 'type_id' in request.POST:
+        date_id = request.POST['date_id']
+        type_id = request.POST['type_id']
+
+        remove_line_from_basket(request, date_id, type_id)
+        success = True
+
+
+    response = {
+        'success': success,
+    }
+
+    return JsonResponse(response)
 
 
 #
 # Reports views
 #
 def validate_ticket(request, ticket_id):
+    """
+    Gets information on a single ticket and displays
+    it so it can be verified.
+    """
     # Get ticket information
     ticket = Ticket.objects.get(ticket_id=ticket_id)
 
