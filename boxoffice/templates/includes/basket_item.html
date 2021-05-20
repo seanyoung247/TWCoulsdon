@@ -1,17 +1,18 @@
+
 <li class="basket-list-item">
   <div class="row">
     <div class="col-12 col-md-6">
-      <h3>EVENT TITLE</h3>
-      <h5>Sat, 3 Jan 1823 at 20:00</h5>
+      <h3>{{ item.event.title }}</h3>
+      <h5>{{ item.date.date|date:"D, d M Y - H:i" }}</h5>
     </div>
     <div class="col-6 col-md-2 text-left">
-      Concession (£10.00)
+      {{ item.ticket_type.display_name }} ({{ item.ticket_type.price }})
     </div>
     <div class="col-2 col-md-2 text-center">
-      100
+      {{ item.quantity }}
     </div>
     <div class="col-4 col-md-2 text-right">
-      £1000.00
+      {{ item.line_total }}
     </div>
   </div>
   <div class="row">
@@ -28,7 +29,7 @@
   </div>
 </li>
 
-
+{% comment %}
 <div class="input-number-control">
   <button class="btn btn-dec" data-target="#add-ticket-quantity">
     -
@@ -39,3 +40,4 @@
     +
   </button>
 </div>
+{% endcomment %}
