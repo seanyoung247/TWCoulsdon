@@ -25,6 +25,7 @@ def basket_contents(request):
             ticket_type = get_object_or_404(TicketType, id=type_id)
             line_total = ticket_type.price * basket[date_id][type_id]
             total += line_total
+            item_count += basket[date_id][type_id]
 
             basket_items.append({
                 'event': date.event,
