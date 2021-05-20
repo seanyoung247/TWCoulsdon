@@ -31,9 +31,11 @@ def basket_contents(request):
             })
 
     context = {
-        'basket_items': basket_items,
-        'item_count': item_count,
-        'total': total,
+        'basket': {
+            'items': basket_items,
+            'item_count': item_count,
+            'total': total,
+        }
     }
 
     return context
