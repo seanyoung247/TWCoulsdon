@@ -51,6 +51,13 @@ hr {
 
 .constrain-width {
   max-width: 1500px;
+  margin: auto;
+}
+
+.page-header {
+  color: var(--brand-color);
+  text-align: center;
+  padding: 25px;
 }
 
 /*
@@ -399,11 +406,6 @@ input[type=number] {
 .content-page-content {
   background-color: var(--light-color);
   margin: auto;
-}
-.content-page-header {
-  color: var(--brand-color);
-  text-align: center;
-  padding: 25px;
 }
 .content-page-links {
   display: flex;
