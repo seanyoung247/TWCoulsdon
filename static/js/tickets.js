@@ -85,5 +85,49 @@ function updateTotal() {
 }
 
 // Add ticket button
+$( '#add-tickets-form-wrapper' ).on( 'click', '#add-ticket-submit', function(e) {
+  e.preventDefault();
+  // Get the ticket order information
+
+  // Event date information
+  const date = $( '#add-ticket-date' ).find( ':selected' );
+
+  // Ticket type information
+  const ticket = $( '#add-ticket-type' ).find( ':selected' );
+  const unitPrice = parseFloat(ticket.data('unit-price'));
+
+  const qtyInput = $( '#add-ticket-quantity' );
+  const quantity = parseInt(qtyInput.val());
+  const subTotal = (unitPrice * quantity).toFixed(2);
+
+  // Reset the quantity value, it's no longer needed
+  qtyInput.val(qtyInput.attr('min'));
+
+  // Construct the visual element
+  const listItem = $(
+    `<li class="add-ticket-list-item form-row">
+      <div class="col-12 col-lg-4">${date.text()}</div>
+      <div class="col-6 col-lg-4">${ticket.text()}</div>
+      <div class="col-3 col-lg-2">${quantity}</div>
+      <div class="col-3 col-lg-2">£${subTotal}</div>
+
+      <button type="button" class="delete-list-item close" aria-label="Delete">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </li>`
+  );
+
+  // Append the list item
+  $( '#add-tickets-list' ).append(listItem);
+
+  // Add the data attributes
+  listItem.data('date-id', date.val());     //EventDate.id
+  listItem.data('ticket-id', ticket.val()); //TicketType.id
+  listItem.data('quantity', quantity);      //Ticket quantity
+  listItem.data('price', unitPrice);        //Ticket Unit price
+
+  // Update total display
+  updateTotal();
+});
 
 // Add to basket button
