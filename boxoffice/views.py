@@ -6,7 +6,7 @@ from .reports import generate_ticket_pdf
 from .models import TicketType, Ticket, Order
 
 from events.models import Event, EventDate
-from events.queries import get_event_dates, get_future_events
+from events.queries import get_remaining_event_dates
 
 
 def boxoffice(request):
@@ -20,7 +20,7 @@ def buy_tickets(request):
         HttpResponseBadRequest('<h1>Missing event variable</h1>')
 
     event = get_object_or_404(Event, id=request.GET['event'])
-    dates = get_event_dates(event)
+    dates = get_remaining_event_dates(event).order_by('date')
     ticket_types = TicketType.objects.all()
 
     context = {
