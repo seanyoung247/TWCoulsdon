@@ -32,6 +32,7 @@ $( '.btn-add-tickets' ).click( function() {
   });
 });
 
+
 // Date checks
 $( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-date', function(e) {
   // Set the maximum quantity to be the number of tickets left
@@ -70,8 +71,33 @@ $( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-quantity', function(
   if (current.val() < min) current.val(min);
 });
 
+// Updates available tickets - Only reflects the local user's actions
+function updateAvailableTickets(date, adjustment) {
+  // Get the date option to update
+  const dateOption = $( `#add-ticket-date > option[value="${date}"]` );
+  const newCount = parseInt(dateOption.data('tickets-left')) + adjustment
+
+  // Are there any tickets left after these?
+  if (newCount > 0) {
+    // Set the ticket count to the new value
+    dateOption.data('tickets-left', newCount);
+    // Make sure the option is selectable
+    dateOption.prop('disabled', false);
+  } else {
+    dateOption.data('tickets-left', 0);
+    // Option should be disabled
+    dateOption.prop('disabled', true);
+  }
+
+  // Is the updated date the same as the currently selected date?
+  if ( dateOption[0] == $( '#add-ticket-date' ).find( ':selected' )[0] ) {
+    if (dateOption.prop('disabled')) $( '#add-ticket-date' ).val("");
+    else $( '#add-ticket-quantity' ).attr('max', newCount);
+  }
+}
+
 // Updates visual price
-function updateTotal() {
+function updateTotalPrice() {
   const list = $( '#add-tickets-list' );
   let total = 0;
 
@@ -127,16 +153,23 @@ $( '#add-tickets-form-wrapper' ).on( 'click', '#add-ticket-submit', function(e) 
     listItem.data('quantity', quantity);      //Ticket quantity
     listItem.data('price', unitPrice);        //Ticket Unit price
 
+    // Update available tickets
+    updateAvailableTickets(date.val(), (quantity * -1));
     // Update total display
-    updateTotal();
+    updateTotalPrice();
   }
 });
 
 // Remove item button
 $( '#add-tickets-list' ).on( 'click', '.delete-list-item', function(e) {
   e.preventDefault();
-  $( this ).parent().remove();
-  updateTotal();
+  const listItem = $( this ).parent();
+  // Update available tickets
+  updateAvailableTickets(listItem.data('date-id'), listItem.data('quantity'));
+  // Remove the item from the list
+  listItem.remove();
+  // Update the visual total
+  updateTotalPrice();
 });
 
 // Add to basket button
@@ -147,8 +180,9 @@ $( '#addTicketsToBasket' ).click(function() {
   if (ticketList.children("li").length) {
     // Format the data for the Basket
     // Send to server
+    // Redirect to basket
   }
-  // Hide modal
+  // Hide modal if no tickets to add
   modal.modal('hide');
 });
 
