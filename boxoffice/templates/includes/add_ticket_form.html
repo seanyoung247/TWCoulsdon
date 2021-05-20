@@ -6,11 +6,22 @@
     <div class="col-12 col-md-6 col-lg-4">
       <label class="add-ticket-label" for="add-ticket-date">Performance</label>
       <select id="add-ticket-date" class="form-control custom-select w-100">
-        {% for date in dates %}
-          <option value="{{ date.id }}" data-tickets-left="{{ date|ticket_count }}">
-            {{ date.date|date:"D, d M Y \a\t H:i" }}
-          </option>
-        {% endfor %}
+        {% if dates %}
+          {% for date in dates %}
+            <option value="{{ date.id }}"
+                    data-tickets-left="{{ date|ticket_count }}"
+              {% if not date|has_tickets %}
+                disabled>
+                  Sold Out -
+              {% else %}
+                >
+              {% endif %}
+              {{ date.date|date:"D, d M Y - H:i" }}
+            </option>
+          {% endfor %}
+        {% else %}
+          <option disabled>No shows available</option>
+        {% endif %}
       </select>
     </div>
 
