@@ -11,9 +11,13 @@
     <div class="row constrain-width basket-page-contents">
       <div class="col-12">
         <ul id="basket-list">
-          {% for item in basket.items %}
-            {% include 'includes/basket_item.html' %}
-          {% endfor %}
+          {% if basket.items %}
+            {% for item in basket.items %}
+              {% include 'includes/basket_item.html' %}
+            {% endfor %}
+          {% else %}
+            <li class="no-basket-items">You have no items in your basket.</li>
+          {% endif %}
         </ul>
       </div>
     </div>
@@ -24,7 +28,7 @@
     </div>
     <div class="row constrain-width basket-page-contents">
       <div id="basket-links" class="col-12">
-        <a href="#" class="btn btn-twc-dark">
+        <a href="{% url 'events' %}?type=show" class="btn btn-twc-dark">
           Continue Browsing
         </a>
         <a href="#" class="btn btn-twc-dark">
