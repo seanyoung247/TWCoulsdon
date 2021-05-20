@@ -1,7 +1,11 @@
+import json
+
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
+from django.views.decorators.http import require_POST
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 
+from .basket import add_line_to_basket
 from .reports import generate_ticket_pdf
 from .models import TicketType, Ticket, Order
 
@@ -47,10 +51,41 @@ def view_basket(request):
     return render(request, 'boxoffice/basket.html');
 
 
+@require_POST
 def add_to_basket(request):
+    # Get the posted ticket list
+    basket_tickets = request.POST.get('tickets')
+    if basket_tickets:
+        # Convert the json into an object array
+        basket_tickets = json.loads(basket_tickets)
+
+        # Iterate through the list and add to basket
+        for line in basket_tickets:
+            # Get the objects
+            date = EventDate.objects.get(id=line['date_id'])
+            ticket_type = TicketType.objects.get(id=line['type_id'])
+            quantity = int(line['quantity'])
+
+            # if the objects exist and quantity makes sense add to basket.
+            # No checking for availablility is done here. Because there's no
+            # 'reservation' system ticket availablility is checked at checkout
+            if date and ticket_type and quantity > 0:
+                add_line_to_basket(request, date.id, ticket_type.id, quantity)
+
+
+    response = {
+        'success': True,
+    }
+
+    return JsonResponse(response)
+
+
+@require_POST
+def update_basket(request):
     pass
 
 
+@require_POST
 def remove_from_basket(request):
     pass
 
