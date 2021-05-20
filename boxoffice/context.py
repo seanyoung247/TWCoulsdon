@@ -1,3 +1,4 @@
+""" Adds shopping basket contents to the context """
 from decimal import Decimal
 from django.conf import settings
 from django.shortcuts import get_object_or_404
@@ -6,7 +7,10 @@ from events.models import Event, EventDate
 from boxoffice.models import TicketType
 
 def basket_contents(request):
-
+    """
+    Gets the shopping basket contexts from the session and formats
+    it for use in templates.
+    """
     basket_items = []
     item_count = 0
     total = 0
