@@ -124,25 +124,41 @@ $( '#add-tickets-form-wrapper' ).on( 'click', '#add-ticket-submit', function(e) 
     const unitPrice = parseFloat(ticket.data('unit-price'));
 
     const qtyInput = $( '#add-ticket-quantity' );
-    const quantity = parseInt(qtyInput.val());
-    const subTotal = (unitPrice * quantity).toFixed(2);
+    const adjustment = parseInt(qtyInput.val());
+    let quantity = adjustment;
+    let subTotal = (unitPrice * quantity).toFixed(2);
 
     // Reset the quantity value, it's no longer needed
     qtyInput.val(qtyInput.attr('min'));
 
-    // Construct the visual element
-    const listItem = $(
-      `<li class="add-ticket-list-item form-row">
-        <div class="col-12 col-lg-4">${date.text()}</div>
-        <div class="col-6 col-lg-4">${ticket.text()}</div>
-        <div class="col-3 col-lg-2">${quantity}</div>
-        <div class="col-3 col-lg-2">£${subTotal}</div>
+    // Is there already a ticket line of this type and date?
+    let listItem = $(`#${date.val()}-${ticket.val()}`);
+    if (listItem.length > 0) {
+      // Add to the existing line
+      quantity += listItem.data('quantity');
+      subTotal = unitPrice * quantity;
 
-        <button type="button" class="delete-list-item close" aria-label="Delete">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </li>`
-    );
+      listItem.data('quantity', quantity);
+      listItem.data('price', unitPrice);
+
+      listItem.children('.item-quantity').text(quantity);
+      listItem.children('.item-subTotal').text(`£${subTotal.toFixed(2)}`);
+    } else {
+      // Create a new line
+      // Construct the visual element
+      listItem = $(
+        `<li id="${date.val()}-${ticket.val()}" class="add-ticket-list-item form-row">
+          <div class="col-12 col-lg-4">${date.text()}</div>
+          <div class="col-12 col-lg-4">${ticket.text()}</div>
+          <div class="item-quantity col-9 col-lg-2">${quantity}</div>
+          <div class="item-subTotal col-3 col-lg-2">£${subTotal}</div>
+
+          <button type="button" class="delete-list-item close" aria-label="Delete">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </li>`
+      );
+    }
 
     // Append the list item
     $( '#add-tickets-list' ).append(listItem);
@@ -154,7 +170,7 @@ $( '#add-tickets-form-wrapper' ).on( 'click', '#add-ticket-submit', function(e) 
     listItem.data('price', unitPrice);        //Ticket Unit price
 
     // Update available tickets
-    updateAvailableTickets(date.val(), (quantity * -1));
+    updateAvailableTickets(date.val(), (adjustment * -1));
     // Update total display
     updateTotalPrice();
   }
