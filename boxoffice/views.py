@@ -44,7 +44,7 @@ def buy_tickets(request):
 # Shopping Basket views
 #
 def view_basket(request):
-    pass
+    return render(request, 'boxoffice/basket.html');
 
 
 def add_to_basket(request):
