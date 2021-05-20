@@ -2,6 +2,12 @@
  * Provides code for adding and removing tickets from the basket.
  */
 
+// Clears the ticket list
+function clearTicketList() {
+  $('#add-ticket-modal').find( '#add-tickets-list' ).html("");
+  $('#add-ticket-modal').find( '#add-tickets-total' ).text("0.00");
+}
+
 // Shows the add tickets modal and requests event data from the server.
 $( '.btn-add-tickets' ).click( function() {
   const modal = $('#add-ticket-modal');
@@ -12,8 +18,7 @@ $( '.btn-add-tickets' ).click( function() {
 
   // Set the modal to it's preloaded state
   modal.find( '#add-tickets-form-wrapper' ).html("<h5>Loading...</h5>");
-  modal.find( '#add-tickets-list' ).html("");
-  modal.find( '#add-tickets-total' ).text("0.00");
+  clearTicketList();
 
   // Request modal HTML from server
   $.get( url, function(data) {
@@ -211,8 +216,10 @@ $( '#addTicketsToBasket' ).click(function() {
       'csrfmiddlewaretoken': csrfToken,
       'tickets': JSON.stringify(items)
     }
-    $.post( "/boxoffice/basket/add/", postData, function(data) {
-      console.log(data);
+    $.post( '/boxoffice/basket/add/', postData, function(data) {
+      if (data.success) {
+        window.location.href = '/boxoffice/basket'
+      }
     });
   } else {
     // Hide modal if no tickets to add
