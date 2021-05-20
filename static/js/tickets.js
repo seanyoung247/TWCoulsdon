@@ -130,4 +130,35 @@ $( '#add-tickets-form-wrapper' ).on( 'click', '#add-ticket-submit', function(e) 
   updateTotal();
 });
 
+// Remove item button
+$( '#add-tickets-list' ).on( 'click', '.delete-list-item', function(e) {
+  e.preventDefault();
+  $( this ).parent().remove();
+  updateTotal();
+});
+
 // Add to basket button
+$( '#addTicketsToBasket' ).click(function() {
+  const modal = $('#add-ticket-modal');
+  const ticketList = $( "#add-tickets-list" );
+  // Is there anything to add
+  if (ticketList.children("li").length) {
+    // Format the data for the Basket
+    // Send to server
+  }
+  // Hide modal
+  modal.modal('hide');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
