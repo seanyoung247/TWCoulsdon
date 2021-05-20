@@ -1,9 +1,7 @@
 """ Adds shopping basket contents to the context """
-from decimal import Decimal
-from django.conf import settings
 from django.shortcuts import get_object_or_404
 
-from events.models import Event, EventDate
+from events.models import EventDate
 from boxoffice.models import TicketType
 
 def basket_contents(request):
