@@ -49,6 +49,10 @@ hr {
   display: none !important;
 }
 
+.constrain-width {
+  max-width: 1500px;
+}
+
 /*
  * Custom components
  */
@@ -201,11 +205,6 @@ input[type=number] {
 }
 .navbar:last-child {
   padding-top: 0;
-}
-
-.nav-content {
-  width: 100%;
-  max-width: 1500px;
 }
 
 .navbar-brand {
@@ -399,7 +398,6 @@ input[type=number] {
  */
 .content-page-content {
   background-color: var(--light-color);
-  max-width: 1500px;
   margin: auto;
 }
 .content-page-header {
@@ -521,7 +519,6 @@ input[type=number] {
   border-width: 1px;
   border-image-source: linear-gradient(to right, rgba(20,22,26, 0), rgba(20,22,26, 0.75), rgba(20,22,26, 0));
 
-  max-width: 1500px;
   padding: 2px 0;
   margin: 2px auto;
 }
@@ -575,7 +572,6 @@ input[type=number] {
 
 .event-content,
 .event-gallery {
-  max-width: 1500px;
   margin: 25px auto;
 }
 
@@ -732,7 +728,6 @@ input[type=number] {
  * Venue Page
  */
 .venue-content {
-  max-width: 1500px;
   justify-content: center;
   margin-top: 25px;
 }

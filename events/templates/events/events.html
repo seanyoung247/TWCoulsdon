@@ -19,7 +19,7 @@
     <div class="row">
       <div class="col-12">
 
-        <form class="row advanced-search-form" method="GET" action="{% url 'events' %}">
+        <form class="row constrain-width advanced-search-form" method="GET" action="{% url 'events' %}">
           {% if search_query.text %}
             <input type="hidden" name="q" value="{{ search_query.text }}">
           {% endif %}
