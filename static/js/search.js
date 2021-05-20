@@ -2,17 +2,6 @@
  * Provides code to perform lazy-loading of search results.
  */
 
-// Adds or alters a url parameter
-function setURLParameter(param, value) {
-  // Get the current url and parameters
-  const url = new URL($(location).attr('href'));
-  const params = url.searchParams;
-  // Set the parameter value
-  params.set(param, value);
-  // Add the url to the current state without triggering a reload
-  window.history.pushState({},"", url.href);
-}
-
 // Loads more search items
 $( '#load-more-btn' ).click(function() {
   const loadBtn = $( this );
@@ -30,5 +19,3 @@ $( '#load-more-btn' ).click(function() {
     $( loadBtn.data('indicator') ).addClass('hide');
   });
 });
-
-//TODO: button-less infinite scroll lazy loading

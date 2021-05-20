@@ -31,7 +31,7 @@ ol.Map.prototype.addMarker = function(lonlat, icon) {
   // Attach the marker layer to the map
   this.addLayer(layer);
   return marker;
-}
+};
 
 // Creates the openlayers map object
 var map = new ol.Map({

@@ -11,10 +11,10 @@ function clearTicketList() {
 // Shows the add tickets modal and requests event data from the server.
 $( '.btn-add-tickets' ).click( function() {
   const modal = $('#add-ticket-modal');
-  const url = `/boxoffice/buy_tickets/?event=${$( this ).data('event-id')}`
+  const url = `/boxoffice/buy_tickets/?event=${$( this ).data('event-id')}`;
 
   // Set the modal title
-  modal.find( '.modal-title' ).text( $( this ).data('event-title') )
+  modal.find( '.modal-title' ).text( $( this ).data('event-title') );
 
   // Set the modal to it's preloaded state
   modal.find( '#add-tickets-form-wrapper' ).html("<h5>Loading...</h5>");
@@ -51,7 +51,7 @@ $( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-date', function(e) {
 function spinnerBtn(target, step) {
   const min = parseInt(target.attr('min'));
   const max = parseInt(target.attr('max'));
-  let value = parseInt(target.val()) + step
+  let value = parseInt(target.val()) + step;
 
   if (value >= min && value <= max) target.val( value );
 }
@@ -80,7 +80,7 @@ $( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-quantity', function(
 function updateAvailableTickets(date, adjustment) {
   // Get the date option to update
   const dateOption = $( `#add-ticket-date > option[value="${date}"]` );
-  const newCount = parseInt(dateOption.data('tickets-left')) + adjustment
+  const newCount = parseInt(dateOption.data('tickets-left')) + adjustment;
 
   // Are there any tickets left after these?
   if (newCount > 0) {
@@ -198,7 +198,7 @@ $( '#addTicketsToBasket' ).click(function() {
   const ticketList = $( "#add-tickets-list" );
   // Is there anything to add
   if (ticketList.children("li").length) {
-    let items = []
+    let items = [];
     // Format the data for the Basket
     ticketList.children('.add-ticket-list-item').each(function() {
       const date_id = $( this ).data('date-id');
@@ -215,10 +215,10 @@ $( '#addTicketsToBasket' ).click(function() {
     const postData = {
       'csrfmiddlewaretoken': csrfToken,
       'tickets': JSON.stringify(items)
-    }
+    };
     $.post( '/boxoffice/basket/add/', postData, function(data) {
       if (data.success) {
-        window.location.href = '/boxoffice/basket'
+        window.location.href = '/boxoffice/basket';
       }
     });
   } else {
