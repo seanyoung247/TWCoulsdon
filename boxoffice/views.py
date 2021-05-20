@@ -1,3 +1,4 @@
+""" Defines the views for the boxoffice app """
 import json
 
 from django.shortcuts import render, get_object_or_404
@@ -5,17 +6,12 @@ from django.template import loader
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 
-from .basket import add_line_to_basket
-from .reports import generate_ticket_pdf
-from .models import TicketType, Ticket, Order
-
 from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
 
-
-# Not currently used, will probably remove -
-def boxoffice(request):
-    pass
+from .basket import add_line_to_basket, remove_line_from_basket
+from .reports import generate_ticket_pdf
+from .models import TicketType, Ticket, Order
 
 #
 # Add tickets dialog views
@@ -48,11 +44,14 @@ def buy_tickets(request):
 # Shopping Basket views
 #
 def view_basket(request):
-    return render(request, 'boxoffice/basket.html');
+    """ Displays the basket with it's current contents """
+    return render(request, 'boxoffice/basket.html')
 
 
 @require_POST
 def add_to_basket(request):
+    """ Adds one or more ticket lines to the basket """
+    success = False
     # Get the posted ticket list
     basket_tickets = request.POST.get('tickets')
     if basket_tickets:
@@ -67,14 +66,16 @@ def add_to_basket(request):
             quantity = int(line['quantity'])
 
             # if the objects exist and quantity makes sense add to basket.
-            # No checking for availablility is done here. Because there's no
-            # 'reservation' system ticket availablility is checked at checkout
+            # No checking for availablility is done here. Tickets in the basket
+            # aren't reservered, so we don't really know if all tickets are
+            # definitely available until checkout.
             if date and ticket_type and quantity > 0:
-                add_line_to_basket(request, date.id, ticket_type.id, quantity)
+                add_line_to_basket(request, str(date.id), str(ticket_type.id), quantity)
+                success = True
 
 
     response = {
-        'success': True,
+        'success': success,
     }
 
     return JsonResponse(response)
