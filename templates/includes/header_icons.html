@@ -20,7 +20,7 @@
       </div>
     </li>
     <li class="list-inline-item">
-      <a href="#">
+      <a href="{% url 'view_basket' %}">
         <svg version="1.1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <g>
             <path class="icon-ticket-body"
@@ -29,7 +29,9 @@
                     2.859 18.733-18.736-2.8585-2.859c-0.0059 0.00594-0.01178 0.011841-0.01773 0.017725-1.0114 1.0117-2.7465
                     0.91642-3.8753-0.21273-1.1289-1.1291-1.2242-2.8645-0.21269-3.8761 6e-3 -0.00583 0.01203-0.011595 0.01811-0.017326l-2.8589-2.8594z"/>
             <path class="icon-ticket-cut" d="m17.028 5.2995 9.6585 9.6585"/>
-            <text class="icon-ticket-text" x="16" y="32"></text>
+            {% if basket.item_count > 0 %}
+              <text class="icon-ticket-text" x="16" y="22">{{ basket.item_count }}</text>
+            {% endif %}
           </g>
         </svg>
       </a>
