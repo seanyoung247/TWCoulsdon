@@ -844,7 +844,8 @@ label.add-ticket-label {
 
 #add-ticket-quantity {
   display: block;
-  width: 60px;
+  padding: 6px;
+  width: 40px;
   border-radius: 0;
 }
 
@@ -853,8 +854,24 @@ label.add-ticket-label {
   margin: 5px 0;
 }
 
-#add-tickets-ticket-list {
+#add-tickets-list {
   list-style: none;
+  padding: 0;
+}
+
+.add-ticket-list-item {
+  position: relative;
+  border-bottom: 1px solid var(--dark-color);
+  margin-bottom: 25px;
+}
+
+.delete-list-item {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.delete-list-item:hover {
+  color: red;
 }
 
 /*
