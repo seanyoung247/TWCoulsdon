@@ -9,10 +9,13 @@ from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
 
 
+# Not currently used, will probably remove -
 def boxoffice(request):
     pass
 
-
+#
+# Add tickets dialog views
+#
 def buy_tickets(request):
     """ Provides the event form data and passes it to the frontend as json """
 
@@ -37,10 +40,24 @@ def buy_tickets(request):
     return JsonResponse(response)
 
 
-def basket(request):
+#
+# Shopping Basket views
+#
+def view_basket(request):
     pass
 
 
+def add_to_basket(request):
+    pass
+
+
+def remove_from_basket(request):
+    pass
+
+
+#
+# Reports views
+#
 def validate_ticket(request, ticket_id):
     # Get ticket information
     ticket = Ticket.objects.get(ticket_id=ticket_id)
