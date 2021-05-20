@@ -69,6 +69,21 @@ $( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-quantity', function(
   if (current.val() > max) current.val(max);
   if (current.val() < min) current.val(min);
 });
+
+// Updates visual price
+function updateTotal() {
+  const list = $( '#add-tickets-list' );
+  let total = 0;
+
+  // Traverse the list, getting the price and quantity of each item
+  list.children('.add-ticket-list-item').each(function() {
+    total += parseFloat( $( this ).data('price') ) * parseInt( $( this ).data('quantity') );
+  });
+
+  // Display the new total
+  $( '#add-tickets-total' ).text(total.toFixed(2));
+}
+
 // Add ticket button
 
 // Add to basket button
