@@ -86,9 +86,10 @@
 
 {% block scripts %}
   {{ block.super }}
-  <script type="text/javascript" src="{% static 'js/search.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/tickets.js' %}">
+  <script type="text/javascript">
     const csrfToken = "{{ csrf_token }}";
   </script>
+  <script type="text/javascript" src="{% static 'js/search.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/tickets.js' %}"></script>
 {% endblock %}
 
