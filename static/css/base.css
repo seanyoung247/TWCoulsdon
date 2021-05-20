@@ -837,9 +837,11 @@ label.add-ticket-label {
 }
 .btn-dec {
   border-radius: 0.25rem 0 0 0.25rem;
+  border-right: none;
 }
 .btn-inc {
   border-radius: 0 0.25rem 0.25rem 0;
+  border-left: none;
 }
 
 #add-ticket-quantity {
