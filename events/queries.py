@@ -1,10 +1,11 @@
 """ Defines general use queries for event app objects """
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.db import models
 from django.db.models import Q
 from django.db.models import Min, Max
 from django.utils import timezone
+from django.conf import settings
 from django.db.models.functions import Coalesce
 
 #from core.debug import debug_print
@@ -202,3 +203,17 @@ def get_event_dates(event):
     query_set (EventDate)
     """
     return EventDate.objects.filter(event=event)
+
+
+def get_remaining_event_dates(event):
+    """ Gets all EventDates that are in the future for a given event
+
+    Parameters:
+    event (Event): The event to get dates for
+
+    Returns:
+    query_set (EventDate)
+    """
+    now = timezone.now() + timedelta(hours=settings.TICKET_CUT_OFF_HOURS)
+    return EventDate.objects.filter(event=event, date__gte=now)
+
