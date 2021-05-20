@@ -7,7 +7,8 @@ from django.utils import timezone
 from .models import ShowType, EventDate, Venue, Event
 from .queries import (query_events_by_first_date, query_events_by_last_date,
                       query_events_by_text_search, query_events_by_type,
-                      query_events, get_future_events, get_event_dates)
+                      query_events, get_future_events, get_event_dates,
+                      get_remaining_event_dates)
 
 
 class TestEventsQueries(TestCase):
@@ -106,5 +107,16 @@ class TestEventsQueries(TestCase):
         )
         dates = list(get_event_dates(self.event_show2))
         self.assertTrue(date in dates)
+        self.assertTrue(self.future_date in dates)
+        self.assertFalse(self.past_date in dates)
+
+
+    def test_get_remaining_event_dates(self):
+        date = EventDate.objects.create(
+            event=self.event_show2,
+            date=(timezone.now() - timedelta(days=10))
+        )
+        dates = list(get_remaining_event_dates(self.event_show2))
+        self.assertFalse(date in dates)
         self.assertTrue(self.future_date in dates)
         self.assertFalse(self.past_date in dates)
