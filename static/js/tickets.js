@@ -60,6 +60,15 @@ $( '#add-tickets-form-wrapper' ).on( 'click', 'button.btn-inc', function(e) {
   spinnerBtn($( $( this ).data('target') ), 1);
 });
 
+// Prevents the quantity value going out of bounds
+$( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-quantity', function(e) {
+  const current = $( this );
+  const min = parseInt(current.attr('min'));
+  const max = parseInt(current.attr('max'));
+
+  if (current.val() > max) current.val(max);
+  if (current.val() < min) current.val(min);
+});
 // Add ticket button
 
 // Add to basket button
