@@ -250,6 +250,12 @@ FAVICON = os.path.join(STATIC_URL, 'img/favicon.ico')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Stripe payment settings
+STRIPE_CURRENCY = 'gbp'
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
+
 # Custom settings
 #Number of results to show per page for search
 RESULTS_PER_PAGE = int(os.environ.get('RESULTS_PER_PAGE', 12))
