@@ -109,6 +109,10 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'boxoffice.context.basket_contents',
             ],
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+            ]
         },
     },
 ]
@@ -206,7 +210,7 @@ THUMBNAIL_ALIASES = {
 
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), "~/Documents/github/TWCoulsdon/static")
 
 # Uploaded files
 MEDIA_URL = '/media/'
@@ -235,8 +239,8 @@ if 'USE_AWS' in os.environ:
     THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
     #Override static and media URLs in production
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}'
-    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 
 NO_IMAGE = os.path.join(MEDIA_URL, 'noimage.png')
