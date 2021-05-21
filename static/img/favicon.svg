@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 134.54 134.54">
+  <defs>
+    <style>
+      .circle {
+        fill: #14161A;
+        stroke: #FFF;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+      .figure {
+        fill: #FFF;
+      }
+      @media (prefers-color-scheme: dark) {
+        .circle {
+          fill: #FFF;
+          stroke: #14161A;
+        }
+        .figure {
+          fill: #14161A;
+        }
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_1-2" data-name="Layer 1">
+      <circle class="circle" cx="67.27" cy="67.27" r="66.27"/>
+      <circle class="figure" cx="67.27" cy="34.47" r="10.74"/>
+      <path class="figure" d="M74.38,46.64,99.11,25.29l-14,28.06a33,33,0,0,0,.82,31l16.18,28.5L78.56,92.34a17.17,17.17,0,0,0-22.59,0L32.45,112.88l16.19-28.5a33,33,0,0,0,.82-31l-14-28.06L60.16,46.64A10.87,10.87,0,0,0,74.38,46.64Z"/>
+    </g>
+  </g>
+</svg>
