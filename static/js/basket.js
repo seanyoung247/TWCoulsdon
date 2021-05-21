@@ -4,7 +4,23 @@
 
 // Updates the visual elements, such as the basket icon and total price
 function update_basket() {
-  // 
+  const listItems = $( '#basket-list' ).children( '.basket-list-item' );
+
+  // Are there any items left?
+  if (listItems.length > 0) {
+    let total = 0;
+    // Go over the items in the list and recalculate the Total price
+    listItems.each(function() {
+      total += parseFloat( $( this ).data('price') ) * parseInt( $( this ).data('quantity') );
+    });
+    $( '#basket-total span' ).text(total.toFixed(2));
+  } else {
+    $( '#basket-total span' ).text('0.00');
+    // Clears the basket items notification circle
+    $( 'svg .icon-ticket-text' ).text("");
+    // Add the no items text
+    $( '#basket-list' ).append('<li class="no-basket-items">You have no items in your basket.</li>');
+  }
 }
 
 // Update item button
