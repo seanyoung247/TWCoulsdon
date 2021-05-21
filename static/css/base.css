@@ -810,23 +810,18 @@ input[type=number] {
 label.add-ticket-label {
   display: block;
   justify-content: flex-start;
-}
-
-#add-ticket-date,
-#add-ticket-type,
-#add-ticket-quantity {
-  margin: 5px 0;
+  margin-bottom: 5px;
 }
 
 .input-number-control {
   display: inline-flex;
+  align-items: flex-start;
 }
 .btn-inc, .btn-dec {
   color: var(--light-color);
   background-color: var(--dark-color);
   border: 1px solid var(--dark-color);
   width: 35px;
-  margin: 5px 0;
 }
 .btn-inc:hover, .btn-dec:hover {
   color: var(--dark-color);
@@ -841,6 +836,7 @@ label.add-ticket-label {
   border-left: none;
 }
 
+input[type="number"].item-line-quantity,
 #add-ticket-quantity {
   display: block;
   padding: 6px;
@@ -850,7 +846,6 @@ label.add-ticket-label {
 
 #add-ticket-submit {
   float: right;
-  margin: 5px 0;
 }
 
 #add-tickets-list {
