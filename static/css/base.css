@@ -780,9 +780,16 @@ input[type=number] {
   max-width: 1000px;
 }
 
-.ticket-validation-info.expired {
+.ticket-validation-info.expired,
+.ticket-validation-info.not-exists {
   border: 1px solid red;
   background-color: rgba(255,0,0,0.5);
+}
+
+.ticket-validation-info.not-exists h1 {
+  text-align: center;
+  color: red;
+  margin: 100px 0;
 }
 
 .ticket-validation-info.expired::after {
