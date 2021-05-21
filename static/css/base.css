@@ -342,6 +342,8 @@ input[type=number] {
 
 .icon-ticket-text {
   fill: var(--brand-color);
+  stroke: var(--dark-color);
+  strike-width: 1;
   font-family: Anton;
   text-align: right;
   text-anchor: middle;
