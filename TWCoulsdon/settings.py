@@ -231,6 +231,7 @@ else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
 NO_IMAGE = os.path.join(MEDIA_URL, 'noimage.png')
 FAVICON = os.path.join(STATIC_URL, 'img/favicon.ico')
 # Default primary key field type
