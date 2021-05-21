@@ -4,11 +4,17 @@
 {% block content %}
   <div id="header-spacer"></div>
   <section class="ticket-validation-wrapper">
-    <div class="ticket-validation-info {% if ticket|expired %}expired {% endif %}">
-      <h1>{{ ticket.event.title }}</h1>
-      <h3>{{ ticket.date.date|date:"D, d M Y \a\t H:i" }}</h3>
-      <p>{{ ticket.event.venue.name }}</p>
-      <p>{{ ticket.order.full_name }}</p>
-    </div>
+    {% if ticket %}
+      <div class="ticket-validation-info {% if ticket|expired %}expired {% endif %}">
+        <h1>{{ ticket.event.title }}</h1>
+        <h3>{{ ticket.date.date|date:"D, d M Y \a\t H:i" }}</h3>
+        <p>{{ ticket.event.venue.name }}</p>
+        <p>{{ ticket.order.full_name }}</p>
+      </div>
+    {% else %}
+      <div class="ticket-validation-info not-exists">
+        <h1>No ticket found!</h1>
+      </div>
+    {% endif %}
   </section>
 {% endblock %}

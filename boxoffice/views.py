@@ -126,7 +126,10 @@ def validate_ticket(request, ticket_id):
     it so it can be verified.
     """
     # Get ticket information
-    ticket = Ticket.objects.get(ticket_id=ticket_id)
+    try:
+        ticket = Ticket.objects.get(ticket_id=ticket_id)
+    except Ticket.DoesNotExist:
+        ticket = None;
 
     context = {
         'ticket': ticket,
