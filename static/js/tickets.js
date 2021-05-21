@@ -48,19 +48,10 @@ $( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-date', function(e) {
 /*
  * Spinner controls for the number field
  */
-function spinnerBtn(target, step) {
-  const min = parseInt(target.attr('min'));
-  const max = parseInt(target.attr('max'));
-  let value = parseInt(target.val()) + step;
-
-  if (value >= min && value <= max) target.val( value );
-}
-
 $( '#add-tickets-form-wrapper' ).on( 'click', 'button.btn-dec', function(e) {
   e.preventDefault();
   spinnerBtn($( $( this ).data('target') ), -1);
 });
-
 $( '#add-tickets-form-wrapper' ).on( 'click', 'button.btn-inc', function(e) {
   e.preventDefault();
   spinnerBtn($( $( this ).data('target') ), 1);
@@ -103,11 +94,11 @@ function updateAvailableTickets(date, adjustment) {
 
 // Updates visual price
 function updateTotalPrice() {
-  const list = $( '#add-tickets-list' );
+  const ticketList = $( '#add-tickets-list' );
   let total = 0;
 
   // Traverse the list, getting the price and quantity of each item
-  list.children('.add-ticket-list-item').each(function() {
+  ticketList.children('.add-ticket-list-item').each(function() {
     total += parseFloat( $( this ).data('price') ) * parseInt( $( this ).data('quantity') );
   });
 
