@@ -19,7 +19,7 @@ function update_basket() {
     // Clears the basket items notification circle
     $( 'svg .icon-ticket-text' ).text("");
     // Add the no items text
-    const html = '<li class="no-basket-items">You have no items in your basket.</li>'
+    const html = '<li class="no-basket-items">You have no items in your basket.</li>';
     $( '#basket-list' ).append(html);
   }
 }
@@ -29,7 +29,7 @@ $( '.basket-update-item' ).click(function() {
   // Get the nearest quantity control
   const listItem = $( this ).parents( '.basket-list-item' );
   const qtyInput = listItem.find('.item-line-quantity');
-  const quantity = parseInt(qtyInput.val())
+  const quantity = parseInt(qtyInput.val());
 
   // Update the basket
   const postData = {
@@ -37,7 +37,7 @@ $( '.basket-update-item' ).click(function() {
     'date_id': listItem.data('date-id'),
     'type_id': listItem.data('type-id'),
     'quantity': quantity
-  }
+  };
   $.post( '/boxoffice/basket/update/', postData, function(data) {
     if (data.success) {
       // Set the new ticket line quantity
@@ -51,6 +51,7 @@ $( '.basket-update-item' ).click(function() {
 
 });
 
+// Delete item button
 $( '.basket-delete-item' ).click(function() {
   // Get the ticket line item
   const listItem = $( this ).parents( '.basket-list-item' );
@@ -60,7 +61,7 @@ $( '.basket-delete-item' ).click(function() {
     'csrfmiddlewaretoken': csrfToken,
     'date_id': listItem.data('date-id'),
     'type_id': listItem.data('type-id')
-  }
+  };
 
   $.post( "/boxoffice/basket/remove/", postData, function(data) {
     // If the server confirms the item has been removed, remove the list item
