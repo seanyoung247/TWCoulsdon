@@ -13,5 +13,7 @@ lib64
 pyvenv.cfg
 share/
 
+update_static.sh
+
 # Environment variables
 .env

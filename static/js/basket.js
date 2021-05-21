@@ -17,7 +17,7 @@ function update_basket() {
   } else {
     $( '#basket-total span' ).text('0.00');
     // Clears the basket items notification circle
-    $( 'svg .icon-ticket-text' ).text("");
+    $( 'svg .icon-ticket-alert' ).addClass('hide');
     // Add the no items text
     const html = '<li class="no-basket-items">You have no items in your basket.</li>';
     $( '#basket-list' ).append(html);

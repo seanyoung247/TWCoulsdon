@@ -7,7 +7,7 @@
           <circle class="icon-user" cx="16" cy="11.577" r="6.9769"/>
         </svg>
       </a>
-      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-options">
+      <div class="dropdown-menu dropdown-menu-right">
         {% if request.user.is_authenticated %}
           {% if request.user.is_superuser %}
           {% endif %}
@@ -29,9 +29,9 @@
                     2.859 18.733-18.736-2.8585-2.859c-0.0059 0.00594-0.01178 0.011841-0.01773 0.017725-1.0114 1.0117-2.7465
                     0.91642-3.8753-0.21273-1.1289-1.1291-1.2242-2.8645-0.21269-3.8761 6e-3 -0.00583 0.01203-0.011595 0.01811-0.017326l-2.8589-2.8594z"/>
             <path class="icon-ticket-cut" d="m17.028 5.2995 9.6585 9.6585"/>
-            {% if basket.item_count > 0 %}
-              <text class="icon-ticket-text" x="22" y="28">&#x25CF;</text>
-            {% endif %}
+
+            <circle class="icon-ticket-alert {% if basket.item_count == 0 %}hide{% endif %}"
+                    cx="22" cy="22" r="6"/>
           </g>
         </svg>
       </a>
