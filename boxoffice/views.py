@@ -12,6 +12,7 @@ from events.queries import get_remaining_event_dates
 from .basket import add_line_to_basket, update_line_in_basket, remove_line_from_basket
 from .reports import generate_ticket_pdf
 from .models import TicketType, Ticket, Order
+from .forms import OrderForm
 
 #
 # Add tickets dialog views
@@ -125,6 +126,15 @@ def checkout(request):
 
     if not basket:
         return redirect(f'{reverse("events")}?type=show')
+
+    order_form = OrderForm()
+
+    context = {
+        'order_form': order_form,
+    }
+
+    return render(request, 'boxoffice/checkout.html', context)
+
 
 #
 # Reports views

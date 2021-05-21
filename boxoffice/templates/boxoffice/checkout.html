@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% load boxoffice_tools %}
+
+{% block content %}
+
+  <div id="header-spacer"></div>
+  <section class=container-fluid>
+
+    <div class="row constrain-width basket-page-contents">
+      <h1 class="col-12 page-header">Checkout</h1>
+    </div>
+
+    <div class="row constrain-width basket-page-contents">
+      <div class="col-12">
+        <ul id="basket-list">
+
+        </ul>
+      </div>
+    </div>
+    <div class="row constrain-width basket-page-contents">
+      <div class="col-12">
+        <h3 id="basket-total">Total: £<span>{{ basket.total }}</span></h3>
+      </div>
+    </div>
+
+  </section>
+
+{% endblock %}
