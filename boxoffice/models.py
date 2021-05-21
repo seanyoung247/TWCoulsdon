@@ -49,12 +49,12 @@ class Order(models.Model):
     original_bag = models.TextField(null=False, blank=False, default='')
     stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
     full_name = models.CharField(max_length=50, null=False, blank=False)
+    phone_number = models.CharField(max_length=20, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     # I've kept order and grand totals for potential future use, but currently
     # grand total is redundant
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
-    phone_number = models.CharField(max_length=20, null=False, blank=False)
 
     def __str__(self):
         return self.order_number

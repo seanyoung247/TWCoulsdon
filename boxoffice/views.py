@@ -1,7 +1,7 @@
 """ Defines the views for the boxoffice app """
 import json
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.template import loader
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
@@ -116,6 +116,15 @@ def remove_from_basket(request):
     }
     return JsonResponse(response)
 
+
+#
+# Checkout views
+#
+def checkout(request):
+    basket = request.session.get('basket', {})
+
+    if not basket:
+        return redirect(f'{reverse("events")}?type=show')
 
 #
 # Reports views
