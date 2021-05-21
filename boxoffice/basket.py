@@ -29,6 +29,23 @@ def add_line_to_basket(request, date_id, type_id, quantity):
     request.session['basket'] = basket
 
 
+def update_line_in_basket(request, date_id, type_id, quantity):
+    """ Updates a single ticket line to the basket
+
+    Parameters:
+    request (request object): The current request object
+    date_id (String): The Ticket EventDate id in string format
+    type_id (String): The Ticket TicketType id in string format
+    quantity (int): The new value for quantity
+    """
+    basket = request.session.get('basket', {})
+    if date_id in basket:
+        if type_id in basket[date_id]:
+            basket[date_id][type_id] = quantity
+
+    request.session['basket'] = basket
+
+
 def remove_line_from_basket(request, date_id, type_id):
     """ Removes a single ticket line from the basket
 

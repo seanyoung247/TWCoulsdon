@@ -9,7 +9,7 @@ from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
 
-from .basket import add_line_to_basket, remove_line_from_basket
+from .basket import add_line_to_basket, update_line_in_basket, remove_line_from_basket
 from .reports import generate_ticket_pdf
 from .models import TicketType, Ticket, Order
 
@@ -84,7 +84,20 @@ def add_to_basket(request):
 @require_POST
 def update_basket(request):
     """ Updates a single ticket line in the basket """
-    pass
+    success = False
+
+    if set(['date_id','type_id','quantity']).issubset(request.POST):
+        date_id = request.POST['date_id']
+        type_id = request.POST['type_id']
+        quantity = request.POST['quantity']
+        update_line_in_basket(request, date_id, type_id, int(quantity))
+        success = True
+
+    response = {
+        'success': success,
+    }
+
+    return JsonResponse(response)
 
 
 @require_POST
