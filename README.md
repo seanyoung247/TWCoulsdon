@@ -492,13 +492,20 @@ logged in staff members.
 
 </details>
 
+<details>
+<summary><b>E-Ticket Layout</b></summary>
 
+![Landing Page Desktop Layout](design/wireframes/ticket_validation/ticket.png)
+
+</details>
 
 ## Features
 
 ### Existing Features
 
 ### Future Features
+
+### Potential Improvements
 
 ## Technologies
 
