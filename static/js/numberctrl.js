@@ -1,3 +1,8 @@
+
+/*
+ * Provides code for a simple number spinner field
+ */
+
 function spinnerBtn(target, step) {
   const min = parseInt(target.attr('min'));
   const max = parseInt(target.attr('max'));
@@ -5,3 +10,10 @@ function spinnerBtn(target, step) {
 
   if (value >= min && value <= max) target.val( value );
 }
+
+$( 'button.btn-dec' ).click(function() {
+  spinnerBtn($( this ).siblings($( this ).data('target')), -1);
+});
+$( 'button.btn-inc' ).click(function() {
+  spinnerBtn($( this ).siblings($( this ).data('target')), 1);
+});
