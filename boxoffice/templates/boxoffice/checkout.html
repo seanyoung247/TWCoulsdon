@@ -12,9 +12,32 @@
     </div>
 
     <div class="row constrain-width basket-page-contents">
-      <div class="col-12">
-        <ul id="basket-list">
+      <div class="col-12 col-md-6">
+        <form id="payment-form" action="{% url 'checkout' %}">
+          {% csrf_token %}
+          {{ order_form.full_name | as_crispy_field }}
+          {{ order_form.email | as_crispy_field }}
+          {{ order_form.phone_number | as_crispy_field }}
+        </form>
+      </div>
 
+      <div class="col-12 col-md-6">
+        <ul id="basket-list">
+          {% for item in basket.items %}
+            <li class="basket-list-item ">
+              <div class="row">
+                <h4 class="col-12">{{ item.event.title }}</h4>
+                <p class="col-12">{{ item.date.date|date:"D, d M Y - H:i" }}</p>
+                <p class="col-8">
+                  {{ item.ticket_type.display_name }} (£{{ item.ticket_type.price }})
+                  &times;{{ item.quantity }}
+                </p>
+                <p class="col-4 text-right">
+                  £{{ item.line_total }}
+                </p>
+              </div>
+            </li>
+          {% endfor %}
         </ul>
       </div>
     </div>
