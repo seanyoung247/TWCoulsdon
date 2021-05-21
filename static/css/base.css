@@ -337,13 +337,10 @@ input[type=number] {
   stroke: var(--dark-color);
 }
 
-.icon-ticket-text {
+.icon-ticket-alert {
   fill: var(--brand-color);
   stroke: var(--dark-color);
   strike-width: 1;
-  font-family: Anton;
-  text-align: right;
-  text-anchor: middle;
 }
 
 .navbar {
@@ -441,6 +438,7 @@ input[type=number] {
   height: 100%;
   border-radius: 0;
   object-fit: cover;
+  object-position: bottom center;
 }
 
 .event-showcase-card .card-img-overlay {
