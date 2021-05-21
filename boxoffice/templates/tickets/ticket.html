@@ -6,6 +6,12 @@
   <head>
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    {% comment %}
+      WeasyPrint uses CSS2 so I won't to keep the styles seperate from site CSS
+      These styles are only used here, and embedding in the template allows me to
+      use django template expressions.
+    {% endcomment %}
     <style>
       @page {
         size: "A4";
