@@ -894,6 +894,10 @@ input[type="number"].item-line-quantity,
   border-bottom: 1px solid var(--dark-color);
 }
 
+.item-controls {
+  margin-top: 10px;
+}
+
 #basket-total {
   text-align: right;
   margin: 10px 0 25px 0
