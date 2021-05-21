@@ -1,10 +1,4 @@
 """ Provides functions for dealing with the shopping basket """
-from decimal import Decimal
-from django.conf import settings
-from django.shortcuts import get_object_or_404
-
-from events.models import Event, EventDate
-from boxoffice.models import TicketType
 
 
 def add_line_to_basket(request, date_id, type_id, quantity):
@@ -62,7 +56,3 @@ def remove_line_from_basket(request, date_id, type_id):
                 basket.pop(date_id)
 
     request.session['basket'] = basket
-
-
-
-

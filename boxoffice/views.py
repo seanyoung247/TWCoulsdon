@@ -73,11 +73,9 @@ def add_to_basket(request):
                 add_line_to_basket(request, str(date.id), str(ticket_type.id), quantity)
                 success = True
 
-
     response = {
         'success': success,
     }
-
     return JsonResponse(response)
 
 
@@ -96,7 +94,6 @@ def update_basket(request):
     response = {
         'success': success,
     }
-
     return JsonResponse(response)
 
 
@@ -117,7 +114,6 @@ def remove_from_basket(request):
     response = {
         'success': success,
     }
-
     return JsonResponse(response)
 
 
@@ -135,7 +131,6 @@ def validate_ticket(request, ticket_id):
     context = {
         'ticket': ticket,
     }
-
     return render(request, 'tickets/validate_ticket.html', context)
 
 

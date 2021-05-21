@@ -1,3 +1,4 @@
+""" Defines the models for the boxoffice app """
 import uuid
 from django.db import models
 from django.db.models import Sum
@@ -25,9 +26,10 @@ class Ticket(models.Model):
     date = models.ForeignKey(EventDate, null=False, blank=False, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.ticket_id;
+        return self.ticket_id
 
-    def _generate_ticket_number(self):
+    @staticmethod
+    def _generate_ticket_number():
         return uuid.uuid4().hex.upper()
 
     def save(self, *args, **kwargs):
@@ -49,14 +51,16 @@ class Order(models.Model):
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
-    # I've kept order and grand totals for potential future use, but currently grand total is redundant
+    # I've kept order and grand totals for potential future use, but currently
+    # grand total is redundant
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     phone_number = models.CharField(max_length=20, null=False, blank=False)
 
     def __str__(self):
         return self.order_number
 
-    def _generate_order_number(self):
+    @staticmethod
+    def _generate_order_number():
         return uuid.uuid4().hex.upper()
 
     def update_total(self):
@@ -74,14 +78,3 @@ class Order(models.Model):
             self.order_number = self._generate_order_number()
 
         super().save(*args, **kwargs)
-
-
-
-
-
-
-
-
-
-
-

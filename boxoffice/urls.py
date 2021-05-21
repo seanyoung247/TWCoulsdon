@@ -1,3 +1,4 @@
+""" Defines the boxoffice app's routes """
 from django.urls import path
 from . import views
 

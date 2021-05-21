@@ -1,16 +1,16 @@
 """ Generates pdf reports and tickets """
 from __future__ import unicode_literals
 
-from django.http import HttpResponse
+#from django.http import HttpResponse
 from django.template.loader import render_to_string
 #from django.utils.text import slugify
-from django.conf import settings
+#from django.conf import settings
 
 from weasyprint import HTML
 from weasyprint.fonts import FontConfiguration
 
-from .models import TicketType, Ticket, Order
 from events.models import Event, EventDate
+from .models import TicketType, Ticket, Order
 
 
 def report_tickets_for_event(request, event):
@@ -65,4 +65,3 @@ def generate_ticket_pdf(request, order):
     font_config = FontConfiguration()
     return HTML(string=html, base_url=request.build_absolute_uri()
                 ).write_pdf(font_config=font_config)
-
