@@ -1,8 +1,12 @@
+/*
+ * Provides code for a basic "netflix" style horizontal item scroller.
+ */
+
 // Scrolls one "page" left (backwards)
 $( ".scroller .scroll-left" ).click(function(event) {
   const scroller = $( this ).siblings( ".scroller-items" );
   const scrollItem = scroller.children( ".scroll-item" );
-  const scrollEndItem = scroller.children( ".scroll-item-bookend" );
+  //const scrollEndItem = scroller.children( ".scroll-item-bookend" );
   let scrollPosition = scroller.get(0).scrollWidth;
   // If we're at the beginning of the items, move back one page
   if (scroller.scrollLeft() > 0) {

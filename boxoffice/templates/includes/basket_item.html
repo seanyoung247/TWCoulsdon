@@ -1,0 +1,57 @@
+
+{% load boxoffice_tools %}
+
+<li class="basket-list-item"
+    data-date-id="{{ item.date.id }}"
+    data-type-id="{{ item.ticket_type.id }}"
+    data-quantity="{{ item.quantity }}"
+    data-price="{{ item.ticket_type.price }}">
+
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <h3>{{ item.event.title }}</h3>
+      <h5>{{ item.date.date|date:"D, d M Y - H:i" }}</h5>
+    </div>
+    <div class="col-12 col-md-2 text-left">
+      {{ item.ticket_type.display_name }} ({{ item.ticket_type.price }})
+    </div>
+
+
+    {% comment %}
+    <div class="col-6 col-md-2 text-center">
+      {{ item.quantity }}
+    </div>
+    {% endcomment %}
+
+    <div class="col-6 col-md-2 input-number-control">
+      <button class="btn btn-dec" data-target=".item-line-quantity">
+        -
+      </button>
+      <input class="item-line-quantity form-control"
+              type="number" min="1" max="{{ item.date|ticket_count }}"
+              step="1" value="{{ item.quantity }}">
+      <button class="btn btn-inc" data-target=".item-line-quantity">
+        +
+      </button>
+    </div>
+
+    <div class="col-6 col-md-2 text-right">
+      £<span class="item-line-total">{{ item.line_total }}</span>
+    </div>
+  </div>
+
+  <div class="row item-controls">
+    <div class="col-6 col-md-2 offset-md-8 text-left">
+      <button class="btn-sm btn-twc-accent basket-update-item">
+        Update
+      </button>
+    </div>
+
+    <div class="col-6 col-md-2 text-right">
+      <button class="btn-sm btn-twc-brand basket-delete-item">
+        Delete
+      </button>
+    </div>
+  </div>
+
+</li>

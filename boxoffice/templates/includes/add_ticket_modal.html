@@ -1,0 +1,41 @@
+
+<div class="modal fade" id="add-ticket-modal"
+      data-backdrop="static" data-keyboard="false" tabindex="-1"
+      aria-labelledby="add-tickets-label" aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h3 class="modal-title" id="add-tickets-label"></h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div id="add-tickets-form-wrapper">Loading...</div>
+
+      <div class="modal-body container-fluid">
+        <ul id="add-tickets-list"></ul>
+        <div class="form-row">
+          <div class="col-3 col-lg-2 offset-6 offset-lg-8">
+            Total:
+          </div>
+          <div class="col-3 col-lg-2">
+            £<span id="add-tickets-total">0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-twc-dark" data-dismiss="modal">
+          Cancel
+        </button>
+        <button id="addTicketsToBasket" type="button" class="btn btn-twc-dark">
+          Add to Basket
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

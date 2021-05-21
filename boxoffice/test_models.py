@@ -1,6 +1,7 @@
 """ Defines tests for the the  """
-from datetime import datetime
-from unittest import mock
+# pylint: disable=E5142
+# I need to import user for testing. I don't need get_user_model() in this case
+
 from django.test import TestCase
 from django.db import IntegrityError
 from django.contrib.auth.models import User
@@ -16,13 +17,13 @@ class TestTicketType(TestCase):
     """ Tests the TicketType model """
     def test_price_defaults_to_zero(self):
         """ Ensures price is given the correct default value """
-        type = TicketType.objects.create(name="test", display_name="Test Ticket")
-        self.assertEqual(type.price, 0)
+        ticket_type = TicketType.objects.create(name="test", display_name="Test Ticket")
+        self.assertEqual(ticket_type.price, 0)
 
     def test_string_returns_name(self):
         """ Ensures price is given the correct default value """
-        type = TicketType.objects.create(name="test")
-        self.assertEqual(str(type), "test")
+        ticket_type = TicketType.objects.create(name="test")
+        self.assertEqual(str(ticket_type), "test")
 
 
 class TestTicket(TestCase):
@@ -30,7 +31,7 @@ class TestTicket(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
             'Test User', 'test@email.com', 'testpassword')
-        self.userProfile = UserProfile.objects.get(user=self.user)
+        self.user_profile = UserProfile.objects.get(user=self.user)
 
         self.event = Event.objects.create(
             title = "Test Event",
@@ -40,14 +41,14 @@ class TestTicket(TestCase):
             event = self.event, date = timezone.now())
 
         self.order = Order.objects.create(
-            user_profile = self.userProfile,
+            user_profile = self.user_profile,
             full_name = "Test User",
             email = self.user.email
         )
-        self.ticketType = TicketType.objects.create(
+        self.ticket_type = TicketType.objects.create(
             name = "test", display_name = "Test Ticket")
         self.ticket = Ticket.objects.create(
-            order = self.order, type = self.ticketType,
+            order = self.order, type = self.ticket_type,
             event = self.event, date = self.date
         )
 
@@ -62,7 +63,7 @@ class TestTicket(TestCase):
     def test_ticket_unique_id(self):
         """ Tests that two identical tickets will have different identifiers """
         ticket = Ticket.objects.create(
-            order = self.order, type = self.ticketType,
+            order = self.order, type = self.ticket_type,
             event = self.event, date = self.date
         )
         self.assertNotEqual(ticket.ticket_id, None)
@@ -79,7 +80,7 @@ class TestOrder(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
         'Test User', 'test@email.com', 'testpassword')
-        self.userProfile = UserProfile.objects.get(user=self.user)
+        self.user_profile = UserProfile.objects.get(user=self.user)
 
         self.event = Event.objects.create(
             title = "Test Event",
@@ -89,11 +90,11 @@ class TestOrder(TestCase):
             event = self.event, date = timezone.now())
 
         self.order = Order.objects.create(
-            user_profile = self.userProfile,
+            user_profile = self.user_profile,
             full_name = "Test User",
             email = self.user.email
         )
-        self.ticketType = TicketType.objects.create(
+        self.ticket_type = TicketType.objects.create(
             name = "test",
             display_name = "Test Ticket",
             price = 10.00
@@ -109,7 +110,7 @@ class TestOrder(TestCase):
     def test_order_number_unique(self):
         """ Tests that identical orders produce unqiue order numbers """
         order = Order.objects.create(
-            user_profile = self.userProfile,
+            user_profile = self.user_profile,
             full_name = "Test User",
             email = self.user.email
         )
@@ -121,18 +122,15 @@ class TestOrder(TestCase):
         tickets are added and removed.
         """
         self.assertEqual(self.order.order_total, 0)
-        ticket1 = Ticket.objects.create(
-            order = self.order, type = self.ticketType,
+        Ticket.objects.create(
+            order = self.order, type = self.ticket_type,
             event = self.event, date = self.date
         )
         self.assertEqual(self.order.order_total, 10.00)
-        ticket2 = Ticket.objects.create(
-            order = self.order, type = self.ticketType,
+        ticket = Ticket.objects.create(
+            order = self.order, type = self.ticket_type,
             event = self.event, date = self.date
         )
         self.assertEqual(self.order.order_total, 20.00)
-        ticket2.delete()
+        ticket.delete()
         self.assertEqual(self.order.order_total, 10.00)
-
-
-

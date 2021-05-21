@@ -1,3 +1,8 @@
+
+/*
+ * Provides code for a simple gallery component based on a Bootstrap modal
+ */
+
 function getPreviousItem(current) {
   return current.parent('.scroll-item').prev().children('.gallery-image-link');
 }

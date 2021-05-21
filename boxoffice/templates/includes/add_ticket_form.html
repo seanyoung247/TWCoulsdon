@@ -1,0 +1,59 @@
+{% load boxoffice_tools %}
+
+<form id="add-ticket-form" class="form-inline container-fluid" >
+  <div class="form-row w-100">
+
+    <div class="col-12 col-md-6 col-lg-4">
+      <label class="add-ticket-label" for="add-ticket-date">Performance</label>
+      <select id="add-ticket-date" class="form-control custom-select w-100">
+        {% if dates %}
+          {% for date in dates %}
+            <option value="{{ date.id }}"
+                    data-tickets-left="{{ date|ticket_count }}"
+              {% if not date|has_tickets %}
+                disabled>
+                  Sold Out -
+              {% else %}
+                >
+              {% endif %}
+              {{ date.date|date:"D, d M Y - H:i" }}
+            </option>
+          {% endfor %}
+        {% else %}
+          <option disabled>No shows available</option>
+        {% endif %}
+      </select>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+      <label class="add-ticket-label" for="add-ticket-date">Type</label>
+      <select id="add-ticket-type" class="form-control custom-select w-100">
+        {% for ticket_type in ticket_types %}
+          <option value="{{ ticket_type.id }}" data-unit-price="{{ ticket_type.price }}">
+            {{ ticket_type.display_name }} (£{{ ticket_type.price }})
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <label class="add-ticket-label" for="add-ticket-date">Quantity</label>
+
+      <div class="input-number-control">
+        <button class="btn btn-dec" data-target="#add-ticket-quantity">
+          -
+        </button>
+        <input id="add-ticket-quantity" class="form-control"
+                type="number" min="1" max="10" step="1" value="1">
+        <button class="btn btn-inc" data-target="#add-ticket-quantity">
+          +
+        </button>
+      </div>
+
+      <button id="add-ticket-submit" type="submit" class="btn btn-twc-dark">
+        Add
+      </button>
+    </div>
+
+  </div>
+</form>

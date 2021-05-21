@@ -1,9 +1,9 @@
 """ Defines general queries for use throughout the site """
-from datetime import datetime, timedelta
+from datetime import timedelta
 from django.conf import settings
 from django.utils import timezone
-from events.models import Event, EventDate, Venue
-from .models import TicketType, Ticket, Order
+from events.models import EventDate
+from .models import Ticket
 
 
 def get_available_tickets_for_date(event_date):
@@ -16,19 +16,19 @@ def get_available_tickets_for_date(event_date):
     int: Number of avaliable tickets
 
     """
-    if event_date is None: return 0
+    if event_date is None:
+        return 0
 
     # We can't sell tickets for an event in the past.
     ticket_cutoff = timezone.now() - timedelta(hours = settings.TICKET_CUT_OFF_HOURS)
-    if event_date.date < ticket_cutoff: return 0
+    if event_date.date < ticket_cutoff:
+        return 0
 
     # How many tickets have already been sold?
     ticket_count = Ticket.objects.filter(date=event_date).count()
     # How many seats does the venue have?
     venue_seats = event_date.event.venue.capacity if event_date.event.venue is not None else 0
     return venue_seats - ticket_count
-
-    return 0
 
 
 def get_available_tickets_for_event(event):
@@ -41,7 +41,8 @@ def get_available_tickets_for_event(event):
     int: Number of avaliable tickets
 
     """
-    if event is None: return 0
+    if event is None:
+        return 0
 
     ticket_cutoff = timezone.now() - timedelta(hours = settings.TICKET_CUT_OFF_HOURS)
 
@@ -54,10 +55,3 @@ def get_available_tickets_for_event(event):
     # How many are there in total?
     venue_seats = (event.venue.capacity if event.venue is not None else 0) * date_count
     return venue_seats - ticket_count
-
-    return 0
-
-
-
-
-

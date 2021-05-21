@@ -103,6 +103,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'django.template.context_processors.request',   # For video embed
+                'boxoffice.context.basket_contents',
             ],
         },
     },
@@ -238,9 +239,10 @@ FAVICON = os.path.join(STATIC_URL, 'img/favicon.ico')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom settings
-RESULTS_PER_PAGE = int(os.environ.get('RESULTS_PER_PAGE')) #Number of results to show per page for search
+#Number of results to show per page for search
+RESULTS_PER_PAGE = int(os.environ.get('RESULTS_PER_PAGE', 12))
 # How many hours before an event that tickets can be sold until
-TICKET_CUT_OFF_HOURS = 2
+TICKET_CUT_OFF_HOURS = int(os.environ.get('TICKET_CUT_OFF_HOURS', 2))
 
 # Uncomment to send debug data to the console during tests:
 #NOSE_ARGS = ['--nocapture', '--nologcapture',]

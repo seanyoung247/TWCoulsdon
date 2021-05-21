@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-  {{ block.super }}{% if event_type %} - {{ event_type.display_name }}s{% endif %}
+  {% if event_type %}{{ event_type.display_name }}s - {% endif %}{{ block.super }}
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,7 @@
     <div class="row">
       <div class="col-12">
 
-        <form class="row advanced-search-form" method="GET" action="{% url 'events' %}">
+        <form class="row constrain-width advanced-search-form" method="GET" action="{% url 'events' %}">
           {% if search_query.text %}
             <input type="hidden" name="q" value="{{ search_query.text }}">
           {% endif %}
@@ -80,10 +80,17 @@
       </div>
     </div>
   </section>
+
+  {% include 'includes/add_ticket_modal.html' %}
 {% endblock %}
 
 {% block scripts %}
   {{ block.super }}
+  <script type="text/javascript">
+    const csrfToken = "{{ csrf_token }}";
+  </script>
   <script type="text/javascript" src="{% static 'js/search.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/numberctrl.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/tickets.js' %}"></script>
 {% endblock %}
 

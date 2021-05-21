@@ -10,6 +10,7 @@ from django.http import JsonResponse, HttpResponseBadRequest
 
 from .queries import query_events
 from .models import Event, ShowType, EventDate, Image, Venue
+from boxoffice.models import TicketType
 
 
 # Event list page view
@@ -93,8 +94,12 @@ def event_details(request, event_slug):
     # Get this event's gallery images
     images = Image.objects.filter(event=event)
 
+    # Get the ticket types
+    ticket_types = TicketType.objects.all()
+
     context = {
         "event": event,
+        "ticket_types": ticket_types,
         "first_date": dates['min_date'],
         "last_date": dates['max_date'],
         "images": images,

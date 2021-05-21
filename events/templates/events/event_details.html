@@ -6,7 +6,7 @@
 {% load embed_video_tags %}
 
 {% block title %}
-  {{ block.super }} - {{ event.title }}
+  {{ event.title }} - {{ block.super }}
 {% endblock %}
 
 {% block content %}
@@ -69,13 +69,15 @@
           {# Ticket information #}
           <div class="event-panel">
             <h5>Tickets</h5>
-            List of prices/ticket types here
-            i.e.
             <ul>
-              <li>Adult: £10</li>
-              <li>Concession: £7.50</li>
+              {% for ticket_type in ticket_types %}
+                <li>{{ ticket_type.display_name }}: £{{ ticket_type.price }}</li>
+              {% endfor %}
             </ul>
-            <a class="btn btn-twc-light w-100" href="#">Buy Tickets</a>
+            <button type="button" class="btn btn-twc-light btn-add-tickets w-100"
+                    data-event-id="{{ event.id }}" data-event-title="{{ event.title }}">
+              Buy Tickets
+            </button>
           </div>
         {% endif %}
       </div>
@@ -94,7 +96,7 @@
 
   {# Event Gallery #}
   {% if images %}
-    <div class="row event-gallery">
+    <div class="row constrain-width event-gallery">
       <div class="col-12">
         <h3>Gallery</h3>
         {% with items=images template='image_tile.html' buttons='gallery_btns.html' %}
@@ -151,14 +153,23 @@
       </div>
     </div>
   </div>
+
+  {% include 'includes/add_ticket_modal.html' %}
+
 {% endif %}
 
 {% endblock %}
 
 {% block scripts %}
   {{ block.super }}
+  <script type="text/javascript">
+    const csrfToken = "{{ csrf_token }}";
+  </script>
+  <script type="text/javascript" src="{% static 'js/numberctrl.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/scroller.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/gallery.js' %}"></script>
+
+  <script type="text/javascript" src="{% static 'js/tickets.js' %}"></script>
 {% endblock %}
 
 

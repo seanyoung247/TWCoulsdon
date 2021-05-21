@@ -49,6 +49,17 @@ hr {
   display: none !important;
 }
 
+.constrain-width {
+  max-width: 1500px;
+  margin: auto;
+}
+
+.page-header {
+  color: var(--brand-color);
+  text-align: center;
+  padding: 25px;
+}
+
 /*
  * Custom components
  */
@@ -68,27 +79,37 @@ hr {
 .btn-twc-dark {
   color: var(--light-color);
   background-color: var(--dark-color);
-  border: 1px solid var(--light-color);
+  border: 1px solid var(--dark-color);
   text-shadow: none;
 }
 
 .btn-twc-dark:hover {
   color: var(--dark-color);
   background-color: var(--light-color);
-  border: 1px solid var(--dark-color);
 }
 
 .btn-twc-brand {
   color: var(--light-color);
   background-color: var(--brand-color);
-  border: 1px solid var(--light-color);
+  border: 1px solid var(--brand-color);
   text-shadow: none;
 }
 
 .btn-twc-brand:hover {
   color: var(--brand-color);
   background-color: var(--light-color);
-  border: 1px solid var(--brand-color);
+}
+
+.btn-twc-accent {
+  color: var(--light-color);
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  text-shadow: none;
+}
+
+.btn-twc-accent:hover {
+  color: var(--accent-color);
+  background-color: var(--light-color);
 }
 
 .section-header {
@@ -105,6 +126,19 @@ hr {
 .btn:focus, .btn:active {
   border-color: var(--accent-color);
   box-shadow: 0 0 0 0.2rem rgba(var(--accent-color-rgb),0.5);
+}
+
+/*
+ * Removes the spinner controls on number fields, which appear to be
+ * buggy with bootstrap and some browsers
+ */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 /*
@@ -175,11 +209,6 @@ hr {
 }
 .navbar:last-child {
   padding-top: 0;
-}
-
-.nav-content {
-  width: 100%;
-  max-width: 1500px;
 }
 
 .navbar-brand {
@@ -310,6 +339,8 @@ hr {
 
 .icon-ticket-text {
   fill: var(--brand-color);
+  stroke: var(--dark-color);
+  strike-width: 1;
   font-family: Anton;
   text-align: right;
   text-anchor: middle;
@@ -355,6 +386,8 @@ hr {
   background-color: rgba(var(--dark-color-rgb), 0.9);
   top: 50%;
   transform: translateY(-50%);
+  margin: auto;
+  max-width: 1000px;
   bottom: initial;
 }
 
@@ -371,13 +404,7 @@ hr {
  */
 .content-page-content {
   background-color: var(--light-color);
-  max-width: 1500px;
   margin: auto;
-}
-.content-page-header {
-  color: var(--brand-color);
-  text-align: center;
-  padding: 25px;
 }
 .content-page-links {
   display: flex;
@@ -493,7 +520,6 @@ hr {
   border-width: 1px;
   border-image-source: linear-gradient(to right, rgba(20,22,26, 0), rgba(20,22,26, 0.75), rgba(20,22,26, 0));
 
-  max-width: 1500px;
   padding: 2px 0;
   margin: 2px auto;
 }
@@ -547,7 +573,6 @@ hr {
 
 .event-content,
 .event-gallery {
-  max-width: 1500px;
   margin: 25px auto;
 }
 
@@ -704,7 +729,6 @@ hr {
  * Venue Page
  */
 .venue-content {
-  max-width: 1500px;
   justify-content: center;
   margin-top: 25px;
 }
@@ -736,6 +760,158 @@ hr {
 }
 
 /*
+ * Boxoffice
+ */
+.ticket-validation-wrapper {
+  display: flex;
+  height: calc(100% - var(--header-mobile-height));
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ticket-validation-info {
+  position: relative;
+  padding: 5px;
+  border: 1px solid var(--dark-color);
+  width: 100%;
+  max-width: 1000px;
+}
+
+.ticket-validation-info.expired {
+  border: 1px solid red;
+  background-color: rgba(255,0,0,0.5);
+}
+
+.ticket-validation-info.expired::after {
+  content: "Expired!";
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: bolder;
+  color: red;
+}
+
+#add-ticket-modal .modal-content {
+  min-height: 50%;
+}
+
+#add-tickets-form-wrapper {
+  border-bottom: 1px solid #DEE2E6;
+  padding: 5px 0;
+}
+
+label.add-ticket-label {
+  display: block;
+  justify-content: flex-start;
+  margin-bottom: 5px;
+}
+
+.input-number-control {
+  display: inline-flex;
+  align-items: flex-start;
+}
+.btn-inc, .btn-dec {
+  color: var(--light-color);
+  background-color: var(--dark-color);
+  border: 1px solid var(--dark-color);
+  width: 35px;
+}
+.btn-inc:hover, .btn-dec:hover {
+  color: var(--dark-color);
+  background-color: var(--light-color);
+}
+.btn-dec {
+  border-radius: 0.25rem 0 0 0.25rem;
+  border-right: none;
+}
+.btn-inc {
+  border-radius: 0 0.25rem 0.25rem 0;
+  border-left: none;
+}
+
+input[type="number"].item-line-quantity,
+#add-ticket-quantity {
+  display: block;
+  padding: 6px;
+  width: 40px;
+  border-radius: 0;
+}
+
+#add-ticket-submit {
+  float: right;
+}
+
+#add-tickets-list {
+  list-style: none;
+  padding: 0;
+}
+
+.add-ticket-list-item {
+  position: relative;
+  border-bottom: 1px solid var(--dark-color);
+  margin-bottom: 25px;
+}
+
+.delete-list-item {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.delete-list-item:hover {
+  color: red;
+}
+
+/*
+ * Shopping Basket
+ */
+
+.basket-page-contents {
+  background-color: var(--light-color);
+}
+
+#basket-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--dark-color);
+  border-bottom: 1px solid var(--dark-color);
+}
+
+.no-basket-items {
+  margin: 25px 0;
+}
+
+.basket-list-item {
+  padding-bottom: 15px;
+  margin: 10px 0;
+  border-bottom: 1px solid var(--dark-color);
+}
+
+.item-controls {
+  margin-top: 10px;
+}
+
+#basket-total {
+  text-align: right;
+  margin: 10px 0 25px 0
+}
+
+#basket-links {
+  text-align: center;
+  padding: 25px 15px;
+}
+
+#basket-links > a {
+  width: 100%;
+}
+
+/*
  * Media Queries
  */
  /* Extra small screens (Phones) < 576px */
@@ -750,14 +926,24 @@ hr {
   }
 }
 
- /* Medium screens (tablets) > 767px */
- @media (min-width: 767px) {
-   .content-page-link {
-     width: 100%;
-   }
- }
+/* Medium screens (tablets) > 767px */
+@media (min-width: 767px) {
+  .content-page-link {
+    width: 100%;
+  }
+  #basket-list {
+    padding: 0 15px;
+    margin: 5px;
+  }
+  #basket-links {
+    text-align: right;
+  }
+  #basket-links > a {
+    width: auto;
+  }
+}
 
- /* Large screens (desktop/laptop) > 960px */
+/* Large screens (desktop/laptop) > 960px */
 @media (min-width: 992px) {
   #home-page-carousel {
     height: 100%;

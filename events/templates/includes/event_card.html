@@ -2,7 +2,6 @@
 {% load event_tools %}
 {% load boxoffice_tools %}
 
-
 {% if showcase %}
 
   <div class="col-12 px-0">
@@ -23,9 +22,12 @@
             <p class="event-showcase-tag">{{ event.tagline }}</p>
           {% endif %}
           <p class="event-showcase-links">
-            <a class="btn btn-twc-dark" href="{% url 'event_details' event.slug %}" role="button">Read More</a>
+            <a class="btn btn-twc-brand" href="{% url 'event_details' event.slug %}" role="button">Read More</a>
             {% if event|has_tickets %}
-              <a class="btn btn-twc-dark" href="#" role="button">Buy Tickets</a>
+              <button type="button" class="btn btn-twc-brand btn-add-tickets"
+                      data-event-id="{{ event.id }}" data-event-title="{{ event.title }}">
+                Buy Tickets
+              </button>
             {% endif %}
           </p>
         </div>

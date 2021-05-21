@@ -1,3 +1,4 @@
+""" Defines inter-model signalling for the boxoffice app """
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 

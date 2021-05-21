@@ -1,8 +1,6 @@
-// Get the map center and marker location
-var mapPos = [
-  parseFloat($('#longitude').val()),
-  parseFloat($('#latitude').val())
-];
+/*
+ * Creates an openlayers map element.
+ */
 
 // Set's the attribution information to collapsible
 var attribution = new ol.control.Attribution({
@@ -33,7 +31,7 @@ ol.Map.prototype.addMarker = function(lonlat, icon) {
   // Attach the marker layer to the map
   this.addLayer(layer);
   return marker;
-}
+};
 
 // Creates the openlayers map object
 var map = new ol.Map({
@@ -65,4 +63,4 @@ var map = new ol.Map({
   })
 });
 // Creates a custom pin
-map.addMarker(mapPos, '/static/img/pin.svg');
+map.addMarker(mapPos, mapPin);
