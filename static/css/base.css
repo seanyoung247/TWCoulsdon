@@ -917,6 +917,15 @@ input[type="number"].item-line-quantity,
 }
 
 /*
+ * Checkout
+ */
+.checkout-profile-link {
+  width: 100%;
+  margin-top: 25px;
+  justify-content: flex-end;
+}
+
+/*
  * Media Queries
  */
  /* Extra small screens (Phones) < 576px */
