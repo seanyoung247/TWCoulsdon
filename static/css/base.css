@@ -889,6 +889,10 @@ label.add-ticket-label {
   border-bottom: 1px solid var(--dark-color);
 }
 
+.no-basket-items {
+  margin: 25px 0;
+}
+
 .basket-list-item {
   padding-bottom: 15px;
   margin: 10px 0;
