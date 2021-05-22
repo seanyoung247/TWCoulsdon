@@ -23,13 +23,17 @@ from .context import basket_contents
 def buy_tickets(request):
     """ Provides the event form data and passes it to the frontend as json """
 
+    # Ensure all required data has been sent
     if 'event' not in request.GET or not request.GET['event']:
         HttpResponseBadRequest('<h1>Missing event variable</h1>')
 
+    # Get the Event and it's dates
     event = get_object_or_404(Event, id=request.GET['event'])
     dates = get_remaining_event_dates(event).order_by('date')
+
     ticket_types = TicketType.objects.all()
 
+    # Generate the ticket form html
     context = {
         'dates': dates,
         'ticket_types': ticket_types,
@@ -37,10 +41,10 @@ def buy_tickets(request):
     form_html = loader.render_to_string(
         'includes/add_ticket_form.html', context)
 
+    # Send the form to the client
     response = {
         'form': form_html,
     }
-
     return JsonResponse(response)
 
 
@@ -92,6 +96,7 @@ def update_basket(request):
         date_id = request.POST['date_id']
         type_id = request.POST['type_id']
         quantity = request.POST['quantity']
+
         update_line_in_basket(request, date_id, type_id, int(quantity))
         success = True
 

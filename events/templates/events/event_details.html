@@ -162,9 +162,7 @@
 
 {% block scripts %}
   {{ block.super }}
-  <script>
-    const csrfToken = "{{ csrf_token }}";
-  </script>
+  <script>const csrfToken = "{{ csrf_token }}";</script>
   <script src="{% static 'js/numberctrl.js' %}"></script>
   <script src="{% static 'js/scroller.js' %}"></script>
   <script src="{% static 'js/gallery.js' %}"></script>
