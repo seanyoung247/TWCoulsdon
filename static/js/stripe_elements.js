@@ -37,24 +37,36 @@ card.mount('#card-element');
 
 
 function displayCardError(message) {
-  const errorDiv = $('#card-errors');
-  errorDiv.html(`<span>${message}</span>`);
+  const errorDisplay = $('#card-errors');
+  errorDisplay.html(`<span>${message}</span>`);
 }
 function clearCardError() {
-  const errorDiv = $('#card-errors');
-  errorDiv.text('');
+  const errorDisplay = $('#card-errors');
+  errorDisplay.text('');
 }
 
 // Handle realtime validation errors on the card element
 card.addEventListener('change', function (event) {
-  if (event.error)
+  if (event.error) {
     displayCardError(event.error.message);
-  else
+  } else {
     clearCardError();
+  }
 });
 
 // Form submission
-$( '#payment-form' ).submit( function(e) {
+const form = $( '#payment-form' );
+// For testing bad form data, REMOVE IN PRODUCTION!
+// form.submit(function (e) {
+//   e.preventDefault();
+//   const url = form.attr('action');
+//   postData = {
+//     'csrfmiddlewaretoken': csrfToken,
+//     'full_name': 'none'
+//   };
+//   $.post(url, postData);
+// });
+form[0].addEventListener('submit', function(e) {
   e.preventDefault();
 
   // Disable input elements to prevent multiple submissions
@@ -75,29 +87,31 @@ $( '#payment-form' ).submit( function(e) {
 
   // Post the pre-checkout data
   $.post(url, postData).done(function() {
-
+    console.log(form[0].full_name.value);
     // Check user payment
     stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: card,
         billing_details: {
-          name: $.trim(form.full_name.value),
-          phone: $.trim(form.phone_number.value),
-          email: $.trim(form.email.value),
+          name: $.trim(form[0].full_name.value),
+          phone: $.trim(form[0].phone_number.value),
+          email: $.trim(form[0].email.value),
         }
+        // Shipping information isn't needed, we're not shipping anything...
       }
     // Payment check returned
     }).then(function(result) {
       if (result.error) {
         displayCardError(result.error.message);
-        //
+        /* Payment failed so re-enable the checkout
+           form so the user can try again */
         $('#loading-overlay').fadeToggle(100);
         card.update({ 'disabled': false});
-        $('#submit-button').attr('disabled', false);
+        $('#submit-button').prop('disabled', false);
       } else {
         if (result.paymentIntent.status === 'succeeded') {
-          // If the user has paid post the form to the checkout
-          $( '#payment-form' ).submit();
+          // If the user has paid, post the form to the checkout
+          form.submit();
         }
       }
     });
