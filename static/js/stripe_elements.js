@@ -87,7 +87,6 @@ form[0].addEventListener('submit', function(e) {
 
   // Post the pre-checkout data
   $.post(url, postData).done(function() {
-    console.log(form[0].full_name.value);
     // Check user payment
     stripe.confirmCardPayment(clientSecret, {
       payment_method: {
