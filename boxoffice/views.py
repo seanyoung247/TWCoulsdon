@@ -130,15 +130,38 @@ def remove_from_basket(request):
 # Checkout views
 #
 def checkout(request):
-    basket = request.session.get('basket', {})
+    """ Shows the checkout page and accepts post-payment checkout data """
+    # Get the stripe secret and public keys
+    stripe_public_key = settings.STRIPE_PUBLIC_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
 
-    if not basket:
-        return redirect(f'{reverse("events")}?type=show')
+    if request.method == 'POST':
+        pass
 
-    order_form = OrderForm()
+    # Get request
+    else:
+        # Get the shopping basket
+        basket = request.session.get('basket', {})
+        if not basket:
+            return redirect(f'{reverse("events")}?type=show')
+        total = basket_contents(request)['basket']['total']
+
+        # Setup stripe
+        stripe_total = round(total * 100)
+        stripe.api_key = stripe_secret_key
+        intent = stripe.PaymentIntent.create(
+            amount=stripe_total,
+            currency=settings.STRIPE_CURRENCY,
+        )
+
+        #TODO: Add profile get here
+        order_form = OrderForm()
+
 
     context = {
         'order_form': order_form,
+        'stripe_public_key': stripe_public_key,
+        'client_secret': intent.client_secret,
     }
 
     return render(request, 'boxoffice/checkout.html', context)
