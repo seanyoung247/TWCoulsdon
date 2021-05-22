@@ -40,6 +40,10 @@
   border: 1px solid var(--dark-color);
 }
 
+#card-element {
+  min-height: 40px;
+}
+
 #card-errors {
   height: 24px;
   margin-bottom: 15px;
