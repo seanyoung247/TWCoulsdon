@@ -1,4 +1,6 @@
 """ Unit tests for tickets.py """
+import json
+
 from datetime import timedelta
 
 from django.test import TestCase
@@ -113,6 +115,16 @@ class TestCheckAvailability(TestCase):
             self.assertEqual(e.date_id, self.dates_event_two[0].id)
 
 
-
-
-
+    def test_check_order_availabillity(self):
+        """ Tests correct returns from check_order_availabillity """
+        # Check an order with availability
+        self.order.original_basket = json.dumps(self.good_basket)
+        self.assertTrue(check_order_availabillity(self.order))
+        # Check an order with no availability
+        self.order.original_basket = json.dumps(self.bad_basket)
+        self.assertRaises(Tickets_Not_Available, check_order_availabillity,
+                            self.order)
+        # Check an order with some availability
+        self.order.original_basket = json.dumps(self.mixed_basket)
+        self.assertRaises(Tickets_Not_Available, check_order_availabillity,
+                            self.order)
