@@ -1,4 +1,6 @@
 """ Tools for creating, updating and deleting tickets """
+import json
+
 from events.models import Event, EventDate
 from .models import TicketType, Ticket, Order
 from .queries import get_available_tickets_for_date
@@ -52,12 +54,37 @@ def check_basket_availability(basket):
     # in the basket is available
     return True
 
+
+def check_order_availabillity(order):
+    """ Checks all ticket lines in an order are available
+
     Parameters:
+    order (Order): The order details to check
 
     Returns:
+    (boolean): True if there are enough tickets left
+
+    Raises:
+    (Tickets_Not_Available): If a ticket line can't be fulfilled
 
     """
-    passclass Tickets_Not_Available(Exception):
+    # Get the basket from the order
+    basket = json.loads(order.original_basket)
+
+    return check_basket_availability(basket)
+
+
+
+def create_tickets(order):
+    """
+    Creates tickets for a given order.
+
+    Parameters:
+    order (Order): The order to create tickets for
+
+    """
+    pass
+
 
 class Tickets_Not_Available(Exception):
     """ Thrown if a ticket line can not be fulfilled """
