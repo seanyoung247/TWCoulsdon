@@ -56,3 +56,26 @@ def remove_line_from_basket(request, date_id, type_id):
                 basket.pop(date_id)
 
     request.session['basket'] = basket
+
+
+def remove_date_from_basket(request, date_id):
+    """ Removes all tickets for a certain date
+
+    Parameters:
+    request (request object): The current request object
+    date_id (String): The Ticket EventDate id in string format
+    """
+    basket = request.session.get('basket', {})
+    if date_id in basket:
+        basket.pop(date_id)
+
+    request.session['basket'] = basket
+
+
+def empty_basket(request):
+    """ Removes all tickets from the basket
+
+    Parameters:
+    request (request object): The current request object
+    """
+    request.session['basket'] = {}
