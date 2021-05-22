@@ -7,6 +7,7 @@
   --dark-trans: rgba(20,22,26,0.9);
   --light-color: #FFFFFF;
   --background-color: #EBEDF0;
+  --background-trans: rgba(235,237,240,0.75);
   --brand-color: #FF3333;
   --accent-color: #1B48A1;
   --accent-trans: rgba(27,27,161,0.5);
@@ -911,15 +912,6 @@ input[type="number"].item-line-quantity,
 
 #basket-links > a {
   width: 100%;
-}
-
-/*
- * Checkout
- */
-.checkout-profile-link {
-  width: 100%;
-  margin-top: 25px;
-  justify-content: flex-end;
 }
 
 /*

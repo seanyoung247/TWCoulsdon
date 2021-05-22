@@ -2,6 +2,12 @@
 {% load static %}
 {% load boxoffice_tools %}
 
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock %}
+
 {% block content %}
 
   <div id="header-spacer"></div>
