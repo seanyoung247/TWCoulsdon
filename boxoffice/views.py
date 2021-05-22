@@ -1,10 +1,12 @@
 """ Defines the views for the boxoffice app """
 import json
+import stripe
 
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.template import loader
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
+from django.conf import settings
 
 from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
@@ -13,6 +15,7 @@ from .basket import add_line_to_basket, update_line_in_basket, remove_line_from_
 from .reports import generate_ticket_pdf
 from .models import TicketType, Ticket, Order
 from .forms import OrderForm
+from .context import basket_contents
 
 #
 # Add tickets dialog views
