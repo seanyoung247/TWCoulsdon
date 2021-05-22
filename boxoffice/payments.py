@@ -15,7 +15,7 @@ from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
 
 from .basket import (add_line_to_basket, update_line_in_basket, remove_line_from_basket,
-                        remove_date_from_basket)
+                        remove_date_from_basket, empty_basket)
 
 from .reports import generate_ticket_pdf
 from .models import TicketType, Ticket, Order
@@ -26,6 +26,7 @@ from .tickets import (check_basket_availability, check_order_availabillity,
 
 
 def get_checkout_page(request):
+    """ Returns the checkout page with stripe information """
     # Get the stripe secret and public keys
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
@@ -70,6 +71,7 @@ def get_checkout_page(request):
 def precheckout_data(request):
     """ Accepts a request and attempts to cache precheckout data """
     try:
+        basket = request.session.get('basket', {})
         check_basket_availability(basket)
 
         pid = request.POST.get('client_secret').split('_secret')[0]
@@ -91,7 +93,7 @@ def precheckout_data(request):
 
 
 def complete_checkout(request):
-    """ Receives checkout data after  """
+    """ Receives checkout data after """
 
     # Get the stripe secret and public keys
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
@@ -106,7 +108,7 @@ def complete_checkout(request):
     # Do we have all the information we need?
     if not set(['full_name','email','phone_number']).issubset(request.POST):
         #TODO: django messaging goes here
-        return get_checkout_page(request)
+        return redirect(reverse('checkout'))
 
     # Construct form object
     order_form = OrderForm({
@@ -117,7 +119,7 @@ def complete_checkout(request):
     # If data is valid construct the order
     if order_form.is_valid():
         # Construct the order model
-        order = order_form.save(commit=False)
+        order = order_form.save()
         # Add the payment information to the order
         order.stripe_pid = request.POST.get('client_secret').split('_secret')[0]
         # Add the basket information to the order
@@ -136,19 +138,29 @@ def complete_checkout(request):
             return redirect(reverse('view_bag'))
 
         # Do we need to save the user information to their profile?
+        request.session['save_to_profile'] = 'save_to_profile' in request.POST
 
         # Redircet to checkout success
+        return redirect(reverse('checkout_success', args=[order.order_number]))
 
 
+def checkout_complete(request, order_number):
+    """ Shows the checkout success page and provides the e-tickets """
 
+    save_to_profile = request.session['save_to_profile']
+    order = get_object_or_404(Order, order_number=order_number)
 
-# user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
-#                                  null=True, blank=True, related_name='orders')
+    if request.user.is_authenticated:
+        # TODO: Get User Profile here
+        pass
 
+    empty_basket(request)
 
+    context = {
+        'order': order
+    }
 
-
-
+    return render(request, 'boxoffice/checkout_success.html', context)
 
 
 
