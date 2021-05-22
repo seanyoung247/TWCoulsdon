@@ -1,6 +1,5 @@
 """ Defines the views for the boxoffice app """
 import json
-import stripe
 
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.template import loader
@@ -16,6 +15,7 @@ from .reports import generate_ticket_pdf
 from .models import TicketType, Ticket, Order
 from .forms import OrderForm
 from .context import basket_contents
+from .payments import precheckout_data, get_checkout_page, complete_checkout
 
 #
 # Add tickets dialog views
@@ -25,6 +25,7 @@ def buy_tickets(request):
 
     # Ensure all required data has been sent
     if 'event' not in request.GET or not request.GET['event']:
+        #TODO: Add messaging
         HttpResponseBadRequest('<h1>Missing event variable</h1>')
 
     # Get the Event and it's dates
@@ -131,56 +132,21 @@ def remove_from_basket(request):
 #
 def checkout(request):
     """ Shows the checkout page and accepts post-payment checkout data """
-    # Get the stripe secret and public keys
-    stripe_public_key = settings.STRIPE_PUBLIC_KEY
-    stripe_secret_key = settings.STRIPE_SECRET_KEY
-
+    # POST request
     if request.method == 'POST':
-        pass
-
-    # Get request
+        return complete_checkout(request)
+    # GET request
     else:
-        # Get the shopping basket
-        basket = request.session.get('basket', {})
-        if not basket:
-            return redirect(f'{reverse("events")}?type=show')
-        total = basket_contents(request)['basket']['total']
-
-        # Setup stripe
-        stripe_total = round(total * 100)
-        stripe.api_key = stripe_secret_key
-        intent = stripe.PaymentIntent.create(
-            amount=stripe_total,
-            currency=settings.STRIPE_CURRENCY,
-        )
-
-        #TODO: Add profile get here
-        order_form = OrderForm()
-
-
-    context = {
-        'order_form': order_form,
-        'stripe_public_key': stripe_public_key,
-        'client_secret': intent.client_secret,
-    }
-
-    return render(request, 'boxoffice/checkout.html', context)
+        return get_checkout_page(request)
 
 
 def cache_checkout_data(request):
     """ Accepts pre-checkout data before payment is confirmed """
-    try:
-        pid = request.POST.get('client_secret').split('_secret')[0]
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        stripe.PaymentIntent.modify(pid, metadata={
-            'basket': json.dumps(request.session.get('basket', {})),
-            'save_to_profile': request.POST.get('save_to_profile'),
-            'username': request.user,
-        })
-        return HttpResponse(status=200)
-    except Exception as e:
-        # TODO: django messaging goes here
-        return HttpResponse(content=e, status=400)
+    return precheckout_data(request)
+
+
+def checkout_success(request):
+    pass
 
 #
 # Reports views
