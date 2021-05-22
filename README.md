@@ -571,6 +571,12 @@ Provides models and pages for buying tickets, checking their validity and genera
   on user theme:
   - ![Favicon](design/images/favicon.png)
 
+### Database
+- [PostgreSQL](https://www.postgresql.org/)
+  - Used for storing data for the live site.
+- [SQLite3](https://www.sqlite.org/index.html)
+  - Used for development on local hosting.
+
 ### Libraries
 - [Django](https://www.djangoproject.com/)
   - The project uses the django web framework to support advanced web server task.
