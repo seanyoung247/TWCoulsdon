@@ -11,6 +11,8 @@ third-party ticketing platforms by moving online ticket sales in-house. This
 should give a more seamless end-user experience, while also improving the efficiency
 of the box-office and reporting.
 
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](LICENSE)
+
 ## Table of Contents
 
 <TBC>
