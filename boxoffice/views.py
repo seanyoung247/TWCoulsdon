@@ -11,11 +11,12 @@ from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
 
 from .basket import add_line_to_basket, update_line_in_basket, remove_line_from_basket
-from .reports import generate_ticket_pdf
+from .reports import send_ticket_pdf_http
 from .models import TicketType, Ticket, Order
 from .forms import OrderForm
 from .context import basket_contents
-from .payments import precheckout_data, get_checkout_page, complete_checkout
+from .payments import (precheckout_data, get_checkout_page,
+                        complete_checkout, checkout_complete)
 
 #
 # Add tickets dialog views
@@ -145,8 +146,9 @@ def cache_checkout_data(request):
     return precheckout_data(request)
 
 
-def checkout_success(request):
-    pass
+def checkout_success(request, order_number):
+    """ Finalises checkout and provides e-ticket downloads """
+    return checkout_complete(request, order_number)
 
 #
 # Reports views
