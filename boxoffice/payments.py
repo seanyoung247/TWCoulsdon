@@ -22,7 +22,7 @@ from .models import TicketType, Ticket, Order
 from .forms import OrderForm
 from .context import basket_contents
 from .tickets import (check_basket_availability, check_order_availabillity,
-                        Tickets_Not_Available)
+                        create_tickets_for_order, Tickets_Not_Available)
 
 
 def get_checkout_page(request):
@@ -41,8 +41,6 @@ def get_checkout_page(request):
         check_basket_availability(basket)
     except Tickets_Not_Available as e:
         #TODO: add messaging
-        # Remove problem lines from the basket
-        remove_date_from_basket(e.date_id)
         return redirect(reverse('view_basket'))
 
     # Get the total cost
@@ -85,8 +83,6 @@ def precheckout_data(request):
 
     except Tickets_Not_Available as e:
         # TODO: django messaging goes here
-        # Remove problem lines from the basket
-        remove_date_from_basket(e.date_id)
         return HttpResponse(content=e, status=400)
 
     except Exception as e:
@@ -126,8 +122,22 @@ def complete_checkout(request):
         order.stripe_pid = request.POST.get('client_secret').split('_secret')[0]
         # Add the basket information to the order
         order.original_basket = json.dumps(basket)
-        # Add the tickets to the order
 
+        # Add the tickets to the order
+        try:
+            create_tickets_for_order(order)
+        except Tickets_Not_Available as e:
+            # TODO: django messaging goes here
+            order.delete()
+            return redirect(reverse('view_bag'))
+        except Exception as e:
+            # TODO: django messaging goes here
+            order.delete()
+            return redirect(reverse('view_bag'))
+
+        # Do we need to save the user information to their profile?
+
+        # Redircet to checkout success
 
 
 
