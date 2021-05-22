@@ -170,15 +170,11 @@ def validate_ticket(request, ticket_id):
     return render(request, 'tickets/validate_ticket.html', context)
 
 
+def get_tickets(request, order_number):
+    """
+    Takes an order id and returns a pdf of the tickets attached to that order.
+    """
+    order = get_object_or_404(Order, order_number=order_number)
 
-# Code Snippet to create and return tickets from an order.
-# TODO: DELETE THIS!!!
-    # order = Order.objects.get(pk=1)
-    #
-    # pdf = generate_ticket_pdf(request, order)
-    #
-    # # Prepare the response headers
-    # response = HttpResponse(pdf, content_type='application/pdf')
-    # response['Content-Disposition'] = 'inline; tickets.pdf'
-    #
-    # return response
+    return send_ticket_pdf_http(request, order)
+
