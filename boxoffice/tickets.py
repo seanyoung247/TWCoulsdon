@@ -9,4 +9,13 @@ def create_tickets():
 
     """
     pass
-    
+
+
+def check_tickets_available():
+    """
+    Parameters:
+
+    Returns:
+
+    """
+    pass
