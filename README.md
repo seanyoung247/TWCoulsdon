@@ -458,6 +458,9 @@ and provides tools to edit items and quantities.
 
 </details>
 
+#### Checkout
+#### Checkout Complete
+
 #### Ticket Validation
 
 The ticket validation is a simple report to confirm a ticket's face value conforms
@@ -542,11 +545,11 @@ Provides models and pages for user information and profiles.
 
 #### Box Office app
 
-Provides models and pages for buying tickets, checking their validity and generating show attendence reports.
+Provides models and pages for buying tickets, checking their validity and generating show attendance reports.
 
 * Shopping bag
 * Checkout
-* Show attendence and ticketing reports
+* Show attendance and ticketing reports
 
 ### Languages
 - [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
