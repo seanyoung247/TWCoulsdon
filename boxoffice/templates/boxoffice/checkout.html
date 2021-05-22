@@ -19,7 +19,7 @@
 
     <div class="row constrain-width basket-page-contents">
       <div class="col-12 col-lg-6 order-2 order-lg-1">
-        <form id="payment-form" action="{% url 'checkout' %}">
+        <form id="payment-form" method="POST" action="{% url 'checkout' %}">
           {% csrf_token %}
           <fieldset>
             <legend>Your Details</legend>
