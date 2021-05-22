@@ -12,6 +12,7 @@ urlpatterns = [
     path('basket/remove/', views.remove_from_basket, name='remove_from_basket'),
     path('basket/update/', views.update_basket, name='update_basket'),
     # Checkout
-    path('checkout/', views.checkout, name='checkout')
+    path('checkout/', views.checkout, name='checkout'),
+    path('checkout/cache_data/', views.cache_checkout_data, name='cache_checkout_data'),
     # Reports
 ]
