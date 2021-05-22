@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div id="header-spacer"></div>
+  <section class=container-fluid>
+
+    <div class="row constrain-width basket-page-contents">
+      <h1 class="col-12 page-header">Checkout Complete</h1>
+    </div>
+
+    <div class="row constrain-width basket-page-contents">
+      <div class="col-12">
+        <p>
+          Your order information is below. Your tickets will be send to {{ order.email }}.
+        </p>
+        <p>
+          You can also download and print them
+          <a href="{% url 'get_tickets' order_number=order.order_number %}">here</a>.
+        </p>
+      </div>
+    </div>
+
+  </section>
+
+{% endblock %}
