@@ -74,8 +74,7 @@ def check_order_availabillity(order):
     return check_basket_availability(basket)
 
 
-
-def create_tickets(order):
+def create_tickets_for_order(order):
     """
     Creates tickets for a given order.
 
@@ -83,11 +82,46 @@ def create_tickets(order):
     order (Order): The order to create tickets for
 
     """
-    pass
+
+    # Get the basket from the order
+    if not order.original_basket:
+        raise Empty_Order
+
+    basket = json.loads(order.original_basket)
+
+    # Ensure there's actual tickets to create
+    if not basket:
+        raise Empty_Order
+
+    # Check that there are enough available tickets
+    check_basket_availability(basket)
+
+    # Step through the ticket lines creating the required tickets
+    for date_id in basket:
+        # Get the current event date object
+        event_date = EventDate.objects.get(id=date_id)
+        for type_id in basket[date_id]:
+            # Get the current ticket type
+            ticket_type = TicketType.objects.get(id=type_id)
+            # Construct the number of tickets required
+            for _ in range(basket[date_id][type_id]):
+                Ticket.objects.create(
+                    order=order,
+                    type=ticket_type,
+                    event=event_date.event,
+                    date=event_date,
+                )
+
+
+class Empty_Order(Exception):
+    """ Raised when creating tickets from an order with an empty basket """
+    def __init__(self):
+        # Create the exception
+        Exception.__init__(self, "No tickets in order")
 
 
 class Tickets_Not_Available(Exception):
-    """ Thrown if a ticket line can not be fulfilled """
+    """ Raised if a ticket line can not be fulfilled """
     def __init__(self, date_id):
         # Create the exception
         Exception.__init__(self, "Not enough tickets to fulfill order")
