@@ -57,7 +57,7 @@ class TestQueries(TestCase):
         count = get_available_tickets_for_date(self.date)
         self.assertEqual(count, 10)
         # Create enough tickets to sell-out date
-        for i in range(0,10):
+        for _ in range(0,10):
             Ticket.objects.create(
                 order = self.order, type = self.ticket_type,
                 event = self.event, date = self.date
