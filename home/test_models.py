@@ -21,7 +21,7 @@ class TestCategory(TestCase):
 
     def test_slug_generation(self):
         """ Tests that the URL slug is created properly """
-        self.assertEqual(self.category.slug, "test-category")
+        self.assertEqual(self.category.slug, "test")
 
 
 class TestPage(TestCase):

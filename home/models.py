@@ -24,7 +24,7 @@ class Category(SlugModel):
     def save(self, *args, **kwargs):
         # Do we need to generate a slug?
         if not self.pk:
-            self._generate_slug(Category, self.display_name)
+            self._generate_slug(Category, self.name)
 
         super().save(*args, **kwargs)
 
