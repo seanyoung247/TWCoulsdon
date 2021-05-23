@@ -1,11 +1,10 @@
 """ Defines the views for the boxoffice app """
 import json
 
-from django.shortcuts import render, reverse, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.views.decorators.http import require_POST
-from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
-from django.conf import settings
+from django.http import JsonResponse, HttpResponseBadRequest
 
 from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
