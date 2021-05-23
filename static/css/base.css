@@ -195,6 +195,31 @@ input[type=number] {
 }
 
 /*
+ * Back to top button
+ */
+#scroll-to-top-btn {
+  display: none;
+  position: fixed;
+  bottom:10px;
+  right:10px;
+  z-index: 99999;
+  border: none;
+  background-color: transparent;
+}
+
+#scroll-to-top-btn svg {
+  width: 35px;
+  height: 35px;
+  fill: var(--light-color);
+  stroke: var(--dark-color);
+  stroke-width: 0.25;
+}
+
+#scroll-to-top-btn:hover svg {
+  fill: var(--brand-color);
+}
+
+/*
  * Page header and menubar
  */
 .nav-wrapper {
