@@ -844,6 +844,11 @@ If using Amazon S3 the following variables will need to be set:
 - AWS_STORAGE_BUCKET_NAME
 - AWS_S3_REGION_NAME
 
+Stripe payments variables:
+- STRIPE_PUBLIC_KEY
+- STRIPE_SECRET_KEY
+- STRIPE_WH_SECRET
+
 The suggested method for defining environment variables for local development is with a shell script. Variables can be set with the export command:
 `export <key>=<value>` and unset with: `unset <key>`. This can be done automatically when activating and deactivating the python virtual environment. The environment variables can be set within a script with the following template:
 ```
@@ -871,6 +876,29 @@ deactivate () {
 # Set environment variables
 env_start
 ```
+
+### e-commerce
+
+The project includes e-commerce functionality provided by stripe. If running in a local host further setup will be needed to enable testing of webhooks:
+
+First, install the latest version of stripe CLI for your environment from https://github.com/stripe/stripe-cli/releases/latest.
+
+- Link your stripe account:
+  - In the terminal type `stripe login` and press enter when prompted
+  - A browser window will open
+    - Add your credentials in the browser window
+- Forward webhook events to local server
+  - In the terminal type `stripe listen --forward-to localhost:8000/boxoffice/wh/`
+
+While `stripe listen` is running stripe webhooks will now be forwarded to the localhost on the same machine. Further, webhooks can be sent manually for testing by triggering them in another terminal, e.g:
+`stripe trigger payment_intent.created`
+
+The `stripe listen` process should show the webhook request and response:
+```
+YYYY-MM-DD HH:MM:SS  -->  payment_intent.created [{{WEBHOOK_EVENT_ID}}]
+YYYY-MM-DD HH:MM:SS  <--  [200] POST http://localhost:8000/boxoffice/wh/ [{{WEBHOOK_EVENT_ID}}]
+```
+
 
 ### Remote Deployment
 
