@@ -5,9 +5,10 @@
 {% if showcase %}
 
   <div class="col-12 px-0">
-    <div class="card event-showcase-card">
-      <img class="card-img" src="{{ event.title_image.image|check_image }}" alt="{{ event.title }}">
-      <div class="card-img-overlay">
+    <div class="card event-showcase-card" style="--background-image: url('{{event.title_image.image|check_image}}')">
+
+      {#<img class="card-img" src="{{ event.title_image.image|check_image }}" alt="{{ event.title }}">#}
+    {#  <div class="card-img-overlay">#}
         <div class="jumbotron">
           <h2 class="event-showcase-title">{{ event.title }}</h2>
           {% if event.first_date %}
@@ -31,7 +32,7 @@
             {% endif %}
           </p>
         </div>
-      </div>
+      {#</div>#}
     </div>
   </div>
 

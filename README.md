@@ -899,7 +899,6 @@ YYYY-MM-DD HH:MM:SS  -->  payment_intent.created [{{WEBHOOK_EVENT_ID}}]
 YYYY-MM-DD HH:MM:SS  <--  [200] POST http://localhost:8000/boxoffice/wh/ [{{WEBHOOK_EVENT_ID}}]
 ```
 
-
 ### Remote Deployment
 
 The site is deployed to Heroku at: https://twcoulsdon.herokuapp.com/

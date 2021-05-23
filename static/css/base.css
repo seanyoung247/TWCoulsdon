@@ -425,6 +425,11 @@ input[type=number] {
   min-height: 250px;
   border: none;
   border-radius: 0;
+
+  background: var(--background-image) center/cover no-repeat fixed;
+
+  justify-content: flex-end;
+  padding: 10px;
 }
 
 .event-showcase-card .card-img {
@@ -505,12 +510,18 @@ input[type=number] {
 }
 
 /* Event list advanced search form */
-.advanced-search-form {
+.advanced-search-wrapper {
+  background-color: var(--light-color);
   border: 1px solid;
   border-image-slice: 1;
   border-width: 1px;
-  border-image-source: linear-gradient(to right, rgba(20,22,26, 0), rgba(20,22,26, 0.75), rgba(20,22,26, 0));
+  border-image-source: linear-gradient(to right,
+    rgba(20,22,26, 0), rgba(20,22,26, 0.75), rgba(20,22,26, 0));
 
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
+}
+
+.advanced-search-form {
   padding: 2px 0;
   margin: 2px auto;
 }
@@ -537,7 +548,7 @@ input[type=number] {
 .event-header {
   height: 100vh;
   min-height: 450px;
-  background: var(--background-image) center/cover no-repeat;
+  background: var(--background-image) center/cover no-repeat fixed;
   color: var(--light-color);
   text-shadow: 1px 1px 2px var(--dark-color);
 }
