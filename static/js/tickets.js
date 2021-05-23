@@ -41,8 +41,10 @@ $( '.btn-add-tickets' ).click( function() {
 // Date checks
 $( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-date', function(e) {
   // Set the maximum quantity to be the number of tickets left
-  $( '#add-ticket-quantity' ).attr(
-    'max', $( '#add-ticket-date' ).find( ':selected' ).data('tickets-left'));
+  const qtyInput = $( '#add-ticket-quantity' );
+  const ticketsLeft = $( '#add-ticket-date' ).find( ':selected' ).data('tickets-left')
+  qtyInput.attr('max', ticketsLeft);
+  if (qtyInput.val() > ticketsLeft) qtyInput.val(ticketsLeft);
 });
 
 /*
@@ -88,7 +90,11 @@ function updateAvailableTickets(date, adjustment) {
   // Is the updated date the same as the currently selected date?
   if ( dateOption[0] == $( '#add-ticket-date' ).find( ':selected' )[0] ) {
     if (dateOption.prop('disabled')) $( '#add-ticket-date' ).val("");
-    else $( '#add-ticket-quantity' ).attr('max', newCount);
+    else {
+      const qtyInput = $( '#add-ticket-quantity' )
+      qtyInput.attr('max', newCount);
+      if (qtyInput.val() > newCount) qtyInput.val(newCount);
+    }
   }
 }
 
