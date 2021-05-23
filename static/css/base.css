@@ -207,13 +207,14 @@ input[type=number] {
 .navbar {
   margin: 0 auto;
   color: var(--light-color);
+  background-color: rgba(20,22,26,0.95);
 }
-
 .navbar:first-child {
   padding-bottom: 0;
 }
 .navbar:last-child {
   padding-top: 0;
+  border-bottom: 1px solid white;
 }
 
 .navbar-brand {
@@ -338,10 +339,6 @@ input[type=number] {
   fill: var(--brand-color);
   stroke: var(--dark-color);
   strike-width: 1;
-}
-
-.navbar {
-  background-color: var(--dark-trans);
 }
 
 .nav-link {
@@ -994,6 +991,9 @@ input[type="number"].item-line-quantity,
   }
   .navbar {
     background-color: transparent;
+  }
+  .navbar:last-child {
+    border-bottom: none;
   }
   .navbar > .nav-search-form {
     display: inline-block;
