@@ -1,6 +1,8 @@
 """ Tests the database queries in boxoffice.queries """
 # pylint: disable=E5142
 # I need to import user for testing. I don't need get_user_model() in this case
+# pylint: disable=R0902
+# Creating lots of member attributes for setup of tests
 
 from datetime import timedelta
 

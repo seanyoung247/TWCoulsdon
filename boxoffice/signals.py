@@ -1,4 +1,7 @@
 """ Defines inter-model signalling for the boxoffice app """
+# pylint: disable=W0613
+# Django function pattern can't be changed
+
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 

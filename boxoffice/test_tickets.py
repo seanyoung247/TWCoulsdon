@@ -1,4 +1,7 @@
 """ Unit tests for tickets.py """
+# pylint: disable=R0902
+# Creating lots of member attributes for setup of tests
+
 import json
 
 from datetime import timedelta
@@ -10,7 +13,7 @@ from events.models import Event, EventDate, Venue
 from .models import TicketType, Ticket, Order
 from .tickets import (check_ticket_available, check_basket_availability,
                         check_order_availabillity, create_tickets_for_order,
-                        Tickets_Not_Available, Empty_Order)
+                        TicketsNotAvailable, EmptyOrder)
 
 
 class TestTestCheckAvailability(TestCase):
@@ -104,15 +107,15 @@ class TestTestCheckAvailability(TestCase):
         # Check correct return from a basket with availability
         self.assertTrue(check_basket_availability(self.good_basket))
         # Check correct return from a basket with no availability
-        self.assertRaises(Tickets_Not_Available, check_basket_availability,
+        self.assertRaises(TicketsNotAvailable, check_basket_availability,
                             self.bad_basket)
         # Check correct return from a basket with some availability
-        self.assertRaises(Tickets_Not_Available, check_basket_availability,
+        self.assertRaises(TicketsNotAvailable, check_basket_availability,
                             self.mixed_basket)
         try:
             check_basket_availability(self.mixed_basket)
-        except Tickets_Not_Available as e:
-            self.assertEqual(e.date_id, self.dates_event_two[0].id)
+        except TicketsNotAvailable as error:
+            self.assertEqual(error.date_id, self.dates_event_two[0].id)
 
 
     def test_check_order_availabillity(self):
@@ -122,11 +125,11 @@ class TestTestCheckAvailability(TestCase):
         self.assertTrue(check_order_availabillity(self.order))
         # Check an order with no availability
         self.order.original_basket = json.dumps(self.bad_basket)
-        self.assertRaises(Tickets_Not_Available, check_order_availabillity,
+        self.assertRaises(TicketsNotAvailable, check_order_availabillity,
                             self.order)
         # Check an order with some availability
         self.order.original_basket = json.dumps(self.mixed_basket)
-        self.assertRaises(Tickets_Not_Available, check_order_availabillity,
+        self.assertRaises(TicketsNotAvailable, check_order_availabillity,
                             self.order)
 
 
@@ -273,9 +276,9 @@ class TestTicketCreation(TestCase):
         Tests that ticket creation fails if order basket is empty
         """
         self.order.original_basket = json.dumps({})
-        self.assertRaises(Empty_Order, create_tickets_for_order, self.order)
+        self.assertRaises(EmptyOrder, create_tickets_for_order, self.order)
         self.order.original_basket = ""
-        self.assertRaises(Empty_Order, create_tickets_for_order, self.order)
+        self.assertRaises(EmptyOrder, create_tickets_for_order, self.order)
 
 
     def test_fails_on_bad_line(self):
@@ -291,7 +294,7 @@ class TestTicketCreation(TestCase):
             self.ticket_types[0].id: 12
         }
         self.order.original_basket = json.dumps(basket)
-        self.assertRaises(Tickets_Not_Available, create_tickets_for_order, self.order)
+        self.assertRaises(TicketsNotAvailable, create_tickets_for_order, self.order)
         # Check no tickets created
         ticket_count = Ticket.objects.filter(event=self.event_one).count()
         self.assertEqual(ticket_count, 0)
@@ -314,14 +317,9 @@ class TestTicketCreation(TestCase):
                 self.ticket_types[1].id: 12,
             }
         self.order.original_basket = json.dumps(basket)
-        self.assertRaises(Tickets_Not_Available, create_tickets_for_order, self.order)
+        self.assertRaises(TicketsNotAvailable, create_tickets_for_order, self.order)
         # Check no tickets created
         ticket_count = Ticket.objects.filter(event=self.event_one).count()
         self.assertEqual(ticket_count, 0)
         ticket_count = Ticket.objects.filter(event=self.event_two).count()
         self.assertEqual(ticket_count, 0)
-
-
-
-
-

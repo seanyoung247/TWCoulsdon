@@ -13,8 +13,6 @@ from events.queries import get_remaining_event_dates
 from .basket import add_line_to_basket, update_line_in_basket, remove_line_from_basket
 from .reports import send_ticket_pdf_http
 from .models import TicketType, Ticket, Order
-from .forms import OrderForm
-from .context import basket_contents
 from .payments import (precheckout_data, get_checkout_page,
                         complete_checkout, checkout_complete)
 
@@ -137,8 +135,7 @@ def checkout(request):
     if request.method == 'POST':
         return complete_checkout(request)
     # GET request
-    else:
-        return get_checkout_page(request)
+    return get_checkout_page(request)
 
 
 def cache_checkout_data(request):
@@ -162,7 +159,7 @@ def validate_ticket(request, ticket_id):
     try:
         ticket = Ticket.objects.get(ticket_id=ticket_id)
     except Ticket.DoesNotExist:
-        ticket = None;
+        ticket = None
 
     context = {
         'ticket': ticket,
@@ -177,4 +174,3 @@ def get_tickets(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
 
     return send_ticket_pdf_http(request, order)
-

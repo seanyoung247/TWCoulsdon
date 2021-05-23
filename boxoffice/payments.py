@@ -2,27 +2,21 @@
 # I've encapsulated these functions here to make it easier to change payment backend
 # in future if necessary.
 
-import stripe
 import json
+import stripe
 
 from django.shortcuts import render, reverse, redirect, get_object_or_404
-from django.template import loader
-from django.views.decorators.http import require_POST
-from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
+from django.http import HttpResponse
 from django.conf import settings
 
-from events.models import Event, EventDate
-from events.queries import get_remaining_event_dates
+from events.models import EventDate
 
-from .basket import (add_line_to_basket, update_line_in_basket, remove_line_from_basket,
-                        remove_date_from_basket, empty_basket)
-
-from .reports import generate_ticket_pdf
-from .models import TicketType, Ticket, Order
+from .basket import empty_basket
+from .models import TicketType, Order
 from .forms import OrderForm
 from .context import basket_contents
-from .tickets import (check_basket_availability, check_order_availabillity,
-                        create_tickets_for_order, Tickets_Not_Available)
+from .tickets import (check_basket_availability, create_tickets_for_order,
+                        TicketsNotAvailable)
 
 
 def get_checkout_page(request):
@@ -40,7 +34,7 @@ def get_checkout_page(request):
     # Are there still enough tickets for this order?
     try:
         check_basket_availability(basket)
-    except Tickets_Not_Available as e:
+    except TicketsNotAvailable as error:
         #TODO: add messaging
         return redirect(reverse('view_basket'))
 
@@ -83,22 +77,19 @@ def precheckout_data(request):
         })
         return HttpResponse(status=200)
 
-    except Tickets_Not_Available as e:
+    except TicketsNotAvailable as error:
         # TODO: django messaging goes here
-        return HttpResponse(content=e, status=400)
+        return HttpResponse(content=error, status=400)
 
-    except Exception as e:
+    except Exception as error:
         # TODO: django messaging goes here
-        return HttpResponse(content=e, status=400)
+        return HttpResponse(content=error, status=400)
+
+    return HttpResponse(status=400)
 
 
 def complete_checkout(request):
     """ Receives checkout data after """
-
-    # Get the stripe secret and public keys
-    stripe_public_key = settings.STRIPE_PUBLIC_KEY
-    stripe_secret_key = settings.STRIPE_SECRET_KEY
-
     # Get the shopping basket
     basket = request.session.get('basket', {})
     if not basket:
@@ -130,11 +121,11 @@ def complete_checkout(request):
         # Add the tickets to the order
         try:
             create_tickets_for_order(order)
-        except Tickets_Not_Available as e:
+        except TicketsNotAvailable as error:
             # TODO: django messaging goes here
             order.delete()
             return redirect(reverse('view_bag'))
-        except Exception as e:
+        except Exception as error:
             # TODO: django messaging goes here
             order.delete()
             return redirect(reverse('view_bag'))
@@ -144,6 +135,8 @@ def complete_checkout(request):
 
         # Redircet to checkout success
         return redirect(reverse('checkout_success', args=[order.order_number]))
+
+    return redirect(reverse('view_bag'))
 
 
 def checkout_complete(request, order_number):
@@ -178,8 +171,3 @@ def checkout_complete(request, order_number):
     }
 
     return render(request, 'boxoffice/checkout_success.html', context)
-
-
-
-
-

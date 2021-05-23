@@ -2,6 +2,10 @@
 {% load static %}
 {% load boxoffice_tools %}
 
+{% block title %}
+  Basket ({{ basket.item_count }} items) - {{ block.super }}
+{% endblock %}
+
 {% block content %}
   <div id="header-spacer"></div>
   <section class=container-fluid>
