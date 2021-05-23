@@ -1,0 +1,62 @@
+<div class="order-info-box">
+
+  <div class="row no-gutters">
+    <div class="col order-info-header">
+      Order Info.
+    </div>
+  </div>
+
+  <div class="row no-gutters">
+    <div class="col-12 col-md-4 order-info-section">
+      <h6 class="order-info-title">Order Number:</h6>
+    </div>
+    <div class="col-12 col-md-8 text-md-right order-info-section text-break">
+      <p class="mb-0">{{ order.order_number }}</p>
+    </div>
+  </div>
+
+  <div class="row no-gutters">
+    <div class="col-12 col-md-4 order-info-section">
+      <h6 class="order-info-title">Order Date:</h6>
+    </div>
+    <div class="col-12 col-md-8 text-md-right order-info-section">
+      <p class="mb-0">{{ order.date }}</p>
+    </div>
+  </div>
+
+  <div class="row no-gutters">
+    <div class="col order-info-header">
+      Tickets
+    </div>
+  </div>
+
+  <ul class="order-tickets-list">
+  {% for item in items %}
+    <li class="row no-gutters">
+      <div class="col-12 col-md-4 order-info-section">
+        <h6 class="mb-0 order-info-title">{{ item.date.event.title }}</h6>
+        <p class="my-0">{{ item.date.date }}</p>
+      </div>
+      <div class="col-12 col-md-8 text-right order-info-section">
+        <p class="mb-0">{{ item.type.display_name }}</p>
+        <p class="my-0">{{ item.quantity }}&times;£{{ item.type.price|floatformat:2 }}</p>
+      </div>
+    </li>
+  {% endfor %}
+  </ul>
+
+  <div class="row no-gutters">
+    <div class="col-12 col-md-10 text-md-right order-info-section">
+      <h6 class="order-info-title">Order Total:</h6>
+    </div>
+    <div class="col-12 col-md-2 text-md-right order-info-section">
+      <p class="mb-0">£{{ order.order_total }}</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
