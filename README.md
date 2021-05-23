@@ -459,6 +459,32 @@ and provides tools to edit items and quantities.
 </details>
 
 #### Checkout
+
+The checkout page gives a summary of the current basket contents and offers links back to the basket for editing. The payment form allows the user to add their details and complete secure checkout.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Landing Page Phone Layout](design/wireframes/checkout/phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Landing Page Tablet Layout](design/wireframes/checkout/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Landing Page Desktop Layout](design/wireframes/checkout/desktop.png)
+
+</details>
+
 #### Checkout Complete
 
 #### Ticket Validation
