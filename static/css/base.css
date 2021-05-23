@@ -58,6 +58,14 @@ hr {
   padding: 25px;
 }
 
+a {
+  color: var(--brand-color);
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
 /*
  * Custom components
  */
@@ -915,6 +923,37 @@ input[type="number"].item-line-quantity,
 }
 
 /*
+ * Order information
+ */
+.order-info-box {
+  border: 1px solid var(--background-color);
+  padding: 5px;
+  margin: 25px 0;
+}
+
+.order-info-header {
+  border-bottom: 1px solid var(--background-color);
+  margin: 5px 0;
+}
+
+.order-info-title {
+  font-weight: bold;
+}
+
+.row .order-info-section {
+  padding: 0;
+}
+
+.order-tickets-list {
+  list-style: none;
+  padding: 0;
+}
+
+.order-tickets-list li {
+  border-bottom: 1px solid var(--background-color);
+}
+
+/*
  * Media Queries
  */
  /* Extra small screens (Phones) < 576px */
@@ -943,6 +982,12 @@ input[type="number"].item-line-quantity,
   }
   #basket-links > a {
     width: auto;
+  }
+  .order-info-box {
+    margin: 25px;
+  }
+  .row .order-info-section {
+    padding: 0 15px;
   }
 }
 
