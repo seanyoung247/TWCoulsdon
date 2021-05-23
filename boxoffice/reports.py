@@ -1,17 +1,19 @@
 """ Generates reports and tickets in pdf and csv formats """
 from __future__ import unicode_literals
 
+import json
 #from django.http import HttpResponse
-from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
-#from django.utils.text import slugify
-#from django.conf import settings
+from django.core.mail import send_mail, EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
 
 from weasyprint import HTML
 from weasyprint.fonts import FontConfiguration
 
 from events.models import Event, EventDate
 from .models import TicketType, Ticket, Order
+from .basket import get_ticket_lines_from_basket
 
 
 def report_tickets_for_event(request, event):
@@ -84,7 +86,25 @@ def send_ticket_pdf_email(request, order):
     order (Order): The order to send tickets for
     """
     ticket_pdf = generate_ticket_pdf(request, order)
-    # Emailling code goes here...
+    order_basket = get_ticket_lines_from_basket(json.loads(order.original_basket))
+
+    context={
+        'order': order,
+        'items': order_basket,
+    }
+
+    subject = render_to_string('email/order_subject.txt', context)
+    content = render_to_string('email/order_html_content.html', context)
+
+    msg = EmailMessage(
+        subject,
+        content,
+        settings.DEFAULT_FROM_EMAIL,
+        [order.email],
+    )
+    msg.content_subtype = 'html'
+    msg.attach('tickets.pdf', ticket_pdf, 'application/pdf')
+    msg.send()
 
 
 def send_ticket_pdf_http(request, order):
