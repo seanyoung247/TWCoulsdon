@@ -6,11 +6,11 @@
   <section class=container-fluid>
 
     <div class="row constrain-width basket-page-contents">
-      <h1 class="col-12 page-header">Checkout Complete</h1>
+      <h1 class="col page-header">Thank You</h1>
     </div>
 
     <div class="row constrain-width basket-page-contents">
-      <div class="col-12">
+      <div class="col">
         <p>
           Your order information is below. Your tickets will be send to {{ order.email }}.
         </p>
@@ -21,6 +21,17 @@
       </div>
     </div>
 
+    <div class="row constrain-width basket-page-contents">
+      <div class="col">
+        {% include 'includes/order_information.html' %}
+      </div>
+    </div>
+
+    <div class="row constrain-width basket-page-contents">
+      <div class="col">
+        <a href="{% url 'events' %}?type=shows" class="btn btn-twc-dark">Back to shows</a>
+      </div>
+    </div>
   </section>
 
 {% endblock %}
