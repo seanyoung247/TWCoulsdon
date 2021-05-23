@@ -56,16 +56,6 @@ card.addEventListener('change', function (event) {
 
 // Form submission
 const form = $( '#payment-form' );
-// For testing bad form data, REMOVE IN PRODUCTION!
-// form.submit(function (e) {
-//   e.preventDefault();
-//   const url = form.attr('action');
-//   postData = {
-//     'csrfmiddlewaretoken': csrfToken,
-//     'full_name': 'none'
-//   };
-//   $.post(url, postData);
-// });
 form[0].addEventListener('submit', function(e) {
   e.preventDefault();
 

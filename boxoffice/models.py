@@ -69,8 +69,8 @@ class Order(models.Model):
         and updates the order total.
         """
         self.order_total = self.tickets.aggregate(Sum('type__price'))['type__price__sum'] or 0
-        # grand_total and order_total are currently the same. grand_total is retained for future use
-        # (might be needed for charitable gifts or tax calculation)
+        # grand_total and order_total are currently the same. grand_total is
+        # retained for future use (might be needed for charitable gifts or tax calculation)
         self.grand_total = self.order_total
         self.save()
 
