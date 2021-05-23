@@ -156,8 +156,23 @@ def checkout_complete(request, order_number):
 
     empty_basket(request)
 
+    # Construct a list of order items from the stored basket
+    basket = json.loads(order.original_basket)
+    order_basket = []
+
+    for date_id in basket:
+        event_date = EventDate.objects.get(id=date_id)
+        for type_id in basket[date_id]:
+            ticket_type = TicketType.objects.get(id=type_id)
+            order_basket.append({
+                'date': event_date,
+                'type': ticket_type,
+                'quantity': basket[date_id][type_id],
+            })
+
     context = {
-        'order': order
+        'order': order,
+        'items': order_basket,
     }
 
     return render(request, 'boxoffice/checkout_success.html', context)
