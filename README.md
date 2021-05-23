@@ -487,6 +487,31 @@ The checkout page gives a summary of the current basket contents and offers link
 
 #### Checkout Complete
 
+The checkout complete page confirms to the user that checkout has completed, provides a summary of their order and provides links to their e-tickets.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Landing Page Phone Layout](design/wireframes/checkout_complete/phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Landing Page Tablet Layout](design/wireframes/checkout_complete/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Landing Page Desktop Layout](design/wireframes/checkout_complete/desktop.png)
+
+</details>
+
 #### Ticket Validation
 
 The ticket validation is a simple report to confirm a ticket's face value conforms
