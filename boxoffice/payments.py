@@ -11,6 +11,7 @@ from django.conf import settings
 
 from events.models import EventDate
 
+from .reports import send_ticket_pdf_email
 from .basket import get_ticket_lines_from_basket, empty_basket
 from .models import TicketType, Order
 from .forms import OrderForm
@@ -151,6 +152,8 @@ def checkout_complete(request, order_number):
         # TODO: Get User Profile here
         pass
 
+    send_ticket_pdf_email(request, order)
+
     # Construct a list of order items from the stored basket
     order_basket = get_ticket_lines_from_basket(json.loads(order.original_basket))
 
@@ -158,5 +161,4 @@ def checkout_complete(request, order_number):
         'order': order,
         'items': order_basket,
     }
-
     return render(request, 'boxoffice/checkout_success.html', context)
