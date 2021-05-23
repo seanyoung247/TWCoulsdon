@@ -8,19 +8,28 @@
 
   <div class="row no-gutters">
     <div class="col-12 col-md-4 order-info-section">
-      <h6 class="order-info-title">Order Number:</h6>
+      <h6 class="mb-0 order-info-title">Order Number:</h6>
     </div>
     <div class="col-12 col-md-8 text-md-right order-info-section text-break">
-      <p class="mb-0">{{ order.order_number }}</p>
+      <p>{{ order.order_number }}</p>
     </div>
   </div>
 
   <div class="row no-gutters">
     <div class="col-12 col-md-4 order-info-section">
-      <h6 class="order-info-title">Order Date:</h6>
+      <h6 class="mb-0 order-info-title">Order Date:</h6>
     </div>
     <div class="col-12 col-md-8 text-md-right order-info-section">
-      <p class="mb-0">{{ order.date }}</p>
+      <p>{{ order.date }}</p>
+    </div>
+  </div>
+
+  <div class="row no-gutters">
+    <div class="col-12 col-md-4 order-info-section">
+      <h6 class="mb-0 order-info-title">Name:</h6>
+    </div>
+    <div class="col-12 col-md-8 text-md-right order-info-section">
+      <p>{{ order.full_name }}</p>
     </div>
   </div>
 
