@@ -45,7 +45,7 @@
 }
 
 #card-errors {
-  height: 24px;
+  min-height: 24px;
   margin-bottom: 15px;
 }
 
