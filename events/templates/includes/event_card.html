@@ -6,33 +6,29 @@
 
   <div class="col-12 px-0">
     <div class="card event-showcase-card" style="--background-image: url('{{event.title_image.image|check_image}}')">
-
-      {#<img class="card-img" src="{{ event.title_image.image|check_image }}" alt="{{ event.title }}">#}
-    {#  <div class="card-img-overlay">#}
-        <div class="jumbotron">
-          <h2 class="event-showcase-title">{{ event.title }}</h2>
-          {% if event.first_date %}
-            <p class="event-showcase-dates">
-              {{ event.first_date|date:"d M" }}
-              {% if event.first_date != event.last_date %}
-                to {{ event.last_date|date:"d M" }}
-              {% endif %}
-            </p>
-          {% endif %}
-          {% if event.tagline %}
-            <p class="event-showcase-tag">{{ event.tagline }}</p>
-          {% endif %}
-          <p class="event-showcase-links">
-            <a class="btn btn-twc-brand" href="{% url 'event_details' event.slug %}" role="button">Read More</a>
-            {% if event|has_tickets %}
-              <button type="button" class="btn btn-twc-brand btn-add-tickets"
-                      data-event-id="{{ event.id }}" data-event-title="{{ event.title }}">
-                Buy Tickets
-              </button>
+      <div class="jumbotron">
+        <h2 class="event-showcase-title">{{ event.title }}</h2>
+        {% if event.first_date %}
+          <p class="event-showcase-dates">
+            {{ event.first_date|date:"d M" }}
+            {% if event.first_date != event.last_date %}
+              to {{ event.last_date|date:"d M" }}
             {% endif %}
           </p>
-        </div>
-      {#</div>#}
+        {% endif %}
+        {% if event.tagline %}
+          <p class="event-showcase-tag">{{ event.tagline }}</p>
+        {% endif %}
+        <p class="event-showcase-links">
+          <a class="btn btn-twc-brand" href="{% url 'event_details' event.slug %}" role="button">Read More</a>
+          {% if event|has_tickets %}
+            <button type="button" class="btn btn-twc-brand btn-add-tickets"
+                    data-event-id="{{ event.id }}" data-event-title="{{ event.title }}">
+              Buy Tickets
+            </button>
+          {% endif %}
+        </p>
+      </div>
     </div>
   </div>
 
