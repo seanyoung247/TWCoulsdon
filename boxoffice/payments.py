@@ -125,6 +125,8 @@ def complete_checkout(request):
         # Add the basket information to the order
         order.original_basket = json.dumps(basket)
 
+        order.save()
+
         # Add the tickets to the order
         try:
             create_tickets_for_order(order)
