@@ -309,14 +309,6 @@ input[type=number] {
   justify-content: flex-end;
 }
 
-.header-icons > .list-inline {
-  margin: 0;
-}
-
-.header-icons .list-inline-item {
-  margin: 0;
-}
-
 .header-icons svg {
   width:25px;
   height:25px;
