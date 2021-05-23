@@ -32,12 +32,22 @@
       </header>
     {% endblock %}
 
+    {# TODO: add toast messages here #}
+
     {% block content %}
     {% endblock %}
+
+    <button id="scroll-to-top-btn" data-toggle="tooltip" data-placement="left" title="Back to top">
+      <svg class="back-to-top-icon" xmlns='http://www.w3.org/2000/svg'
+           width='10' height='10' viewBox='0 0 10 10'>
+        <path d="m2.4298 7.6993-1.4142-1.4142 3.9844-3.9844 3.9844 3.9844-1.4142 1.4142-2.5702-2.5702z"/>
+      </svg>
+    </button>
 
     {% block scripts %}
       <script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
       <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'js/scrolltop.js' %}"></script>
       <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
   </body>
