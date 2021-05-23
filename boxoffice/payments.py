@@ -11,7 +11,7 @@ from django.conf import settings
 
 from events.models import EventDate
 
-from .basket import empty_basket
+from .basket import get_ticket_lines_from_basket, empty_basket
 from .models import TicketType, Order
 from .forms import OrderForm
 from .context import basket_contents
@@ -130,6 +130,9 @@ def complete_checkout(request):
             order.delete()
             return redirect(reverse('view_bag'))
 
+        # Ensure the basket is empty now the tickets have been created
+        empty_basket(request)
+
         # Do we need to save the user information to their profile?
         request.session['save_to_profile'] = 'save_to_profile' in request.POST
 
@@ -141,7 +144,6 @@ def complete_checkout(request):
 
 def checkout_complete(request, order_number):
     """ Shows the checkout success page and provides the e-tickets """
-
     save_to_profile = request.session['save_to_profile']
     order = get_object_or_404(Order, order_number=order_number)
 
@@ -149,21 +151,8 @@ def checkout_complete(request, order_number):
         # TODO: Get User Profile here
         pass
 
-    empty_basket(request)
-
     # Construct a list of order items from the stored basket
-    basket = json.loads(order.original_basket)
-    order_basket = []
-
-    for date_id in basket:
-        event_date = EventDate.objects.get(id=date_id)
-        for type_id in basket[date_id]:
-            ticket_type = TicketType.objects.get(id=type_id)
-            order_basket.append({
-                'date': event_date,
-                'type': ticket_type,
-                'quantity': basket[date_id][type_id],
-            })
+    order_basket = get_ticket_lines_from_basket(json.loads(order.original_basket))
 
     context = {
         'order': order,
