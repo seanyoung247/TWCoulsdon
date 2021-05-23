@@ -8,7 +8,10 @@ function spinnerBtn(target, step) {
   const max = parseInt(target.attr('max'));
   let value = parseInt(target.val()) + step;
 
-  if (value >= min && value <= max) target.val( value );
+  if (value < min) value = min;
+  if (value > max) value = max;
+
+  target.val( value );
 }
 
 $( 'button.btn-dec' ).click(function() {
