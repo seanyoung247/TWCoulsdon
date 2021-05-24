@@ -58,11 +58,11 @@ $( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-date', function(e) {
  */
 $( '#add-tickets-form-wrapper' ).on( 'click', 'button.btn-dec', function(e) {
   e.preventDefault();
-  spinnerBtn($( $( this ).data('target') ), -1);
+  stepValue($( $( this ).data('target') ), -(parseInt($( this ).attr('step')) || 1));
 });
 $( '#add-tickets-form-wrapper' ).on( 'click', 'button.btn-inc', function(e) {
   e.preventDefault();
-  spinnerBtn($( $( this ).data('target') ), 1);
+  stepValue($( $( this ).data('target') ), (parseInt($( this ).attr('step')) || 1));
 });
 
 // Prevents the quantity value going out of bounds
