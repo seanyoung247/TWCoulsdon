@@ -20,7 +20,7 @@ class Ticket(models.Model):
     """ Defines a single ticket """
     ticket_id = models.CharField(max_length=32, null=False, blank=False, editable=False)
     order = models.ForeignKey('Order', null=False, blank=False,
-                                on_delete=models.CASCADE, related_name="tickets")
+                                on_delete=models.CASCADE, related_name="orders")
     type = models.ForeignKey('TicketType', null=False, blank=False, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, null=False, blank=False, on_delete=models.CASCADE)
     date = models.ForeignKey(EventDate, null=False, blank=False, on_delete=models.CASCADE)
