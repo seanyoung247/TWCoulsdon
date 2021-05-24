@@ -1,7 +1,7 @@
 """ Tests the home app's views """
 from django.test import TestCase
-from .models import Category, Page
 from events.models import Event
+from .models import Category, Page
 
 
 class TestHomeViews(TestCase):
@@ -9,7 +9,7 @@ class TestHomeViews(TestCase):
     def setUp(self):
         self.category = Category.objects.create(
             name = 'test',
-            display_name = f'Test Category'
+            display_name = 'Test Category'
         )
 
         self.page = Page.objects.create(
@@ -42,4 +42,3 @@ class TestHomeViews(TestCase):
         response = self.client.get(f'/twc/{self.category.slug}/?page={self.page.slug}')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/page.html')
-

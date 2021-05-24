@@ -45,4 +45,3 @@ class TestPage(TestCase):
     def test_slug_generation(self):
         """ Tests that the URL slug is created properly """
         self.assertEqual(self.page.slug, "test-page")
-

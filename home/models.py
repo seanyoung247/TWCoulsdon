@@ -1,3 +1,4 @@
+""" Defines the home app's models """
 from django.db import models
 from tinymce.models import HTMLField
 from core.models import SlugModel
@@ -46,4 +47,3 @@ class Page(SlugModel):
             self._generate_slug(Page, self.title)
 
         super().save(*args, **kwargs)
-
