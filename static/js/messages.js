@@ -14,3 +14,10 @@ $( '.message-container' ).on( 'click', '.close-message', function(e) {
   message.fadeOut();
   setTimeout(function() {message.remove();}, 550);
 });
+
+// Adds the html for a message to the message container and shows it.
+function addMessage(html) {
+  const newMessage = $( html );
+  $( '.message-container' ).append(newMessage);
+  newMessage.addClass('show');
+}
