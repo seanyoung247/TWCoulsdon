@@ -11,7 +11,9 @@ from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
 
 
-from .basket import add_line_to_basket, update_line_in_basket, remove_line_from_basket
+from .tickets import TicketsNotAvailable
+from .basket import (add_line_to_basket, update_line_in_basket,
+                        remove_line_from_basket)
 from .reports import send_ticket_pdf_http
 from .models import TicketType, Ticket, Order
 from .payments import (precheckout_data, get_checkout_page,
@@ -74,8 +76,15 @@ def add_to_basket(request):
             quantity = int(line['quantity'])
 
             if date and ticket_type and quantity > 0:
-                add_line_to_basket(request, str(date.id), str(ticket_type.id), quantity)
-                success = True
+                try:
+                    add_line_to_basket(
+                        request, str(date.id), str(ticket_type.id), quantity)
+                    success = True
+                except TicketsNotAvailable:
+                    messages.error(request, "Can't update tickets in basket: \
+                        Not enough tickets available.")
+                    success = False
+
 
     response = {
         'success': success,
@@ -93,8 +102,13 @@ def update_basket(request):
         type_id = request.POST['type_id']
         quantity = request.POST['quantity']
 
-        update_line_in_basket(request, date_id, type_id, int(quantity))
-        success = True
+        try:
+            update_line_in_basket(request, date_id, type_id, int(quantity))
+            success = True
+        except TicketsNotAvailable:
+            messages.error(request, "Can't update tickets in basket: \
+                Not enough tickets available.")
+            success = False
 
     response = {
         'success': success,
