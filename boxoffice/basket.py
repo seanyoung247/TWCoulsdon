@@ -103,13 +103,17 @@ def update_line_in_basket(request, date_id, type_id, quantity):
     (TicketsNotAvailable) if not enough tickets to update item
 
     """
+    date_total = 0
     basket = request.session.get('basket', {})
     if date_id in basket:
-        for type_id in basket[date_id]:
-            date_total += basket[date_id][type_id]
+        for ticket_type in basket[date_id]:
+            if ticket_type == type_id:
+                date_total += quantity
+            else:
+                date_total += basket[date_id][type_id]
 
         if type_id in basket[date_id]:
-            if not check_ticket_available(date_id, date_total + quantity):
+            if not check_ticket_available(date_id, date_total):
                 raise TicketsNotAvailable(date_id)
             basket[date_id][type_id] = quantity
 
