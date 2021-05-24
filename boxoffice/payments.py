@@ -11,7 +11,7 @@ from django.conf import settings
 from django.contrib import messages
 
 from .reports import send_ticket_pdf_email
-from .basket import get_ticket_lines_from_basket, empty_basket
+from .basket import get_ticket_lines_from_basket, remove_date_from_basket, empty_basket
 from .models import Order
 from .forms import OrderForm
 from .context import basket_contents
@@ -34,9 +34,10 @@ def get_checkout_page(request):
     # Are there still enough tickets for this order?
     try:
         check_basket_availability(basket)
-    except TicketsNotAvailable:
+    except TicketsNotAvailable as error:
+        remove_date_from_basket(request, error.date_id)
         messages.error(request, "Sorry! There are no longer enough tickets \
-            to fulfill your order.")
+            to fulfill your order. These tickets have been removed from your basket.")
         return redirect(reverse('view_basket'))
 
     # Get the total cost
@@ -79,8 +80,9 @@ def precheckout_data(request):
         return HttpResponse(status=200)
 
     except TicketsNotAvailable as error:
+        remove_date_from_basket(request, error.date_id)
         messages.error(request, "Sorry! There are no longer enough tickets \
-            to fulfill your order.")
+            to fulfill your order. These tickets have been removed from your basket.")
         return HttpResponse(content=error, status=400)
 
     return HttpResponse(status=400)
@@ -120,9 +122,10 @@ def complete_checkout(request):
         # Add the tickets to the order
         try:
             create_tickets_for_order(order)
-        except TicketsNotAvailable:
+        except TicketsNotAvailable as error:
+            remove_date_from_basket(request, error.date_id)
             messages.error(request, "Sorry! There are no longer enough tickets \
-                to fulfill your order.")
+                to fulfill your order. These tickets have been removed from your basket.")
             order.delete()
             return redirect(reverse('view_bag'))
         except EmptyOrder:
