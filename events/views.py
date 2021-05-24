@@ -1,16 +1,15 @@
 """ Defines views for the Event app """
 from django.shortcuts import render, get_object_or_404
-#from django.contrib import messages
+from django.contrib import messages
 from django.conf import settings
 from django.db.models import Min, Max
 from django.template import loader
 from django.core.paginator import Paginator
-from django.http import JsonResponse, HttpResponseBadRequest
-#from core.debug import debug_print
+from django.http import JsonResponse
 
+from boxoffice.models import TicketType
 from .queries import query_events
 from .models import Event, ShowType, EventDate, Image, Venue
-from boxoffice.models import TicketType
 
 
 # Event list page view
@@ -55,7 +54,7 @@ def lazy_load_events(request):
     """ Returns the next page of results based on search criteria """
 
     if 'page' not in request.GET or not request.GET['page']:
-        HttpResponseBadRequest('<h1>Missing page variable</h1>')
+        messages.error(request, "Can't get results, no page specified.")
 
     page = int(request.GET['page'])
 

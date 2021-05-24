@@ -1,7 +1,6 @@
 """ Defines tests for the event app views """
 from datetime import timedelta
 from django.test import TestCase
-from django.conf import settings
 from django.utils import timezone
 
 from .models import ShowType, EventDate, Venue, Event
@@ -53,24 +52,28 @@ class TestEventsQueries(TestCase):
 
 
     def test_query_events_by_first_date(self):
+        """ Tests that events later than date are returned """
         events = list(query_events_by_first_date(Event.objects.all(), timezone.now()))
         self.assertTrue(self.event_show2 in events)
         self.assertFalse(self.event_show1 in events)
 
 
     def test_query_events_by_last_date(self):
+        """ Tests that events earlier than date are returned """
         events = list(query_events_by_last_date(Event.objects.all(), timezone.now()))
         self.assertFalse(self.event_show2 in events)
         self.assertTrue(self.event_show1 in events)
 
 
     def test_query_events_by_text_search(self):
+        """ Tests that events conforming to string queries are returned """
         events = list(query_events_by_text_search(Event.objects.all(), 'Film'))
         self.assertTrue(self.event_film in events)
         self.assertFalse(self.event_show1 in events)
 
 
     def test_query_events_by_type(self):
+        """ Tests events of specific types are returned """
         events = list(query_events_by_type(Event.objects.all(), 'show'))
         self.assertTrue(self.event_show1 in events)
         self.assertTrue(self.event_show2 in events)
@@ -82,6 +85,7 @@ class TestEventsQueries(TestCase):
 
 
     def test_query_events(self):
+        """ Tests the correct events are returned from compound queries """
         query_list = {
             'q': 'test',
             'type': 'show'
@@ -95,12 +99,14 @@ class TestEventsQueries(TestCase):
 
 
     def test_get_future_events(self):
+        """ Tests only events in the future are returned """
         events = list(get_future_events())
         self.assertFalse(self.event_show1 in events)
         self.assertTrue(self.event_show2 in events)
 
 
     def test_get_event_dates(self):
+        """ Tests that all an events dates can be returned """
         date = EventDate.objects.create(
             event=self.event_show2,
             date=(timezone.now() + timedelta(days=10))
@@ -112,6 +118,7 @@ class TestEventsQueries(TestCase):
 
 
     def test_get_remaining_event_dates(self):
+        """ Tests that only remaining dates are returned """
         date = EventDate.objects.create(
             event=self.event_show2,
             date=(timezone.now() - timedelta(days=10))
