@@ -11,13 +11,22 @@ def check_ticket_available(event_date, quantity):
     Checks that there are enough tickets left for the date passed
 
     Parameters:
-    date (EventDate): Date to check
+    date (EventDate): Date of date.id to check
     quantity (int): Quantity required
 
     Returns:
     (boolean): True if enough tickets left
 
     """
+    # If we've not been given an event date, assume it's an id and try
+    # and get it from the database.
+    if not isinstance(event_date, EventDate):
+        try:
+            event_date = EventDate.objects.get(id=event_date)
+        except EventDate.DoesNotExist:
+            #If the date doesn't exist, there's no tickets for it...
+            return False
+
     return get_available_tickets_for_date(event_date) >= quantity
 
 
