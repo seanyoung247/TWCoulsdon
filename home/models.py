@@ -1,3 +1,4 @@
+""" Defines the home app's models """
 from django.db import models
 from tinymce.models import HTMLField
 from core.models import SlugModel
@@ -24,7 +25,7 @@ class Category(SlugModel):
     def save(self, *args, **kwargs):
         # Do we need to generate a slug?
         if not self.pk:
-            self._generate_slug(Category, self.display_name)
+            self._generate_slug(Category, self.name)
 
         super().save(*args, **kwargs)
 
@@ -46,4 +47,3 @@ class Page(SlugModel):
             self._generate_slug(Page, self.title)
 
         super().save(*args, **kwargs)
-

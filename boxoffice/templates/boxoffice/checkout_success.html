@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Thank You for your order - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+  <div id="header-spacer"></div>
+  <section class=container-fluid>
+
+    <div class="row constrain-width basket-page-contents">
+      <h1 class="col page-header">Thank You</h1>
+    </div>
+
+    <div class="row constrain-width basket-page-contents">
+      <div class="col">
+        <p>
+          Your order information is below. Your tickets will be send to {{ order.email }}.
+        </p>
+        <p>
+          You can also download and print them
+          <a href="{% url 'get_tickets' order_number=order.order_number %}">here</a>.
+        </p>
+      </div>
+    </div>
+
+    <div class="row constrain-width basket-page-contents">
+      <div class="col">
+        {% include 'includes/order_information.html' %}
+      </div>
+    </div>
+
+    <div class="row constrain-width basket-page-contents">
+      <div class="col my-3 text-right">
+        <a href="{% url 'events' %}?type=show" class="btn btn-twc-dark">Back to shows</a>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

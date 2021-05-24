@@ -38,7 +38,7 @@ class TestEventsViews(TestCase):
             type=type_show,
             venue=venue
         )
-        event_film = Event.objects.create(
+        Event.objects.create(
             title="Test_Film",
             description="<h1>Test Film</h1><p>This is a test event</p>",
             type=type_film

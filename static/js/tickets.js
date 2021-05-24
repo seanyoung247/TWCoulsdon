@@ -12,6 +12,7 @@ function clearTicketList() {
 $( '.btn-add-tickets' ).click( function() {
   const modal = $('#add-ticket-modal');
   const url = `/boxoffice/buy_tickets/?event=${$( this ).data('event-id')}`;
+  var show_modal = true;
 
   // Set the modal title
   modal.find( '.modal-title' ).text( $( this ).data('event-title') );
@@ -21,13 +22,19 @@ $( '.btn-add-tickets' ).click( function() {
   clearTicketList();
 
   // Request modal HTML from server
+  console.log("here");
   $.get( url, function(data) {
     const formWrapper = $('#add-tickets-form-wrapper');
-    if (data.form) {
+    // Did we recieve the form?
+    if (data.success) {
       formWrapper.html(data.form);
       // Don't let the user select more tickets than there are
       $( '#add-ticket-quantity' ).attr(
         'max', $( '#add-ticket-date' ).find( ':selected' ).data('tickets-left'));
+    } else {
+      addMessage(data.message_html);
+      // Give the modal a chance to be shown then hide it
+      setTimeout(function() {$('#add-ticket-modal').modal('hide')}, 1000);
     }
   });
 
@@ -37,12 +44,13 @@ $( '.btn-add-tickets' ).click( function() {
   });
 });
 
-
 // Date checks
 $( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-date', function(e) {
   // Set the maximum quantity to be the number of tickets left
-  $( '#add-ticket-quantity' ).attr(
-    'max', $( '#add-ticket-date' ).find( ':selected' ).data('tickets-left'));
+  const qtyInput = $( '#add-ticket-quantity' );
+  const ticketsLeft = $( '#add-ticket-date' ).find( ':selected' ).data('tickets-left')
+  qtyInput.attr('max', ticketsLeft);
+  if (qtyInput.val() > ticketsLeft) qtyInput.val(ticketsLeft);
 });
 
 /*
@@ -50,11 +58,11 @@ $( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-date', function(e) {
  */
 $( '#add-tickets-form-wrapper' ).on( 'click', 'button.btn-dec', function(e) {
   e.preventDefault();
-  spinnerBtn($( $( this ).data('target') ), -1);
+  stepValue($( $( this ).data('target') ), -(parseInt($( this ).attr('step')) || 1));
 });
 $( '#add-tickets-form-wrapper' ).on( 'click', 'button.btn-inc', function(e) {
   e.preventDefault();
-  spinnerBtn($( $( this ).data('target') ), 1);
+  stepValue($( $( this ).data('target') ), (parseInt($( this ).attr('step')) || 1));
 });
 
 // Prevents the quantity value going out of bounds
@@ -88,7 +96,11 @@ function updateAvailableTickets(date, adjustment) {
   // Is the updated date the same as the currently selected date?
   if ( dateOption[0] == $( '#add-ticket-date' ).find( ':selected' )[0] ) {
     if (dateOption.prop('disabled')) $( '#add-ticket-date' ).val("");
-    else $( '#add-ticket-quantity' ).attr('max', newCount);
+    else {
+      const qtyInput = $( '#add-ticket-quantity' )
+      qtyInput.attr('max', newCount);
+      if (qtyInput.val() > newCount) qtyInput.val(newCount);
+    }
   }
 }
 
@@ -209,7 +221,11 @@ $( '#addTicketsToBasket' ).click(function() {
     };
     $.post( '/boxoffice/basket/add/', postData, function(data) {
       if (data.success) {
+        // Adding tickets succeeded
         window.location.href = '/boxoffice/basket';
+      } else {
+        // Adding tickets failed
+        addMessage(data.message_html);
       }
     });
   } else {

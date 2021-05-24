@@ -31,7 +31,7 @@ class OrderAdmin(admin.ModelAdmin):
         'order_number',
         'user_profile',
         'date',
-        'original_bag',
+        'original_basket',
         'stripe_pid',
         'full_name',
         'email',

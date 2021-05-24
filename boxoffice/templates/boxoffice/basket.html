@@ -2,14 +2,26 @@
 {% load static %}
 {% load boxoffice_tools %}
 
+{% block title %}
+  Basket ({{ basket.item_count }} items) - {{ block.super }}
+{% endblock %}
+
 {% block content %}
   <div id="header-spacer"></div>
   <section class=container-fluid>
     <div class="row constrain-width basket-page-contents">
-      <h1 class="col-12 page-header">Basket</h1>
+      <h1 class="col page-header">Basket</h1>
     </div>
     <div class="row constrain-width basket-page-contents">
-      <div class="col-12">
+      <div class="col">
+        <span class="text-muted">
+          Note: Tickets are not reserved and may be bought by other users while
+          in your basket.
+        </span>
+      </div>
+    </div>
+    <div class="row constrain-width basket-page-contents">
+      <div class="col">
         <ul id="basket-list">
           {% if basket.items %}
             {% for item in basket.items %}
@@ -22,19 +34,22 @@
       </div>
     </div>
     <div class="row constrain-width basket-page-contents">
-      <div class="col-12">
+      <div class="col">
         <h3 id="basket-total">Total: £<span>{{ basket.total }}</span></h3>
       </div>
     </div>
     <div class="row constrain-width basket-page-contents">
-      <div id="basket-links" class="col-12">
+      <div id="basket-links" class="col">
         <a href="{% url 'events' %}?type=show" class="btn btn-twc-dark">
           Continue Browsing
         </a>
-        <a href="{% url 'checkout' %}" class="btn btn-twc-dark">
-          Secure Checkout
-        </a>
+        {% if basket.item_count > 0 %}
+          <a id="checkout-btn" href="{% url 'checkout' %}" class="btn btn-twc-dark">
+            Secure Checkout
+          </a>
+        {% endif %}
       </div>
+
     </div>
   </section>
 {% endblock %}

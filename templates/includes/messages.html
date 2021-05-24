@@ -1,0 +1,13 @@
+{% for message in messages %}
+  <div class="message {{ message.tags }}">
+    <button type="button" class="btn close-message" aria-label="Close">
+      <svg class="" xmlns='http://www.w3.org/2000/svg'
+           width='10' height='10' viewBox='0 0 10 10'>
+        <path d="m2.3007 2.4298 1.4142-1.4142 3.9844 3.9844-3.9844 3.9844-1.4142-1.4142 2.5702-2.5702z"/>
+      </svg>
+    </button>
+    <div class="message-body">
+      {{ message }}
+    </div>
+  </div>
+{% endfor %}

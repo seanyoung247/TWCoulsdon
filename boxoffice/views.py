@@ -1,43 +1,66 @@
 """ Defines the views for the boxoffice app """
 import json
 
-from django.shortcuts import render, reverse, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.views.decorators.http import require_POST
-from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
+from django.http import JsonResponse
+from django.contrib import messages
+
 
 from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
 
-from .basket import add_line_to_basket, update_line_in_basket, remove_line_from_basket
-from .reports import generate_ticket_pdf
+
+from .tickets import TicketsNotAvailable
+from .basket import (add_line_to_basket, update_line_in_basket,
+                        remove_line_from_basket)
+from .reports import send_ticket_pdf_http
 from .models import TicketType, Ticket, Order
-from .forms import OrderForm
+from .payments import (precheckout_data, get_checkout_page,
+                        complete_checkout, checkout_complete)
 
 #
 # Add tickets dialog views
 #
 def buy_tickets(request):
     """ Provides the event form data and passes it to the frontend as json """
-
+    form_html = "";
+    message_html = "";
+    success = True
+    # Ensure all required data has been sent
     if 'event' not in request.GET or not request.GET['event']:
-        HttpResponseBadRequest('<h1>Missing event variable</h1>')
+        messages.error(request, 'No event information provided')
 
-    event = get_object_or_404(Event, id=request.GET['event'])
-    dates = get_remaining_event_dates(event).order_by('date')
-    ticket_types = TicketType.objects.all()
+    # Get the Event and it's dates
+    try:
+        event = Event.objects.get(id=request.GET['event'])
+        dates = get_remaining_event_dates(event).order_by('date')
 
-    context = {
-        'dates': dates,
-        'ticket_types': ticket_types,
-    }
-    form_html = loader.render_to_string(
-        'includes/add_ticket_form.html', context)
+        ticket_types = TicketType.objects.all()
 
+        # Generate the ticket form html
+        context = {
+            'dates': dates,
+            'ticket_types': ticket_types,
+            }
+        form_html = loader.render_to_string(
+            'includes/add_ticket_form.html', context)
+    except Event.DoesNotExist:
+        messages.error(request, "Event does not exist!")
+        success = False
+
+    # If there was a failure we need to generate the message here, because
+    # otherwise it won't show until the page is reloaded.
+    if not success:
+        message_html = loader.render_to_string('includes/messages.html', request=request)
+
+    # Send the form to the client
     response = {
-        'form': form_html,
+        'success': success,
+        'message_html': message_html,
+        'form': form_html
     }
-
     return JsonResponse(response)
 
 
@@ -53,6 +76,7 @@ def view_basket(request):
 def add_to_basket(request):
     """ Adds one or more ticket lines to the basket """
     success = False
+    message_html = ''
     # Get the posted ticket list
     basket_tickets = request.POST.get('tickets')
     if basket_tickets:
@@ -66,16 +90,23 @@ def add_to_basket(request):
             ticket_type = TicketType.objects.get(id=line['type_id'])
             quantity = int(line['quantity'])
 
-            # if the objects exist and quantity makes sense add to basket.
-            # No checking for availablility is done here. Tickets in the basket
-            # aren't reservered, so we don't really know if all tickets are
-            # definitely available until checkout.
             if date and ticket_type and quantity > 0:
-                add_line_to_basket(request, str(date.id), str(ticket_type.id), quantity)
-                success = True
+                try:
+                    add_line_to_basket(
+                        request, str(date.id), str(ticket_type.id), quantity)
+                    success = True
+                except TicketsNotAvailable:
+                    messages.error(request, "Can't update tickets in basket: \
+                        Not enough tickets available.")
+                    success = False
+    # If there was a failure we need to generate the message here, because
+    # otherwise it won't show until the page is reloaded.
+    if not success:
+        message_html = loader.render_to_string('includes/messages.html', request=request)
 
     response = {
         'success': success,
+        'message_html': message_html
     }
     return JsonResponse(response)
 
@@ -84,16 +115,27 @@ def add_to_basket(request):
 def update_basket(request):
     """ Updates a single ticket line in the basket """
     success = False
+    message_html = ''
 
     if set(['date_id','type_id','quantity']).issubset(request.POST):
         date_id = request.POST['date_id']
         type_id = request.POST['type_id']
         quantity = request.POST['quantity']
-        update_line_in_basket(request, date_id, type_id, int(quantity))
-        success = True
+
+        try:
+            update_line_in_basket(request, date_id, type_id, int(quantity))
+            success = True
+        except TicketsNotAvailable:
+            messages.error(request, "Can't update tickets in basket: \
+                Not enough tickets available.")
+            success = False
+
+    if not success:
+        message_html = loader.render_to_string('includes/messages.html', request=request)
 
     response = {
         'success': success,
+        'message_html': message_html
     }
     return JsonResponse(response)
 
@@ -114,6 +156,7 @@ def remove_from_basket(request):
 
     response = {
         'success': success,
+        'message_html': ""
     }
     return JsonResponse(response)
 
@@ -122,19 +165,22 @@ def remove_from_basket(request):
 # Checkout views
 #
 def checkout(request):
-    basket = request.session.get('basket', {})
+    """ Shows the checkout page and accepts post-payment checkout data """
+    # POST request
+    if request.method == 'POST':
+        return complete_checkout(request)
+    # GET request
+    return get_checkout_page(request)
 
-    if not basket:
-        return redirect(f'{reverse("events")}?type=show')
 
-    order_form = OrderForm()
+def cache_checkout_data(request):
+    """ Accepts pre-checkout data before payment is confirmed """
+    return precheckout_data(request)
 
-    context = {
-        'order_form': order_form,
-    }
 
-    return render(request, 'boxoffice/checkout.html', context)
-
+def checkout_success(request, order_number):
+    """ Finalises checkout and provides e-ticket downloads """
+    return checkout_complete(request, order_number)
 
 #
 # Reports views
@@ -148,7 +194,7 @@ def validate_ticket(request, ticket_id):
     try:
         ticket = Ticket.objects.get(ticket_id=ticket_id)
     except Ticket.DoesNotExist:
-        ticket = None;
+        ticket = None
 
     context = {
         'ticket': ticket,
@@ -156,15 +202,10 @@ def validate_ticket(request, ticket_id):
     return render(request, 'tickets/validate_ticket.html', context)
 
 
+def get_tickets(request, order_number):
+    """
+    Takes an order id and returns a pdf of the tickets attached to that order.
+    """
+    order = get_object_or_404(Order, order_number=order_number)
 
-# Code Snippet to create and return tickets from an order.
-# TODO: DELETE THIS!!!
-    # order = Order.objects.get(pk=1)
-    #
-    # pdf = generate_ticket_pdf(request, order)
-    #
-    # # Prepare the response headers
-    # response = HttpResponse(pdf, content_type='application/pdf')
-    # response['Content-Disposition'] = 'inline; tickets.pdf'
-    #
-    # return response
+    return send_ticket_pdf_http(request, order)

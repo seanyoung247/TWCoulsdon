@@ -2,6 +2,15 @@
 {% load static %}
 {% load boxoffice_tools %}
 
+{% block title %}
+  Checkout - {{ block.super }}
+{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock %}
+
 {% block content %}
 
   <div id="header-spacer"></div>
@@ -12,19 +21,59 @@
     </div>
 
     <div class="row constrain-width basket-page-contents">
-      <div class="col-12 col-md-6">
-        <form id="payment-form" action="{% url 'checkout' %}">
+      <div class="col-12 col-lg-6 order-2 order-lg-1">
+        <form id="payment-form" method="POST" action="{% url 'checkout' %}">
           {% csrf_token %}
-          {{ order_form.full_name | as_crispy_field }}
-          {{ order_form.email | as_crispy_field }}
-          {{ order_form.phone_number | as_crispy_field }}
+          <fieldset>
+            <legend>Your Details</legend>
+            {{ order_form.full_name | as_crispy_field }}
+            {{ order_form.email | as_crispy_field }}
+            {{ order_form.phone_number | as_crispy_field }}
+          </fieldset>
+          <div class="form-check form-check-inline checkout-profile-link">
+            {% if user.is_authenticated %}
+              <label class="form-check-label" for="id-save-info">
+                Save this information to my profile
+              </label>
+              <input class="form-check-input ml-2 mr-0"
+                      type="checkbox" id="id-save-info" name="save-info" checked>
+            {% else %}
+              <label class="form-check-label" for="id-save-info">
+                <a href="{% url 'account_signup' %}">Create an account</a> or
+                <a href="{% url 'account_login' %}">login</a> to save this information
+              </label>
+            {% endif %}
+          </div>
+          <fieldset>
+            <legend>Payment</legend>
+            <div id="card-element"></div>
+            <div id="card-errors" class="text-danger" role="alert"></div>
+            <input type="hidden" value="{{ client_secret }}" name="client_secret">
+          </fieldset>
+          <div class="row">
+            <div class="col-6">
+              <a href="{% url 'view_basket' %}" class="btn btn-twc-dark">
+                Adjust Order
+              </a>
+            </div>
+            <div class="col-6 text-right">
+              <button id="submit-button" class="btn btn-twc-dark">
+                Complete Order
+              </button>
+              <p class="small text-danger">
+                Your card will be charged £{{ basket.total|floatformat:2 }}
+              </p>
+            </div>
+          </div>
+          {% include 'includes/loading_overlay.html' %}
         </form>
       </div>
 
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-lg-6 order-1 order-lg-2">
+        <h4 class="checkout-section-title">Order Summary</h4>
         <ul id="basket-list">
           {% for item in basket.items %}
-            <li class="basket-list-item ">
+            <li class="basket-list-item">
               <div class="row">
                 <h4 class="col-12">{{ item.event.title }}</h4>
                 <p class="col-12">{{ item.date.date|date:"D, d M Y - H:i" }}</p>
@@ -39,14 +88,17 @@
             </li>
           {% endfor %}
         </ul>
-      </div>
-    </div>
-    <div class="row constrain-width basket-page-contents">
-      <div class="col-12">
         <h3 id="basket-total">Total: £<span>{{ basket.total }}</span></h3>
       </div>
     </div>
-
   </section>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script>const csrfToken = "{{ csrf_token }}";</script>
+    <script src="{% static 'js/stripe_elements.js' %}"></script>
 {% endblock %}

@@ -148,6 +148,8 @@ else:
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+    # Forces the site to use HTTPS in production
+    SECURE_SSL_REDIRECT = True
 
 WSGI_APPLICATION = 'TWCoulsdon.wsgi.application'
 
@@ -249,6 +251,12 @@ FAVICON = os.path.join(STATIC_URL, 'img/favicon.ico')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Stripe payment settings
+STRIPE_CURRENCY = 'gbp'
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
+STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET', '')
 
 # Custom settings
 #Number of results to show per page for search

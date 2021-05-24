@@ -1,3 +1,4 @@
+""" Registers home app's models with the admin panel """
 from django.contrib import admin
 from .models import Category, Page
 

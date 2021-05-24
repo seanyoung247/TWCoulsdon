@@ -132,7 +132,7 @@
         <button id="gallery-prev" class="btn gallery-btn">
           <span aria-hidden="true">
             <svg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'>
-              <path d='M5.25 0l-4 4 4 4 1.5-1.5L4.25 4l2.5-2.5L5.25 0z'/>
+              <path d="m6.2851 1.0156 1.4142 1.4142-2.5702 2.5702 2.5702 2.5702-1.4142 1.4142-3.9844-3.9844z"/>
             </svg>
           </span>
           <span class="sr-only">Previous</span>
@@ -142,7 +142,7 @@
         <button id="gallery-next" class="btn gallery-btn">
           <span aria-hidden="true">
             <svg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'>
-              <path d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/>
+              <path d="m2.3007 2.4298 1.4142-1.4142 3.9844 3.9844-3.9844 3.9844-1.4142-1.4142 2.5702-2.5702z"/>
             </svg>
           </span>
           <span class="sr-only">Next</span>
@@ -162,9 +162,7 @@
 
 {% block scripts %}
   {{ block.super }}
-  <script>
-    const csrfToken = "{{ csrf_token }}";
-  </script>
+  <script>const csrfToken = "{{ csrf_token }}";</script>
   <script src="{% static 'js/numberctrl.js' %}"></script>
   <script src="{% static 'js/scroller.js' %}"></script>
   <script src="{% static 'js/gallery.js' %}"></script>

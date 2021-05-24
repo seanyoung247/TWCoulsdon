@@ -1,6 +1,8 @@
 """ Tests the database queries in boxoffice.queries """
 # pylint: disable=E5142
 # I need to import user for testing. I don't need get_user_model() in this case
+# pylint: disable=R0902
+# Creating lots of member attributes for setup of tests
 
 from datetime import timedelta
 
@@ -57,7 +59,7 @@ class TestQueries(TestCase):
         count = get_available_tickets_for_date(self.date)
         self.assertEqual(count, 10)
         # Create enough tickets to sell-out date
-        for i in range(0,10):
+        for _ in range(0,10):
             Ticket.objects.create(
                 order = self.order, type = self.ticket_type,
                 event = self.event, date = self.date

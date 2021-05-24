@@ -1,3 +1,4 @@
+""" Defines forms for the boxoffice app's models """
 from django import forms
 from .models import Order
 
@@ -5,6 +6,7 @@ from .models import Order
 # Largely based on the boutique ado project form, with the removal of delivery
 # information as tickets are delivered electronically.
 class OrderForm(forms.ModelForm):
+    """ Defines the form for the order model """
     class Meta:
         model = Order
         fields = ('full_name', 'email','phone_number',)
@@ -22,10 +24,11 @@ class OrderForm(forms.ModelForm):
         self.fields['full_name'].widget.attrs['autofocus'] = True
 
         for field in self.fields:
-            placeholder = f'{placeholders[field]} *'
-        else:
-            placeholder = placeholders[field]
+            if self.fields[field].required:
+                placeholder = f'{placeholders[field]} *'
+            else:
+                placeholder = placeholders[field]
 
-        self.fields[field].widget.attrs['placeholder'] = placeholder
-        self.fields[field].widget.attrs['class'] = 'stripe-style-input'
-        self.fields[field].label = False
+            self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].widget.attrs['class'] = 'stripe-style-input'
+            self.fields[field].label = False

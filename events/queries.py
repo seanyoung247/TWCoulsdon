@@ -216,4 +216,3 @@ def get_remaining_event_dates(event):
     """
     now = timezone.now() + timedelta(hours=settings.TICKET_CUT_OFF_HOURS)
     return EventDate.objects.filter(event=event, date__gte=now)
-

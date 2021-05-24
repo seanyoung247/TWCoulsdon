@@ -3,17 +3,34 @@
  * Provides code for a simple number spinner field
  */
 
-function spinnerBtn(target, step) {
-  const min = parseInt(target.attr('min'));
-  const max = parseInt(target.attr('max'));
-  let value = parseInt(target.val()) + step;
 
-  if (value >= min && value <= max) target.val( value );
+function setValue(target, value) {
+  const min = parseInt(target.attr('min')) || -Infinity;
+  const max = parseInt(target.attr('max')) || Infinity;
+
+  if (value < min) value = min;
+  if (value > max) value = max;
+  target.val(value);
 }
 
-$( 'button.btn-dec' ).click(function() {
-  spinnerBtn($( this ).siblings($( this ).data('target')), -1);
+function stepValue(target, step) {
+  setValue(target, parseInt(target.val()) + step)
+}
+
+$( '.input-number-control :button.btn-dec' ).click(function() {
+  const element = $( this ).siblings($( this ).data('target'));
+  const step = -(parseInt(element.attr('step')) || 1);
+
+  stepValue(element, step);
 });
-$( 'button.btn-inc' ).click(function() {
-  spinnerBtn($( this ).siblings($( this ).data('target')), 1);
+$( '.input-number-control :button.btn-inc' ).click(function() {
+  const element = $( this ).siblings($( this ).data('target'));
+  const step = (parseInt(element.attr('step')) || 1);
+
+  stepValue(element, step);
+});
+$( '.input-number-control :input[type="number"]' ).change(function() {
+  const element = $( this );
+
+  setValue( element, parseInt(element.val()) );
 });

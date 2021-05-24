@@ -20,7 +20,7 @@ class Ticket(models.Model):
     """ Defines a single ticket """
     ticket_id = models.CharField(max_length=32, null=False, blank=False, editable=False)
     order = models.ForeignKey('Order', null=False, blank=False,
-                                on_delete=models.CASCADE, related_name="tickets")
+                                on_delete=models.CASCADE, related_name="orders")
     type = models.ForeignKey('TicketType', null=False, blank=False, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, null=False, blank=False, on_delete=models.CASCADE)
     date = models.ForeignKey(EventDate, null=False, blank=False, on_delete=models.CASCADE)
@@ -46,7 +46,7 @@ class Order(models.Model):
     user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
                                      null=True, blank=True, related_name='orders')
     date = models.DateTimeField(auto_now_add=True, editable=False)
-    original_bag = models.TextField(null=False, blank=False, default='')
+    original_basket = models.TextField(null=False, blank=False, default='')
     stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
     full_name = models.CharField(max_length=50, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=False, blank=False)
@@ -69,9 +69,10 @@ class Order(models.Model):
         and updates the order total.
         """
         self.order_total = self.tickets.aggregate(Sum('type__price'))['type__price__sum'] or 0
-        # grand_total and order_total are currently the same. grand_total is retained for future use
-        # (might be needed for charitable gifts or tax calculation)
+        # grand_total and order_total are currently the same. grand_total is
+        # retained for future use (might be needed for charitable gifts or tax calculation)
         self.grand_total = self.order_total
+        self.save()
 
     def save(self, *args, **kwargs):
         if not self.order_number:

@@ -11,6 +11,8 @@ third-party ticketing platforms by moving online ticket sales in-house. This
 should give a more seamless end-user experience, while also improving the efficiency
 of the box-office and reporting.
 
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](LICENSE)
+
 ## Table of Contents
 
 <TBC>
@@ -456,6 +458,60 @@ and provides tools to edit items and quantities.
 
 </details>
 
+#### Checkout
+
+The checkout page gives a summary of the current basket contents and offers links back to the basket for editing. The payment form allows the user to add their details and complete secure checkout.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Landing Page Phone Layout](design/wireframes/checkout/phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Landing Page Tablet Layout](design/wireframes/checkout/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Landing Page Desktop Layout](design/wireframes/checkout/desktop.png)
+
+</details>
+
+#### Checkout Complete
+
+The checkout complete page confirms to the user that checkout has completed, provides a summary of their order and provides links to their e-tickets.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Landing Page Phone Layout](design/wireframes/checkout_complete/phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Landing Page Tablet Layout](design/wireframes/checkout_complete/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Landing Page Desktop Layout](design/wireframes/checkout_complete/desktop.png)
+
+</details>
+
 #### Ticket Validation
 
 The ticket validation is a simple report to confirm a ticket's face value conforms
@@ -540,11 +596,11 @@ Provides models and pages for user information and profiles.
 
 #### Box Office app
 
-Provides models and pages for buying tickets, checking their validity and generating show attendence reports.
+Provides models and pages for buying tickets, checking their validity and generating show attendance reports.
 
 * Shopping bag
 * Checkout
-* Show attendence and ticketing reports
+* Show attendance and ticketing reports
 
 ### Languages
 - [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
@@ -565,6 +621,12 @@ Provides models and pages for buying tickets, checking their validity and genera
   and the use of advanced features, such as automatically changing colours based
   on user theme:
   - ![Favicon](design/images/favicon.png)
+
+### Database
+- [PostgreSQL](https://www.postgresql.org/)
+  - Used for storing data for the live site.
+- [SQLite3](https://www.sqlite.org/index.html)
+  - Used for development on local hosting.
 
 ### Libraries
 - [Django](https://www.djangoproject.com/)
@@ -782,6 +844,11 @@ If using Amazon S3 the following variables will need to be set:
 - AWS_STORAGE_BUCKET_NAME
 - AWS_S3_REGION_NAME
 
+Stripe payments variables:
+- STRIPE_PUBLIC_KEY
+- STRIPE_SECRET_KEY
+- STRIPE_WH_SECRET
+
 The suggested method for defining environment variables for local development is with a shell script. Variables can be set with the export command:
 `export <key>=<value>` and unset with: `unset <key>`. This can be done automatically when activating and deactivating the python virtual environment. The environment variables can be set within a script with the following template:
 ```
@@ -808,6 +875,28 @@ deactivate () {
 
 # Set environment variables
 env_start
+```
+
+### e-commerce
+
+The project includes e-commerce functionality provided by stripe. If running in a local host further setup will be needed to enable testing of webhooks:
+
+First, install the latest version of stripe CLI for your environment from https://github.com/stripe/stripe-cli/releases/latest.
+
+- Link your stripe account:
+  - In the terminal type `stripe login` and press enter when prompted
+  - A browser window will open
+    - Add your credentials in the browser window
+- Forward webhook events to local server
+  - In the terminal type `stripe listen --forward-to localhost:8000/boxoffice/wh/`
+
+While `stripe listen` is running stripe webhooks will now be forwarded to the localhost on the same machine. Further, webhooks can be sent manually for testing by triggering them in another terminal, e.g:
+`stripe trigger payment_intent.created`
+
+The `stripe listen` process should show the webhook request and response:
+```
+YYYY-MM-DD HH:MM:SS  -->  payment_intent.created [{{WEBHOOK_EVENT_ID}}]
+YYYY-MM-DD HH:MM:SS  <--  [200] POST http://localhost:8000/boxoffice/wh/ [{{WEBHOOK_EVENT_ID}}]
 ```
 
 ### Remote Deployment

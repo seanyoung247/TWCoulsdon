@@ -9,7 +9,6 @@
     {% endblock %}
 
     {% block css %}
-      {#<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> #}
       <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
       <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% endblock %}
@@ -33,12 +32,26 @@
       </header>
     {% endblock %}
 
+    <div class="message-container">
+      {% include 'includes/messages.html' %}
+    </div>
+
     {% block content %}
     {% endblock %}
+
+    <button id="scroll-to-top-btn" data-toggle="tooltip" data-placement="left" title="Back to top">
+      <svg class="back-to-top-icon" xmlns='http://www.w3.org/2000/svg'
+           width='10' height='10' viewBox='0 0 10 10'>
+        <path d="m2.4298 7.6993-1.4142-1.4142 3.9844-3.9844 3.9844 3.9844-1.4142 1.4142-2.5702-2.5702z"/>
+      </svg>
+    </button>
 
     {% block scripts %}
       <script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
       <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'js/scrolltop.js' %}"></script>
+      <script src="https://js.stripe.com/v3/"></script>
+      <script src="{% static 'js/messages.js' %}"></script>
     {% endblock %}
   </body>
 </html>

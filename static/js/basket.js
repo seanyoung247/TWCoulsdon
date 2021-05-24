@@ -5,12 +5,13 @@
 // Updates the visual elements, such as the basket icon and total price
 function update_basket() {
   const listItems = $( '#basket-list' ).children( '.basket-list-item' );
-
+  let total_items = 0
   // Are there any items left?
   if (listItems.length > 0) {
     let total = 0;
     // Go over the items in the list and recalculate the Total price
     listItems.each(function() {
+      total_items += parseInt( $( this ).data('quantity') );
       total += parseFloat( $( this ).data('price') ) * parseInt( $( this ).data('quantity') );
     });
     $( '#basket-total span' ).text(total.toFixed(2));
@@ -21,7 +22,11 @@ function update_basket() {
     // Add the no items text
     const html = '<li class="no-basket-items">You have no items in your basket.</li>';
     $( '#basket-list' ).append(html);
+    // Remove the checkout button
+    $( '#checkout-btn' ).remove();
   }
+  // Finally update the window title
+  document.title = `Basket (${total_items} items) - Theatre Workshop Coulsdon`
 }
 
 // Update item button
@@ -46,6 +51,8 @@ $( '.basket-update-item' ).click(function() {
       listItem.find('.item-line-total').text(
         (parseFloat(listItem.data('price')) * quantity).toFixed(2));
       update_basket();
+    } else {
+      addMessage(data.message_html);
     }
   });
 
