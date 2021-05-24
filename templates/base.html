@@ -32,7 +32,11 @@
       </header>
     {% endblock %}
 
-    {# TODO: add toast messages here #}
+    <div class="message-container">
+      {% for message in messages %}
+        {% include 'includes/message.html' %}
+      {% endfor %}
+    </div>
 
     {% block content %}
     {% endblock %}
@@ -49,6 +53,16 @@
       <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
       <script src="{% static 'js/scrolltop.js' %}"></script>
       <script src="https://js.stripe.com/v3/"></script>
+      <script type="text/javascript">
+        $( document ).ready(function() {
+          $( '.message' ).addClass('show');
+        });
+        $( '.message-container' ).on( 'click', '.close-message', function(e) {
+          const message = $( this ).parent();
+          message.removeClass('show');
+          setTimeout(function() {message.remove();}, 500);
+        });
+      </script>
     {% endblock %}
   </body>
 </html>
