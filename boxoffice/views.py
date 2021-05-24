@@ -4,7 +4,8 @@ import json
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.views.decorators.http import require_POST
-from django.http import JsonResponse, HttpResponseBadRequest
+from django.http import JsonResponse
+from django.contrib import messages
 
 from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
@@ -23,8 +24,7 @@ def buy_tickets(request):
 
     # Ensure all required data has been sent
     if 'event' not in request.GET or not request.GET['event']:
-        #TODO: Add messaging
-        HttpResponseBadRequest('<h1>Missing event variable</h1>')
+        messages.error(request, 'No event information provided')
 
     # Get the Event and it's dates
     event = get_object_or_404(Event, id=request.GET['event'])

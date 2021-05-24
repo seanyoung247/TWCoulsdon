@@ -2,9 +2,9 @@
 from __future__ import unicode_literals
 
 import json
-#from django.http import HttpResponse
-from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
-from django.core.mail import send_mail, EmailMessage
+
+from django.http import HttpResponse
+from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
 
