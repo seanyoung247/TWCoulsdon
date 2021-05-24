@@ -43,6 +43,15 @@ def get_ticket_lines_from_basket(basket):
     return []
 
 
+def _get_total_for_date(basket, date_id):
+    """ Gets the total quantity in the basket for a given date """
+    total = 0
+    for type_id in basket[date_id]:
+        total += basket[date_id][type_id]
+
+    return total
+
+
 def add_line_to_basket(request, date_id, type_id, quantity):
     """
     Adds a single ticket line to the basket
@@ -53,15 +62,28 @@ def add_line_to_basket(request, date_id, type_id, quantity):
     type_id (String): The Ticket TicketType id in string format
     quantity (int): The number of tickets to add to this line
 
+    Raises:
+    (TicketsNotAvailable) if not enough tickets to add item
+
     """
+    date_total = 0
     basket = request.session.get('basket', {})
 
     if date_id in basket:
+        # How many tickets are there already in the basket for this date?
+        for type_id in basket[date_id]:
+            date_total += basket[date_id][type_id]
+            # Are there enough tickets available to add the new lines?
+            if not check_ticket_available(date_id, date_total + quantity):
+                raise TicketsNotAvailable(date_id)
+        # Are we updating an existing line or adding a new one?
         if type_id in basket[date_id]:
             basket[date_id][type_id] += quantity
         else:
             basket[date_id][type_id] = quantity
     else:
+        if not check_ticket_available(date_id, quantity):
+            raise TicketsNotAvailable(date_id)
         basket[date_id] = {type_id: quantity}
 
     request.session['basket'] = basket
