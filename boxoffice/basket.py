@@ -2,6 +2,8 @@
 
 from events.models import EventDate
 from .models import TicketType
+from .tickets import check_ticket_available, TicketsNotAvailable
+
 
 def get_ticket_lines_from_basket(basket):
     """
@@ -20,9 +22,17 @@ def get_ticket_lines_from_basket(basket):
     if basket:
         order_basket = []
         for date_id in basket:
-            event_date = EventDate.objects.get(id=date_id)
+            # If the eventdate isn't in the database move to next item
+            # (I want to fail silently here, just drop anything unavailable)
+            try:
+                event_date = EventDate.objects.get(id=date_id)
+            except EventDate.DoesNotExist:
+                continue
             for type_id in basket[date_id]:
-                ticket_type = TicketType.objects.get(id=type_id)
+                try:
+                    ticket_type = TicketType.objects.get(id=type_id)
+                except TicketType.DoesNotExist:
+                    continue
                 order_basket.append({
                     'date': event_date,
                     'type': ticket_type,
