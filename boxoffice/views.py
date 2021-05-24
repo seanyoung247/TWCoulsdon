@@ -2,7 +2,7 @@
 import json
 
 from django.shortcuts import render, get_object_or_404
-from django.template import loader
+from django.template import loader, RequestContext
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.contrib import messages
@@ -86,12 +86,11 @@ def add_to_basket(request):
                     messages.error(request, "Can't update tickets in basket: \
                         Not enough tickets available.")
                     success = False
-
-    # Was there a failure?
+    # If there was a failure we need to generate the message here, because
+    # otherwise it won't show until the page is reloaded.
     if not success:
-        # Construct a message and send it back to the client
-        html = loader.render_to_string(request,
-            {'message': 'Sorry! There is not enough availability to add these tickets.'})
+        context = RequestContext(request)
+        html = loader.render_to_string('includes/messages.html', request=request)
 
     response = {
         'success': success,
@@ -120,9 +119,8 @@ def update_basket(request):
             success = False
 
     if not success:
-        # Construct a message and send it back to the client
-        html = loader.render_to_string(request,
-            {'message': 'Sorry! There is not enough availability to add these tickets.'})
+        context = RequestContext(request)
+        html = loader.render_to_string('includes/messages.html', request=request)
 
     response = {
         'success': success,
@@ -147,7 +145,7 @@ def remove_from_basket(request):
 
     response = {
         'success': success,
-        'html': html
+        'html':""
     }
     return JsonResponse(response)
 
