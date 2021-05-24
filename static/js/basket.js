@@ -48,6 +48,8 @@ $( '.basket-update-item' ).click(function() {
       listItem.find('.item-line-total').text(
         (parseFloat(listItem.data('price')) * quantity).toFixed(2));
       update_basket();
+    } else {
+      addMessage(data.html);
     }
   });
 
