@@ -35,10 +35,13 @@
         <a href="{% url 'events' %}?type=show" class="btn btn-twc-dark">
           Continue Browsing
         </a>
-        <a href="{% url 'checkout' %}" class="btn btn-twc-dark">
-          Secure Checkout
-        </a>
+        {% if basket.item_count > 0 %}
+          <a id="checkout-btn" href="{% url 'checkout' %}" class="btn btn-twc-dark">
+            Secure Checkout
+          </a>
+        {% endif %}
       </div>
+
     </div>
   </section>
 {% endblock %}

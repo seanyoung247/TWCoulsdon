@@ -21,6 +21,8 @@ function update_basket() {
     // Add the no items text
     const html = '<li class="no-basket-items">You have no items in your basket.</li>';
     $( '#basket-list' ).append(html);
+    // Remove the checkout button
+    $( '#checkout-btn' ).remove();
   }
 }
 

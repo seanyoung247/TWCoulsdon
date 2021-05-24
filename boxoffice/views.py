@@ -72,10 +72,6 @@ def add_to_basket(request):
             ticket_type = TicketType.objects.get(id=line['type_id'])
             quantity = int(line['quantity'])
 
-            # if the objects exist and quantity makes sense add to basket.
-            # No checking for availablility is done here. Tickets in the basket
-            # aren't reservered, so we don't really know if all tickets are
-            # definitely available until checkout.
             if date and ticket_type and quantity > 0:
                 add_line_to_basket(request, str(date.id), str(ticket_type.id), quantity)
                 success = True
