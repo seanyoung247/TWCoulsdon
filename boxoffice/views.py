@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.contrib import messages
 
+
 from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
 
@@ -62,6 +63,7 @@ def view_basket(request):
 def add_to_basket(request):
     """ Adds one or more ticket lines to the basket """
     success = False
+    html = ''
     # Get the posted ticket list
     basket_tickets = request.POST.get('tickets')
     if basket_tickets:
@@ -85,9 +87,15 @@ def add_to_basket(request):
                         Not enough tickets available.")
                     success = False
 
+    # Was there a failure?
+    if not success:
+        # Construct a message and send it back to the client
+        html = loader.render_to_string(request,
+            {'message': 'Sorry! There is not enough availability to add these tickets.'})
 
     response = {
         'success': success,
+        'html': html
     }
     return JsonResponse(response)
 
@@ -96,6 +104,7 @@ def add_to_basket(request):
 def update_basket(request):
     """ Updates a single ticket line in the basket """
     success = False
+    html = ''
 
     if set(['date_id','type_id','quantity']).issubset(request.POST):
         date_id = request.POST['date_id']
@@ -110,8 +119,14 @@ def update_basket(request):
                 Not enough tickets available.")
             success = False
 
+    if not success:
+        # Construct a message and send it back to the client
+        html = loader.render_to_string(request,
+            {'message': 'Sorry! There is not enough availability to add these tickets.'})
+
     response = {
         'success': success,
+        'html': html
     }
     return JsonResponse(response)
 
@@ -132,6 +147,7 @@ def remove_from_basket(request):
 
     response = {
         'success': success,
+        'html': html
     }
     return JsonResponse(response)
 
