@@ -33,9 +33,7 @@
     {% endblock %}
 
     <div class="message-container">
-      {% for message in messages %}
-        {% include 'includes/message.html' %}
-      {% endfor %}
+      {% include 'includes/messages.html' %}
     </div>
 
     {% block content %}
