@@ -66,6 +66,10 @@ a:hover {
   color: var(--accent-color);
 }
 
+.light-underline {
+  border-bottom: 1px solid var(--background-color);
+}
+
 /*
  * Custom components
  */
@@ -451,6 +455,17 @@ input[type=number] {
 
 .nav-link:hover {
   color: var(--brand-color);
+}
+
+/*
+ * User management
+ */
+.allauth-form-inner-content {
+  background-color: var(--light-color);
+  border-radius: 10px;
+  box-shadow: 0 0 2px var(--dark-color);
+  margin: 25px 0;
+  padding: 10px;
 }
 
 /*
