@@ -8,16 +8,15 @@ import stripe
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.conf import settings
-
-from events.models import EventDate
+from django.contrib import messages
 
 from .reports import send_ticket_pdf_email
 from .basket import get_ticket_lines_from_basket, empty_basket
-from .models import TicketType, Order
+from .models import Order
 from .forms import OrderForm
 from .context import basket_contents
 from .tickets import (check_basket_availability, create_tickets_for_order,
-                        TicketsNotAvailable)
+                        TicketsNotAvailable, EmptyOrder)
 
 
 def get_checkout_page(request):
@@ -29,14 +28,15 @@ def get_checkout_page(request):
     # Get the shopping basket
     basket = request.session.get('basket', {})
     if not basket:
-        #TODO: add messaging
+        messages.error(request, "Can't checkout: No items in basket.")
         return redirect(f'{reverse("events")}?type=show')
 
     # Are there still enough tickets for this order?
     try:
         check_basket_availability(basket)
-    except TicketsNotAvailable as error:
-        #TODO: add messaging
+    except TicketsNotAvailable:
+        messages.error(request, "Sorry! There are no longer enough tickets \
+            to fulfill your order.")
         return redirect(reverse('view_basket'))
 
     # Get the total cost
@@ -79,11 +79,8 @@ def precheckout_data(request):
         return HttpResponse(status=200)
 
     except TicketsNotAvailable as error:
-        # TODO: django messaging goes here
-        return HttpResponse(content=error, status=400)
-
-    except Exception as error:
-        # TODO: django messaging goes here
+        messages.error(request, "Sorry! There are no longer enough tickets \
+            to fulfill your order.")
         return HttpResponse(content=error, status=400)
 
     return HttpResponse(status=400)
@@ -94,12 +91,13 @@ def complete_checkout(request):
     # Get the shopping basket
     basket = request.session.get('basket', {})
     if not basket:
-        #TODO: django messaging goes here
+        messages.error(request, "Can't checkout: No items in basket.")
         return redirect(f'{reverse("events")}?type=show')
 
     # Do we have all the information we need?
     if not set(['full_name','email','phone_number']).issubset(request.POST):
-        #TODO: django messaging goes here
+        messages.error(request, 'There was an error with your form. \
+            Please double check your information.')
         return redirect(reverse('checkout'))
 
     # Construct form object
@@ -122,12 +120,13 @@ def complete_checkout(request):
         # Add the tickets to the order
         try:
             create_tickets_for_order(order)
-        except TicketsNotAvailable as error:
-            # TODO: django messaging goes here
+        except TicketsNotAvailable:
+            messages.error(request, "Sorry! There are no longer enough tickets \
+                to fulfill your order.")
             order.delete()
             return redirect(reverse('view_bag'))
-        except Exception as error:
-            # TODO: django messaging goes here
+        except EmptyOrder:
+            messages.error(request, "Can't complete order, missing ticket information")
             order.delete()
             return redirect(reverse('view_bag'))
 
