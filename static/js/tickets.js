@@ -215,7 +215,11 @@ $( '#addTicketsToBasket' ).click(function() {
     };
     $.post( '/boxoffice/basket/add/', postData, function(data) {
       if (data.success) {
+        // Adding tickets succeeded
         window.location.href = '/boxoffice/basket';
+      } else {
+        // Adding tickets failed
+        addMessage(data.html);
       }
     });
   } else {
