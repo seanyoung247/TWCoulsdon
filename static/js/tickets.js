@@ -12,6 +12,7 @@ function clearTicketList() {
 $( '.btn-add-tickets' ).click( function() {
   const modal = $('#add-ticket-modal');
   const url = `/boxoffice/buy_tickets/?event=${$( this ).data('event-id')}`;
+  var show_modal = true;
 
   // Set the modal title
   modal.find( '.modal-title' ).text( $( this ).data('event-title') );
@@ -21,13 +22,19 @@ $( '.btn-add-tickets' ).click( function() {
   clearTicketList();
 
   // Request modal HTML from server
+  console.log("here");
   $.get( url, function(data) {
     const formWrapper = $('#add-tickets-form-wrapper');
-    if (data.form) {
+    // Did we recieve the form?
+    if (data.success) {
       formWrapper.html(data.form);
       // Don't let the user select more tickets than there are
       $( '#add-ticket-quantity' ).attr(
         'max', $( '#add-ticket-date' ).find( ':selected' ).data('tickets-left'));
+    } else {
+      addMessage(data.message_html);
+      // Give the modal a chance to be shown then hide it
+      setTimeout(function() {$('#add-ticket-modal').modal('hide')}, 1000);
     }
   });
 
@@ -36,7 +43,6 @@ $( '.btn-add-tickets' ).click( function() {
     keyboard: modal.data('keyboard')
   });
 });
-
 
 // Date checks
 $( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-date', function(e) {
@@ -219,7 +225,7 @@ $( '#addTicketsToBasket' ).click(function() {
         window.location.href = '/boxoffice/basket';
       } else {
         // Adding tickets failed
-        addMessage(data.html);
+        addMessage(data.message_html);
       }
     });
   } else {

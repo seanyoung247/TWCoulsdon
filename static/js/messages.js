@@ -17,7 +17,10 @@ $( '.message-container' ).on( 'click', '.close-message', function(e) {
 
 // Adds the html for a message to the message container and shows it.
 function addMessage(html) {
+  // Construct the new element
   const newMessage = $( html );
+  // Add it to the message container
   $( '.message-container' ).append(newMessage);
+  // Show the message
   newMessage.addClass('show');
 }

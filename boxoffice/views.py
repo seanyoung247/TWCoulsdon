@@ -2,7 +2,7 @@
 import json
 
 from django.shortcuts import render, get_object_or_404
-from django.template import loader, RequestContext
+from django.template import loader
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.contrib import messages
@@ -25,28 +25,41 @@ from .payments import (precheckout_data, get_checkout_page,
 #
 def buy_tickets(request):
     """ Provides the event form data and passes it to the frontend as json """
-
+    form_html = "";
+    message_html = "";
+    success = True
     # Ensure all required data has been sent
     if 'event' not in request.GET or not request.GET['event']:
         messages.error(request, 'No event information provided')
 
     # Get the Event and it's dates
-    event = get_object_or_404(Event, id=request.GET['event'])
-    dates = get_remaining_event_dates(event).order_by('date')
+    try:
+        event = Event.objects.get(id=request.GET['event'])
+        dates = get_remaining_event_dates(event).order_by('date')
 
-    ticket_types = TicketType.objects.all()
+        ticket_types = TicketType.objects.all()
 
-    # Generate the ticket form html
-    context = {
-        'dates': dates,
-        'ticket_types': ticket_types,
-    }
-    form_html = loader.render_to_string(
-        'includes/add_ticket_form.html', context)
+        # Generate the ticket form html
+        context = {
+            'dates': dates,
+            'ticket_types': ticket_types,
+            }
+        form_html = loader.render_to_string(
+            'includes/add_ticket_form.html', context)
+    except Event.DoesNotExist:
+        messages.error(request, "Event does not exist!")
+        success = False
+
+    # If there was a failure we need to generate the message here, because
+    # otherwise it won't show until the page is reloaded.
+    if not success:
+        message_html = loader.render_to_string('includes/messages.html', request=request)
 
     # Send the form to the client
     response = {
-        'form': form_html,
+        'success': success,
+        'message_html': message_html,
+        'form': form_html
     }
     return JsonResponse(response)
 
@@ -63,7 +76,7 @@ def view_basket(request):
 def add_to_basket(request):
     """ Adds one or more ticket lines to the basket """
     success = False
-    html = ''
+    message_html = ''
     # Get the posted ticket list
     basket_tickets = request.POST.get('tickets')
     if basket_tickets:
@@ -89,12 +102,11 @@ def add_to_basket(request):
     # If there was a failure we need to generate the message here, because
     # otherwise it won't show until the page is reloaded.
     if not success:
-        context = RequestContext(request)
-        html = loader.render_to_string('includes/messages.html', request=request)
+        message_html = loader.render_to_string('includes/messages.html', request=request)
 
     response = {
         'success': success,
-        'html': html
+        'message_html': message_html
     }
     return JsonResponse(response)
 
@@ -103,7 +115,7 @@ def add_to_basket(request):
 def update_basket(request):
     """ Updates a single ticket line in the basket """
     success = False
-    html = ''
+    message_html = ''
 
     if set(['date_id','type_id','quantity']).issubset(request.POST):
         date_id = request.POST['date_id']
@@ -119,12 +131,11 @@ def update_basket(request):
             success = False
 
     if not success:
-        context = RequestContext(request)
-        html = loader.render_to_string('includes/messages.html', request=request)
+        message_html = loader.render_to_string('includes/messages.html', request=request)
 
     response = {
         'success': success,
-        'html': html
+        'message_html': message_html
     }
     return JsonResponse(response)
 
@@ -145,7 +156,7 @@ def remove_from_basket(request):
 
     response = {
         'success': success,
-        'html':""
+        'message_html': ""
     }
     return JsonResponse(response)
 

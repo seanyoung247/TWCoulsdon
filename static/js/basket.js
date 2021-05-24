@@ -52,7 +52,7 @@ $( '.basket-update-item' ).click(function() {
         (parseFloat(listItem.data('price')) * quantity).toFixed(2));
       update_basket();
     } else {
-      addMessage(data.html);
+      addMessage(data.message_html);
     }
   });
 
