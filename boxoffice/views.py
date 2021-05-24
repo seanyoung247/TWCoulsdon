@@ -10,6 +10,7 @@ from django.contrib import messages
 from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
 
+
 from .basket import add_line_to_basket, update_line_in_basket, remove_line_from_basket
 from .reports import send_ticket_pdf_http
 from .models import TicketType, Ticket, Order

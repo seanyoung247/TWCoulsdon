@@ -7,7 +7,8 @@ from .queries import get_available_tickets_for_date
 
 
 def check_ticket_available(event_date, quantity):
-    """ Checks that there are enough tickets left for the date passed
+    """
+    Checks that there are enough tickets left for the date passed
 
     Parameters:
     date (EventDate): Date to check
@@ -15,25 +16,22 @@ def check_ticket_available(event_date, quantity):
 
     Returns:
     (boolean): True if enough tickets left
+
     """
     return get_available_tickets_for_date(event_date) >= quantity
 
 
-def check_basket_availability(basket):
-    """ Checks all ticket lines in a basket are available
+def collapse_ticket_lines(basket):
+    """
+    Collapses ticket lines into a single quantity for each date
 
     Parameters:
-    basket (Basket Dictionary): The basket to check
+    basket (Basket Dictionary): The basket to collapse
 
     Returns:
-    (boolean): True if there are enough tickets left
-
-    Raises:
-    (TicketsNotAvailable): If a ticket line can't be fulfilled
+    (Dictionary): The collapsed dictionary
 
     """
-    # Collapse different ticket types in the basket to a single
-    # quantity for each date
     ticket_dates = {}
     for date_id in basket:
         for type_id in basket[date_id]:
@@ -41,6 +39,23 @@ def check_basket_availability(basket):
                 ticket_dates[date_id] += basket[date_id][type_id]
             else:
                 ticket_dates[date_id] = basket[date_id][type_id]
+    return ticket_dates;
+
+
+def check_basket_availability(basket):
+    """
+    Checks all ticket lines in a basket are available
+
+    Parameters:
+    basket (Basket Dictionary): The basket to check
+
+    Raises:
+    (TicketsNotAvailable): If a ticket line can't be fulfilled
+
+    """
+    # Collapse different ticket types in the basket to a single
+    # quantity for each date
+    ticket_dates = collapse_ticket_lines(basket)
 
     # Check the availability for each date.
     for date in ticket_dates:
@@ -50,19 +65,13 @@ def check_basket_availability(basket):
             # If a given date has too few ticket, raise an exception
             raise TicketsNotAvailable(date)
 
-    # If we get here no exception has been raised, so everything
-    # in the basket is available
-    return True
-
 
 def check_order_availabillity(order):
-    """ Checks all ticket lines in an order are available
+    """
+    Checks all ticket lines in an order are available
 
     Parameters:
     order (Order): The order details to check
-
-    Returns:
-    (boolean): True if there are enough tickets left
 
     Raises:
     (TicketsNotAvailable): If a ticket line can't be fulfilled
@@ -71,7 +80,7 @@ def check_order_availabillity(order):
     # Get the basket from the order
     basket = json.loads(order.original_basket)
 
-    return check_basket_availability(basket)
+    check_basket_availability(basket)
 
 
 def create_tickets_for_order(order):
