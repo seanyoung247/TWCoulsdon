@@ -135,6 +135,74 @@ a:hover {
 }
 
 /*
+ * Messaging
+ */
+.message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  position: fixed;
+  top: var(--header-mobile-height);
+  right: 0;
+  z-index: 99999;
+}
+
+.message {
+  display: flex;
+  width: 0;
+  box-shadow: 0 0 5px var(--dark-color);
+  overflow: hidden;
+  transition: width .5s;
+  margin: 5px 0;
+  background-color: var(--light-color);
+}
+
+.message.show {
+  width: 300px;
+}
+
+.message-body {
+  min-width: 265px;
+}
+
+.message.success {
+  border-left: 8px solid green;
+}
+.message.warning {
+  border-left: 8px solid orange;
+}
+.message.error {
+  border-left: 8px solid red;
+}
+.message.info {
+  border-left: 8px solid blue;
+}
+
+.close-message {
+  border-radius: 0;
+  padding: 0;
+}
+
+.close-message:focus,
+.close-message:active {
+  box-shadow: none;
+  border: 1px solid transparent;
+}
+
+.close-message svg {
+  width: 25px;
+  height: 25px;
+  fill: var(--light-color);
+  stroke: var(--dark-color);
+  stroke-width: 0.5;
+}
+
+.close-message:hover svg {
+  fill: var(--brand-color);
+}
+
+/*
  * Removes the spinner controls on number fields, which appear to be
  * buggy with bootstrap and some browsers
  */
@@ -1017,6 +1085,9 @@ input[type="number"].item-line-quantity,
 
 /* Large screens (desktop/laptop) > 960px */
 @media (min-width: 992px) {
+  .message-container {
+    top: var(--header-desktop-height);
+  }
   #home-page-carousel {
     height: 100%;
   }
