@@ -146,11 +146,16 @@ a:hover {
   top: var(--header-mobile-height);
   right: 0;
   z-index: 99999;
+
+  max-height: calc(100vh - var(--header-mobile-height));
+  overflow-y: scroll;
 }
 
 .message {
   display: flex;
+  flex: 1 0 auto;
   width: 0;
+  min-height: 40px;
   box-shadow: 0 0 5px var(--dark-color);
   overflow: hidden;
   transition: width .5s;
@@ -164,6 +169,7 @@ a:hover {
 
 .message-body {
   min-width: 265px;
+  padding: 5px 10px;
 }
 
 .message.success {
@@ -1087,6 +1093,7 @@ input[type="number"].item-line-quantity,
 @media (min-width: 992px) {
   .message-container {
     top: var(--header-desktop-height);
+    max-height: calc(100vh - var(--header-desktop-height));
   }
   #home-page-carousel {
     height: 100%;
