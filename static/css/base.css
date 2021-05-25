@@ -33,6 +33,15 @@ body {
 /*
  * General styles
  */
+.full-height {
+  height: calc(100vh - var(--header-mobile-height));
+}
+
+.center-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 hr {
   border: 0;
@@ -70,6 +79,16 @@ a:hover {
 
 .light-underline {
   border-bottom: 1px solid var(--background-color);
+}
+
+.callout-box {
+  background-color: var(--light-color);
+  border-radius: 10px;
+  box-shadow: 0 0 2px var(--dark-color);
+  margin: 25px 0;
+  padding: 10px;
+  width: 100%;
+  max-width: 500px;
 }
 
 /*
@@ -457,17 +476,6 @@ input[type=number] {
 
 .nav-link:hover {
   color: var(--brand-color);
-}
-
-/*
- * User management
- */
-.allauth-form-inner-content {
-  background-color: var(--light-color);
-  border-radius: 10px;
-  box-shadow: 0 0 2px var(--dark-color);
-  margin: 25px 0;
-  padding: 10px;
 }
 
 /*
@@ -1111,6 +1119,9 @@ input[type="number"].item-line-quantity,
   .message-container {
     top: var(--header-desktop-height);
     max-height: calc(100vh - var(--header-desktop-height));
+  }
+  .full-height {
+    height: calc(100vh - var(--header-desktop-height));
   }
   #home-page-carousel {
     height: 100%;
