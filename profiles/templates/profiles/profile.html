@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}
-  User name here - {{ block.super }}
+  {{ user }}'s profile' - {{ block.super }}
 {% endblock %}
 
 {% block css %}
+  {{ block.super }}
 {% endblock %}
 
 {% block content %}
@@ -18,12 +20,29 @@
     </div>
 
     <div class="row constrain-width basket-page-contents">
-      <div class="col-12 col-lg-6 order-2 order-lg-1">
-
+      <div class="col-12">
+        <form class="row" action="{% url 'profile' %}" method="POST">
+          {% csrf_token %}
+          <div class="col-12 col-md-6">
+            {{ user_form.first_name|as_crispy_field }}
+          </div>
+          <div class="col-12 col-md-6">
+            {{ user_form.last_name|as_crispy_field }}
+          </div>
+          <div class="col-12 col-md-6">
+            {{ user_form.email|as_crispy_field }}
+          </div>
+          <div class="col-12 col-md-6">
+            {{ profile_form.default_phone_number|as_crispy_field }}
+          </div>
+          <div class="col-12 col-md-4 offset-md-4">
+            <input class="btn btn-twc-dark w-100" type="submit" value="submit">
+          </div>
+        </form>
       </div>
 
-      <div class="col-12 col-lg-6 order-1 order-lg-2">
-
+      <div class="col-12">
+        Orders
       </div>
 
     </div>
