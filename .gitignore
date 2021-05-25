@@ -1,6 +1,7 @@
 # test database
 *.sqlite3
 db.json
+home.json
 
 # python
 *.pyc
