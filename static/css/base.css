@@ -173,7 +173,7 @@ a:hover {
   z-index: 99999;
 
   max-height: calc(100vh - var(--header-mobile-height));
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .message {
@@ -439,6 +439,18 @@ input[type=number] {
   margin: 0 5px;
 }
 
+.header-icons .dropdown.show {
+  border-bottom: 1px solid var(--light-color);
+}
+
+.header-icons .list-inline-item > a {
+  color: var(--light-color);
+  text-decoration: none;
+}
+.header-icons .list-inline-item > a:hover {
+  color: var(--light-color);
+}
+
 .icon-user {
   fill: var(--light-color);
   stroke: var(--dark-color);
@@ -463,6 +475,16 @@ input[type=number] {
   fill: var(--brand-color);
   stroke: var(--dark-color);
   strike-width: 1;
+}
+
+.dropdown-menu.user-dropdown {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+.user-dropdown > .dropdown-item:hover {
+  background-color: var(--brand-color);
+  color: var(--light-color);
 }
 
 .nav-link {
