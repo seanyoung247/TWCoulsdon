@@ -33,7 +33,7 @@
 
         {% include 'includes/nav_item.html' with item_url=about_us_url item_text="About" %}
         {% include 'includes/nav_item.html' with item_url=join_us_url item_text="Join Us" %}
-        {% include 'includes/nav_item.html' with item_url=contact_us_url item_text="Contact" %}
+        {% include 'includes/nav_item.html' with item_url=contact_us_url|add:"?page=contact-us" item_text="Contact" %}
       </ul>
     </div>
   </nav>
