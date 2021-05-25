@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+import sys
 import dj_database_url
 from pathlib import Path
 
@@ -24,6 +25,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY', '')
+
+# Forces the site to use HTTPS in production
+if sys.argv[1] != 'runserver':
+     SECURE_SSL_REDIRECT = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ('DEVELOPMENT' in os.environ)
@@ -148,8 +153,6 @@ else:
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
-    # Forces the site to use HTTPS in production
-    SECURE_SSL_REDIRECT = True
 
 WSGI_APPLICATION = 'TWCoulsdon.wsgi.application'
 
