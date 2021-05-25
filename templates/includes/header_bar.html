@@ -25,41 +25,15 @@
         {% url 'events' as event_url %}
         {% url 'category_page' 'about' as about_us_url %}
         {% url 'category_page' 'join' as join_us_url %}
-        <li class="nav-item">
-          {% if event_url|add:'?type=show' == request.get_full_path %}
-            <a class="nav-link active" href="{{ event_url }}?type=show">Productions</a>
-          {% else %}
-            <a class="nav-link" href="{{ event_url }}?type=show">Productions</a>
-          {% endif %}
-        </li>
-        <li class="nav-item">
-          {% if event_url|add:'?type=audio' == request.get_full_path %}
-            <a class="nav-link active" href="{{ event_url }}?type=audio">Atmospherics</a>
-          {% else %}
-            <a class="nav-link" href="{{ event_url }}?type=audio">Atmospherics</a>
-          {% endif %}
-        </li>
-        <li class="nav-item">
-          {% if event_url|add:'?type=video' == request.get_full_path %}
-            <a class="nav-link active" href="{{ event_url }}?type=video">Films</a>
-          {% else %}
-            <a class="nav-link" href="{{ event_url }}?type=video">Films</a>
-          {% endif %}
-        </li>
-        <li class="nav-item">
-          {% if about_us_url == request.path %}
-            <a class="nav-link active" href="{{ about_us_url }}">About</a>
-          {% else %}
-            <a class="nav-link" href="{{ about_us_url }}">About</a>
-          {% endif %}
-        </li>
-        <li class="nav-item">
-          {% if join_us_url == request.path %}
-            <a class="nav-link active" href="{{ join_us_url }}">Join Us</a>
-          {% else %}
-            <a class="nav-link" href="{{ join_us_url }}">Join Us</a>
-          {% endif %}
-        </li>
+        {% url 'category_page' 'contact' as contact_us_url %}
+
+        {% include 'includes/nav_item.html' with item_url=event_url|add:"?type=show" item_text="Productions" %}
+        {% include 'includes/nav_item.html' with item_url=event_url|add:"?type=audio" item_text="Atmospherics" %}
+        {% include 'includes/nav_item.html' with item_url=event_url|add:"?type=video" item_text="Films" %}
+
+        {% include 'includes/nav_item.html' with item_url=about_us_url item_text="About" %}
+        {% include 'includes/nav_item.html' with item_url=join_us_url item_text="Join Us" %}
+        {% include 'includes/nav_item.html' with item_url=contact_us_url item_text="Contact" %}
       </ul>
     </div>
   </nav>
