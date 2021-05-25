@@ -14,7 +14,10 @@ lib64
 pyvenv.cfg
 share/
 
+# helper scripts
 update_static.sh
+set_production.sh
+set_development.sh
 
 # Environment variables
 .env
