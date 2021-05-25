@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div id="header-spacer"></div>
+  <div class="container full-height center-items">
+    <div class="callout-box">
+      {% block error-content %}
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}
