@@ -1177,7 +1177,7 @@ input[type="number"].item-line-quantity,
   .nav-item {
     text-shadow: 2px 1px var(--dark-color);
   }
-  .nav-link.active {
+  .nav-link.active:not(:hover) {
     color: var(--light-color);
     border-bottom: 1px solid var(--accent-color) ;
   }
