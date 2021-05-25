@@ -22,7 +22,6 @@ $( '.btn-add-tickets' ).click( function() {
   clearTicketList();
 
   // Request modal HTML from server
-  console.log("here");
   $.get( url, function(data) {
     const formWrapper = $('#add-tickets-form-wrapper');
     // Did we recieve the form?
@@ -228,8 +227,5 @@ $( '#addTicketsToBasket' ).click(function() {
         addMessage(data.message_html);
       }
     });
-  } else {
-    // Hide modal if no tickets to add
-    modal.modal('hide');
   }
 });
