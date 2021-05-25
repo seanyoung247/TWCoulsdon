@@ -7,10 +7,8 @@ from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.contrib import messages
 
-
 from events.models import Event, EventDate
 from events.queries import get_remaining_event_dates
-
 
 from .tickets import TicketsNotAvailable
 from .basket import (add_line_to_basket, update_line_in_basket,
@@ -95,13 +93,14 @@ def add_to_basket(request):
                     add_line_to_basket(
                         request, str(date.id), str(ticket_type.id), quantity)
                     success = True
-                except TicketsNotAvailable:
-                    messages.error(request, "Can't update tickets in basket: \
-                        Not enough tickets available.")
+                except TicketsNotAvailable as error:
+                    messages.error(request,
+                        f"Can't add tickets to basket: {error.error_text()}")
                     success = False
-    # If there was a failure we need to generate the message here, because
-    # otherwise it won't show until the page is reloaded.
-    if not success:
+
+    if success:
+        messages.success(request, f"Successfully added tickets to basket.")
+    else:
         message_html = loader.render_to_string('includes/messages.html', request=request)
 
     response = {
@@ -125,13 +124,15 @@ def update_basket(request):
         try:
             update_line_in_basket(request, date_id, type_id, int(quantity))
             success = True
-        except TicketsNotAvailable:
-            messages.error(request, "Can't update tickets in basket: \
-                Not enough tickets available.")
+        except TicketsNotAvailable as error:
+            messages.error(request,
+                f"Can't update tickets in basket: {error.error_text()}")
             success = False
 
-    if not success:
-        message_html = loader.render_to_string('includes/messages.html', request=request)
+    if success:
+        messages.success(request, f"Successfully updated tickets in basket.")
+
+    message_html = loader.render_to_string('includes/messages.html', request=request)
 
     response = {
         'success': success,
@@ -144,6 +145,7 @@ def update_basket(request):
 def remove_from_basket(request):
     """ Removes a single ticket line from the basket """
     success = False
+    message_html = ""
 
     # Get the date and type ids of the ticket line to remove
     if 'date_id' in request.POST and 'type_id' in request.POST:
@@ -153,10 +155,13 @@ def remove_from_basket(request):
         remove_line_from_basket(request, date_id, type_id)
         success = True
 
+    if (success):
+        messages.success(request, "Successfully removed tickets from basket.")
+        message_html = loader.render_to_string('includes/messages.html', request=request)
 
     response = {
         'success': success,
-        'message_html': ""
+        'message_html': message_html
     }
     return JsonResponse(response)
 
