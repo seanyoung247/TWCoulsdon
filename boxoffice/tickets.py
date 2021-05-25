@@ -72,7 +72,8 @@ def check_basket_availability(basket):
         event_date = EventDate.objects.get(id=date)
         if not check_ticket_available(event_date, ticket_dates[date]):
             # If a given date has too few ticket, raise an exception
-            raise TicketsNotAvailable(date)
+            raise TicketsNotAvailable(event_date,
+                        get_available_tickets_for_date(event_date))
 
 
 def check_order_availabillity(order):
@@ -144,8 +145,17 @@ class EmptyOrder(Exception):
 
 class TicketsNotAvailable(Exception):
     """ Raised if a ticket line can not be fulfilled """
-    def __init__(self, date_id):
+    def __init__(self, event_date, available):
         # Create the exception
         Exception.__init__(self, "Not enough tickets to fulfill order")
         # Set properties
-        self.date_id = date_id
+        self.event_date = event_date
+        self.available = available
+
+    def error_text(self):
+        if self.event_date:
+            text = f"Not enough tickets available. {self.available} available \
+                for {self.event_date.date.strftime('%d/%m/%Y - %H:%M')}"
+        else:
+            text = "Not enough tickets available."
+        return text
