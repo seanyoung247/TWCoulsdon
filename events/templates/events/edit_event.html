@@ -2,8 +2,7 @@
 {% load static %}
 {% load core_tools %}
 {% load event_tools %}
-{% load boxoffice_tools %}
-{% load embed_video_tags %}
+{% load crispy_forms_tags %}
 
 {% block title %}
   {# Are we editing or adding an event? #}
@@ -47,4 +46,42 @@
         </div>
 
       </div>
+      <div class="row constrain-width event-gallery">
+        <div class="col-12">
+          {% if images %}
+            <h3>Add Gallery Images (<span id="gallery-image-count">{{ images.count }}</span>)</h3>
+          {% else %}
+            <h3>Add Gallery Images (<span id="gallery-image-count">0</span>)</h3>
+          {% endif %}
+          <ul id="add_gallery_list">
+            {# Show the add image control #}
+            <li id="add-image-item" class="upload-image-item">
+              <label for="add-image-chooser">
+                <img id="add-image-preview" class="upload-image-preview"
+                    src="{{ None|check_image }}" data-no-image="{{ None|check_image }}">
+                <input id="add-image-chooser" type="file" accept="image/png, image/jpeg">
+              </label>
+              <div>
+                {{ image_form.name|as_crispy_field }}
+                {{ image_form.description|as_crispy_field }}
+              </div>
+            </li>
+            {# Add any existing images #}
+            {% for image in images %}
 
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </form>
+  </section>
+
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script>const csrfToken = "{{ csrf_token }}";</script>
+  <script src="https://cdn.tiny.cloud/1/ciyu0kn1e6maiyjus8my7wmgsbqjjhk5331ktzw8c0tt2vh6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script src="{% static 'js/scroller.js' %}"></script>
+  <script src="{% static 'events/js/edit_events.js' %}"></script>
+{% endblock %}
