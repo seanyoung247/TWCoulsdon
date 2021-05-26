@@ -56,7 +56,8 @@ def order_history(request, order_number):
     return render(request, 'boxoffice/checkout_success.html', context)
 
 
-@require_POST
-@login_required
-def load_order_page(request, page):
-    pass
+# Retained for future use
+# @require_POST
+# @login_required
+# def load_order_page(request, page):
+#     pass
