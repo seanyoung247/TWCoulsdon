@@ -240,7 +240,15 @@ show pages.
 
 ### Layout
 
-<discussing of existing website here>
+The group's current online presence can be seen [here](https://twcoulsdon.org.uk/).
+The current site is implemented in wordpress and uses a third party website for ticketing.
+Members have voiced a number of issues with the current site:
+- Lack of control over styling of new pages.
+  - Further, the generated pages look significantly different to what appears during editing making it difficult to get the look required.
+- The third party ticketing website requires redirecting to a third party.
+  - Boxoffice is displeased with the reporting options available from the ticketing site.
+  - Boxoffice are unable to style tickets.
+- In general the styling of the site is starting to become dated, and lacks the dynamic elements that are becoming standard with HTML5.
 
 The source files for the wireframes can be found [here](https://whimsical.com/twcoulsdon-MnWUe2AJ69HJn9choBeiNd).
 
