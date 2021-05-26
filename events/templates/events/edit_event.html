@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% load core_tools %}
+{% load event_tools %}
+{% load boxoffice_tools %}
+{% load embed_video_tags %}
+
+{% block title %}
+  {# Are we editing or adding an event? #}
+  {% if event %}
+    Editing: {{ event.title }} - {{ block.super }}
+  {% else %}
+    Adding event - {{ block.super }}
+  {% endif %}
+{% endblock %}
+
+

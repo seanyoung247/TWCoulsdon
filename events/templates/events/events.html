@@ -5,6 +5,11 @@
   {% if event_type %}{{ event_type.display_name }}s - {% endif %}{{ block.super }}
 {% endblock %}
 
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'events/css/events.css' %}">
+{% endblock %}
+
 {% block content %}
   <div id="header-spacer"></div>
   <section class="container-fluid">

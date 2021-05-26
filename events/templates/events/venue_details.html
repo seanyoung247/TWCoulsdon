@@ -7,9 +7,12 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'ol-maps/css/ol.css' %}" type="text/css">
   {{ block.super }}
+
+  <link rel="stylesheet" href="{% static 'ol-maps/css/ol.css' %}">
+  <link rel="stylesheet" href="{% static 'events/css/events.css' %}">
 {% endblock %}
+
 
 {% block content %}
   <div id="header-spacer"></div>
