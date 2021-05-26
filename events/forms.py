@@ -1,6 +1,9 @@
 """ Defines the forms used by the events app """
-
+from datetime import datetime, timedelta
 from django import forms
+from django.utils import timezone
+from tinymce.widgets import TinyMCE
+
 from .models import EventDate, Event, Venue, Image
 
 
@@ -10,13 +13,19 @@ class EventDateForm(forms.ModelForm):
         model = EventDate
         # Event is generated automatically on creation
         exclude = ('event',)
+        widgets = {
+            'date': forms.SplitDateTimeWidget(
+                    attrs={'class': 'shite'},
+                    date_attrs={'type': 'date'},
+                    time_attrs={'type': 'time'},
+                )
+        }
 
     def __init__(self, *args, **kwargs):
         """ Initialises the EventDate form """
         super().__init__(*args, **kwargs)
 
-        self.fields['date'].widget.attrs['placeholder'] = 'Date'
-        self.fields[field].label = False
+        self.fields['date'].label = False
 
 
 class ImageForm(forms.ModelForm):
@@ -62,9 +71,13 @@ class EventForm(forms.ModelForm):
             'author': 'Event Author',
             'tagline': 'Tag Line',
             'description': 'Description',
-            'type': 'Event Type',
-            'venue': 'Venue',
-            'content': 'Youtube Video',
+            'type': 'Select Event Type',
+            'venue': 'Select Venue',
+            'content': 'Youtube video embed link',
+        }
+        help_text = {
+            'content': 'You can get this link from youtube by right clicking on \
+                        the video and selecting "copy video url".'
         }
 
         self.fields['title'].widget.attrs['autofocus'] = True
@@ -75,7 +88,9 @@ class EventForm(forms.ModelForm):
             else:
                 placeholder = placeholders[field]
 
+            if field in help_text:
+                self.fields[field].help_text = help_text[field]
+
             self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].empty_label = None
             self.fields[field].label = False
-
-
