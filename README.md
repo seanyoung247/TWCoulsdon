@@ -242,6 +242,9 @@ show pages.
 
 <discussing of existing website here>
 
+The source files for the wireframes can be found [here](https://whimsical.com/twcoulsdon-MnWUe2AJ69HJn9choBeiNd).
+
+
 #### Landing Page
 
 The landing page is used to briefly showcase the group and it's upcoming events.
@@ -281,21 +284,21 @@ followed by past events by default.
 <details>
 <summary><b>Phone</b></summary>
 
-![Landing Page Phone Layout](design/wireframes/events_list/phone.png)
+![Events List Phone Layout](design/wireframes/events_list/phone.png)
 
 </details>
 
 <details>
 <summary><b>Tablet</b></summary>
 
-![Landing Page Tablet Layout](design/wireframes/events_list/tablet.png)
+![Events List Tablet Layout](design/wireframes/events_list/tablet.png)
 
 </details>
 
 <details>
 <summary><b>Desktop</b></summary>
 
-![Landing Page Desktop Layout](design/wireframes/events_list/desktop.png)
+![Events List Desktop Layout](design/wireframes/events_list/desktop.png)
 
 </details>
 
@@ -313,11 +316,11 @@ the page contents below.
 
 <h6>Above the fold</h6>
 
-![Landing Page Phone Layout](design/wireframes/event_page/title_phone.png)
+![Event Page Phone Layout](design/wireframes/event_page/title_phone.png)
 
 <h6>Below the fold</h6>
 
-![Landing Page Desktop Layout](design/wireframes/event_page/content_phone.png)
+![Event Page Desktop Layout](design/wireframes/event_page/content_phone.png)
 
 </details>
 
@@ -326,7 +329,7 @@ the page contents below.
 
 <h6>Above the fold</h6>
 
-![Landing Page Tablet Layout](design/wireframes/event_page/title_tablet.png)
+![Event Page Tablet Layout](design/wireframes/event_page/title_tablet.png)
 
 <h6>Below the fold</h6>
 
@@ -339,11 +342,43 @@ the page contents below.
 
 <h6>Above the fold</h6>
 
-![Landing Page Desktop Layout](design/wireframes/event_page/title_desktop.png)
+![Event Page Desktop Layout](design/wireframes/event_page/title_desktop.png)
 
 <h6>Below the fold</h6>
 
-![Landing Page Desktop Layout](design/wireframes/event_page/content_desktop.png)
+![Event Page Desktop Layout](design/wireframes/event_page/content_desktop.png)
+
+</details>
+
+#### Add/Edit Event Page
+
+The Add/Edit event page allows adding new events and editing existing ones,
+including the related models such as dates and images.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Edit Event Phone Layout](design/wireframes/edit_event_page/phone.png)
+
+![Edit Event Desktop Layout](design/wireframes/edit_event_page/phone_delete_modal.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Edit Event Tablet Layout](design/wireframes/edit_event_page/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Edit Event Desktop Layout](design/wireframes/edit_event_page/desktop.png)
+
+![Edit Event Desktop Layout](design/wireframes/edit_event_page/desktop_delete_modal.png)
 
 </details>
 
