@@ -35,27 +35,29 @@
           <div class="col-12 col-md-6">
             {{ profile_form.default_phone_number|as_crispy_field }}
           </div>
-          <div class="col-12 col-md-4 offset-md-4">
-            <input class="btn btn-twc-dark w-100" type="submit" value="submit">
+          <div class="col-12 col-md-4 offset-md-8">
+            <input class="btn btn-twc-dark w-100" type="submit" value="Update profile">
           </div>
         </form>
       </div>
-
+    </div>
+    <div class="row constrain-width basket-page-contents">
       <div class="col-12">
         <h3 class="text-center my-4">Your Orders</h3>
-        <ul>
-          <li class="row">
-            <div class="col-3">Order No.</div>
-            <div class="col-3">Date</div>
-            <div class="col-4">Tickets</div>
-            <div class="col-2">Order Total</div>
+        <ul id="basket-list">
+          <li class="basket-list-item">
+            <div class="row">
+              <div class="col-3 col-md-2">Order No.</div>
+              <div class="col-6 col-md-3">Date</div>
+              <div class="d-none d-md-block col-md-5">Tickets</div>
+              <div class="col-3 col-md-2 text-right">Order Total</div>
+            </div>
           </li>
           {% for order in orders %}
             {% include 'includes/order_line.html' with order=order %}
           {% endfor %}
         </ul>
       </div>
-
     </div>
   </section>
 
