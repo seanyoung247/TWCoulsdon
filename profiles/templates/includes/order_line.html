@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-3 col-md-2">
       <a href="{% url 'order_history' order.order_number %}">
-        {{ order.order_number|truncatechars:8 }}
+        {{ order.order_number|truncatechars:6 }}
       </a>
     </div>
     <div class="col-6 col-md-3">{{ order.date }}</div>
