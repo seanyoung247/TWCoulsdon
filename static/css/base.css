@@ -840,12 +840,6 @@ input[type="number"].item-line-quantity,
     height: var(--header-desktop-height);
     padding-top: var(--header-desktop-height);
   }
-  #event-list {
-    margin: 35px;
-  }
-  .event-showcase-title {
-    font-size: 4rem;
-  }
 }
 
  /* Extra Large screens (desktop/laptop) > 1140px */
