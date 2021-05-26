@@ -81,8 +81,8 @@ def add_line_to_basket(request, date_id, type_id, quantity):
 
     if date_id in basket:
         # How many tickets are there already in the basket for this date?
-        for type_id in basket[date_id]:
-            date_total += basket[date_id][type_id]
+        for ticket_type in basket[date_id]:
+            date_total += basket[date_id][ticket_type]
             # Are there enough tickets available to add the new lines?
             if not check_ticket_available(date_id, date_total + quantity):
                 event_date = _get_event_date_from_id(date_id)
@@ -90,6 +90,7 @@ def add_line_to_basket(request, date_id, type_id, quantity):
                     raise TicketsNotAvailable(event_date, get_available_tickets_for_date(event_date))
                 else:
                     raise TicketsNotAvailable(event_date, 0)
+
         # Are we updating an existing line or adding a new one?
         if type_id in basket[date_id]:
             basket[date_id][type_id] += quantity
