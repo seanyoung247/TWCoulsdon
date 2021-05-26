@@ -20,7 +20,7 @@ class Ticket(models.Model):
     """ Defines a single ticket """
     ticket_id = models.CharField(max_length=32, null=False, blank=False, editable=False)
     order = models.ForeignKey('Order', null=False, blank=False,
-                                on_delete=models.CASCADE, related_name="orders")
+                                on_delete=models.CASCADE, related_name="tickets")
     type = models.ForeignKey('TicketType', null=False, blank=False, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, null=False, blank=False, on_delete=models.CASCADE)
     date = models.ForeignKey(EventDate, null=False, blank=False, on_delete=models.CASCADE)
@@ -68,7 +68,7 @@ class Order(models.Model):
         Recieves the on save/delete signals when related tickets are saved or deleted
         and updates the order total.
         """
-        self.order_total = self.orders.aggregate(Sum('type__price'))['type__price__sum'] or 0
+        self.order_total = self.tickets.aggregate(Sum('type__price'))['type__price__sum'] or 0
         # grand_total and order_total are currently the same. grand_total is
         # retained for future use (might be needed for charitable gifts or tax calculation)
         self.grand_total = self.order_total
