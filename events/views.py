@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from boxoffice.models import TicketType
 from .queries import query_events
 from .models import Event, ShowType, EventDate, Image, Venue
+from .forms import EventDateForm, ImageForm, EventForm
 
 
 # Event list page view
@@ -104,6 +105,39 @@ def event_details(request, event_slug):
         "images": images,
     }
     return render(request, 'events/event_details.html', context)
+
+
+def edit_event(request):
+    """ A view to show the event add/edit form """
+    event = None
+
+    if request.method == 'POST':
+        #TODO deal with event post
+        pass
+    else:
+        # Is there an event variable in the request?
+        if 'event' in request.GET:
+            #TODO: Edit existing event
+            # Get the event
+            event = get_object_or_404(Event, id=int(request.GET['page']))
+            # Get associated objects
+            dates = EventDate.objects.filter(event=event)
+            images = Images.objects.filter(event=event)
+            # EventDateForm
+            # ImageForm
+            # EventForm
+        else:
+            event_form = EventForm()
+            date_forms = [EventDateForm(),]
+            image_forms = [ImageForm(),]
+
+    context = {
+        'event': event,
+        'event_form': EventForm,
+        'date_forms': date_forms,
+        'image_forms': image_forms,
+    }
+    return render(request, 'events/edit_event.html', context)
 
 
 # Venue page view
