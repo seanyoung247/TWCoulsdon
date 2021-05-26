@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
@@ -40,4 +41,22 @@ def profile(request):
     }
 
     return render(request, 'profiles/profile.html', context)
-    
+
+
+def order_history(request, order_number):
+    order = get_object_or_404(Order, order_number=order_number)
+
+    messages.info(request, f'This is a past confirmation. A confirmation email was sent on the order date.')
+
+    context = {
+        'order': order,
+        'from_profile': True,
+    }
+
+    return render(request, 'boxoffice/checkout_success.html', context)
+
+
+@require_POST
+@login_required
+def load_order_page(request, page):
+    pass
