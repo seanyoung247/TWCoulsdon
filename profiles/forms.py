@@ -8,10 +8,10 @@ from .models import UserProfile
 
 
 class UserInfoForm(forms.ModelForm):
-    """ Exposes some of the user models forms for  """
+    """ Exposes some of the user models fields for updating """
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('first_name', 'last_name', 'email',)
 
     def __init__(self, *args, **kwargs):
         """ Initialises the user form """
@@ -30,7 +30,7 @@ class UserInfoForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
-    """ Creates forms for the UserProfile model """
+    """ Creates a form for the UserProfile model """
     class Meta:
         model = UserProfile
         exclude = ('user',)
