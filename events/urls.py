@@ -7,4 +7,5 @@ urlpatterns = [
     path('lazy_load/', views.lazy_load_events, name='lazy_load_events'),
     path('venue/<venue_id>', views.venue_details, name='venue_details'),
     path('<event_slug>/', views.event_details, name='event_details'),
+    path('edit_event/', views.edit_event, name='edit_event'),
 ]
