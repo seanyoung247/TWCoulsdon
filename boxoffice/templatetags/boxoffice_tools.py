@@ -6,9 +6,11 @@ from django.utils import timezone
 from django.shortcuts import reverse
 
 import segno
+import json
 
 from events.models import Event, EventDate
 from boxoffice.queries import get_available_tickets_for_event, get_available_tickets_for_date
+from boxoffice.basket import get_ticket_lines_from_basket
 
 register = template.Library()
 
@@ -49,3 +51,9 @@ def ticket_qr_code(request, ticket_id):
             validate_ticket_url(request, ticket_id),
             micro=False
         ).svg_data_uri(scale=2)
+
+
+@register.filter(name='format_basket')
+def format_basket(basket):
+    """ Formats a text basket (such as one stashed in an order) into an object list """
+    return get_ticket_lines_from_basket(json.loads(basket))
