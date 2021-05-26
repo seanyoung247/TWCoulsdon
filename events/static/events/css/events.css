@@ -169,8 +169,6 @@
   background-color: var(--light-color);
 }
 
-.event-side-panel {}
-
 .event-panel {
   padding-bottom: 20px;
   margin-bottom: 20px;
@@ -355,18 +353,35 @@
   list-style: none;
 }
 
-#add-image-chooser {
+#image-upload {
+  width: 125px;
+}
+
+#image-upload > label {
+  cursor: pointer;
+}
+
+.hidden-image-input {
   opacity: 0;
   width: 0;
   height: 0;
-}
-
-.upload-image-item {
-  display:flex;
 }
 
 .upload-image-preview {
   width: 125px;
   height: 125px;
   object-fit: cover;
+}
+
+.add-image-invalid {
+  border: 1px solid red;
+}
+
+@media (min-width: 992px) {
+  #event-list {
+    margin: 35px;
+  }
+  .event-showcase-title {
+    font-size: 4rem;
+  }
 }

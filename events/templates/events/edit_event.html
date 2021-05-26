@@ -21,7 +21,12 @@
 {% block content %}
   <div id="header-spacer"></div>
   <section class="container-fluid">
-    <form action="">
+    <form method="POST" action="{% url 'edit_event' %}">
+      {% csrf_token %}
+      {% if event %}
+        <input type="hidden" name="event_id" value="{{ event.id }}">
+      {% endif %}
+
       <div class="row event-content constrain-width">
         <div class="col-12">
           {{ event_form.content|as_crispy_field }}
@@ -30,6 +35,7 @@
         <div class="col-12 col-md-4 order-md-2 mt-3 event-side-panel">
           {{ event_form.type|as_crispy_field }}
           {{ event_form.venue|as_crispy_field }}
+          <button id="#add-date-btn" type="button"></button>
         </div>
 
         <div class="col-12 col-md-8 order-md-1 event-description">
@@ -48,29 +54,51 @@
       </div>
       <div class="row constrain-width event-gallery">
         <div class="col-12">
-          {% if images %}
-            <h3>Add Gallery Images (<span id="gallery-image-count">{{ images.count }}</span>)</h3>
-          {% else %}
-            <h3>Add Gallery Images (<span id="gallery-image-count">0</span>)</h3>
-          {% endif %}
+          <h3>Gallery list</h3>
+          <button id="add-image-btn" class="btn btn-twc-dark mb-2" type="button" data-no-image="{{ None|check_image }}">
+            Add Image
+          </button>
           <ul id="add_gallery_list">
-            {# Show the add image control #}
-            <li id="add-image-item" class="upload-image-item">
-              <label for="add-image-chooser">
-                <img id="add-image-preview" class="upload-image-preview"
-                    src="{{ None|check_image }}" data-no-image="{{ None|check_image }}">
-                <input id="add-image-chooser" type="file" accept="image/png, image/jpeg">
-              </label>
-              <div>
-                {{ image_form.name|as_crispy_field }}
-                {{ image_form.description|as_crispy_field }}
-              </div>
-            </li>
             {# Add any existing images #}
             {% for image in images %}
-
+              <li class="upload-image-item">
+                <div class="row">
+                  <label>
+                    <img class="upload-image-preview"
+                        src="{{ image.image|check_image }}">
+                    <input name="existing-image" type="hidden" value="{{ image.id }}">
+                    <input class="image-chooser hidden-image-input" name="new-image" type="file" accept="image/png, image/jpeg">
+                  </label>
+                  <div class="col text-right">
+                    <input name="image-name" class="form-control mb-1" type="text" placeholder="Image name"
+                            value="{{ image.name }}" required>
+                    <input name="image-description" class="form-control mb-1"
+                            type="text" placeholder="Image description"
+                            value="{% if image.description %}{{ image.description }}{% endif %}">
+                    <input name="title-image" type="radio">
+                    <button class="remove-image-btn btn btn-twc-brand" type="button">
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </li>
             {% endfor %}
           </ul>
+        </div>
+      </div>
+      <div class="row constrain-width mb-5">
+        <div class="col-12 col-sm-4 mb-2 text-center text-sm-left">
+          <a class="btn btn-twc-dark w-75" href="{% url 'events' %}?type=show">Cancel</a>
+        </div>
+        <div class="col-12 col-sm-4 mb-2 text-center">
+          <button class="btn btn-twc-brand w-75" type="button">Delete Event</button>
+        </div>
+        <div class="col-12 col-sm-4 mb-2 text-center text-sm-right">
+          {% if event %}
+            <input type="submit" class="btn btn-twc-dark w-75" value="Update Event">
+          {% else %}
+            <input type="submit" class="btn btn-twc-dark w-75" value="Add Event">
+          {% endif %}
         </div>
       </div>
     </form>
