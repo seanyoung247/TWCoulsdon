@@ -2,7 +2,6 @@
 {% load thumbnail %}
 
 {% if item %}
-
   <a
     class="gallery-image-link"
     data-target="#gallery-modal"
@@ -11,6 +10,4 @@
 
     <img class="gallery-image-tile" src="{{ item.image.gallery|check_image }}" alt="">
   </a>
-
 {% endif %}
-
