@@ -110,6 +110,8 @@ def event_details(request, event_slug):
 def edit_event(request):
     """ A view to show the event add/edit form """
     event = None
+    dates = None
+    images = None
 
     if request.method == 'POST':
         #TODO deal with event post
@@ -119,23 +121,23 @@ def edit_event(request):
         if 'event' in request.GET:
             #TODO: Edit existing event
             # Get the event
-            event = get_object_or_404(Event, id=int(request.GET['page']))
+            event = get_object_or_404(Event, id=int(request.GET['event']))
             # Get associated objects
             dates = EventDate.objects.filter(event=event)
-            images = Images.objects.filter(event=event)
-            # EventDateForm
-            # ImageForm
-            # EventForm
+            images = Image.objects.filter(event=event)
+
+            event_form = EventForm(instance=event)
+            image_form = ImageForm()
         else:
             event_form = EventForm()
-            date_forms = [EventDateForm(),]
-            image_forms = [ImageForm(),]
+            image_form = ImageForm()
 
     context = {
         'event': event,
-        'event_form': EventForm,
-        'date_forms': date_forms,
-        'image_forms': image_forms,
+        'dates': dates,
+        'images': images,
+        'event_form': event_form,
+        'image_form': image_form,
     }
     return render(request, 'events/edit_event.html', context)
 
