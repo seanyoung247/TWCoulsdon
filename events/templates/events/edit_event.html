@@ -14,4 +14,37 @@
   {% endif %}
 {% endblock %}
 
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'events/css/events.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div id="header-spacer"></div>
+  <section class="container-fluid">
+    <form action="">
+      <div class="row event-content constrain-width">
+        <div class="col-12">
+          {{ event_form.content|as_crispy_field }}
+        </div>
+
+        <div class="col-12 col-md-4 order-md-2 mt-3 event-side-panel">
+          {{ event_form.type|as_crispy_field }}
+          {{ event_form.venue|as_crispy_field }}
+        </div>
+
+        <div class="col-12 col-md-8 order-md-1 event-description">
+          <div class="row">
+            <div class="col-12 col-md-8">
+              {{ event_form.title|as_crispy_field }}
+            </div>
+            <div class="col-12 col-md-4">
+              {{ event_form.author|as_crispy_field }}
+            </div>
+          </div>
+          {{ event_form.tagline|as_crispy_field }}
+          {{ event_form.description|as_crispy_field }}
+        </div>
+
+      </div>
 
