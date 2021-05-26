@@ -1,5 +1,5 @@
 """ Defines views for the Event app """
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from django.db.models import Min, Max
@@ -114,12 +114,14 @@ def edit_event(request):
     images = None
 
     if request.method == 'POST':
-        #TODO deal with event post
-        pass
+        # Get the event data
+        # Get the event dates
+        # Get the gallery images
+        
+        return redirect(f'{reverse("events")}?type=show')
     else:
         # Is there an event variable in the request?
         if 'event' in request.GET:
-            #TODO: Edit existing event
             # Get the event
             event = get_object_or_404(Event, id=int(request.GET['event']))
             # Get associated objects
@@ -137,7 +139,6 @@ def edit_event(request):
         'dates': dates,
         'images': images,
         'event_form': event_form,
-        'image_form': image_form,
     }
     return render(request, 'events/edit_event.html', context)
 
