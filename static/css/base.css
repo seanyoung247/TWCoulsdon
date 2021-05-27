@@ -100,11 +100,14 @@ a:hover {
   border: 1px solid var(--dark-color);
   text-shadow: none;
 }
-
 .btn-twc-light:hover {
   color: var(--light-color);
   background-color: var(--dark-color);
   border: 1px solid var(--dark-color);
+}
+.btn-twc-light:hover:disabled {
+  color: var(--dark-color);
+  background-color: var(--light-color);
 }
 
 .btn-twc-dark {
@@ -113,10 +116,13 @@ a:hover {
   border: 1px solid var(--dark-color);
   text-shadow: none;
 }
-
 .btn-twc-dark:hover {
   color: var(--dark-color);
   background-color: var(--light-color);
+}
+.btn-twc-dark:hover:disabled {
+  color: var(--light-color);
+  background-color: var(--dark-color);
 }
 
 .btn-twc-brand {
@@ -125,10 +131,13 @@ a:hover {
   border: 1px solid var(--brand-color);
   text-shadow: none;
 }
-
 .btn-twc-brand:hover {
   color: var(--brand-color);
   background-color: var(--light-color);
+}
+.btn-twc-brand:hover:disabled {
+  color: var(--light-color);
+  background-color: var(--brand-color);
 }
 
 .btn-twc-accent {
@@ -137,11 +146,15 @@ a:hover {
   border: 1px solid var(--accent-color);
   text-shadow: none;
 }
-
 .btn-twc-accent:hover {
   color: var(--accent-color);
   background-color: var(--light-color);
 }
+.btn-twc-accent:hover:disabled {
+  color: var(--light-color);
+  background-color: var(--accent-color);
+}
+
 
 .form-control {
   border-color: var(--dark-color);
