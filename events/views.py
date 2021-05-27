@@ -1,4 +1,7 @@
 """ Defines views for the Event app """
+import json
+
+from datetime import datetime
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
@@ -6,6 +9,7 @@ from django.db.models import Min, Max
 from django.template import loader
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from django.utils import timezone
 
 from boxoffice.models import TicketType
 from .queries import query_events
@@ -112,10 +116,16 @@ def edit_event(request):
     event = None
     dates = None
     images = None
+    success = False
+    event_url = None
+    message_html = ""
 
     if request.method == 'POST':
         try:
-            # Get the event data
+            # Is this an existing event?
+            if 'event_id' in request.POST:
+                event = Event.objects.get(id=request.POST['event_id'])
+            # Create the event data
             event_data = {
                 'title': request.POST['title'],
                 'author': request.POST['author'],
@@ -125,6 +135,53 @@ def edit_event(request):
                 'venue': request.POST['venue'],
                 'content': request.POST['content'],
             }
+            if event:
+                event_form = EventForm(event_data, instance=event)
+            else:
+                event_form = EventForm(event_data)
+            # Is the data valid?
+            if event_form.is_valid():
+                event_form.save()
+
+            # Create the event dates
+            print(event.id)
+            for date in json.loads(request.POST['dates']):
+                date_data = {
+                    'event': event,
+                    'date': f"{date['date']} {date['time']}",
+                }
+                if int(date['date_id']) >= 0:
+                    date_form = EventDateForm(date_data,
+                        instance=EventDate.objects.get(id=date['date_id']))
+                else:
+                    date_form = EventDateForm(date_data)
+
+                print(date_form.is_valid())
+                if date_form.is_valid():
+                    date_form.save()
+
+        except KeyError:
+            messages.error(request, "Unable to update event: missing required data. \
+                Please check your submission and try again.")
+            success = False
+
+        except Event.DoesNotExist:
+            messages.error(request, "Unable to update event: event not found.")
+            success = False
+
+        except EventDate.DoesNotExist:
+            messages.error(request, "Unable to update event: dates not found.")
+            success = False
+
+        # Render any messages
+        message_html = loader.render_to_string('includes/messages.html', request=request)
+        response = {
+            'success': success,
+            'event_url': event_url,
+            'message_html': message_html,
+        }
+        return JsonResponse(response)
+
     else:
         # Is there an event variable in the request?
         if 'event' in request.GET:
