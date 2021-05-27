@@ -3,6 +3,8 @@ import json
 
 from datetime import datetime
 from django.shortcuts import render, reverse, redirect, get_object_or_404
+from django.contrib.admin.views.decorators import staff_member_required
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
 from django.db.models import Min, Max
@@ -111,6 +113,7 @@ def event_details(request, event_slug):
     return render(request, 'events/event_details.html', context)
 
 
+@staff_member_required
 def edit_event(request):
     """ A view to show the event add/edit form """
     event = None
@@ -204,6 +207,15 @@ def edit_event(request):
         'event_form': event_form,
     }
     return render(request, 'events/edit_event.html', context)
+
+
+@staff_member_required
+@require_POST
+def remove_date(request):
+    if "date_id" in request.POST:
+        pass
+
+    return {'success': True}
 
 
 # Venue page view
