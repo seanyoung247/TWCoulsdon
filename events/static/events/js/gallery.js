@@ -26,7 +26,7 @@ $('.gallery-image-link').click(function(){
   // Get the modal for displaying the image
   const imageModal = $( current.data( "target" ) );
   // Set the image and caption
-  imageModal.find('img').attr('src', current.data( 'image' )).attr('alt', $( this ).data( 'description' ));
+  imageModal.find('#gallery-image').attr('src', current.data( 'image' )).attr('alt', $( this ).data( 'description' ));
   imageModal.find('#gallery-image-title').text(current.data( 'description' ));
   // Set the previous and next links
   prevBtn.data( 'target', getPreviousItem(current));
