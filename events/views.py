@@ -153,7 +153,7 @@ def edit_event(request):
                     'event': event,
                     'date': f"{date['date']} {date['time']}",
                 }
-                if int(date['date_id']) >= 0:
+                if int(date['date_id']) > 0:
                     date_form = EventDateForm(date_data,
                         instance=EventDate.objects.get(id=date['date_id']))
                 else:
@@ -215,7 +215,10 @@ def remove_date(request):
     if "date_id" in request.POST:
         pass
 
-    return {'success': True}
+    response = {
+        'success': True
+    }
+    return JsonResponse(response)
 
 
 # Venue page view
