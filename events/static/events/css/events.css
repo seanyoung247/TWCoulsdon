@@ -348,9 +348,21 @@
 /*
  * Edit event page
  */
-#add_gallery_list {
+#add-date-list,
+#add-gallery-list {
   padding: 0;
   list-style: none;
+}
+
+.add-date-item {
+  display: flex;
+}
+.add-date-item input {
+  padding-left: 0.1rem;
+  padding-right: 0.1rem;
+}
+.add-date-item input[type='time'] {
+  width: 150px;
 }
 
 #image-upload {
