@@ -179,8 +179,9 @@ def edit_event(request):
 
         # Create the event url
         event_url = reverse('event_details', args=[event.slug])
-        # Render any messages
-        message_html = loader.render_to_string('includes/messages.html', request=request)
+        # If there was a failure, render any messages
+        if not success:
+            message_html = loader.render_to_string('includes/messages.html', request=request)
         response = {
             'success': success,
             'event_url': event_url,
@@ -232,6 +233,24 @@ def remove_date(request):
         'message_html': message_html,
     }
     return JsonResponse(response)
+
+
+@staff_member_required
+@require_POST
+def add_image(request):
+    return JsonResponse({'success':True})
+
+
+@staff_member_required
+@require_POST
+def edit_image(request):
+    return JsonResponse({'success':True})
+
+
+@staff_member_required
+@require_POST
+def remove_image(request):
+    return JsonResponse({'success':True})
 
 
 # Venue page view
