@@ -228,7 +228,8 @@ def remove_date(request):
 
     message_html = loader.render_to_string('includes/messages.html', request=request)
     response = {
-        'success': True
+        'success': True,
+        'message_html': message_html,
     }
     return JsonResponse(response)
 
