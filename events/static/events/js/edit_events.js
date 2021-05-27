@@ -3,7 +3,7 @@
  */
 
 /*
- * Addiing dates
+ * Adding dates
  */
 // Add a new date
 $( '#add-date-btn' ).click(function(e) {
