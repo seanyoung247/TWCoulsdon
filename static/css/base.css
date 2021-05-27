@@ -260,6 +260,7 @@ input[type=number] {
   list-style-type: none;
   overflow: hidden; /*scroll;*/
   white-space: nowrap;
+  min-height: 125px;
   font-size: 0;
   margin: 0;
   padding: 5px 0;
