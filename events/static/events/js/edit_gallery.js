@@ -20,18 +20,22 @@ $( '.gallery-image-link' ).click(function(){
   const addImageBtn = $( '#gallery-add-image-btn' );
   const updateImageBtn = $( '#gallery-admin-update' );
   const deleteImageBtn = $( '#gallery-admin-delete' );
+
   // Set the contents of the image title input
+  titleInput.attr('placeholder', 'Image name');
   titleInput.val(currentData);
+
   // Clear the file upload, don't stash selected files
   $( '#image-upload' ).val('');
   // Is this the add image button
-  if (currentData == 'Add new image') {
+  if (current.data('admin') == 'True') {
     // Show the add image button
     addImageBtn.show();
     // Update button adds images here:
     updateImageBtn.text("Add");
     // Delete button clears the selected file
     deleteImageBtn.text('Cancel');
+    titleInput.val('');
   } else {
     // Hide the add image button
     addImageBtn.hide();
