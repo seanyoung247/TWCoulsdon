@@ -46,3 +46,17 @@
     </div>
   </div>
 </div>
+
+{# Admin add image button #}
+{% if request.user.is_staff %}
+  <li id="add-image-item" class="scroll-item d-none">
+    <a
+      class="gallery-image-link"
+      data-target="#gallery-modal"
+      data-image="{% static 'img/add_image.png' %}"
+      data-description="Add new image">
+
+      <img class="gallery-image-tile" src="{% static 'img/add_image.png' %}" alt="">
+    </a>
+  </li>
+{% endif %}
