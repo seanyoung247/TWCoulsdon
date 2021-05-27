@@ -21,7 +21,7 @@
 {% block content %}
   <div id="header-spacer"></div>
   <section class="container-fluid">
-    <form method="POST" action="{% url 'edit_event' %}">
+    <form id="event-form" method="POST" action="{% url 'edit_event' %}">
       {% csrf_token %}
       {% if event %}
         <input type="hidden" name="event_id" value="{{ event.id }}">
@@ -35,7 +35,24 @@
         <div class="col-12 col-md-4 order-md-2 mt-3 event-side-panel">
           {{ event_form.type|as_crispy_field }}
           {{ event_form.venue|as_crispy_field }}
-          <button id="#add-date-btn" type="button"></button>
+          <button id="add-date-btn" class="btn btn-twc-light w-100" type="button">
+            Add Date
+          </button>
+
+          <ul id="add-date-list">
+            {% for date in dates %}
+              <li class="add-date-item">
+                <input name="event_date" class="form-control m-1" type="date"
+                        value="{{ date.date|date:'Y-m-d' }}" required>
+                <input name="event_time" class="form-control m-1" type="time"
+                        value="{{ date.date|date:'H:i' }}" required>
+                <button class="remove-date-btn btn btn-twc-brand m-1" type="button">
+                  &times;
+                </button>
+              </li>
+            {% endfor %}
+          </ul>
+
         </div>
 
         <div class="col-12 col-md-8 order-md-1 event-description">
@@ -55,35 +72,42 @@
       <div class="row constrain-width event-gallery">
         <div class="col-12">
           <h3>Gallery list</h3>
-          <button id="add-image-btn" class="btn btn-twc-dark mb-2" type="button" data-no-image="{{ None|check_image }}">
-            Add Image
-          </button>
-          <ul id="add_gallery_list">
+          <input id="title-image-index" name="title-image-index" type="hidden" value="">
+          <ul id="add-gallery-list">
             {# Add any existing images #}
             {% for image in images %}
               <li class="upload-image-item">
                 <div class="row">
                   <label>
-                    <img class="upload-image-preview"
-                        src="{{ image.image|check_image }}">
-                    <input name="existing-image" type="hidden" value="{{ image.id }}">
-                    <input class="image-chooser hidden-image-input" name="new-image" type="file" accept="image/png, image/jpeg">
+                    <img class="upload-image-preview" src="{{ image.image|check_image }}">
+                    <input name="existing_image" type="hidden" value="{{ image.id }}">
+                    <input class="image-chooser hidden-image-input" name="new_image" type="file" accept="image/png, image/jpeg">
                   </label>
-                  <div class="col text-right">
-                    <input name="image-name" class="form-control mb-1" type="text" placeholder="Image name"
+                  <div class="col">
+                    <input name="image_name" class="form-control mb-1" type="text" placeholder="Image name"
                             value="{{ image.name }}" required>
-                    <input name="image-description" class="form-control mb-1"
+                    <input name="image_description" class="form-control mb-1"
                             type="text" placeholder="Image description"
                             value="{% if image.description %}{{ image.description }}{% endif %}">
-                    <input name="title-image" type="radio">
-                    <button class="remove-image-btn btn btn-twc-brand" type="button">
-                      Remove
-                    </button>
+                    <div class="row">
+                      <div class="col-6 text-left">
+                        <label for="title_image">Use as title image</label>
+                        <input name="title_image" type="radio" {% if image == event.title_image %}checked{% endif %}>
+                      </div>
+                      <div class="col-6 text-right">
+                        <button class="remove-image-btn btn btn-twc-brand" type="button">
+                          Remove
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </li>
             {% endfor %}
           </ul>
+          <button id="add-image-btn" class="btn btn-twc-light mb-2" type="button" data-no-image="{{ None|check_image }}">
+            Add Image
+          </button>
         </div>
       </div>
       <div class="row constrain-width mb-5">
@@ -95,9 +119,9 @@
         </div>
         <div class="col-12 col-sm-4 mb-2 text-center text-sm-right">
           {% if event %}
-            <input type="submit" class="btn btn-twc-dark w-75" value="Update Event">
+            <input id="submit-form-btn" type="submit" class="btn btn-twc-dark w-75" value="Update Event">
           {% else %}
-            <input type="submit" class="btn btn-twc-dark w-75" value="Add Event">
+            <input id="submit-form-btn" type="submit" class="btn btn-twc-dark w-75" value="Add Event">
           {% endif %}
         </div>
       </div>
