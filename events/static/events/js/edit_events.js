@@ -31,6 +31,8 @@ $( '#add-date-btn' ).click(function(e) {
 $( "#add-date-list" ).on('click', '.remove-date-btn', function() {
   // Is this date already in the database?
   const date_id = parseInt($( this ).siblings('input[name="date_id"]').val());
+  const date_line = $( this ).parent();
+  
   if (date_id > 0) {
     // Date already exists in database, so remove it on the server first
     const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
@@ -39,17 +41,16 @@ $( "#add-date-list" ).on('click', '.remove-date-btn', function() {
       'csrfmiddlewaretoken': csrfToken,
       'date_id': date_id
     }
-
     $.post(url, postData).done(function(data) {
       if (data.success) {
-        $( this ).parent().remove();
+        date_line.remove();
       } else {
         addMessage(data.message_html);
       }
     });
   } else {
     // Not already in database, just remove it from the list
-    $( this ).parent().remove();
+    date_line.remove();
   }
 });
 
