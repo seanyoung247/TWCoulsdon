@@ -223,9 +223,9 @@ def remove_date(request):
             event_date = EventDate.objects.get(id=request.POST['date_id'])
             event_date.delete()
         except EventDate.DoesNotExist:
-            message.error(request, "Can't remove date: Does not exist.")
+            message.error(request, "Unable to remove date: Does not exist.")
     else:
-        message.error(request, "Can't remove date: No date id provided.")
+        message.error(request, "Unable to remove date: No date id provided.")
 
     message_html = loader.render_to_string('includes/messages.html', request=request)
     response = {
