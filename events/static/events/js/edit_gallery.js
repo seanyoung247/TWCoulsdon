@@ -60,3 +60,32 @@ $( '#image-upload' ).change(function() {
     $( '#gallery-add-image-btn' ).hide();
   }
 });
+
+// Captures the form submission so it can be done asynchronously
+$( '#image-upload-form' ).submit(function(e) {
+  e.preventDefault();
+  // Can we submit the form?
+  const fileInput = $( '#image-upload' );
+  const titleInput = $( '#gallery-admin-title' );
+  const [file] = fileInput[0].files;
+  // If there's file data, submit it
+  if (file && titleInput.val()) {
+    // Submit it
+    $.ajax({
+      url: $( this ).attr('action'),
+      cache: false,
+      processData: false,
+      contentType: false,
+      data: new FormData(this),
+      type: "POST",
+      success: function(data) {
+          // Was the image added successfully?
+          if (data.success) {
+
+          } else {
+            addMessage(data.message_html);
+          }
+      }
+    });
+  }
+});
