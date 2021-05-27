@@ -42,6 +42,7 @@
           <ul id="add-date-list">
             {% for date in dates %}
               <li class="add-date-item">
+                <input name="date_id" type="hidden" value="{{ date.id }}">
                 <input name="event_date" class="form-control m-1" type="date"
                         value="{{ date.date|date:'Y-m-d' }}" required>
                 <input name="event_time" class="form-control m-1" type="time"
@@ -69,47 +70,7 @@
         </div>
 
       </div>
-      <div class="row constrain-width event-gallery">
-        <div class="col-12">
-          <h3>Gallery list</h3>
-          <input id="title-image-index" name="title-image-index" type="hidden" value="">
-          <ul id="add-gallery-list">
-            {# Add any existing images #}
-            {% for image in images %}
-              <li class="upload-image-item">
-                <div class="row">
-                  <label>
-                    <img class="upload-image-preview" src="{{ image.image|check_image }}">
-                    <input name="existing_image" type="hidden" value="{{ image.id }}">
-                    <input class="image-chooser hidden-image-input" name="new_image" type="file" accept="image/png, image/jpeg">
-                  </label>
-                  <div class="col">
-                    <input name="image_name" class="form-control mb-1" type="text" placeholder="Image name"
-                            value="{{ image.name }}" required>
-                    <input name="image_description" class="form-control mb-1"
-                            type="text" placeholder="Image description"
-                            value="{% if image.description %}{{ image.description }}{% endif %}">
-                    <div class="row">
-                      <div class="col-6 text-left">
-                        <label for="title_image">Use as title image</label>
-                        <input name="title_image" type="radio" {% if image == event.title_image %}checked{% endif %}>
-                      </div>
-                      <div class="col-6 text-right">
-                        <button class="remove-image-btn btn btn-twc-brand" type="button">
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            {% endfor %}
-          </ul>
-          <button id="add-image-btn" class="btn btn-twc-light mb-2" type="button" data-no-image="{{ None|check_image }}">
-            Add Image
-          </button>
-        </div>
-      </div>
+
       <div class="row constrain-width mb-5">
         <div class="col-12 col-sm-4 mb-2 text-center text-sm-left">
           <a class="btn btn-twc-dark w-75" href="{% url 'events' %}?type=show">Cancel</a>
