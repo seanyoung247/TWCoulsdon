@@ -29,7 +29,28 @@ $( '#add-date-btn' ).click(function(e) {
 
 // Remove a date
 $( "#add-date-list" ).on('click', '.remove-date-btn', function() {
-  $( this ).parent().remove();
+  // Is this date already in the database?
+  const date_id = parseInt($( this ).siblings('input[name="date_id"]').val());
+  if (date_id > 0) {
+    // Date already exists in database, so remove it on the server first
+    const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+    const url = `/events/edit_event/remove_date/`
+    const postData = {
+      'csrfmiddlewaretoken': csrfToken,
+      'date_id': date_id
+    }
+
+    $.post(url, postData).done(function(data) {
+      if (data.success) {
+        $( this ).parent().remove();
+      } else {
+        addMessage(data.message_html);
+      }
+    });
+  } else {
+    // Not already in database, just remove it from the list
+    $( this ).parent().remove();
+  }
 });
 
 // Captures the submit event so we can set the title image
@@ -69,6 +90,6 @@ form[0].addEventListener('submit', function(e) {
   if (event_id) postData['event_id'] = event_id;
 
   $.post(url, postData).done(function(data) {
-  //  console.log(data);
+    console.log(data);
   });
 });
