@@ -46,10 +46,6 @@ $( '#gallery-add-image-btn' ).click(function() {
   $( '#image-upload' ).click();
 });
 
-$( '#gallery-admin-title' ).click(function() {
-  $( this ).select();
-});
-
 // File has been selected
 $( '#image-upload' ).change(function() {
   const [file] = this.files;
