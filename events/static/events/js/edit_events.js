@@ -25,8 +25,17 @@ $( '#add-date-btn' ).click(function(e) {
   </li>`
   $( '#add-date-list' ).append(html);
 });
+
+// Remove a date
+$( "#add-date-list" ).on('click', '.remove-date-btn', function() {
+  $( this ).parent().remove();
+});
+
+/*
+ * Adding to the gallery
+ */
 // Sets the preview when a file is selected
-$( '#add_gallery_list' ).on('change', '.image-chooser', function() {
+$( '#add-gallery-list' ).on('change', '.image-chooser', function() {
   const imagePreview = $( this ).siblings(".upload-image-preview");
   if (this.files && this.files[0]) {
     const src = URL.createObjectURL(this.files[0]);
@@ -43,31 +52,40 @@ $( '#add-image-name' ).change(function() {
 });
 
 // Adds another image to the list
-$( '#add-image-btn' ).click(function() {
+$( '#add-image-btn' ).click(function(e) {
+  e.preventDefault();
   // Create the html for the new image item
   html = `
   <li class="upload-image-item">
     <div class="row">
       <label>
         <img class="upload-image-preview" src="${$(this).data('no-image')}">
-        <input name="existing-image" type="hidden" value="none">
-        <input class="image-chooser hidden-image-input" name="new-image" type="file"
+        <input name="existing_image" type="hidden" value="none">
+        <input class="image-chooser hidden-image-input" name="new_image" type="file"
                 accept="image/png, image/jpeg" required>
       </label>
       <div class="col text-right">
-        <input name="image-name" class="form-control mb-1" type="text" placeholder="Image name"
+        <input name="image_name" class="form-control mb-1" type="text" placeholder="Image name"
                 value="" required>
-        <input name="image-description" class="form-control mb-1"
+        <input name="image_description" class="form-control mb-1"
                 type="text" placeholder="Image description"
                 value="">
-        <button class="remove-image-btn btn btn-twc-brand" type="button">
-          Remove
-        </button>
+        <div class="row">
+          <div class="col-6 text-left">
+            <label for="title_image">Use as title image</label>
+            <input name="title_image" type="radio">
+          </div>
+          <div class="col-6 text-right">
+            <button class="remove-image-btn btn btn-twc-brand" type="button">
+              Remove
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </li>`
   // Create the new element and add it to the list
-  $( '#add_gallery_list' ).prepend(html)
+  $( '#add-gallery-list' ).append(html)
 });
 
 // Remove an image from the gallery
