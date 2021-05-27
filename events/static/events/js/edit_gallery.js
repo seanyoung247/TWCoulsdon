@@ -50,4 +50,13 @@ $( '#gallery-admin-title' ).click(function() {
   $( this ).select();
 });
 
+// File has been selected
+$( '#image-upload' ).change(function() {
+  const [file] = this.files;
+  // If a file was selected add it as a preview
+  if (file) {
+    $( '#gallery-image' ).attr('src', URL.createObjectURL(file));
+    // Hide the add file button
+    $( '#gallery-add-image-btn' ).hide();
+  }
 });
