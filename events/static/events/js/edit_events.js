@@ -2,13 +2,6 @@
  * Provides code for the edit events page
  */
 
- //Initialises the rich text input field
-tinymce.init({
-  selector: '#id_description',
-  plugins: 'advlist autolink lists link image charmap preview hr anchor',
-  toolbar_mode: 'floating',
-});
-
 /*
  * Addiing dates
  */
@@ -32,7 +25,7 @@ $( "#add-date-list" ).on('click', '.remove-date-btn', function() {
   // Is this date already in the database?
   const date_id = parseInt($( this ).siblings('input[name="date_id"]').val());
   const date_line = $( this ).parent();
-  
+
   if (date_id > 0) {
     // Date already exists in database, so remove it on the server first
     const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
@@ -91,6 +84,13 @@ form[0].addEventListener('submit', function(e) {
   if (event_id) postData['event_id'] = event_id;
 
   $.post(url, postData).done(function(data) {
-    console.log(data);
+    // Was the update successful?
+    if (data.success) {
+      // Redirect to the event page
+      location.href = data.event_url;
+    } else {
+      // show the error message
+      addMessage(message_html);
+    }
   });
 });
