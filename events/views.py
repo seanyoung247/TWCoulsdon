@@ -125,19 +125,6 @@ def edit_event(request):
                 'venue': request.POST['venue'],
                 'content': request.POST['content'],
             }
-            event_form = EventForm(event_data)
-            print(event_form.is_valid())
-            # Get the event dates
-            for date, time in zip(request.POST.getlist('event-date'),
-                request.POST.getlist('event-time')):
-                print(date, time)
-            # Get the gallery images
-            print( request.POST.get('title-image-index'))
-
-        except KeyError as error:
-            pass
-
-        return redirect(f'{reverse("events")}?type=show')
     else:
         # Is there an event variable in the request?
         if 'event' in request.GET:
