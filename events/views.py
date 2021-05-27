@@ -238,7 +238,43 @@ def remove_date(request):
 @staff_member_required
 @require_POST
 def add_image(request):
-    return JsonResponse({'success':True})
+    success = False
+
+    try:
+        # Get the event this image is for
+        event = Event.objects.get(id=request.POST['event_id'])
+
+        # Add the fields to a form
+        image_data = {
+            'event': event,
+            'name': request.POST['image-name'],
+            'description': '', # Not currently used
+        }
+        image_form = ImageForm(image_data)
+        if image_form.is_valid():
+            image=Image.objects.create(
+                event=event,
+                name=request.POST['image-name'],
+                image=request.FILES['image-file'],
+            )
+
+        success = True
+    except KeyError:
+        messages.error(request, "Unable to add image: Missing required data. \
+            Please check your submission and try again.")
+        success = False
+    except Event.DoesNotExist:
+        messages.error(request, "Unable to add image: event not found.")
+        success = False
+
+    # Render any messages and pass them to the front end
+    message_html = loader.render_to_string('includes/messages.html', request=request)
+
+    response = {
+        'success': success,
+        'message_html': message_html,
+    }
+    return JsonResponse(response)
 
 
 @staff_member_required
