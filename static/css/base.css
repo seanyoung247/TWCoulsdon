@@ -143,11 +143,6 @@ a:hover {
   background-color: var(--light-color);
 }
 
-.section-header {
-  text-align: center;
-  font-family: 'Anton', sans-serif;
-}
-
 .form-control {
   border-color: var(--dark-color);
 }
