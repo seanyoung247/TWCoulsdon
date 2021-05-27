@@ -44,5 +44,10 @@ $( '.gallery-image-link' ).click(function(){
 $( '#gallery-add-image-btn' ).click(function() {
   // Show the file dialog
   $( '#image-upload' ).click();
-  console.log($( '#image-upload' ));
+});
+
+$( '#gallery-admin-title' ).click(function() {
+  $( this ).select();
+});
+
 });
