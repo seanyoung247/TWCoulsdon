@@ -297,7 +297,7 @@ input[type=number] {
   position: fixed;
   bottom: 10px;
   right: 10px;
-  z-index: 99999;
+  z-index: 999;  /* Above everything except modals */
   border: none;
   background-color: transparent;
 }
