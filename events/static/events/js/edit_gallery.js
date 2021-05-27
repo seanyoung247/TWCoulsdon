@@ -29,3 +29,10 @@ $( '.gallery-image-link' ).click(function(){
     addImageBtn.hide();
   }
 });
+
+// Add image button clicked
+$( '#gallery-add-image-btn' ).click(function() {
+  // Show the file dialog
+  $( '#image-upload' ).click();
+  console.log($( '#image-upload' ));
+});
