@@ -41,8 +41,33 @@
         <span class="sr-only">Next</span>
       </button>
 
-      <img src="{{ event.title_image.image|check_image }}" alt="{{ event.title_image.name }}">
-      <h5 id="gallery-image-title">{{ event.title_image.name }}</h5>
+      {% if request.user.is_staff %}
+        <div id="gallery-admin-tools" class="">
+          <button id="gallery-add-image-btn" title="Upload image" class="btn">
+            <img src="{% static 'img/add_image.png' %}" alt="Add image">
+          </button>
+        </div>
+      {% endif %}
+      <img id="gallery-image" src="{{ event.title_image.image|check_image }}" alt="{{ event.title_image.name }}">
+      {# Image admin tools #}
+      {% if request.user.is_staff %}
+        <div id="gallery-admin-tools">
+          <form id="image-upload-form" action="" method="POST">
+            {% csrf_token %}
+            <button type="button" id="gallery-admin-update" class="btn btn-twc-accent m-2">
+              Update
+            </button>
+            <input id="image-upload" accept="image/*" type="file" name="image-file">
+            <input id="gallery-admin-title" type="text" class="form-control m-2" value="{{event.title_image.name}}">
+
+            <button type="button" id="gallery-admin-delete" class="btn btn-twc-brand m-2">
+              Delete
+            </button>
+          </form>
+        </div>
+      {% else %}
+        <h5 id="gallery-image-title">{{ event.title_image.name }}</h5>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -53,10 +78,10 @@
     <a
       class="gallery-image-link"
       data-target="#gallery-modal"
-      data-image="{% static 'img/add_image.png' %}"
+      data-image=""
       data-description="Add new image">
 
-      <img class="gallery-image-tile" src="{% static 'img/add_image.png' %}" alt="">
+      <img class="gallery-image-tile" src="{% static 'img/add_image.png' %}" alt="Add image">
     </a>
   </li>
 {% endif %}
