@@ -316,6 +316,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 #image-upload {
@@ -338,7 +339,9 @@
 }
 
 #gallery-admin-delete,
-#gallery-admin-update {}
+#gallery-admin-update {
+  flex: 0 0 80px;
+}
 /*
  * Venue Page
  */
