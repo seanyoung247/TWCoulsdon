@@ -9,6 +9,22 @@ tinymce.init({
   toolbar_mode: 'floating',
 });
 
+/*
+ * Addiing dates
+ */
+// Add a new date
+$( '#add-date-btn' ).click(function(e) {
+  e.preventDefault();
+  html=`
+  <li class="add-date-item">
+    <input name="event_date" class="form-control m-1" type="date" value="" required>
+    <input name="event_time" class="form-control m-1" type="time" value="" required>
+    <button class="remove-date-btn btn btn-twc-brand m-1" type="button">
+      &times;
+    </button>
+  </li>`
+  $( '#add-date-list' ).append(html);
+});
 // Sets the preview when a file is selected
 $( '#add_gallery_list' ).on('change', '.image-chooser', function() {
   const imagePreview = $( this ).siblings(".upload-image-preview");
