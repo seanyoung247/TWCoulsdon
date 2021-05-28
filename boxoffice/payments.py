@@ -188,8 +188,12 @@ def checkout_complete(request, order_number):
             profile_form.save()
 
     messages.success(request, f'Order complete! Your tickets have been sent to {order.email}')
+    try:
+        send_ticket_pdf_email(request, order)
+    except:
+        messages.error(request, "Sorry! Sending confirmation email failed! \
+            Your tickets have been created, but not emailed to you!")
 
-    send_ticket_pdf_email(request, order)
 
     # Construct a list of order items from the stored basket
     order_basket = get_ticket_lines_from_basket(json.loads(order.original_basket))
