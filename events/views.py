@@ -238,6 +238,7 @@ def remove_date(request):
 @staff_member_required
 @require_POST
 def add_image(request):
+    """ A view to upload a single gallery image to the server """
     success = False
     item_html = None
     message_html = None
@@ -329,7 +330,33 @@ def edit_image(request):
 @staff_member_required
 @require_POST
 def remove_image(request):
-    return JsonResponse({'success':True})
+    """ A view to delete a single gallery image """
+    success = True
+    try:
+        print("remove image")
+        # Get the image model
+        image = Image.objects.get(id=request.POST['image_id'])
+        # Delete the record
+        image.delete()
+        messages.success(request, "Image deleted successfully")
+        success = True
+
+    except KeyError:
+        messages.error(request, "Unable to delete image: Missing required data. \
+            Please check your submission and try again.")
+        success = False
+    except Image.DoesNotExist:
+        messages.error(request, "Unable to delete image: image not found.")
+        success = False
+
+    # Render any messages and pass them to the front end
+    message_html = loader.render_to_string('includes/messages.html', request=request)
+
+    response = {
+        'success': success,
+        'message_html': message_html,
+    }
+    return JsonResponse(response)
 
 
 # Venue page view
