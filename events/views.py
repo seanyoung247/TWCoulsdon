@@ -105,6 +105,7 @@ def event_details(request, event_slug):
 
     context = {
         "event": event,
+        "show_event_tools": True,
         "ticket_types": ticket_types,
         "first_date": dates['min_date'],
         "last_date": dates['max_date'],
