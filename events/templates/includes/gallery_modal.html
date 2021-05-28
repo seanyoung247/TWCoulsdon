@@ -43,7 +43,8 @@
 
       {% if request.user.is_staff %}
         <div class="gallery-admin-tools">
-          <button id="gallery-title-image-btn" title="Upload image" class="btn btn-twc-light">
+          <button id="gallery-title-image-btn" class="btn btn-twc-light"
+                  data-update-url="{% url 'set_title_image' %}">
             Make title image
           </button>
         </div>
