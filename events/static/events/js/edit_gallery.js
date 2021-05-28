@@ -13,7 +13,7 @@ $( document ).ready(function() {
 
 // Hook into the gallery-image event so we can set admin
 // tools when the gallery is shown
-$( '.gallery-image-link' ).click(function(){
+$('.scroller-items').on('click', '.gallery-image-link', function() {
   const current = $( this );
   const currentData = current.data('description');
   const titleInput = $( '#gallery-admin-title' );
@@ -81,7 +81,9 @@ $( '#image-upload-form' ).submit(function(e) {
       success: function(data) {
           // Was the image added successfully?
           if (data.success) {
-
+            // Get the new gallery tile html and add it to the gallery list
+            const newImage = $( data.item_html );
+            newImage.insertBefore('.scroll-item:last');
           } else {
             addMessage(data.message_html);
           }

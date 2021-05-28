@@ -19,7 +19,7 @@ $( '#gallery-prev' ).click(function() {
   $( this ).data('target').click();
 });
 
-$('.gallery-image-link').click(function(){
+$('.scroller-items').on('click', '.gallery-image-link', function() {
   const current = $( this );
   const prevBtn = $( '#gallery-prev' );
   const nextBtn = $( '#gallery-next' );
