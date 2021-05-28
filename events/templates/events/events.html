@@ -29,11 +29,11 @@
           {% endif %}
 
           <div class="col-12 col-sm-6 col-md-3">
-            <input name="fdate" class="form-control" type="date"
+            <input name="fdate" class="form-control" type="date" placeholder="first date"
                     value="{% if search_query.fdate %}{{ search_query.fdate }}{% endif %}">
           </div>
           <div class="col-12 col-sm-6 col-md-3">
-            <input name="ldate" class="form-control" type="date"
+            <input name="ldate" class="form-control" type="date" placeholder="last date"
                     value="{% if search_query.ldate %}{{ search_query.ldate }}{% endif %}">
           </div>
 
@@ -65,7 +65,7 @@
       </div>
     {% elif not showcase_events %}
       <div id="event-list" class="row no-gutters">
-        No results found
+        <h4>No results found</h4>
       </div>
     {% endif %}
     <div class="row">
