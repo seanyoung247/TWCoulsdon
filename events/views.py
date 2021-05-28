@@ -147,6 +147,9 @@ def edit_event(request):
             # Is the data valid?
             if event_form.is_valid():
                 event = event_form.save()
+                success = True
+            else:
+                success = False
 
             # Create the event dates
             for date in json.loads(request.POST['dates']):
@@ -162,8 +165,9 @@ def edit_event(request):
 
                 if date_form.is_valid():
                     date_form.save()
-
-            success = True
+                    success = True
+                else:
+                    success = False
 
         except KeyError:
             messages.error(request, "Unable to update event: missing required data. \
@@ -179,7 +183,8 @@ def edit_event(request):
             success = False
 
         # Create the event url
-        event_url = reverse('event_details', args=[event.slug])
+        if success:
+            event_url = reverse('event_details', args=[event.slug])
         # If there was a failure, render any messages
         if not success:
             message_html = loader.render_to_string('includes/messages.html', request=request)
