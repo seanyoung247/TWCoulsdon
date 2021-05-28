@@ -81,21 +81,26 @@ $( '#image-upload' ).change(function() {
 $( '#gallery-admin-update' ).click(function() {
   const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
   const image_id = $('#gallery-image').data('id');
+  const titleInput = $( '#gallery-admin-title' )
   const current = $( this );
 
   if (image_id > 0) {
     // Try to update the image
-    const url = current.data('remove-url');
+    const url = current.data('update-url');
     postData = {
       'csrfmiddlewaretoken': csrfToken,
       'image_id': image_id,
-      'image-name': $( '#gallery-admin-title' ).val()
+      'image-name': titleInput.val()
     };
     $.post(url, postData).done(function(data) {
+      // If successful reflect the change in the list
       if (data.success) {
-
+        // Get the gallery link item
+        const currentLink = $( '.scroller-items li' ).eq(current.data('index'));
+        // Update the description data variable
+        currentLink.children('a.gallery-image-link').data('description', titleInput.val());
       }
-      addMessage(html_message);
+      addMessage(data.message_html);
     });
   } else {
     // Try to submit a new image
@@ -121,7 +126,7 @@ $( '#gallery-admin-delete' ).click(function() {
         // Remove the tile
         // Move to the next free tile
       }
-      addMessage(html_message);
+      addMessage(data.message_html);
     });
   } else {
     // Clear the file upload form
