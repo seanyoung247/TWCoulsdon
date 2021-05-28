@@ -261,6 +261,7 @@ def add_image(request):
                 name=request.POST['image-name'],
                 image=request.FILES['image-file'],
             )
+            messages.success(request, "Image added successfully.")
             success = True
 
     except KeyError:
@@ -278,9 +279,9 @@ def add_image(request):
             'wrapper': True,
         }
         item_html = loader.render_to_string('includes/image_tile.html', context=context)
-    else:
-        # Render any messages and pass them to the front end
-        message_html = loader.render_to_string('includes/messages.html', request=request)
+
+    # Render any messages and pass them to the front end
+    message_html = loader.render_to_string('includes/messages.html', request=request)
 
     response = {
         'success': success,
