@@ -25,14 +25,16 @@
       <div class="col-12 advanced-search-wrapper">
         <form class="row constrain-width advanced-search-form" method="GET" action="{% url 'events' %}">
           {% if search_query.text %}
-            <input type="hidden" name="q" value="{{ search_query.text }}">
+            <input type="hidden" name="q" value="{% if search_query.text %}{{ search_query.text }}{% endif %}">
           {% endif %}
 
           <div class="col-12 col-sm-6 col-md-3">
-            <input name="fdate" class="form-control" type="date" value="{{ search_query.fdate }}">
+            <input name="fdate" class="form-control" type="date"
+                    value="{% if search_query.fdate %}{{ search_query.fdate }}{% endif %}">
           </div>
           <div class="col-12 col-sm-6 col-md-3">
-            <input name="ldate" class="form-control" type="date" value="{{ search_query.ldate }}">
+            <input name="ldate" class="form-control" type="date"
+                    value="{% if search_query.ldate %}{{ search_query.ldate }}{% endif %}">
           </div>
 
           <div class="col-12 col-sm-6 col-md-3">
@@ -41,9 +43,9 @@
                 {% if not search_query.type %} selected {% endif %}>Event Type:</option>
               {% for type in event_types %}
                 {% if search_query.type == type %}
-                  <option value="{{ type.name }}" selected>{{ type.display_name }}</option>
+                  <option value="{% if type.name %}{{ type.name }}{% endif %}" selected>{{ type.display_name }}</option>
                 {% else %}
-                  <option value="{{ type.name }}">{{ type.display_name }}</option>
+                  <option value="{% if type.name %}{{ type.name }}{% endif %}">{{ type.display_name }}</option>
                 {% endif %}
               {% endfor %}
             </select>
