@@ -213,6 +213,14 @@ of the box-office and reporting.
 ### Database
 ![TWCoulsdon Entity Relationship Diagram](design/database/twcoulsdon_erd.png)
 
+<details>
+<summary><b>Django Models</b></summary>
+Render of django's models:
+
+![Django models](design/database/models.png)
+
+</details>
+
 ### Fonts
 [Anton](https://fonts.google.com/specimen/Anton?query=Anton) was chosen as the
 main title font as it is similar to the group's existing logo branding.
