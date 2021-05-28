@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-  {% if event_type %}{{ event_type.display_name }}s - {% endif %}{{ block.super }}
+  {% if event_type %}{{ event_type.display_name }}s - {% else %}Events - {% endif %}{{ block.super }}
 {% endblock %}
 
 {% block css %}
