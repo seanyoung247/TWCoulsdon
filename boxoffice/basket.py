@@ -3,6 +3,16 @@
 from events.models import EventDate
 from .models import TicketType
 from .tickets import check_ticket_available, TicketsNotAvailable
+from .queries import get_available_tickets_for_date
+
+
+def _get_event_date_from_id(date_id):
+    try:
+        event_date = EventDate.objects.get(id=date_id)
+    except EventDate.DoesNotExist:
+        event_date = None
+
+    return event_date
 
 
 def get_ticket_lines_from_basket(basket):
@@ -71,11 +81,16 @@ def add_line_to_basket(request, date_id, type_id, quantity):
 
     if date_id in basket:
         # How many tickets are there already in the basket for this date?
-        for type_id in basket[date_id]:
-            date_total += basket[date_id][type_id]
+        for ticket_type in basket[date_id]:
+            date_total += basket[date_id][ticket_type]
             # Are there enough tickets available to add the new lines?
             if not check_ticket_available(date_id, date_total + quantity):
-                raise TicketsNotAvailable(date_id)
+                event_date = _get_event_date_from_id(date_id)
+                if event_date:
+                    raise TicketsNotAvailable(event_date, get_available_tickets_for_date(event_date))
+                else:
+                    raise TicketsNotAvailable(event_date, 0)
+
         # Are we updating an existing line or adding a new one?
         if type_id in basket[date_id]:
             basket[date_id][type_id] += quantity
@@ -83,7 +98,11 @@ def add_line_to_basket(request, date_id, type_id, quantity):
             basket[date_id][type_id] = quantity
     else:
         if not check_ticket_available(date_id, quantity):
-            raise TicketsNotAvailable(date_id)
+            event_date = _get_event_date_from_id(date_id)
+            if event_date:
+                raise TicketsNotAvailable(event_date, get_available_tickets_for_date(event_date))
+            else:
+                raise TicketsNotAvailable(event_date, 0)
         basket[date_id] = {type_id: quantity}
 
     request.session['basket'] = basket
@@ -114,7 +133,11 @@ def update_line_in_basket(request, date_id, type_id, quantity):
 
         if type_id in basket[date_id]:
             if not check_ticket_available(date_id, date_total):
-                raise TicketsNotAvailable(date_id)
+                event_date = _get_event_date_from_id(date_id)
+                if event_date:
+                    raise TicketsNotAvailable(event_date, get_available_tickets_for_date(event_date))
+                else:
+                    raise TicketsNotAvailable(event_date, 0)
             basket[date_id][type_id] = quantity
 
     request.session['basket'] = basket

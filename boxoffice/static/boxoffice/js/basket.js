@@ -51,6 +51,7 @@ $( '.basket-update-item' ).click(function() {
       listItem.find('.item-line-total').text(
         (parseFloat(listItem.data('price')) * quantity).toFixed(2));
       update_basket();
+      addMessage(data.message_html);
     } else {
       addMessage(data.message_html);
     }
@@ -74,6 +75,7 @@ $( '.basket-delete-item' ).click(function() {
     // If the server confirms the item has been removed, remove the list item
     if (data.success) {
       listItem.remove();
+      addMessage(data.message_html);
       update_basket();
     }
   });

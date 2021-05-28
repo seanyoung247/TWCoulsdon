@@ -157,7 +157,12 @@ def query_events(query_list):
 
         events = query_events_by_type(events, event_type)
 
-        event_type = ShowType.objects.get(name=event_type)
+        # Guards against users putting random values in the type query
+        try:
+            event_type = ShowType.objects.get(name=event_type)
+        except ShowType.DoesNotExist:
+            event_type = None
+
         search_query['type'] = event_type
         # If showing stage shows or meetups showcase them on event dates
         if str(event_type) in ('show', 'meet'):

@@ -33,3 +33,8 @@ urlpatterns = [
     path('boxoffice/', include('boxoffice.urls')),
     path('ticket/<ticket_id>', boxoffice_views.validate_ticket, name='validate_ticket')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'core.views.page_not_found_view'
+# Allows testing of custom error pages
+if settings.DEBUG:
+    urlpatterns.append(path('404/', core_views.page_not_found_view))

@@ -7,16 +7,19 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'ol-maps/css/ol.css' %}" type="text/css">
   {{ block.super }}
+
+  <link rel="stylesheet" href="{% static 'ol-maps/css/ol.css' %}">
+  <link rel="stylesheet" href="{% static 'events/css/events.css' %}">
 {% endblock %}
+
 
 {% block content %}
   <div id="header-spacer"></div>
   <div class="container-fluid constrain-width venue-content">
     {# Venue quick title information #}
     <div class="row">
-      <h1 class="col-12 section-header">{{ venue.name }}</h1>
+      <h1 class="col-12 page-header">{{ venue.name }}</h1>
       <p class="col-12">Phone number: {{ venue.phone_number }}</p>
       <p class="col-12">Email: {{ venue.email }}</p>
       <p class="col-12">
@@ -64,5 +67,5 @@
     ];
     const mapPin = "{% static 'img/pin.svg' %}";
   </script>
-  <script src="{% static 'js/map.js' %}"></script>
+  <script src="{% static 'events/js/map.js' %}"></script>
 {% endblock %}

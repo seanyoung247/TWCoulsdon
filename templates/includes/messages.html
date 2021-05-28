@@ -1,5 +1,8 @@
 {% for message in messages %}
-  <div class="message {{ message.tags }}">
+  <div class="message {{ message.tags }}"
+    {% if message.tags == 'success' %}
+      data-timeout="5000"
+    {% endif %}>
     <button type="button" class="btn close-message" aria-label="Close">
       <svg class="" xmlns='http://www.w3.org/2000/svg'
            width='10' height='10' viewBox='0 0 10 10'>

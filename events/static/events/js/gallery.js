@@ -19,15 +19,16 @@ $( '#gallery-prev' ).click(function() {
   $( this ).data('target').click();
 });
 
-$('.gallery-image-link').click(function(){
+$('.scroller-items').on('click', '.gallery-image-link', function() {
   const current = $( this );
   const prevBtn = $( '#gallery-prev' );
   const nextBtn = $( '#gallery-next' );
   // Get the modal for displaying the image
   const imageModal = $( current.data( "target" ) );
-  // Set the image and caption
-  imageModal.find('img').attr('src', current.data( 'image' )).attr('alt', $( this ).data( 'description' ));
+  // Set the image, caption, and image id
+  imageModal.find('#gallery-image').attr('src', current.data( 'image' )).attr('alt', $( this ).data( 'description' ));
   imageModal.find('#gallery-image-title').text(current.data( 'description' ));
+  imageModal.find('#gallery-image').data('id', current.data('id'));
   // Set the previous and next links
   prevBtn.data( 'target', getPreviousItem(current));
   nextBtn.data( 'target', getNextItem(current));

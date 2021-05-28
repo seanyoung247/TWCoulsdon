@@ -8,7 +8,7 @@
 
 {% block css %}
   {{ block.super }}
-  <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+  <link rel="stylesheet" href="{% static 'boxoffice/css/checkout.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -100,5 +100,5 @@
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
     <script>const csrfToken = "{{ csrf_token }}";</script>
-    <script src="{% static 'js/stripe_elements.js' %}"></script>
+    <script src="{% static 'boxoffice/js/stripe_elements.js' %}"></script>
 {% endblock %}

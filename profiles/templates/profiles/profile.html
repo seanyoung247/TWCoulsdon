@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}
-  User name here - {{ block.super }}
+  {{ user }}'s profile' - {{ block.super }}
 {% endblock %}
 
 {% block css %}
+  {{ block.super }}
 {% endblock %}
 
 {% block content %}
@@ -18,14 +20,44 @@
     </div>
 
     <div class="row constrain-width basket-page-contents">
-      <div class="col-12 col-lg-6 order-2 order-lg-1">
-
+      <div class="col-12">
+        <form class="row" action="{% url 'profile' %}" method="POST">
+          {% csrf_token %}
+          <div class="col-12 col-md-6">
+            {{ user_form.first_name|as_crispy_field }}
+          </div>
+          <div class="col-12 col-md-6">
+            {{ user_form.last_name|as_crispy_field }}
+          </div>
+          <div class="col-12 col-md-6">
+            {{ user_form.email|as_crispy_field }}
+          </div>
+          <div class="col-12 col-md-6">
+            {{ profile_form.default_phone_number|as_crispy_field }}
+          </div>
+          <div class="col-12 col-md-4 offset-md-8">
+            <input class="btn btn-twc-dark w-100" type="submit" value="Update profile">
+          </div>
+        </form>
       </div>
-
-      <div class="col-12 col-lg-6 order-1 order-lg-2">
-
+    </div>
+    <div class="row constrain-width basket-page-contents">
+      <div class="col-12">
+        <h3 class="text-center my-4">Your Orders</h3>
+        <ul id="basket-list">
+          <li class="basket-list-item">
+            <div class="row">
+              <div class="col-3 col-md-2">Order No.</div>
+              <div class="col-6 col-md-3">Date</div>
+              <div class="d-none d-md-block col-md-5">Tickets</div>
+              <div class="col-3 col-md-2 text-right">Order Total</div>
+            </div>
+          </li>
+          {% for order in orders %}
+            {% include 'includes/order_line.html' with order=order %}
+          {% endfor %}
+        </ul>
       </div>
-
     </div>
   </section>
 

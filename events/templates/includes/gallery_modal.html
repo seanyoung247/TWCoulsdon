@@ -1,0 +1,92 @@
+{% load static %}
+{% load core_tools %}
+
+<div id="gallery-modal"
+    class="modal"
+    tabindex="-1"
+    aria-labelledby="gallery-image-title"
+    aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content gallery-image">
+
+      {# Close Button #}
+      <button type="button" class="close gallery-image-close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">
+          <svg width="10" height="10" version="1.1" viewBox="0 0 2.6458 2.6458" xmlns="http://www.w3.org/2000/svg">
+           <path d="m0 0.45634 0.86588 0.86456-0.86587 0.86456 0.45704 0.46037
+                    0.86587-0.86863 0.86588 0.86456 0.45704-0.45634-0.86588-0.86456
+                    0.86588-0.86457-0.45704-0.45629-0.86588 0.86456-0.86588-0.86456z"/>
+          </svg>
+        </span>
+      </button>
+
+      {# Previous image button #}
+      <button id="gallery-prev" class="btn gallery-btn">
+        <span aria-hidden="true">
+          <svg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'>
+            <path d="m6.2851 1.0156 1.4142 1.4142-2.5702 2.5702 2.5702 2.5702-1.4142 1.4142-3.9844-3.9844z"/>
+          </svg>
+        </span>
+        <span class="sr-only">Previous</span>
+      </button>
+
+      {# Next image button #}
+      <button id="gallery-next" class="btn gallery-btn">
+        <span aria-hidden="true">
+          <svg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'>
+            <path d="m2.3007 2.4298 1.4142-1.4142 3.9844 3.9844-3.9844 3.9844-1.4142-1.4142 2.5702-2.5702z"/>
+          </svg>
+        </span>
+        <span class="sr-only">Next</span>
+      </button>
+
+      {% if request.user.is_staff %}
+        <div id="gallery-admin-tools" class="">
+          <button id="gallery-add-image-btn" title="Upload image" class="btn">
+            <img src="{% static 'img/add_image.png' %}" alt="Add image">
+          </button>
+        </div>
+      {% endif %}
+      <img id="gallery-image" data-id="{{ event.title_image.id }}"
+            src="{{ event.title_image.image|check_image }}"
+            alt="{{ event.title_image.name }}">
+      {# Image admin tools #}
+      {% if request.user.is_staff %}
+        <div id="gallery-admin-tools">
+          <form id="image-upload-form" action="{% url 'add_image' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="event_id" value="{{ event.id }}">
+            <button type="button" id="gallery-admin-update" class="btn btn-twc-accent m-2"
+                    data-update-url="{% url 'edit_image' %}">
+              Update
+            </button>
+            <input id="image-upload" accept="image/*" type="file" name="image-file" required>
+            <input id="gallery-admin-title" type="text" class="form-control m-2" name="image-name"
+                   maxlength="50" value="{{event.title_image.name}}" required>
+
+            <button type="button" id="gallery-admin-delete" class="btn btn-twc-brand m-2"
+                    data-remove-url="{% url 'remove_image' %}">
+              Delete
+            </button>
+          </form>
+        </div>
+      {% else %}
+        <h5 id="gallery-image-title">{{ event.title_image.name }}</h5>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{# Admin add image button #}
+{% if request.user.is_staff %}
+  <li id="add-image-item" class="scroll-item d-none">
+    <a
+      class="gallery-image-link"
+      data-id="-1" data-target="#gallery-modal" data-image=""
+      data-description="Add new image" data-admin="True">
+
+      <img class="gallery-image-tile" src="{% static 'img/add_image.png' %}" alt="Add image">
+    </a>
+  </li>
+{% endif %}

@@ -240,7 +240,18 @@ show pages.
 
 ### Layout
 
-<discussing of existing website here>
+The group's current online presence can be seen [here](https://twcoulsdon.org.uk/).
+The current site is implemented in wordpress and uses a third party website for ticketing.
+Members have voiced a number of issues with the current site:
+- Lack of control over styling of new pages.
+  - Further, the generated pages look significantly different to what appears during editing making it difficult to get the look required.
+- The third party ticketing website requires redirecting to a third party.
+  - Boxoffice is displeased with the reporting options available from the ticketing site.
+  - Boxoffice are unable to style tickets.
+- In general the styling of the site is starting to become dated, and lacks the dynamic elements that are becoming standard with HTML5.
+
+The source files for the wireframes can be found [here](https://whimsical.com/twcoulsdon-MnWUe2AJ69HJn9choBeiNd).
+
 
 #### Landing Page
 
@@ -281,21 +292,21 @@ followed by past events by default.
 <details>
 <summary><b>Phone</b></summary>
 
-![Landing Page Phone Layout](design/wireframes/events_list/phone.png)
+![Events List Phone Layout](design/wireframes/events_list/phone.png)
 
 </details>
 
 <details>
 <summary><b>Tablet</b></summary>
 
-![Landing Page Tablet Layout](design/wireframes/events_list/tablet.png)
+![Events List Tablet Layout](design/wireframes/events_list/tablet.png)
 
 </details>
 
 <details>
 <summary><b>Desktop</b></summary>
 
-![Landing Page Desktop Layout](design/wireframes/events_list/desktop.png)
+![Events List Desktop Layout](design/wireframes/events_list/desktop.png)
 
 </details>
 
@@ -313,11 +324,11 @@ the page contents below.
 
 <h6>Above the fold</h6>
 
-![Landing Page Phone Layout](design/wireframes/event_page/title_phone.png)
+![Event Page Phone Layout](design/wireframes/event_page/title_phone.png)
 
 <h6>Below the fold</h6>
 
-![Landing Page Desktop Layout](design/wireframes/event_page/content_phone.png)
+![Event Page Desktop Layout](design/wireframes/event_page/content_phone.png)
 
 </details>
 
@@ -326,7 +337,7 @@ the page contents below.
 
 <h6>Above the fold</h6>
 
-![Landing Page Tablet Layout](design/wireframes/event_page/title_tablet.png)
+![Event Page Tablet Layout](design/wireframes/event_page/title_tablet.png)
 
 <h6>Below the fold</h6>
 
@@ -339,11 +350,43 @@ the page contents below.
 
 <h6>Above the fold</h6>
 
-![Landing Page Desktop Layout](design/wireframes/event_page/title_desktop.png)
+![Event Page Desktop Layout](design/wireframes/event_page/title_desktop.png)
 
 <h6>Below the fold</h6>
 
-![Landing Page Desktop Layout](design/wireframes/event_page/content_desktop.png)
+![Event Page Desktop Layout](design/wireframes/event_page/content_desktop.png)
+
+</details>
+
+#### Add/Edit Event Page
+
+The Add/Edit event page allows adding new events and editing existing ones,
+including the related models such as dates and images.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Edit Event Phone Layout](design/wireframes/edit_event_page/phone.png)
+
+![Edit Event Desktop Layout](design/wireframes/edit_event_page/phone_delete_modal.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Edit Event Tablet Layout](design/wireframes/edit_event_page/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Edit Event Desktop Layout](design/wireframes/edit_event_page/desktop.png)
+
+![Edit Event Desktop Layout](design/wireframes/edit_event_page/desktop_delete_modal.png)
 
 </details>
 
@@ -357,23 +400,72 @@ address and contact information.
 <details>
 <summary><b>Phone</b></summary>
 
-![Landing Page Phone Layout](design/wireframes/venue_page/phone.png)
+![Venue Page Phone Layout](design/wireframes/venue_page/phone.png)
 
 </details>
 
 <details>
 <summary><b>Tablet</b></summary>
 
-![Landing Page Tablet Layout](design/wireframes/venue_page/tablet.png)
+![Venue Page Tablet Layout](design/wireframes/venue_page/tablet.png)
 
 </details>
 
 <details>
 <summary><b>Desktop</b></summary>
 
-![Landing Page Desktop Layout](design/wireframes/venue_page/desktop.png)
+![Venue Page Desktop Layout](design/wireframes/venue_page/desktop.png)
 
 </details>
+
+#### Add/Edit Venue Page
+
+The venue page presents basic information on an event location, including it's
+address and contact information.
+
+##### Wireframes
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Edit Venue Page Phone Layout](design/wireframes/edit_venue_page/phone.png)
+
+</details>
+
+<details>
+<summary><b>Tablet</b></summary>
+
+![Edit Venue Page Tablet Layout](design/wireframes/edit_venue_page/tablet.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Edit Venue Page Desktop Layout](design/wireframes/edit_venue_page/desktop.png)
+
+</details>
+
+#### Delete Event/Venue Modal
+
+Helps to ensure events and venues are not deleted accidentally.
+
+<details>
+<summary><b>Phone</b></summary>
+
+![Edit Event Desktop Layout](design/wireframes/edit_event_page/phone_delete_modal.png)
+
+</details>
+
+<details>
+<summary><b>Desktop</b></summary>
+
+![Edit Event Desktop Layout](design/wireframes/edit_event_page/desktop_delete_modal.png)
+
+</details>
+
+##### Wireframes
+
 
 #### Information Pages
 
@@ -384,21 +476,21 @@ Various pages providing information on the group. May be expanded to also provid
 <details>
 <summary><b>Phone</b></summary>
 
-![Landing Page Phone Layout](design/wireframes/information_page/phone.png)
+![Information Pages Phone Layout](design/wireframes/information_page/phone.png)
 
 </details>
 
 <details>
 <summary><b>Tablet</b></summary>
 
-![Landing Page Tablet Layout](design/wireframes/information_page/tablet.png)
+![Information Page Tablet Layout](design/wireframes/information_page/tablet.png)
 
 </details>
 
 <details>
 <summary><b>Desktop</b></summary>
 
-![Landing Page Desktop Layout](design/wireframes/information_page/desktop.png)
+![Information Page Desktop Layout](design/wireframes/information_page/desktop.png)
 
 </details>
 
@@ -412,7 +504,7 @@ different types and dates for a single event to the basket.
 <details>
 <summary><b>Phone</b></summary>
 
-![Landing Page Phone Layout](design/wireframes/add_to_basket/phone.png)
+![Add Tickets Modal Phone Layout](design/wireframes/add_to_basket/phone.png)
 
 </details>
 
@@ -426,7 +518,7 @@ different types and dates for a single event to the basket.
 <details>
 <summary><b>Desktop</b></summary>
 
-![Landing Page Desktop Layout](design/wireframes/add_to_basket/desktop.png)
+![Add Tickets Modal Desktop Layout](design/wireframes/add_to_basket/desktop.png)
 
 </details>
 
@@ -440,21 +532,21 @@ and provides tools to edit items and quantities.
 <details>
 <summary><b>Phone</b></summary>
 
-![Landing Page Phone Layout](design/wireframes/basket/phone.png)
+![Basket Page Phone Layout](design/wireframes/basket/phone.png)
 
 </details>
 
 <details>
 <summary><b>Tablet</b></summary>
 
-![Landing Page Tablet Layout](design/wireframes/basket/tablet.png)
+![Basket Page Tablet Layout](design/wireframes/basket/tablet.png)
 
 </details>
 
 <details>
 <summary><b>Desktop</b></summary>
 
-![Landing Page Desktop Layout](design/wireframes/basket/desktop.png)
+![Basket Page Desktop Layout](design/wireframes/basket/desktop.png)
 
 </details>
 
@@ -467,21 +559,21 @@ The checkout page gives a summary of the current basket contents and offers link
 <details>
 <summary><b>Phone</b></summary>
 
-![Landing Page Phone Layout](design/wireframes/checkout/phone.png)
+![Checkout Page Phone Layout](design/wireframes/checkout/phone.png)
 
 </details>
 
 <details>
 <summary><b>Tablet</b></summary>
 
-![Landing Page Tablet Layout](design/wireframes/checkout/tablet.png)
+![Checkout Page Tablet Layout](design/wireframes/checkout/tablet.png)
 
 </details>
 
 <details>
 <summary><b>Desktop</b></summary>
 
-![Landing Page Desktop Layout](design/wireframes/checkout/desktop.png)
+![Checkout Page Desktop Layout](design/wireframes/checkout/desktop.png)
 
 </details>
 
@@ -494,21 +586,21 @@ The checkout complete page confirms to the user that checkout has completed, pro
 <details>
 <summary><b>Phone</b></summary>
 
-![Landing Page Phone Layout](design/wireframes/checkout_complete/phone.png)
+![Checkout Complete Phone Layout](design/wireframes/checkout_complete/phone.png)
 
 </details>
 
 <details>
 <summary><b>Tablet</b></summary>
 
-![Landing Page Tablet Layout](design/wireframes/checkout_complete/tablet.png)
+![Checkout Complete Tablet Layout](design/wireframes/checkout_complete/tablet.png)
 
 </details>
 
 <details>
 <summary><b>Desktop</b></summary>
 
-![Landing Page Desktop Layout](design/wireframes/checkout_complete/desktop.png)
+![Checkout Complete Desktop Layout](design/wireframes/checkout_complete/desktop.png)
 
 </details>
 
@@ -523,35 +615,35 @@ logged in staff members.
 <details>
 <summary><b>Phone</b></summary>
 
-![Landing Page Phone Layout](design/wireframes/ticket_validation/phone.png)
+![Ticket Validation Phone Layout](design/wireframes/ticket_validation/phone.png)
 
 </details>
 
 <details>
 <summary><b>Tablet</b></summary>
 
-![Landing Page Tablet Layout](design/wireframes/ticket_validation/tablet.png)
+![Ticket Validation Tablet Layout](design/wireframes/ticket_validation/tablet.png)
 
 </details>
 
 <details>
 <summary><b>Desktop</b></summary>
 
-![Landing Page Desktop Layout](design/wireframes/ticket_validation/desktop.png)
+![Ticket Validation Desktop Layout](design/wireframes/ticket_validation/desktop.png)
 
 </details>
 
 <details>
 <summary><b>Expired tickets</b></summary>
 
-![Landing Page Desktop Layout](design/wireframes/ticket_validation/invalid.png)
+![Ticket Validation Desktop Layout](design/wireframes/ticket_validation/invalid.png)
 
 </details>
 
 <details>
 <summary><b>E-Ticket Layout</b></summary>
 
-![Landing Page Desktop Layout](design/wireframes/ticket_validation/ticket.png)
+![Ticket Validation Desktop Layout](design/wireframes/ticket_validation/ticket.png)
 
 </details>
 

@@ -1,15 +1,22 @@
 """ Defines views for the Event app """
-from django.shortcuts import render, get_object_or_404
+import json
+
+from datetime import datetime
+from django.shortcuts import render, reverse, redirect, get_object_or_404
+from django.contrib.admin.views.decorators import staff_member_required
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
 from django.db.models import Min, Max
 from django.template import loader
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from django.utils import timezone
 
 from boxoffice.models import TicketType
 from .queries import query_events
 from .models import Event, ShowType, EventDate, Image, Venue
+from .forms import EventDateForm, ImageForm, EventForm
 
 
 # Event list page view
@@ -104,6 +111,250 @@ def event_details(request, event_slug):
         "images": images,
     }
     return render(request, 'events/event_details.html', context)
+
+
+@staff_member_required
+def edit_event(request):
+    """ A view to show the event add/edit form """
+    event = None
+    dates = None
+    images = None
+    success = False
+    event_url = None
+    message_html = ""
+
+    if request.method == 'POST':
+        try:
+            # Is this an existing event?
+            if 'event_id' in request.POST:
+                event = Event.objects.get(id=request.POST['event_id'])
+            # Create the event data
+            event_data = {
+                'title': request.POST['title'],
+                'author': request.POST['author'],
+                'tagline': request.POST['tagline'],
+                'description': request.POST['description'],
+                'type': request.POST['type'],
+                'venue': request.POST['venue'],
+                'content': request.POST['content'],
+            }
+
+            if event:
+                event_form = EventForm(event_data, instance=event)
+            else:
+                event_form = EventForm(event_data)
+            # Is the data valid?
+            if event_form.is_valid():
+                event = event_form.save()
+
+            # Create the event dates
+            for date in json.loads(request.POST['dates']):
+                date_data = {
+                    'event': event,
+                    'date': f"{date['date']} {date['time']}",
+                }
+                if int(date['date_id']) > 0:
+                    date_form = EventDateForm(date_data,
+                        instance=EventDate.objects.get(id=date['date_id']))
+                else:
+                    date_form = EventDateForm(date_data)
+
+                if date_form.is_valid():
+                    date_form.save()
+
+            success = True
+
+        except KeyError:
+            messages.error(request, "Unable to update event: missing required data. \
+                Please check your submission and try again.")
+            success = False
+
+        except Event.DoesNotExist:
+            messages.error(request, "Unable to update event: event not found.")
+            success = False
+
+        except EventDate.DoesNotExist:
+            messages.error(request, "Unable to update event: dates not found.")
+            success = False
+
+        # Create the event url
+        event_url = reverse('event_details', args=[event.slug])
+        # If there was a failure, render any messages
+        if not success:
+            message_html = loader.render_to_string('includes/messages.html', request=request)
+        response = {
+            'success': success,
+            'event_url': event_url,
+            'message_html': message_html,
+        }
+        return JsonResponse(response)
+
+    else:
+        # Is there an event variable in the request?
+        if 'event' in request.GET:
+            # Get the event
+            event = get_object_or_404(Event, id=int(request.GET['event']))
+            # Get associated objects
+            dates = EventDate.objects.filter(event=event)
+            images = Image.objects.filter(event=event)
+
+            event_form = EventForm(instance=event)
+            image_form = ImageForm()
+        else:
+            event_form = EventForm()
+            image_form = ImageForm()
+
+    context = {
+        'event': event,
+        'dates': dates,
+        'images': images,
+        'event_form': event_form,
+    }
+    return render(request, 'events/edit_event.html', context)
+
+
+@staff_member_required
+@require_POST
+def remove_date(request):
+    success = False;
+    if 'date_id' in request.POST:
+        try:
+            # Get the event to delete
+            event_date = EventDate.objects.get(id=request.POST['date_id'])
+            event_date.delete()
+        except EventDate.DoesNotExist:
+            message.error(request, "Unable to remove date: Does not exist.")
+    else:
+        message.error(request, "Unable to remove date: No date id provided.")
+
+    message_html = loader.render_to_string('includes/messages.html', request=request)
+    response = {
+        'success': True,
+        'message_html': message_html,
+    }
+    return JsonResponse(response)
+
+
+@staff_member_required
+@require_POST
+def add_image(request):
+    """ A view to upload a single gallery image to the server """
+    success = False
+    item_html = None
+    message_html = None
+
+    try:
+        # Get the event this image is for
+        event = Event.objects.get(id=request.POST['event_id'])
+
+        # Add the fields to a form
+        image_data = {
+            'event': event,
+            'name': request.POST['image-name'],
+            'description': '', # Not currently used
+        }
+        image_form = ImageForm(image_data)
+        if image_form.is_valid():
+            # Forms don't seem to accept file data,
+            # so create the object manually
+            image=Image.objects.create(
+                event=event,
+                name=request.POST['image-name'],
+                image=request.FILES['image-file'],
+            )
+            messages.success(request, "Image added successfully.")
+            success = True
+
+    except KeyError:
+        messages.error(request, "Unable to add image: Missing required data. \
+            Please check your submission and try again.")
+        success = False
+    except Event.DoesNotExist:
+        messages.error(request, "Unable to add image: event not found.")
+        success = False
+
+    # If image was successfully added, create the html to add it to the gallery
+    if success:
+        context = {
+            'item': image,
+            'wrapper': True,
+        }
+        item_html = loader.render_to_string('includes/image_tile.html', context=context)
+
+    # Render any messages and pass them to the front end
+    message_html = loader.render_to_string('includes/messages.html', request=request)
+
+    response = {
+        'success': success,
+        'item_html': item_html,
+        'message_html': message_html,
+    }
+    return JsonResponse(response)
+
+
+@staff_member_required
+@require_POST
+def edit_image(request):
+    """ A view to edit a single gallery image's meta data """
+    success = False
+    try:
+        # Get the current image object
+        image = Image.objects.get(id=request.POST['image_id'])
+        # Construct a form
+        image_form = ImageForm({'name':request.POST['image-name']}, instance=image)
+        # Is the data valid?
+        if image_form.is_valid():
+            image.save(update_fields=['name']);
+            messages.success(request, "Image updated successfully")
+            success = True
+
+    except KeyError:
+        messages.error(request, "Unable to edit image: Missing required data. \
+            Please check your submission and try again.")
+        success = False
+    except Image.DoesNotExist:
+        messages.error(request, "Unable to edit image: image not found.")
+        success = False
+
+    # Render any messages and pass them to the front end
+    message_html = loader.render_to_string('includes/messages.html', request=request)
+
+    response = {
+        'success': success,
+        'message_html': message_html,
+    }
+    return JsonResponse(response)
+
+
+@staff_member_required
+@require_POST
+def remove_image(request):
+    """ A view to delete a single gallery image """
+    success = True
+    try:
+        # Get the image model
+        image = Image.objects.get(id=request.POST['image_id'])
+        # Delete the record
+        image.delete()
+        messages.success(request, "Image deleted successfully")
+        success = True
+
+    except KeyError:
+        messages.error(request, "Unable to delete image: Missing required data. \
+            Please check your submission and try again.")
+        success = False
+    except Image.DoesNotExist:
+        messages.error(request, "Unable to delete image: image not found.")
+        success = False
+
+    # Render any messages and pass them to the front end
+    message_html = loader.render_to_string('includes/messages.html', request=request)
+
+    response = {
+        'success': success,
+        'message_html': message_html,
+    }
+    return JsonResponse(response)
 
 
 # Venue page view

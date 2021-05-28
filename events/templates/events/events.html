@@ -2,7 +2,12 @@
 {% load static %}
 
 {% block title %}
-  {% if event_type %}{{ event_type.display_name }}s - {% endif %}{{ block.super }}
+  {% if event_type %}{{ event_type.display_name }}s - {% else %}Events - {% endif %}{{ block.super }}
+{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'events/css/events.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -86,8 +91,8 @@
 {% block scripts %}
   {{ block.super }}
   <script>const csrfToken = "{{ csrf_token }}";</script>
-  <script src="{% static 'js/search.js' %}"></script>
   <script src="{% static 'js/numberctrl.js' %}"></script>
-  <script src="{% static 'js/tickets.js' %}"></script>
+  <script src="{% static 'events/js/search.js' %}"></script>
+  <script src="{% static 'boxoffice/js/tickets.js' %}"></script>
 {% endblock %}
 

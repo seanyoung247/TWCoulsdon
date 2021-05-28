@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+{% load core_tools %}
+{% load event_tools %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {# Are we editing or adding an event? #}
+  {% if event %}
+    Editing: {{ event.title }} - {{ block.super }}
+  {% else %}
+    Adding event - {{ block.super }}
+  {% endif %}
+{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'events/css/events.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div id="header-spacer"></div>
+  <section class="container-fluid">
+    <form id="event-form" method="POST" action="{% url 'edit_event' %}">
+      {% csrf_token %}
+      {% if event %}
+        <input type="hidden" name="event_id" value="{{ event.id }}">
+      {% endif %}
+
+      <div class="row event-content constrain-width">
+        <div class="col-12">
+          {{ event_form.content|as_crispy_field }}
+        </div>
+
+        <div class="col-12 col-md-4 order-md-2 mt-3 event-side-panel">
+          {{ event_form.type|as_crispy_field }}
+          {{ event_form.venue|as_crispy_field }}
+          <button id="add-date-btn" class="btn btn-twc-light w-100" type="button">
+            Add Date
+          </button>
+
+          <ul id="add-date-list">
+            {% for date in dates %}
+              <li class="add-date-item">
+                <input name="date_id" type="hidden" value="{{ date.id }}">
+                <input name="event_date" class="form-control m-1" type="date"
+                        value="{{ date.date|date:'Y-m-d' }}" required>
+                <input name="event_time" class="form-control m-1" type="time"
+                        value="{{ date.date|date:'H:i' }}" required>
+                <button class="remove-date-btn btn btn-twc-brand m-1" type="button">
+                  &times;
+                </button>
+              </li>
+            {% endfor %}
+          </ul>
+
+        </div>
+
+        <div class="col-12 col-md-8 order-md-1 event-description">
+          <div class="row">
+            <div class="col-12 col-md-8">
+              {{ event_form.title|as_crispy_field }}
+            </div>
+            <div class="col-12 col-md-4">
+              {{ event_form.author|as_crispy_field }}
+            </div>
+          </div>
+          {{ event_form.tagline|as_crispy_field }}
+          {{ event_form.description|as_crispy_field }}
+        </div>
+
+      </div>
+
+      <div class="row constrain-width mb-5">
+        <div class="col-12 col-sm-4 mb-2 text-center text-sm-left">
+          <a class="btn btn-twc-dark w-75" href="{% url 'events' %}?type=show">Cancel</a>
+        </div>
+        <div class="col-12 col-sm-4 mb-2 text-center">
+          <button class="btn btn-twc-brand w-75" type="button">Delete Event</button>
+        </div>
+        <div class="col-12 col-sm-4 mb-2 text-center text-sm-right">
+          {% if event %}
+            <input id="submit-form-btn" type="submit" class="btn btn-twc-dark w-75" value="Update Event">
+          {% else %}
+            <input id="submit-form-btn" type="submit" class="btn btn-twc-dark w-75" value="Add Event">
+          {% endif %}
+        </div>
+      </div>
+    </form>
+  </section>
+
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script>const csrfToken = "{{ csrf_token }}";</script>
+  <script src="https://cdn.tiny.cloud/1/ciyu0kn1e6maiyjus8my7wmgsbqjjhk5331ktzw8c0tt2vh6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script src="{% static 'core/js/rich_text.js' %}"></script>
+  <script src="{% static 'events/js/edit_events.js' %}"></script>
+{% endblock %}

@@ -10,6 +10,9 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.contrib import messages
 
+from profiles.models import UserProfile
+from profiles.forms import UserInfoForm, UserProfileForm
+
 from .reports import send_ticket_pdf_email
 from .basket import get_ticket_lines_from_basket, remove_date_from_basket, empty_basket
 from .models import Order
@@ -51,9 +54,22 @@ def get_checkout_page(request):
         currency=settings.STRIPE_CURRENCY,
     )
 
-    #TODO: Add profile get here
-    order_form = OrderForm()
+    if request.user.is_authenticated:
+        try:
+            profile = UserProfile.objects.get(user=request.user)
+            order_form = OrderForm(initial={
+                'full_name': profile.user.get_full_name(),
+                'email': profile.user.email,
+                'phone_number': profile.default_phone_number,
+            })
+        except UserProfile.DoesNotExist:
+            order_form = OrderForm()
+    else:
+        order_form = OrderForm()
 
+    if not stripe_public_key:
+        messages.warning(request, 'Stripe public key is missing. \
+            Did you forget to set it in your environment?')
 
     context = {
         'order_form': order_form,
@@ -151,8 +167,27 @@ def checkout_complete(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
 
     if request.user.is_authenticated:
-        # TODO: Get User Profile here
-        pass
+        profile = UserProfile.objects.get(user=request.user)
+        # Attach the user's profile to the order
+        order.user_profile = profile
+        order.save()
+
+        full_name = order.full_name.split(' ')
+        user_data = {
+            'first_name': full_name[0],
+            'last_name': full_name[-1],
+            'email': order.email,
+        }
+        profile_data = {
+            'default_phone_number': order.phone_number,
+        }
+        user_form = UserInfoForm(user_data, instance=profile.user)
+        profile_form = UserProfileForm(profile_data, instance=profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+
+    messages.success(request, f'Order complete! Your tickets have been sent to {order.email}')
 
     send_ticket_pdf_email(request, order)
 
