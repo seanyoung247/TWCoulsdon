@@ -285,7 +285,7 @@ def add_image(request):
             'item': image,
             'wrapper': True,
         }
-        item_html = loader.render_to_string('includes/image_tile.html', context=context)
+        item_html = loader.render_to_string('includes/Image_tile.html', context=context)
 
     # Render any messages and pass them to the front end
     message_html = loader.render_to_string('includes/messages.html', request=request)
@@ -319,7 +319,7 @@ def edit_image(request):
             Please check your submission and try again.")
         success = False
     except Image.DoesNotExist:
-        messages.error(request, "Unable to edit image: image not found.")
+        messages.error(request, "Unable to edit image: Image not found.")
         success = False
 
     # Render any messages and pass them to the front end
@@ -350,7 +350,7 @@ def remove_image(request):
             Please check your submission and try again.")
         success = False
     except Image.DoesNotExist:
-        messages.error(request, "Unable to delete image: image not found.")
+        messages.error(request, "Unable to delete image: Image not found.")
         success = False
 
     # Render any messages and pass them to the front end
@@ -369,7 +369,15 @@ def set_title_image(request):
     """ A view to set an event's title image """
     success = False
     try:
-        pass
+        # Get the event existing database items
+        event = Event.objects.get(id=request.POST['event_id'])
+        image = Image.objects.get(id=request.POST['image_id'])
+        # Set the event title image
+        event.title_image = image
+        event.save()
+        # Indicate success
+        messages.success(request, "Image successfully set as event title.")
+        success = True
 
     except KeyError:
         messages.error(request, "Unable to set title image: Missing required data. \
