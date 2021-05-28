@@ -223,19 +223,18 @@ def edit_event(request):
 @require_POST
 def delete_event(request):
     success = False;
-    if 'date_id' in request.POST:
-        try:
-            pass
-        except Event.DoesNotExist:
-            message.error(request, "Unable to delete event: Event does not exist.")
+    try:
+        event = Event.objects.get(id=request.POST['event_id'])
+        event.delete()
 
+    except KeyError:
+        messages.error(request, "Unable to delete: Missing required data. \
+            Please check your submission and try again.")
+        success = False
+    except Event.DoesNotExist:
+        message.error(request, "Unable to delete event: Event does not exist.")
 
-    message_html = loader.render_to_string('includes/messages.html', request=request)
-    response = {
-        'success': True,
-        'message_html': message_html,
-    }
-    return JsonResponse(response)
+    return redirect(reverse('events'))
 
 
 @staff_member_required
