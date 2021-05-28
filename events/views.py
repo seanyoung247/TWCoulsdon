@@ -298,7 +298,6 @@ def edit_image(request):
     """ A view to edit a single gallery image's meta data """
     success = False
     try:
-        print("edit image")
         # Get the current image object
         image = Image.objects.get(id=request.POST['image_id'])
         # Construct a form
@@ -333,7 +332,6 @@ def remove_image(request):
     """ A view to delete a single gallery image """
     success = True
     try:
-        print("remove image")
         # Get the image model
         image = Image.objects.get(id=request.POST['image_id'])
         # Delete the record
