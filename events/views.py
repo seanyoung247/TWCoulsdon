@@ -105,6 +105,7 @@ def event_details(request, event_slug):
 
     context = {
         "event": event,
+        "show_event_tools": True,
         "ticket_types": ticket_types,
         "first_date": dates['min_date'],
         "last_date": dates['max_date'],
@@ -146,6 +147,9 @@ def edit_event(request):
             # Is the data valid?
             if event_form.is_valid():
                 event = event_form.save()
+                success = True
+            else:
+                success = False
 
             # Create the event dates
             for date in json.loads(request.POST['dates']):
@@ -161,8 +165,9 @@ def edit_event(request):
 
                 if date_form.is_valid():
                     date_form.save()
-
-            success = True
+                    success = True
+                else:
+                    success = False
 
         except KeyError:
             messages.error(request, "Unable to update event: missing required data. \
@@ -178,7 +183,8 @@ def edit_event(request):
             success = False
 
         # Create the event url
-        event_url = reverse('event_details', args=[event.slug])
+        if success:
+            event_url = reverse('event_details', args=[event.slug])
         # If there was a failure, render any messages
         if not success:
             message_html = loader.render_to_string('includes/messages.html', request=request)
@@ -215,21 +221,43 @@ def edit_event(request):
 
 @staff_member_required
 @require_POST
+def delete_event(request):
+    success = False;
+    try:
+        event = Event.objects.get(id=request.POST['event_id'])
+        event.delete()
+
+    except KeyError:
+        messages.error(request, "Unable to delete: Missing required data. \
+            Please check your submission and try again.")
+        success = False
+    except Event.DoesNotExist:
+        message.error(request, "Unable to delete event: Event does not exist.")
+
+    return redirect(reverse('events'))
+
+
+@staff_member_required
+@require_POST
 def remove_date(request):
     success = False;
-    if 'date_id' in request.POST:
-        try:
-            # Get the event to delete
-            event_date = EventDate.objects.get(id=request.POST['date_id'])
-            event_date.delete()
-        except EventDate.DoesNotExist:
-            message.error(request, "Unable to remove date: Does not exist.")
-    else:
-        message.error(request, "Unable to remove date: No date id provided.")
+    try:
+        # Get the event to delete
+        event_date = EventDate.objects.get(id=request.POST['date_id'])
+        event_date.delete()
+        success = True
+
+    except KeyError:
+        messages.error(request, "Unable to add image: Missing required data. \
+            Please check your submission and try again.")
+        success = False
+    except EventDate.DoesNotExist:
+        message.error(request, "Unable to remove date: Date does not exist.")
+        success = False
 
     message_html = loader.render_to_string('includes/messages.html', request=request)
     response = {
-        'success': True,
+        'success': success,
         'message_html': message_html,
     }
     return JsonResponse(response)
@@ -313,7 +341,7 @@ def edit_image(request):
             Please check your submission and try again.")
         success = False
     except Image.DoesNotExist:
-        messages.error(request, "Unable to edit image: image not found.")
+        messages.error(request, "Unable to edit image: Image not found.")
         success = False
 
     # Render any messages and pass them to the front end
@@ -344,7 +372,44 @@ def remove_image(request):
             Please check your submission and try again.")
         success = False
     except Image.DoesNotExist:
-        messages.error(request, "Unable to delete image: image not found.")
+        messages.error(request, "Unable to delete image: Image not found.")
+        success = False
+
+    # Render any messages and pass them to the front end
+    message_html = loader.render_to_string('includes/messages.html', request=request)
+
+    response = {
+        'success': success,
+        'message_html': message_html,
+    }
+    return JsonResponse(response)
+
+
+@staff_member_required
+@require_POST
+def set_title_image(request):
+    """ A view to set an event's title image """
+    success = False
+    try:
+        # Get the event existing database items
+        event = Event.objects.get(id=request.POST['event_id'])
+        image = Image.objects.get(id=request.POST['image_id'])
+        # Set the event title image
+        event.title_image = image
+        event.save()
+        # Indicate success
+        messages.success(request, "Image successfully set as event title.")
+        success = True
+
+    except KeyError:
+        messages.error(request, "Unable to set title image: Missing required data. \
+            Please check your submission and try again.")
+        success = False
+    except Event.DoesNotExist:
+        messages.error(request, "Unable to set title image: Event not found.")
+        success = False
+    except Image.DoesNotExist:
+        messages.error(request, "Unable to set title image: Image not found.")
         success = False
 
     # Render any messages and pass them to the front end

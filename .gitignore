@@ -1,7 +1,9 @@
 # test database
 *.sqlite3
-db.json
-home.json
+
+# fixtures
+/*.json
+
 
 # python
 *.pyc
@@ -13,6 +15,9 @@ lib/
 lib64
 pyvenv.cfg
 share/
+
+# media files
+media/events
 
 # helper scripts
 update_static.sh

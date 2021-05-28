@@ -42,7 +42,13 @@
       </button>
 
       {% if request.user.is_staff %}
-        <div id="gallery-admin-tools" class="">
+        <div class="gallery-admin-tools">
+          <button id="gallery-title-image-btn" class="btn btn-twc-light"
+                  data-update-url="{% url 'set_title_image' %}">
+            Set as title image
+          </button>
+        </div>
+        <div class="gallery-admin-tools">
           <button id="gallery-add-image-btn" title="Upload image" class="btn">
             <img src="{% static 'img/add_image.png' %}" alt="Add image">
           </button>
@@ -53,7 +59,7 @@
             alt="{{ event.title_image.name }}">
       {# Image admin tools #}
       {% if request.user.is_staff %}
-        <div id="gallery-admin-tools">
+        <div class="gallery-admin-tools">
           <form id="image-upload-form" action="{% url 'add_image' %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="event_id" value="{{ event.id }}">

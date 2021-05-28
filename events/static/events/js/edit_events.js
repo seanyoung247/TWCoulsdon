@@ -49,7 +49,7 @@ $( "#add-date-list" ).on('click', '.remove-date-btn', function() {
 
 // Captures the submit event so we can set the title image
 const form = $( '#event-form' );
-form[0].addEventListener('submit', function(e) {
+form.submit(function(e) {
   e.preventDefault();
 
   const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
@@ -74,7 +74,7 @@ form[0].addEventListener('submit', function(e) {
     'title': $.trim(form[0].title.value),
     'author': $.trim(form[0].author.value),
     'tagline': $.trim(form[0].tagline.value),
-    'description': $.trim(form[0].description.value),
+    'description': $.trim(tinyMCE.activeEditor.getContent()),
     'type': $.trim(form[0].type.value),
     'venue': $.trim(form[0].venue.value),
     'content': $.trim(form[0].content.value),

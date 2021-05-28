@@ -76,7 +76,12 @@
           <a class="btn btn-twc-dark w-75" href="{% url 'events' %}?type=show">Cancel</a>
         </div>
         <div class="col-12 col-sm-4 mb-2 text-center">
-          <button class="btn btn-twc-brand w-75" type="button">Delete Event</button>
+          {% if event %}
+            <button class="btn btn-twc-brand w-75" type="button"
+                    data-toggle="modal" data-target="#exampleModal">
+              Delete Event
+            </button>
+          {% endif %}
         </div>
         <div class="col-12 col-sm-4 mb-2 text-center text-sm-right">
           {% if event %}
@@ -88,6 +93,34 @@
       </div>
     </form>
   </section>
+
+  {% if event %}
+    {# Can only delete an event that exists #}
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete: {{ event.title }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to permenantly delete this event?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-twc-accent" data-dismiss="modal">Cancel</button>
+
+            <form action="{% url 'delete_event' %}" method="POST">
+              {% csrf_token %}
+              <input name="event_id" type="hidden" value="{{ event.id }}">
+              <button type="submit" class="btn btn-twc-brand">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
 
 {% endblock %}
 

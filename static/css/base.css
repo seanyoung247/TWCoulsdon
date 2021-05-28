@@ -450,6 +450,7 @@ input[type=number] {
   display:flex;
   flex-grow: 1;
   justify-content: flex-end;
+  text-shadow: 1px 1px black;
 }
 
 .header-icons svg {
@@ -499,6 +500,7 @@ input[type=number] {
 .dropdown-menu.user-dropdown {
   background-color: var(--light-color);
   color: var(--dark-color);
+  text-shadow: none;
 }
 
 .user-dropdown > .dropdown-item:hover {
