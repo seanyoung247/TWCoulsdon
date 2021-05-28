@@ -68,17 +68,27 @@ $('.scroller-items').on('click', '.gallery-image-link', function() {
 $( '#gallery-title-image-btn' ).click(function() {
   const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
   const event_id = $('input[name="event_id"]').val();
-  const image_id = $('#gallery-image').data('id');
+  const galleryImage = $('#gallery-image');
   const current = $( this );
 
-  if (image_id > 0) {
+  if (galleryImage.data('id') > 0) {
     // Try to update the event record
     const url = current.data('update-url');
     postData = {
       'csrfmiddlewaretoken': csrfToken,
       'event_id': event_id,
-      'image_id': image_id,
+      'image_id': galleryImage.data('id'),
     };
+    $.post(url, postData).done(function(data) {
+      // If successful reflect the change in the event title
+      if (data.success) {
+        // Get the event's title image and set it's background
+        // to the src of the gallery image tag
+        $( '.event-header' )
+          .css('background-image', `url(${galleryImage.attr('src')})`)
+      }
+      addMessage(data.message_html);
+    });
   }
 });
 
