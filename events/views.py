@@ -275,6 +275,7 @@ def add_image(request):
     if success:
         context = {
             'item': image,
+            'wrapper': True,
         }
         item_html = loader.render_to_string('includes/image_tile.html', context=context)
     else:
