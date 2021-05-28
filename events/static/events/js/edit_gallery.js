@@ -199,8 +199,9 @@ $( '#image-upload-form' ).submit(function(e) {
             newImage.insertBefore('.scroll-item:last');
             clearUploadForm();
             // Update gallery links
-            $( '#gallery-prev' ).data('target',
-              $('#add-image-item').prev().children('.gallery-image-link'));
+            // $( '#gallery-prev' ).data('target',
+            //   $('#add-image-item').prev().children('.gallery-image-link'));
+            $('#add-image-item').children('.gallery-image-link').click();
           }
           addMessage(data.message_html);
       }
