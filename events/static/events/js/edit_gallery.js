@@ -144,6 +144,7 @@ $( '#gallery-admin-delete' ).click(function() {
 // Captures the form submission so it can be done asynchronously
 $( '#image-upload-form' ).submit(function(e) {
   e.preventDefault();
+  this.reportValidity();
   // Can we submit the form?
   const fileInput = $( '#image-upload' );
   const titleInput = $( '#gallery-admin-title' );
@@ -165,6 +166,9 @@ $( '#image-upload-form' ).submit(function(e) {
             const newImage = $( data.item_html );
             newImage.insertBefore('.scroll-item:last');
             clearUploadForm();
+            // Update gallery links
+            $( '#gallery-prev' ).data('target',
+              $('#add-image-item').prev().children('.gallery-image-link'));
           }
           addMessage(data.message_html);
       }
