@@ -5,6 +5,7 @@
 {% if wrapper %}<li class="scroll-item">{% endif %}
   <a
     class="gallery-image-link"
+    data-id="{{ item.id }}"
     data-target="#gallery-modal"
     data-image="{{ item.image|check_image }}"
     data-description="{{ item.name }}">
