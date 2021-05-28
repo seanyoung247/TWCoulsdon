@@ -311,7 +311,7 @@
 /*
  * Gallery admin tools
  */
-#gallery-admin-tools,
+.gallery-admin-tools,
 #image-upload-form {
   display: inline-flex;
   align-items: center;
