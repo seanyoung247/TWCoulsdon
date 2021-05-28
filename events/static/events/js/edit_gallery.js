@@ -97,6 +97,33 @@ $( '#gallery-admin-update' ).click(function() {
     $( '#image-upload-form' ).submit();
   }
 });
+
+// Delete button clicked
+$( '#gallery-admin-delete' ).click(function() {
+  const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+  const image_id = $('#gallery-image').data('id');
+  const current = $( this );
+
+  if (image_id > 0) {
+    // Try to remove the image
+    const url = current.data('remove-url');
+    postData = {
+      'csrfmiddlewaretoken': csrfToken,
+      'image_id': image_id
+    };
+    $.post(url, postData).done(function(data) {
+      if (data.success) {
+        // Remove the tile
+        // Move to the next free tile
+      }
+      addMessage(html_message);
+    });
+  } else {
+    // Clear the file upload form
+    clearUploadForm();
+  }
+});
+
 // Captures the form submission so it can be done asynchronously
 $( '#image-upload-form' ).submit(function(e) {
   e.preventDefault();
