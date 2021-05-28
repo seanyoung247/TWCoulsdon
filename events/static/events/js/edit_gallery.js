@@ -81,7 +81,7 @@ $( '#image-upload' ).change(function() {
 $( '#gallery-admin-update' ).click(function() {
   const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
   const image_id = $('#gallery-image').data('id');
-  const titleInput = $( '#gallery-admin-title' )
+  const titleInput = $( '#gallery-admin-title' );
   const current = $( this );
 
   if (image_id > 0) {
@@ -123,8 +123,15 @@ $( '#gallery-admin-delete' ).click(function() {
     };
     $.post(url, postData).done(function(data) {
       if (data.success) {
+        // Get the tile to delete
+        const currentIndex = current.data('index');
+        const currentLink = $( '.scroller-items li' ).eq(currentIndex);
         // Remove the tile
+        currentLink.remove();
         // Move to the next free tile
+        // Get the item that is now at this index, and activate it's click event
+        $( '.scroller-items li' ).eq(currentIndex)
+          .children('a.gallery-image-link').click();
       }
       addMessage(data.message_html);
     });
