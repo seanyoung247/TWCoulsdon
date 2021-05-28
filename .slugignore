@@ -3,3 +3,4 @@ test*.py
 *.md
 design/
 media/
+gen_secret_key.py
