@@ -243,6 +243,32 @@ def remove_date(request):
 
 @staff_member_required
 @require_POST
+def remove_date(request):
+    success = False;
+    try:
+        # Get the event to delete
+        event_date = EventDate.objects.get(id=request.POST['date_id'])
+        event_date.delete()
+        success = True
+
+    except KeyError:
+        messages.error(request, "Unable to add image: Missing required data. \
+            Please check your submission and try again.")
+        success = False
+    except EventDate.DoesNotExist:
+        message.error(request, "Unable to remove date: Date does not exist.")
+        success = False
+
+    message_html = loader.render_to_string('includes/messages.html', request=request)
+    response = {
+        'success': success,
+        'message_html': message_html,
+    }
+    return JsonResponse(response)
+
+
+@staff_member_required
+@require_POST
 def add_image(request):
     """ A view to upload a single gallery image to the server """
     success = False
@@ -285,7 +311,7 @@ def add_image(request):
             'item': image,
             'wrapper': True,
         }
-        item_html = loader.render_to_string('includes/Image_tile.html', context=context)
+        item_html = loader.render_to_string('includes/image_tile.html', context=context)
 
     # Render any messages and pass them to the front end
     message_html = loader.render_to_string('includes/messages.html', request=request)
