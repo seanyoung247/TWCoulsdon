@@ -300,6 +300,35 @@ def add_image(request):
 
 @staff_member_required
 @require_POST
+def set_title_image(request):
+    """ A view to set an event's title image """
+    success = False
+    try:
+        pass
+
+    except KeyError:
+        messages.error(request, "Unable to set title image: Missing required data. \
+            Please check your submission and try again.")
+        success = False
+    except Event.DoesNotExist:
+        messages.error(request, "Unable to set title image: Event not found.")
+        success = False
+    except Image.DoesNotExist:
+        messages.error(request, "Unable to set title image: Image not found.")
+        success = False
+
+    # Render any messages and pass them to the front end
+    message_html = loader.render_to_string('includes/messages.html', request=request)
+
+    response = {
+        'success': success,
+        'message_html': message_html,
+    }
+    return JsonResponse(response)
+
+
+@staff_member_required
+@require_POST
 def edit_image(request):
     """ A view to edit a single gallery image's meta data """
     success = False
