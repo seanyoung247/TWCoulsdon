@@ -221,17 +221,14 @@ def edit_event(request):
 
 @staff_member_required
 @require_POST
-def remove_date(request):
+def delete_event(request):
     success = False;
     if 'date_id' in request.POST:
         try:
-            # Get the event to delete
-            event_date = EventDate.objects.get(id=request.POST['date_id'])
-            event_date.delete()
-        except EventDate.DoesNotExist:
-            message.error(request, "Unable to remove date: Does not exist.")
-    else:
-        message.error(request, "Unable to remove date: No date id provided.")
+            pass
+        except Event.DoesNotExist:
+            message.error(request, "Unable to delete event: Event does not exist.")
+
 
     message_html = loader.render_to_string('includes/messages.html', request=request)
     response = {
