@@ -11,5 +11,6 @@ urlpatterns = [
     path('edit_event/add_image/', views.add_image, name='add_image'),
     path('edit_event/edit_image/', views.edit_image, name='edit_image'),
     path('edit_event/remove_image/', views.remove_image, name='remove_image'),
+    path('edit_event/set_title_image/', views.set_title_image, name='set_title_image'),
     path('<event_slug>/', views.event_details, name='event_details'),
 ]
