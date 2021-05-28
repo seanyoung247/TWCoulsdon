@@ -32,6 +32,7 @@ $('.scroller-items').on('click', '.gallery-image-link', function() {
   const addImageBtn = $( '#gallery-add-image-btn' );
   const updateImageBtn = $( '#gallery-admin-update' );
   const deleteImageBtn = $( '#gallery-admin-delete' );
+  const titleImageBtn = $( '#gallery-title-image-btn' );
 
   // Set the contents of the image title input
   titleInput.attr('placeholder', 'Image name');
@@ -47,6 +48,8 @@ $('.scroller-items').on('click', '.gallery-image-link', function() {
   if (current.data('admin') == 'True') {
     // Show the add image button
     addImageBtn.show();
+    // Hide the title image button
+    titleImageBtn.hide();
     // Update button adds images here:
     updateImageBtn.text("Add");
     // Delete button clears the selected file
@@ -55,8 +58,27 @@ $('.scroller-items').on('click', '.gallery-image-link', function() {
   } else {
     // Hide the add image button
     addImageBtn.hide();
+    titleImageBtn.show();
     updateImageBtn.text('Update');
     deleteImageBtn.text('Delete');
+  }
+});
+
+// Title-image button clicked
+$( '#gallery-title-image-btn' ).click(function() {
+  const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+  const event_id = $('input[name="event_id"]').val();
+  const image_id = $('#gallery-image').data('id');
+  const current = $( this );
+
+  if (image_id > 0) {
+    // Try to update the event record
+    const url = current.data('update-url');
+    postData = {
+      'csrfmiddlewaretoken': csrfToken,
+      'event_id': event_id,
+      'image_id': image_id,
+    };
   }
 });
 
