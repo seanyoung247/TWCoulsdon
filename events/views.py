@@ -294,7 +294,36 @@ def add_image(request):
 @staff_member_required
 @require_POST
 def edit_image(request):
-    return JsonResponse({'success':True})
+    """ A view to edit a single gallery image's meta data """
+    success = False
+    try:
+        print("edit image")
+        # Get the current image object
+        image = Image.objects.get(id=request.POST['image_id'])
+        # Construct a form
+        image_form = ImageForm({'name':request.POST['image-name']}, instance=image)
+        # Is the data valid?
+        if image_form.is_valid():
+            image.save(update_fields=['name']);
+            messages.success(request, "Image updated successfully")
+            success = True
+
+    except KeyError:
+        messages.error(request, "Unable to edit image: Missing required data. \
+            Please check your submission and try again.")
+        success = False
+    except Image.DoesNotExist:
+        messages.error(request, "Unable to edit image: image not found.")
+        success = False
+
+    # Render any messages and pass them to the front end
+    message_html = loader.render_to_string('includes/messages.html', request=request)
+
+    response = {
+        'success': success,
+        'message_html': message_html,
+    }
+    return JsonResponse(response)
 
 
 @staff_member_required
