@@ -33,7 +33,7 @@ class UserProfileForm(forms.ModelForm):
     """ Creates a form for the UserProfile model """
     class Meta:
         model = UserProfile
-        exclude = ('user',)
+        fields = ('default_phone_number',)
 
     def __init__(self, *args, **kwargs):
         """ Initialises the user profile form """

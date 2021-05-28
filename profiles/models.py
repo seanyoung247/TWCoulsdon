@@ -1,6 +1,8 @@
 """ Defines the profile app's models """
 # pylint: disable=E5142
-# Importing user model link in user profile
+# Importing user model requried for link in user profile
+# pylint: disable=W0613
+# Unused argument: Arguments are django pattern
 
 from django.db import models
 from django.contrib.auth.models import User
