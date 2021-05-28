@@ -124,7 +124,7 @@
   <script src="{% static 'js/scroller.js' %}"></script>
   <script src="{% static 'events/js/gallery.js' %}"></script>
   <script src="{% static 'boxoffice/js/tickets.js' %}"></script>
-  {# only include the editing code if this user can edit events #}
+  {# only include the editing script if this user can edit events #}
   {% if request.user.is_staff %}
     <script src="{% static 'events/js/edit_gallery.js' %}"></script>
   {% endif %}
