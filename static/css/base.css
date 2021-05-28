@@ -25,9 +25,19 @@ html, body {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   background-color: var(--background-color);
   color: var(--dark-color);
   font-family: 'Roboto', sans-serif;
+}
+
+section {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
 }
 
 /*
