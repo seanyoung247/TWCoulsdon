@@ -4,7 +4,6 @@ from django.shortcuts import render, reverse, get_object_or_404
 from django.db import models
 from django.db.models import Min, Max
 from django.utils import timezone
-from django.contrib import messages
 
 from events.models import Event
 from .models import Category, Page
