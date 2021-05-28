@@ -72,6 +72,31 @@ $( '#image-upload' ).change(function() {
   }
 });
 
+// Update button clicked
+$( '#gallery-admin-update' ).click(function() {
+  const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+  const image_id = $('#gallery-image').data('id');
+  const current = $( this );
+
+  if (image_id > 0) {
+    // Try to update the image
+    const url = current.data('remove-url');
+    postData = {
+      'csrfmiddlewaretoken': csrfToken,
+      'image_id': image_id,
+      'image-name': $( '#gallery-admin-title' ).val()
+    };
+    $.post(url, postData).done(function(data) {
+      if (data.success) {
+
+      }
+      addMessage(html_message);
+    });
+  } else {
+    // Try to submit a new image
+    $( '#image-upload-form' ).submit();
+  }
+});
 // Captures the form submission so it can be done asynchronously
 $( '#image-upload-form' ).submit(function(e) {
   e.preventDefault();
