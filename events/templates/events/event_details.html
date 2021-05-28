@@ -100,7 +100,8 @@
   </div>
 
   {# Event Gallery #}
-  {% if images %}
+  {# Don't show gallery if there are no images unless user is admin who can add images #}
+  {% if images or request.user.is_staff %}
     <div class="row constrain-width event-gallery">
       <div class="col-12">
         <h3>Gallery</h3>
@@ -112,7 +113,10 @@
   {% endif %}
 </section>
 
-{% include 'includes/gallery_modal.html' %}
+{# Don't show gallery if there are no images unless user is admin who can add images #}
+{% if images or request.user.is_staff %}
+  {% include 'includes/gallery_modal.html' %}
+{% endif %}
 {% include 'includes/add_ticket_modal.html' %}
 
 {% endblock %}
