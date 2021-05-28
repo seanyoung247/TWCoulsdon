@@ -80,5 +80,12 @@ class Image(models.Model):
     description = models.CharField(max_length=256, null=True, blank=True)
     image = ThumbnailerImageField(upload_to="events/", null=True, blank=True)
 
+    def delete(self):
+        # Delete any image thumbnails
+        self.image.delete_thumbnails(self.image.name)
+        # Delete the main image file
+        self.image.storage.delete(self.image.name)
+        super().delete()
+
     def __str__(self):
         return self.name
