@@ -59,9 +59,9 @@
                     data-update-url="{% url 'edit_image' %}">
               Update
             </button>
-            <input id="image-upload" accept="image/*" type="file" name="image-file">
-            <input id="gallery-admin-title" type="text" class="form-control m-2"
-                    name="image-name" maxlength="50" value="{{event.title_image.name}}">
+            <input id="image-upload" accept="image/*" type="file" name="image-file" required>
+            <input id="gallery-admin-title" type="text" class="form-control m-2" name="image-name"
+                   maxlength="50" value="{{event.title_image.name}}" required>
 
             <button type="button" id="gallery-admin-delete" class="btn btn-twc-brand m-2"
                     data-remove-url="{% url 'remove_image' %}">
