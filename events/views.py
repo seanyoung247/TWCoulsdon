@@ -239,6 +239,8 @@ def remove_date(request):
 @require_POST
 def add_image(request):
     success = False
+    item_html = None
+    message_html = None
 
     try:
         # Get the event this image is for
@@ -252,13 +254,15 @@ def add_image(request):
         }
         image_form = ImageForm(image_data)
         if image_form.is_valid():
+            # Forms don't seem to accept file data,
+            # so create the object manually
             image=Image.objects.create(
                 event=event,
                 name=request.POST['image-name'],
                 image=request.FILES['image-file'],
             )
+            success = True
 
-        success = True
     except KeyError:
         messages.error(request, "Unable to add image: Missing required data. \
             Please check your submission and try again.")
@@ -267,11 +271,19 @@ def add_image(request):
         messages.error(request, "Unable to add image: event not found.")
         success = False
 
-    # Render any messages and pass them to the front end
-    message_html = loader.render_to_string('includes/messages.html', request=request)
+    # If image was successfully added, create the html to add it to the gallery
+    if success:
+        context = {
+            'item': image,
+        }
+        item_html = loader.render_to_string('includes/image_tile.html', context=context)
+    else:
+        # Render any messages and pass them to the front end
+        message_html = loader.render_to_string('includes/messages.html', request=request)
 
     response = {
         'success': success,
+        'item_html': item_html,
         'message_html': message_html,
     }
     return JsonResponse(response)
