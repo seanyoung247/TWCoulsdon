@@ -27,6 +27,7 @@ function clearUploadForm() {
 $('.scroller-items').on('click', '.gallery-image-link', function() {
   const current = $( this );
   const currentData = current.data('description');
+  const currentIndex = $( '.scroller-items li' ).index(current.parent());
   const titleInput = $( '#gallery-admin-title' );
   const addImageBtn = $( '#gallery-add-image-btn' );
   const updateImageBtn = $( '#gallery-admin-update' );
@@ -36,6 +37,10 @@ $('.scroller-items').on('click', '.gallery-image-link', function() {
   titleInput.attr('placeholder', 'Image name');
   titleInput.val(currentData);
 
+  // Tag the buttons with the current gallery item index
+  // (simplifies updating/deleting it)
+  updateImageBtn.data('index', currentIndex);
+  deleteImageBtn.data('index', currentIndex);
   // Clear the file upload, don't stash selected files
   $( '#image-upload' ).val('');
   // Is this the add image button
