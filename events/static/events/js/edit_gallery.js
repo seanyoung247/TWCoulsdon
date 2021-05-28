@@ -6,10 +6,21 @@
 $( document ).ready(function() {
   // Adds an admin button to the end of the gallery scroller
   let addImageItem = $( '#add-image-item' );
-
   addImageItem.insertBefore('.scroll-item-bookend:last');
   addImageItem.removeClass('d-none');
 });
+
+// Clears the image upload form
+function clearUploadForm() {
+  // Clear the upload form
+  $( '#image-upload' ).val('');
+  // Clear the name field
+  $( '#gallery-admin-title' ).val('')
+  // Clear the preview image
+  $( '#gallery-image' ).attr('src', '');
+  // Show the add file button
+  $( '#gallery-add-image-btn' ).show();
+}
 
 // Hook into the gallery-image event so we can set admin
 // tools when the gallery is shown
@@ -84,9 +95,9 @@ $( '#image-upload-form' ).submit(function(e) {
             // Get the new gallery tile html and add it to the gallery list
             const newImage = $( data.item_html );
             newImage.insertBefore('.scroll-item:last');
-          } else {
-            addMessage(data.message_html);
+            clearUploadForm();
           }
+          addMessage(data.message_html);
       }
     });
   }
