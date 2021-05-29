@@ -73,7 +73,7 @@ form[0].addEventListener('submit', function(e) {
     'save_to_profile': saveToProfile,
     'client_secret': clientSecret,
   };
-  const url = '/boxoffice/checkout/cache_data/'
+  const url = '/boxoffice/checkout/cache_data/';
 
   // Post the pre-checkout data
   $.post(url, postData).done(function() {
