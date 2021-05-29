@@ -1,11 +1,4 @@
 /*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v7.0.29,
-* Autoprefixer: v9.7.6
-* Browsers: last 4 version
-*/
-
-/*
  * Site wide css styles
  */
 :root {
@@ -32,27 +25,19 @@ html, body {
 }
 
 body {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   background-color: var(--background-color);
   color: var(--dark-color);
   font-family: 'Roboto', sans-serif;
 }
 
 section {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
 footer {
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 /*
@@ -63,22 +48,14 @@ footer {
 }
 
 .center-items {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 hr {
   border: 0;
   height: 1px;
-  background-image: -webkit-gradient(linear, left top, right top, from(rgba(20,22,26, 0)), color-stop(rgba(20,22,26, 0.75)), to(rgba(20,22,26, 0)));
-  background-image: -o-linear-gradient(left, rgba(20,22,26, 0), rgba(20,22,26, 0.75), rgba(20,22,26, 0));
   background-image: linear-gradient(to right, rgba(20,22,26, 0), rgba(20,22,26, 0.75), rgba(20,22,26, 0));
 }
 
@@ -117,8 +94,7 @@ a:hover {
 .callout-box {
   background-color: var(--light-color);
   border-radius: 10px;
-  -webkit-box-shadow: 0 0 2px var(--dark-color);
-          box-shadow: 0 0 2px var(--dark-color);
+  box-shadow: 0 0 2px var(--dark-color);
   margin: 25px 0;
   padding: 10px;
   width: 100%;
@@ -197,24 +173,16 @@ a:hover {
 .form-control:active,
 .btn:focus, .btn:active {
   border-color: var(--accent-color);
-  -webkit-box-shadow: 0 0 0 0.2rem var(--accent-trans);
-          box-shadow: 0 0 0 0.2rem var(--accent-trans);
+  box-shadow: 0 0 0 0.2rem var(--accent-trans);
 }
 
 /*
  * Messaging
  */
 .message-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
 
   position: fixed;
   top: var(--header-mobile-height);
@@ -226,19 +194,12 @@ a:hover {
 }
 
 .message {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
+  flex: 1 0 auto;
   width: 0;
   min-height: 40px;
-  -webkit-box-shadow: 0 0 5px var(--dark-color);
-          box-shadow: 0 0 5px var(--dark-color);
+  box-shadow: 0 0 5px var(--dark-color);
   overflow: hidden;
-  -webkit-transition: width .5s;
-  -o-transition: width .5s;
   transition: width .5s;
   margin: 5px 0;
   background-color: var(--light-color);
@@ -273,8 +234,7 @@ a:hover {
 
 .close-message:focus,
 .close-message:active {
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   border: 1px solid transparent;
 }
 
@@ -341,18 +301,14 @@ input[type=number] {
   position: absolute;
   top: 50%;
   left: 0;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .scroller .scroll-right {
   position: absolute;
   top: 50%;
   right: 0;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 /*
@@ -443,11 +399,8 @@ input[type=number] {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-      -ms-transform: translateX(-50%) translateY(-50%);
-          transform: translateX(-50%) translateY(-50%);
+  transform-style: preserve-3d;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .navbar-collapse > .nav-search-form {
@@ -456,15 +409,13 @@ input[type=number] {
 }
 
 .nav-search {
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
+  transform-style: preserve-3d;
   border-radius: 0;
   border: 1px solid var(--dark-color);
 }
 
 .btn-search {
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
+  transform-style: preserve-3d;
   color: var(--dark-color);
   background-color: var(--light-color);
   border: 1px solid var(--dark-color);
@@ -495,15 +446,9 @@ input[type=number] {
 /* Header Icons */
 .header-icons {
   position: static;
-  display:-webkit-box;
-  display:-ms-flexbox;
   display:flex;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  flex-grow: 1;
+  justify-content: flex-end;
   text-shadow: 1px 1px black;
 }
 
@@ -590,16 +535,13 @@ input[type=number] {
   display: block;
   height: 100%;
   width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .carousel-caption {
   color: var(--light-color);
   background-color: var(--dark-trans);
   top: 50%;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
   margin: auto;
   max-width: 1000px;
   bottom: initial;
@@ -621,20 +563,12 @@ input[type=number] {
   margin: auto;
 }
 .content-page-links {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   list-style: none;
 
-  -webkit-box-pack: center;
-
-      -ms-flex-pack: center;
-
-          justify-content: center;
-  -ms-flex-line-pack: start;
-      align-content: flex-start;
+  justify-content: center;
+  align-content: flex-start;
 }
 .content-page-link {
   width: 100%;
@@ -648,19 +582,13 @@ input[type=number] {
  * Boxoffice
  */
 .ticket-validation-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   height: calc(100% - 92px);
   padding: 10px;
   margin: 0;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .ticket-validation-info {
@@ -689,9 +617,7 @@ input[type=number] {
   z-index: -1;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   font-size: 2rem;
   font-weight: bolder;
   color: red;
@@ -708,19 +634,13 @@ input[type=number] {
 
 label.add-ticket-label {
   display: block;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  justify-content: flex-start;
   margin-bottom: 5px;
 }
 
 .input-number-control {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  align-items: flex-start;
 }
 .btn-inc, .btn-dec {
   color: var(--light-color);
@@ -900,12 +820,8 @@ input[type="number"].item-line-quantity,
     height: 100%;
   }
   .navbar-center {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     text-align: center;
   }
   .navbar {
