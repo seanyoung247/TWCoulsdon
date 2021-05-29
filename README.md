@@ -823,9 +823,43 @@ Provides models and pages for user information and profiles.
 
 Provides models and pages for buying tickets, checking their validity and generating show attendance reports.
 
-* Shopping bag
+* Shopping basket
 * Checkout
 * Show attendance and ticketing reports
+
+### Potential improvements
+
+Some potential improvements to the site code design and architecture have been identified:
+
+##### CSS
+CSS files are somewhat split by app/page so styles not needed by other pages aren't loaded. This isn't complete though, with some styles that are app or page specific remaining in base.css. These should be further split out to separate page/app styles sheets.
+
+There is also scope for improving the existing styles. In some circumstances styles could be combined, in others split out to more general classes to be applied in html. This process has been started but not completed before deadline.
+
+#### Box Office app
+
+Currently ticketing, basket and checkout functionality is provided by the boxoffice app. Although these are related and somewhat closely coupled functions, they have become complex and complete enough to warrant separating into their own apps. A future architectural improvement would be to separate these roles into the following apps:
+- Boxoffice
+  - Admin and reporting for boxoffice and front of house
+  - Stock keeping: tools for ensuring tickets are available
+  - Ticket generation.
+- Basket
+  - Shopping basket functionality
+- Checkout
+  - Secure payments and checkout
+
+Additionally:
+- The boxoffice app implements emailing, mainly used for checkout confirmation. The core app may be a better place for this if emailing is used more generally (say for mailing lists when new events are added).
+
+#### Event Editing
+
+Adding or Editing events is currently done asynchronously through JavaScript. This reflects an earlier architecture where images were added in the edit page along with event data. This turned out to be too complex, so image editing was moved to the event details page, where it can be done on one image at a time for existing events. Now that image upload is being handled elsewhere events can be submitted through a standard form submit, which would significantly simplify the front and back end code and provide a better user experience.
+
+Conversely, adding/editing asynchronously allows the user to remain on the edit page if there are issues with the submission. However, redirecting and giving form defaults may be a simpler and more performant option here.
+
+#### Object Orientation
+
+The project currently uses object orientated paradigms to promote encapsulation and code reuse. For instance by use custom exceptions and inheritance to reuse slug generation code in models. There is a lot of scope to expand this to improve encapsulation and code reuse site wide. For instance the basket is managed through a series of helper functions. This is a prime candidate for being turned into a class to encapsulate basket functionality in an object. This would remove the need for converting to and from json representations at various points in the code, aide in error handling and simplify imports in client code.
 
 ### Languages
 - [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
