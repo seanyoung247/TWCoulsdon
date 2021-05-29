@@ -657,6 +657,8 @@ logged in staff members.
 
 ## Features
 
+The site allows admin users to add, edit, and delete events and their associated items (gallery images and performance dates). It provides normal users with the functionality to search events. They can add tickets for future performance dates that still have available tickets to a shopping basket. Tickets in the basket can then be bought through a secure payment system backed by stripe. Once payment is confirmed tickets are removed from availability and created in the database. Successful checkout will generate a pdf file with visual representation of a user's e-tickets that will be emailed to them and presented as a link for download. The e-tickets are given a QR-code with a link to a validation URL to help in front of house ticket validation.
+
 ### Existing Features
 
 ### Future Features
