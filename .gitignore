@@ -20,6 +20,7 @@ share/
 media/events
 
 # helper scripts
+update_media.sh
 update_static.sh
 set_production.sh
 set_development.sh
