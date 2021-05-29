@@ -8,7 +8,7 @@
 // Add a new date
 $( '#add-date-btn' ).click(function(e) {
   e.preventDefault();
-  html=`
+  const html=`
   <li class="add-date-item">
     <input name="date_id" type="hidden" value="-1">
     <input name="event_date" class="form-control m-1" type="date" value="" required>
@@ -16,7 +16,7 @@ $( '#add-date-btn' ).click(function(e) {
     <button class="remove-date-btn btn btn-twc-brand m-1" type="button">
       &times;
     </button>
-  </li>`
+  </li>`;
   $( '#add-date-list' ).append(html);
 });
 
@@ -29,11 +29,11 @@ $( "#add-date-list" ).on('click', '.remove-date-btn', function() {
   if (date_id > 0) {
     // Date already exists in database, so remove it on the server first
     const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
-    const url = `/events/edit_event/remove_date/`
+    const url = `/events/edit_event/remove_date/`;
     const postData = {
       'csrfmiddlewaretoken': csrfToken,
       'date_id': date_id
-    }
+    };
     $.post(url, postData).done(function(data) {
       if (data.success) {
         date_line.remove();
@@ -67,9 +67,9 @@ form.submit(function(e) {
     });
   });
 
-  url = form.attr('action');
+  const url = form.attr('action');
   // Construct the data to submit
-  postData = {
+  const postData = {
     'csrfmiddlewaretoken': csrfToken,
     'title': $.trim(form[0].title.value),
     'author': $.trim(form[0].author.value),
@@ -79,7 +79,7 @@ form.submit(function(e) {
     'venue': $.trim(form[0].venue.value),
     'content': $.trim(form[0].content.value),
     'dates': JSON.stringify(dates),
-  }
+  };
   const event_id = $( 'input[name="event_id"' ).val();
   if (event_id) postData['event_id'] = event_id;
 
@@ -90,7 +90,7 @@ form.submit(function(e) {
       location.href = data.event_url;
     } else {
       // show the error message
-      addMessage(message_html);
+      addMessage(data.message_html);
     }
   });
 });
