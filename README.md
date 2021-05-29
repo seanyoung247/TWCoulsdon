@@ -125,13 +125,13 @@ of the box-office and reporting.
     <tr>
       <td>US402</td>
       <td>Audience</td>
-      <td>View the tickets and their types prior in my bag</td>
+      <td>View the tickets and their types prior to checkout in my basket</td>
       <td>Identify the total cost of my tickets and what I will receive</td>
     </tr>
     <tr>
       <td>US403</td>
       <td>Audience</td>
-      <td>Adjust the quantity and type of individual tickets in my bag</td>
+      <td>Adjust the quantity and type of individual tickets in my basket</td>
       <td>Easily make changes to my purchase before checkout</td>
     </tr>
     <tr>
