@@ -106,7 +106,7 @@ Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
 
 ### Python unit tests
 
-Automated unit tests were created to ensure correct functioning of various components. These include the app database models,
+Automated unit tests were created to ensure correct functioning of various components. These include the app database models, views, queries and helper functions.
 To perform automated testing, from the project root directory type:
 `>python3 manage.py test`
 
