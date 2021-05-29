@@ -5,7 +5,7 @@
 // Updates the visual elements, such as the basket icon and total price
 function update_basket() {
   const listItems = $( '#basket-list' ).children( '.basket-list-item' );
-  let total_items = 0
+  let total_items = 0;
   // Are there any items left?
   if (listItems.length > 0) {
     let total = 0;
@@ -26,7 +26,7 @@ function update_basket() {
     $( '#checkout-btn' ).remove();
   }
   // Finally update the window title
-  document.title = `Basket (${total_items} items) - Theatre Workshop Coulsdon`
+  document.title = `Basket (${total_items} items) - Theatre Workshop Coulsdon`;
 }
 
 // Update item button
