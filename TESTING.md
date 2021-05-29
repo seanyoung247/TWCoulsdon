@@ -24,6 +24,22 @@ Generated **HTML** and **CSS** code were validated with the W3C Markup and CSS v
 <details>
 <summary><b>HTML</b></summary>
 
+[home page](design/testing/html_validation/homepage.pdf)
+
+[category pages](design/testing/html_validation/category_pages.pdf)
+
+[profile page](design/testing/html_validation/profile.pdf)
+
+[events list](design/testing/html_validation/events.pdf)
+
+[event details](design/testing/html_validation/event_details.pdf)
+
+[basket](design/testing/html_validation/basket.pdf)
+
+[checkout](design/testing/html_validation/checkout.pdf)
+
+[checkout success](design/testing/html_validation/checkout_success.pdf)
+
 </details>
 
 <details>
