@@ -172,25 +172,28 @@ def checkout_complete(request, order_number):
         order.user_profile = profile
         order.save()
 
-        full_name = order.full_name.split(' ')
-        user_data = {
-            'first_name': full_name[0],
-            'last_name': full_name[-1],
-            'email': order.email,
-        }
-        profile_data = {
-            'default_phone_number': order.phone_number,
-        }
-        user_form = UserInfoForm(user_data, instance=profile.user)
-        profile_form = UserProfileForm(profile_data, instance=profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
+        if save_to_profile:
+            full_name = order.full_name.split(' ')
+            user_data = {
+                'first_name': full_name[0],
+                'last_name': full_name[-1],
+                'email': order.email,
+            }
+            profile_data = {
+                'default_phone_number': order.phone_number,
+            }
+            user_form = UserInfoForm(user_data, instance=profile.user)
+            profile_form = UserProfileForm(profile_data, instance=profile)
+            if user_form.is_valid() and profile_form.is_valid():
+                user_form.save()
+                profile_form.save()
 
     messages.success(request, f'Order complete! Your tickets have been sent to {order.email}')
     try:
         send_ticket_pdf_email(request, order)
-    except:
+    # pylint: disable=W0703
+    # Sending emails shouldn't cause checkout to fail
+    except Exception:
         messages.error(request, "Sorry! Sending confirmation email failed! \
             Your tickets have been created, but not emailed to you!")
 
