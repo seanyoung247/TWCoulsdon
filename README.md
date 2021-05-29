@@ -110,7 +110,7 @@ of the box-office and reporting.
     <tr>
       <td>US303</td>
       <td>Audience</td>
-      <td>See what I've searched for and the number of results</td>
+      <td>See what I've searched for</td>
       <td>Quickly find what I'm looking for</td>
     </tr>
   <tr>
@@ -673,7 +673,6 @@ The site allows admin users to add, edit, and delete events and their associated
 - (US101): Upcoming events are showcased in a list of full-width banners
 - (US102): Each event has a details page with detailed show information
 - (US103): Logged in users can view their previous orders from their profile
-  - An order confirmation and copy of e-ticket pdf is emailed to the order email after checkout
 - (US104): Events can be filtered and searched by date range and type
 
 #### Registration and User Accounts
@@ -718,7 +717,6 @@ The site allows admin users to add, edit, and delete events and their associated
   - Add event (shown on every page) - links to add event page
   - Edit event (shown on an event detail page) - links to edit event page
 - (US601): Admin users can add new events through the front end
-  - The event details page presents
 - (US602): Admin users can edit existing events through the front end
   - The gallery widget presents admin users with extra options to upload new images, edit exiting images meta data, and set a gallery image as the event title image
 - (US603): Admin users can delete events from the edit event page
@@ -760,7 +758,7 @@ The site allows admin users to add, edit, and delete events and their associated
 
 ### Defensive programming
 
-- Bad data:
+- Invalid or missing data:
   - Post and Get requests that require data use if statements and exception logic to ensure bad data is caught and dealt with without causing 500 errors or damaging database data
   - Error messages are sent to the user alerting them to a faulty submission
   - Untrusted users are restricted from what they can access and what data they can send to the server
@@ -791,6 +789,7 @@ The site allows admin users to add, edit, and delete events and their associated
   - Are able to upload rich text (HTML content)
     - This is a potential vector for attack, as HTML content has minimal sanitisation. It would be possible to use injection attacks here. This is not considered a security risk because these pathways are blocked to untrusted users, on the principle that you either trust your trusted users, or you don't make them trusted users.
     - **NOTE**: If rich text input is added for untrusted users (for say, reviews/comments) trusted user code should **not** be reused.
+  - Trusted users are able to upload pages with minimal content. This is by design and not considered an issue. It was felt inappropriate to force users to upload content to more than minimal fields for flexibility.
 
 
 ## Technologies
