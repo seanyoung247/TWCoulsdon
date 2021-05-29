@@ -160,6 +160,7 @@ The python print() and JavaScript console.log functions were used to output vari
 
 Final UI testing was conducted prior to submission to confirm the UI fulfilled the required user stories:
 
+
 ### Peer Code Review
 
 The project was submitted for peer review on the code institute slack [channel](https://code-institute-room.slack.com/archives/CGWQJQKC5/p1622241547133500).
@@ -170,4 +171,22 @@ A Final sanity check was done with the student check list to ensure the site fit
 
 ## Solved Issues
 
+- [BUG][US402]Adding new ticket types to an existing date adds to existing line
+
+    fixed in commit [921c300](https://github.com/seanyoung247/TWCoulsdon/commit/921c300d89ce34bc3868289ecb0741c2ae559df3)
+- [BUG][US406] Order total not saved
+
+    fixed in commit [d5d93e9](https://github.com/seanyoung247/TWCoulsdon/commit/d5d93e9941d6b12d38511bd581ef7809d5b2d2c0)
+
+- [BUG][US102] Location pin not showing on venue map
+    fixed in commit [80a1b12](https://github.com/seanyoung247/TWCoulsdon/commit/80a1b121b58f84bae1c267999f443452ec96c561)
+
+- [BUG][US502-US503]Error loading eventlist
+    fixed in commit [cd90b50](https://github.com/seanyoung247/TWCoulsdon/commit/cd90b50d8206fc202af83b4f4a9903d576679b8a)
+
+- [BUG]Boxoffice queries return 0 available tickets when no tickets sold
+    fixed in commit [48d7c67](https://github.com/seanyoung247/TWCoulsdon/commit/48d7c67bee6821711f250a2f65fa22a7fffb8339)
+
 ## Known Issues
+
+None known.
