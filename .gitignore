@@ -25,5 +25,7 @@ update_static.sh
 set_production.sh
 set_development.sh
 
+teststaffcreds.txt
+
 # Environment variables
 .env
