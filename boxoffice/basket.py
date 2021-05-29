@@ -87,9 +87,10 @@ def add_line_to_basket(request, date_id, type_id, quantity):
             if not check_ticket_available(date_id, date_total + quantity):
                 event_date = _get_event_date_from_id(date_id)
                 if event_date:
-                    raise TicketsNotAvailable(event_date, get_available_tickets_for_date(event_date))
-                else:
-                    raise TicketsNotAvailable(event_date, 0)
+                    raise TicketsNotAvailable(event_date,
+                        get_available_tickets_for_date(event_date))
+
+                raise TicketsNotAvailable(event_date, 0)
 
         # Are we updating an existing line or adding a new one?
         if type_id in basket[date_id]:
@@ -100,9 +101,10 @@ def add_line_to_basket(request, date_id, type_id, quantity):
         if not check_ticket_available(date_id, quantity):
             event_date = _get_event_date_from_id(date_id)
             if event_date:
-                raise TicketsNotAvailable(event_date, get_available_tickets_for_date(event_date))
-            else:
-                raise TicketsNotAvailable(event_date, 0)
+                raise TicketsNotAvailable(event_date,
+                    get_available_tickets_for_date(event_date))
+
+            raise TicketsNotAvailable(event_date, 0)
         basket[date_id] = {type_id: quantity}
 
     request.session['basket'] = basket
@@ -135,9 +137,10 @@ def update_line_in_basket(request, date_id, type_id, quantity):
             if not check_ticket_available(date_id, date_total):
                 event_date = _get_event_date_from_id(date_id)
                 if event_date:
-                    raise TicketsNotAvailable(event_date, get_available_tickets_for_date(event_date))
-                else:
-                    raise TicketsNotAvailable(event_date, 0)
+                    raise TicketsNotAvailable(event_date,
+                        get_available_tickets_for_date(event_date))
+
+                raise TicketsNotAvailable(event_date, 0)
             basket[date_id][type_id] = quantity
 
     request.session['basket'] = basket
