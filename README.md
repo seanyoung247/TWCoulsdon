@@ -431,6 +431,11 @@ address and contact information.
 The venue page presents basic information on an event location, including it's
 address and contact information.
 
+##### Layout changes
+The layout for page changed significantly in implementation. Adding images at the same time as events was non-trivial, and also required a lot of file data to be transferred at once. It also made editing existing images problematic. Image editing functionality has therefore been moved to the event detail page, where it can be added to existing gallery components if an admin user is logged in.
+
+This UI change significantly simplifies the backend editing process, allowing CRUD operations on images to be performed on individual images asynchronously.
+
 ##### Wireframes
 
 <details>
