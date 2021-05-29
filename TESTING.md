@@ -96,14 +96,6 @@ Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
 </details>
 
 
-#### Google lighthouse
-
-<details>
-
-<summary>Google Chrome's <b>lighthouse</b> was also run and provided the following reports:</summary>
-
-</details>
-
 ### Python unit tests
 
 Automated unit tests were created to ensure correct functioning of various components. These include the app database models, views, queries and helper functions.
@@ -160,6 +152,7 @@ The python print() and JavaScript console.log functions were used to output vari
 
 Final UI testing was conducted prior to submission to confirm the UI fulfilled the required user stories:
 
+[UI Testing Report](design/testing/UI Testing.pdf)
 
 ### Peer Code Review
 

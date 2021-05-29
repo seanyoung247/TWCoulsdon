@@ -789,7 +789,7 @@ The site allows admin users to add, edit, and delete events and their associated
   - Are able to upload rich text (HTML content)
     - This is a potential vector for attack, as HTML content has minimal sanitisation. It would be possible to use injection attacks here. This is not considered a security risk because these pathways are blocked to untrusted users, on the principle that you either trust your trusted users, or you don't make them trusted users.
     - **NOTE**: If rich text input is added for untrusted users (for say, reviews/comments) trusted user code should **not** be reused.
-  - Trusted users are able to upload pages with minimal content. This is by design and not considered an issue. It was felt inappropriate to force users to upload content to more than minimal fields for flexibility.
+  - Trusted users are able to upload pages with minimal content. This is by design and not considered an issue. It was felt inappropriate to force trusted users to upload content to more than minimal fields for flexibility.
 
 
 ## Technologies
