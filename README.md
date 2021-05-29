@@ -456,6 +456,8 @@ address and contact information.
 
 #### Delete Event/Venue Modal
 
+Not currently implemented.
+
 Helps to ensure events and venues are not deleted accidentally.
 
 <details>
