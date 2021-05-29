@@ -15,7 +15,7 @@ function clearUploadForm() {
   // Clear the upload form
   $( '#image-upload' ).val('');
   // Clear the name field
-  $( '#gallery-admin-title' ).val('')
+  $( '#gallery-admin-title' ).val('');
   // Clear the preview image
   $( '#gallery-image' ).attr('src', '');
   // Show the add file button
@@ -74,7 +74,7 @@ $( '#gallery-title-image-btn' ).click(function() {
   if (galleryImage.data('id') > 0) {
     // Try to update the event record
     const url = current.data('update-url');
-    postData = {
+    const postData = {
       'csrfmiddlewaretoken': csrfToken,
       'event_id': event_id,
       'image_id': galleryImage.data('id'),
@@ -85,7 +85,7 @@ $( '#gallery-title-image-btn' ).click(function() {
         // Get the event's title image and set it's background
         // to the src of the gallery image tag
         $( '.event-header' )
-          .css('background-image', `url(${galleryImage.attr('src')})`)
+          .css('background-image', `url(${galleryImage.attr('src')})`);
       }
       addMessage(data.message_html);
     });
@@ -119,7 +119,7 @@ $( '#gallery-admin-update' ).click(function() {
   if (image_id > 0) {
     // Try to update the image
     const url = current.data('update-url');
-    postData = {
+    const postData = {
       'csrfmiddlewaretoken': csrfToken,
       'image_id': image_id,
       'image-name': titleInput.val()
@@ -149,7 +149,7 @@ $( '#gallery-admin-delete' ).click(function() {
   if (image_id > 0) {
     // Try to remove the image
     const url = current.data('remove-url');
-    postData = {
+    const postData = {
       'csrfmiddlewaretoken': csrfToken,
       'image_id': image_id
     };
