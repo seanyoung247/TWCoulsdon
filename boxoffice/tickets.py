@@ -48,7 +48,7 @@ def collapse_ticket_lines(basket):
                 ticket_dates[date_id] += basket[date_id][type_id]
             else:
                 ticket_dates[date_id] = basket[date_id][type_id]
-    return ticket_dates;
+    return ticket_dates
 
 
 def check_basket_availability(basket):
@@ -153,6 +153,7 @@ class TicketsNotAvailable(Exception):
         self.available = available
 
     def error_text(self):
+        """ returns the error text for this exception """
         if self.event_date:
             text = f"Not enough tickets available. {self.available} available \
                 for {self.event_date.date.strftime('%d/%m/%Y - %H:%M')}"
