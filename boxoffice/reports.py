@@ -11,37 +11,38 @@ from django.conf import settings
 from weasyprint import HTML
 from weasyprint.fonts import FontConfiguration
 
-from events.models import Event, EventDate
-from .models import TicketType, Ticket, Order
+from .models import Ticket
 from .basket import get_ticket_lines_from_basket
 
 
-def report_tickets_for_event(request, event):
-    """
-    Generates a pdf of the tickets in a given order
-
-    Parameters:
-    request (Request): The request object
-    order (Order): The event to generate a report for
-
-    Returns:
-    TBD
-    """
-    pass
-
-
-def report_tickets_for_date(request, date):
-    """
-    Generates a pdf of the tickets in a given order
-
-    Parameters:
-    request (Request): The request object
-    date (EventDate): The date to generate a report for
-
-    Returns:
-    TBD
-    """
-    pass
+# def report_tickets_for_event(request, event):
+#     """
+#     NOT YET IMPLIMENTED
+#     Generates a pdf of the tickets in a given order
+#
+#     Parameters:
+#     request (Request): The request object
+#     order (Order): The event to generate a report for
+#
+#     Returns:
+#     TBD
+#     """
+#     pass
+#
+#
+# def report_tickets_for_date(request, date):
+#     """
+#     NOT YET IMPLIMENTED
+#     Generates a pdf of the tickets in a given order
+#
+#     Parameters:
+#     request (Request): The request object
+#     date (EventDate): The date to generate a report for
+#
+#     Returns:
+#     TBD
+#     """
+#     pass
 
 
 def generate_ticket_pdf(request, order):
