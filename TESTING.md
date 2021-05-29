@@ -47,6 +47,10 @@ Generated **HTML** and **CSS** code were validated with the W3C Markup and CSS v
 <details>
 <summary><b>CSS</b></summary>
 
+[base.css](design/testing/css_validation/base_css.pdf)
+[events.css](design/testing/css_validation/events_css.pdf)
+[checkout.css](design/testing/css_validation/checkout_css.pdf)
+
 </details>
 
 **JavaScript** code was run through [JSHint](https://jshint.com/) to ensure they were syntactically correct. Any errors were corrected and linting re-run until correct.
