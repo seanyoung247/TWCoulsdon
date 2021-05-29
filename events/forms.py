@@ -42,8 +42,6 @@ class EventForm(forms.ModelForm):
             'author': 'Event Author',
             'tagline': 'Tag Line',
             'description': 'Description',
-            'type': 'Select Event Type',
-            'venue': 'Select Venue',
             'content': 'Youtube video embed link',
         }
         help_text = {
@@ -54,14 +52,15 @@ class EventForm(forms.ModelForm):
         self.fields['title'].widget.attrs['autofocus'] = True
 
         for field in self.fields:
-            if self.fields[field].required:
-                placeholder = f'{placeholders[field]} *'
-            else:
-                placeholder = placeholders[field]
+            if field in placeholders:
+                if self.fields[field].required:
+                    placeholder = f'{placeholders[field]} *'
+                else:
+                    placeholder = placeholders[field]
+                self.fields[field].widget.attrs['placeholder'] = placeholder
 
             if field in help_text:
                 self.fields[field].help_text = help_text[field]
 
-            self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].empty_label = None
             self.fields[field].label = False

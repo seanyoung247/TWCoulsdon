@@ -21,6 +21,11 @@
 {% block content %}
   <div id="header-spacer"></div>
   <section class="container-fluid">
+    {% if event %}
+      <h1 class="page-header">Edit Event</h1>
+    {% else %}
+      <h1 class="page-header">Add Event</h1>
+    {% endif %}
     <form id="event-form" method="POST" action="{% url 'edit_event' %}">
       {% csrf_token %}
       {% if event %}
