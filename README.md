@@ -1229,3 +1229,14 @@ migrations as outlined above. Data from the local database can be uploaded remot
 This can then be uploaded to the remote database after defining the DATABASE_URL by:
 
 `python3 manage.py loaddata db.json`
+
+
+## Acknowledgements
+
+Media content was provided by [Theatre Workshop Coulsdon](https://twcoulsdon.org.uk/)
+
+Some placeholder graphics were obtained from [unsplash](https://unsplash.com/)
+- [Script image](https://unsplash.com/photos/OO8AEXFQtdI) by [Matt Riches](https://unsplash.com/@voodoojava)
+
+Icons and interface elements were created by [Sean Young](https://github.com/seanyoung247)
+
