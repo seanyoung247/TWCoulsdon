@@ -1245,3 +1245,21 @@ Some placeholder graphics were obtained from [unsplash](https://unsplash.com/)
 
 Icons and interface elements were created by [Sean Young](https://github.com/seanyoung247)
 
+Design cues were taking from the existing [Theatre Workshop Coulsdon](https://twcoulsdon.org.uk/) website. This was to reduce the impact of site design changes on the user base in the short term. Ultimately a more comprehensive UI design change is planned.
+
+Other related sites were looked at for UI design ideas and functionality flow.
+
+Primarily these were:
+- https://sohotheatre.com/
+- https://www.bushtheatre.co.uk/
+
+A number of sites and resources were invaluable for solving issues during development:
+- Codeinstitute slack
+- [Simpleit](https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/)
+- [stackoverflow](https://stackoverflow.com)
+- [Django documentation](https://docs.djangoproject.com/en/3.2/)
+
+Thanks also go to the following individuals for their help, support and code examples:
+- [Simen Daehlin](https://github.com/Eventyret)
+- Ed Bradley
+- [Chris Zielinski](https://github.com/ckz8780/)
