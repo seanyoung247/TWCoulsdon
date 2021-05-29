@@ -721,7 +721,36 @@ The site allows admin users to add, edit, and delete events and their associated
 
 ### Future Features
 
-### Potential Improvements
+#### Ticketing and reports
+
+- (US502): Ticket back-end reporting is not yet implemented
+
+  Planned features:
+  - Ticket filtering by individual events, with type and sorted by date
+  - Provided on-line or as CSV download
+
+
+- (US503): Ticket back-end reporting is not yet implemented
+
+  Planned features:
+  - Ticket filtering by event date
+  - Provided on-line or as CSV download
+
+
+- (US504): Ticket searching not fully implemented
+
+  Planned features:
+  - Searching through the website for tickets based on:
+    - Order no.
+    - Ticket ID.
+    - Customer name
+
+#### Admin and content Management
+
+- (US601): Planned feature: Adding venues through a front end route. Currently only possible through the admin panel.
+- (US602): Planned feature: Editing venues through a front end route. Currently only possible through the admin panel.
+- (US603): Planned feature: Deleting venues through a front end route. Currently only possible through the admin panel.
+
 
 ## Technologies
 
