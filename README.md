@@ -751,6 +751,40 @@ The site allows admin users to add, edit, and delete events and their associated
 - (US602): Planned feature: Editing venues through a front end route. Currently only possible through the admin panel.
 - (US603): Planned feature: Deleting venues through a front end route. Currently only possible through the admin panel.
 
+### Defensive programming
+
+- Bad data:
+  - Post and Get requests that require data use if statements and exception logic to ensure bad data is caught and dealt with without causing 500 errors or damaging database data
+  - Error messages are sent to the user alerting them to a faulty submission
+  - Untrusted users are restricted from what they can access and what data they can send to the server
+
+
+- Unauthorised access:
+  - In the front-end users are only presented with links they are authorised to access
+  - The back-end blocks access to unauthorised users through function decorators
+  - For softer restrictions, like preventing checkout without an active basket:
+    - Requests are redirected and users given an error message
+  - When unauthorised users try to access restricted content:
+    - Users are either redirected to unrestricted
+
+
+- Users:
+  - Unregistered users are always untrusted
+  - Registered users default to untrusted
+  - Registered users are trusted if they are staff or superuser
+
+
+- Untrusted users:
+  - If unregistered they can buy tickets and checkout with data input at checkout
+  - If registered they can also access a basic profile page of their details and previous orders
+
+
+- Trusted users:
+  - Are given access to restricted areas such as the admin panel and front end content editing
+  - Are able to upload rich text (HTML content)
+    - This is a potential vector for attack, as HTML content has minimal sanitisation. It would be possible to use injection attacks here. This is not considered a security risk because these pathways are blocked to untrusted users, on the principle that you either trust your trusted users, or you don't make them trusted users.
+    - **NOTE**: If rich text input is added for untrusted users (for say, reviews/comments) trusted user code should **not** be reused.
+
 
 ## Technologies
 
