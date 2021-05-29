@@ -23,8 +23,8 @@ from .payments import (precheckout_data, get_checkout_page,
 #
 def buy_tickets(request):
     """ Provides the event form data and passes it to the frontend as json """
-    form_html = "";
-    message_html = "";
+    form_html = ""
+    message_html = ""
     success = True
     # Ensure all required data has been sent
     if 'event' not in request.GET or not request.GET['event']:
@@ -99,7 +99,7 @@ def add_to_basket(request):
                     success = False
 
     if success:
-        messages.success(request, f"Successfully added tickets to basket.")
+        messages.success(request, "Successfully added tickets to basket.")
     else:
         message_html = loader.render_to_string('includes/messages.html', request=request)
 
@@ -130,7 +130,7 @@ def update_basket(request):
             success = False
 
     if success:
-        messages.success(request, f"Successfully updated tickets in basket.")
+        messages.success(request, "Successfully updated tickets in basket.")
 
     message_html = loader.render_to_string('includes/messages.html', request=request)
 
@@ -155,7 +155,7 @@ def remove_from_basket(request):
         remove_line_from_basket(request, date_id, type_id)
         success = True
 
-    if (success):
+    if success:
         messages.success(request, "Successfully removed tickets from basket.")
         message_html = loader.render_to_string('includes/messages.html', request=request)
 
