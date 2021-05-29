@@ -22,7 +22,8 @@ class OrderForm(forms.ModelForm):
         }
         help_text = {
             'email': "Your tickets will be sent to this address",
-            'phone_number': 'We may need to contact you on this number, for instance if a show is cancelled.',
+            'phone_number': 'We may need to contact you on this number, \
+                                for instance if a show is cancelled.',
         }
 
         self.fields['full_name'].widget.attrs['autofocus'] = True
