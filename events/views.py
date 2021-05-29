@@ -1,7 +1,6 @@
 """ Defines views for the Event app """
 import json
 
-from datetime import datetime
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.http import require_POST
@@ -11,7 +10,6 @@ from django.db.models import Min, Max
 from django.template import loader
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-from django.utils import timezone
 
 from boxoffice.models import TicketType
 from .queries import query_events
@@ -114,6 +112,54 @@ def event_details(request, event_slug):
     return render(request, 'events/event_details.html', context)
 
 
+def _handle_edit_event_post(request):
+    success = False
+    # Is this an existing event?
+    if 'event_id' in request.POST:
+        event = Event.objects.get(id=request.POST['event_id'])
+    # Create the event data
+    event_data = {
+        'title': request.POST['title'],
+        'author': request.POST['author'],
+        'tagline': request.POST['tagline'],
+        'description': request.POST['description'],
+        'type': request.POST['type'],
+        'venue': request.POST['venue'],
+        'content': request.POST['content'],
+    }
+
+    if event:
+        event_form = EventForm(event_data, instance=event)
+    else:
+        event_form = EventForm(event_data)
+    # Is the data valid?
+    if event_form.is_valid():
+        event = event_form.save()
+        success = True
+    else:
+        success = False
+
+    # Create the event dates
+    for date in json.loads(request.POST['dates']):
+        date_data = {
+            'event': event,
+            'date': f"{date['date']} {date['time']}",
+        }
+        if int(date['date_id']) > 0:
+            date_form = EventDateForm(date_data,
+                instance=EventDate.objects.get(id=date['date_id']))
+        else:
+            date_form = EventDateForm(date_data)
+
+        if date_form.is_valid():
+            date_form.save()
+            success = True
+        else:
+            success = False
+
+    return success
+
+
 @staff_member_required
 def edit_event(request):
     """ A view to show the event add/edit form """
@@ -126,48 +172,7 @@ def edit_event(request):
 
     if request.method == 'POST':
         try:
-            # Is this an existing event?
-            if 'event_id' in request.POST:
-                event = Event.objects.get(id=request.POST['event_id'])
-            # Create the event data
-            event_data = {
-                'title': request.POST['title'],
-                'author': request.POST['author'],
-                'tagline': request.POST['tagline'],
-                'description': request.POST['description'],
-                'type': request.POST['type'],
-                'venue': request.POST['venue'],
-                'content': request.POST['content'],
-            }
-
-            if event:
-                event_form = EventForm(event_data, instance=event)
-            else:
-                event_form = EventForm(event_data)
-            # Is the data valid?
-            if event_form.is_valid():
-                event = event_form.save()
-                success = True
-            else:
-                success = False
-
-            # Create the event dates
-            for date in json.loads(request.POST['dates']):
-                date_data = {
-                    'event': event,
-                    'date': f"{date['date']} {date['time']}",
-                }
-                if int(date['date_id']) > 0:
-                    date_form = EventDateForm(date_data,
-                        instance=EventDate.objects.get(id=date['date_id']))
-                else:
-                    date_form = EventDateForm(date_data)
-
-                if date_form.is_valid():
-                    date_form.save()
-                    success = True
-                else:
-                    success = False
+            success = _handle_edit_event_post(request)
 
         except KeyError:
             messages.error(request, "Unable to update event: missing required data. \
@@ -195,20 +200,17 @@ def edit_event(request):
         }
         return JsonResponse(response)
 
-    else:
-        # Is there an event variable in the request?
-        if 'event' in request.GET:
-            # Get the event
-            event = get_object_or_404(Event, id=int(request.GET['event']))
-            # Get associated objects
-            dates = EventDate.objects.filter(event=event)
-            images = Image.objects.filter(event=event)
+    # Is there an event variable in the request?
+    if 'event' in request.GET:
+        # Get the event
+        event = get_object_or_404(Event, id=int(request.GET['event']))
+        # Get associated objects
+        dates = EventDate.objects.filter(event=event)
+        images = Image.objects.filter(event=event)
 
-            event_form = EventForm(instance=event)
-            image_form = ImageForm()
-        else:
-            event_form = EventForm()
-            image_form = ImageForm()
+        event_form = EventForm(instance=event)
+    else:
+        event_form = EventForm()
 
     context = {
         'event': event,
@@ -222,7 +224,7 @@ def edit_event(request):
 @staff_member_required
 @require_POST
 def delete_event(request):
-    success = False;
+    """ A view to delete a given event """
     try:
         event = Event.objects.get(id=request.POST['event_id'])
         event.delete()
@@ -230,9 +232,8 @@ def delete_event(request):
     except KeyError:
         messages.error(request, "Unable to delete: Missing required data. \
             Please check your submission and try again.")
-        success = False
     except Event.DoesNotExist:
-        message.error(request, "Unable to delete event: Event does not exist.")
+        messages.error(request, "Unable to delete event: Event does not exist.")
 
     return redirect(reverse('events'))
 
@@ -240,7 +241,8 @@ def delete_event(request):
 @staff_member_required
 @require_POST
 def remove_date(request):
-    success = False;
+    """ A view to delete a given date """
+    success = False
     try:
         # Get the event to delete
         event_date = EventDate.objects.get(id=request.POST['date_id'])
@@ -252,7 +254,7 @@ def remove_date(request):
             Please check your submission and try again.")
         success = False
     except EventDate.DoesNotExist:
-        message.error(request, "Unable to remove date: Date does not exist.")
+        messages.error(request, "Unable to remove date: Date does not exist.")
         success = False
 
     message_html = loader.render_to_string('includes/messages.html', request=request)
@@ -332,7 +334,7 @@ def edit_image(request):
         image_form = ImageForm({'name':request.POST['image-name']}, instance=image)
         # Is the data valid?
         if image_form.is_valid():
-            image.save(update_fields=['name']);
+            image.save(update_fields=['name'])
             messages.success(request, "Image updated successfully")
             success = True
 
