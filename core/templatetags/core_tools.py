@@ -1,3 +1,4 @@
+""" Core site templatetags """
 from django import template
 from django.conf import settings
 
@@ -14,5 +15,5 @@ def check_image(image):
     """ Checks an image is defined or replaces it with the default no image """
     if image:
         return image.url
-    else:
-        return settings.NO_IMAGE
+
+    return settings.NO_IMAGE
