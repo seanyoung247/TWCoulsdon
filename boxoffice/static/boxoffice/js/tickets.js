@@ -33,7 +33,7 @@ $( '.btn-add-tickets' ).click( function() {
     } else {
       addMessage(data.message_html);
       // Give the modal a chance to be shown then hide it
-      setTimeout(function() {$('#add-ticket-modal').modal('hide')}, 1000);
+      setTimeout(function() {$('#add-ticket-modal').modal('hide');}, 1000);
     }
   });
 
@@ -47,7 +47,7 @@ $( '.btn-add-tickets' ).click( function() {
 $( '#add-tickets-form-wrapper' ).on( 'change', '#add-ticket-date', function(e) {
   // Set the maximum quantity to be the number of tickets left
   const qtyInput = $( '#add-ticket-quantity' );
-  const ticketsLeft = $( '#add-ticket-date' ).find( ':selected' ).data('tickets-left')
+  const ticketsLeft = $( '#add-ticket-date' ).find( ':selected' ).data('tickets-left');
   qtyInput.attr('max', ticketsLeft);
   if (qtyInput.val() > ticketsLeft) qtyInput.val(ticketsLeft);
 });
@@ -96,7 +96,7 @@ function updateAvailableTickets(date, adjustment) {
   if ( dateOption[0] == $( '#add-ticket-date' ).find( ':selected' )[0] ) {
     if (dateOption.prop('disabled')) $( '#add-ticket-date' ).val("");
     else {
-      const qtyInput = $( '#add-ticket-quantity' )
+      const qtyInput = $( '#add-ticket-quantity' );
       qtyInput.attr('max', newCount);
       if (qtyInput.val() > newCount) qtyInput.val(newCount);
     }
