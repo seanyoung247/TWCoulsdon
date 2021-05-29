@@ -1,12 +1,12 @@
 """ Template tags for the event app """
 from datetime import timedelta
+import json
 
 from django import template
 from django.utils import timezone
 from django.shortcuts import reverse
 
 import segno
-import json
 
 from events.models import Event, EventDate
 from boxoffice.queries import get_available_tickets_for_event, get_available_tickets_for_date

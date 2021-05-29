@@ -1,4 +1,6 @@
 """ Accepts stripe webhooks """
+# pylint: disable=W0703
+# Broad exception: Any error should cause 400 response
 
 import stripe
 from django.conf import settings
@@ -7,6 +9,7 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 
 from boxoffice.webhook_handler import StripeWHHandler
+
 
 @require_POST
 @csrf_exempt
