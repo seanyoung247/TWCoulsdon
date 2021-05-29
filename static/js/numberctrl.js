@@ -3,7 +3,6 @@
  * Provides code for a simple number spinner field
  */
 
-
 function setValue(target, value) {
   const min = parseInt(target.attr('min')) || -Infinity;
   const max = parseInt(target.attr('max')) || Infinity;
@@ -14,7 +13,7 @@ function setValue(target, value) {
 }
 
 function stepValue(target, step) {
-  setValue(target, parseInt(target.val()) + step)
+  setValue(target, parseInt(target.val()) + step);
 }
 
 $( '.input-number-control :button.btn-dec' ).click(function() {
