@@ -34,6 +34,8 @@ Generated **HTML** and **CSS** code were validated with the W3C Markup and CSS v
 
 [event details](design/testing/html_validation/event_details.pdf)
 
+[edit events](design/testing/html_validation/edit_events.pdf)
+
 [basket](design/testing/html_validation/basket.pdf)
 
 [checkout](design/testing/html_validation/checkout.pdf)
