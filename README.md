@@ -661,6 +661,64 @@ The site allows admin users to add, edit, and delete events and their associated
 
 ### Existing Features
 
+#### Viewing and navigation
+
+- (US101): Upcoming events are showcased in a list of full-width banners
+- (US102): Each event has a details page with detailed show information
+- (US103): Logged in users can view their previous orders from their profile
+  - An order confirmation and copy of e-ticket pdf is emailed to the order email after checkout
+- (US104): Events can be filtered and searched by date range and type
+
+#### Registration and User Accounts
+
+- US201: Users can register accounts through allauth
+  - The site restricts information shown to users based on whether they are unregistered, registered, staff, or admin
+  - Some site routes block access to non-admin/site-staff users
+- US202: The site uses django and allauth secure logins and access restrictions
+  - The site enforces the use of HTTPS to ensure user communications and data are transmitted securely
+  - Passwords are stored in hashed form so can't be stolen even if the website were to be hacked
+- (US203): Allauth offers password resetting routes and links
+- (US204): Users have a personal user profile which can store some basic checkout information and provides links to their past orders
+
+#### Sorting and Searching
+
+- (US301): Events can be searched by text in the title and description from the search bar
+- (US302): Events can be searched and filtered by date ranges
+- (US303): Searches are displayed in a paginated list
+
+#### Purchasing and Checkout
+
+- (US401): When selecting tickets the user is presented with a dialog that allows them to choose tickets by event date and ticket type. Ticket quantity can be adjusted before adding to the basket
+- (US402): The basket lists all the tickets current queued for purchase by date and type with their quantity
+- (US403): Tickets in the basket can have their quantity increased or decreased or deleted entirely
+  - To ensure these action are purposeful:
+    - Increasing the quantity requires also pressing an update button
+    - Update and delete buttons are separated in the UI to prevent hitting the wrong one
+- (US404): On checkout a simple validated form is presented for the user to input their personal and payment information
+- (US405): Checkout is supported by the secure stripe payment platform
+- (US406): After checkout a success page is presented, giving the user details of their order and a link to their e-ticket pdf
+- (US407): After checkout an email is generated with the order information and an attached ticket pdf
+
+#### Ticketing and Reports
+
+- (US501): After checkout an email is generated with the order information and an attached ticket pdf
+- (US504): Tickets have a validation link that retrieves their database information so it can be verified
+  - The e-ticket has a QR-code that allows automatic searching
+
+#### Admin and content Management
+
+- (US600): Admin users have extra options in their user context menu:
+  - Add event (shown on every page) - links to add event page
+  - Edit event (shown on an event detail page) - links to edit event page
+- (US601): Admin users can add new events through the front end
+  - The event details page presents
+- (US602): Admin users can edit existing events through the front end
+  - The gallery widget presents admin users with extra options to upload new images, edit exiting images meta data, and set a gallery image as the event title image
+- (US603): Admin users can delete events from the edit event page
+  - To ensure events aren't deleted accidentally:
+    - event deletion is only available from edit event page
+    - When the delete button is pressed a modal is shown asking the user to confirm
+
 ### Future Features
 
 ### Potential Improvements
