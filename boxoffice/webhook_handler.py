@@ -5,6 +5,9 @@ from .models import Order
 from .reports import send_ticket_pdf_email
 from .tickets import create_tickets_for_order
 
+# pylint: disable=W0703
+# Broad exception: Any error should cause orders to be deleted
+
 
 # Largely based on the boutique ado project
 class StripeWHHandler:
@@ -13,7 +16,8 @@ class StripeWHHandler:
     def __init__(self, request):
         self.request = request
 
-    def handle_event(self, event):
+    @staticmethod
+    def handle_event(event):
         """ Handle a generic/unknown/unexpected webhook event """
 
         return HttpResponse(
@@ -27,7 +31,7 @@ class StripeWHHandler:
         intent = event.data.object
         pid = intent.id
         basket = intent.metadata.basket
-        save_to_profile = intent.metadata.save_to_profile
+        #save_to_profile = intent.metadata.save_to_profile
 
         billing_details = intent.charges.data[0].billing_details
         order_total = round(intent.charges.data[0].amount / 100, 2)
@@ -78,12 +82,13 @@ class StripeWHHandler:
                 status=500)
 
         send_ticket_pdf_email(self.request, order)
+
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
             status=200)
 
-
-    def handle_payment_intent_payment_failed(self, event):
+    @staticmethod
+    def handle_payment_intent_payment_failed(event):
         """ Handle the payment_intent.payment_failed webhook from Stripe """
 
         return HttpResponse(
