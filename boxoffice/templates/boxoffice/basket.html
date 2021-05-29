@@ -39,11 +39,11 @@
     </div>
     <div class="row constrain-width basket-page-contents">
       <div id="basket-links" class="col">
-        <a href="{% url 'events' %}?type=show" class="btn btn-twc-dark">
+        <a href="{% url 'events' %}?type=show" class="btn btn-twc-dark my-1">
           Continue Browsing
         </a>
         {% if basket.item_count > 0 %}
-          <a id="checkout-btn" href="{% url 'checkout' %}" class="btn btn-twc-dark">
+          <a id="checkout-btn" href="{% url 'checkout' %}" class="btn btn-twc-dark my-1">
             Secure Checkout
           </a>
         {% endif %}
